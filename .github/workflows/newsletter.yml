@@ -1,0 +1,207 @@
+name: Send Newsletter for New Posts
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'content/posts/**/*.md'
+
+jobs:
+  send-newsletter:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push'
+    
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 2  # Need previous commit to compare
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Get changed files
+        id: get-files
+        run: |
+          CHANGED=$(git diff --name-only HEAD~1 HEAD -- 'content/posts/*.md' 2>/dev/null | tr '\n' '\n' || echo "")
+          echo "files<<EOF" >> $GITHUB_OUTPUT
+          echo "$CHANGED" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+
+      - name: Detect new posts
+        id: detect-posts
+        run: |
+          # Process changed files and extract published posts
+          node << 'EOF'
+          const fs = require('fs');
+          const path = require('path');
+          const matter = require('gray-matter');
+          
+          const changedFiles = process.env.CHANGED_FILES ? process.env.CHANGED_FILES.split('\n').filter(Boolean) : [];
+          const newPosts = [];
+          
+          console.log(`Checking ${changedFiles.length} changed file(s)...`);
+          
+          for (const file of changedFiles) {
+            if (fs.existsSync(file)) {
+              try {
+                const content = fs.readFileSync(file, 'utf-8');
+                const parsed = matter(content);
+                
+                // Only include published posts
+                if (parsed.data.published === true) {
+                  const slug = path.basename(file, '.md');
+                  newPosts.push({
+                    slug: slug,
+                    title: parsed.data.title || '',
+                    excerpt: parsed.data.excerpt || '',
+                    date: parsed.data.date || '',
+                    tags: Array.isArray(parsed.data.tags) ? parsed.data.tags : []
+                  });
+                  console.log(`Found published post: ${slug}`);
+                }
+              } catch (error) {
+                console.error(`Error processing ${file}:`, error.message);
+              }
+            }
+          }
+          
+          // Output as JSON for next step
+          const output = JSON.stringify(newPosts);
+          const outputFile = process.env.GITHUB_OUTPUT;
+          fs.appendFileSync(outputFile, `new_posts<<EOF\n${output}\nEOF\n`);
+          console.log(`Found ${newPosts.length} new published post(s)`);
+          EOF
+        env:
+          CHANGED_FILES: ${{ steps.get-files.outputs.files }}
+
+      - name: Send newsletter emails
+        if: steps.detect-posts.outputs.new_posts != '[]' && steps.detect-posts.outputs.new_posts != ''
+        env:
+          RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
+          RESEND_AUDIENCE_ID: ${{ secrets.RESEND_AUDIENCE_ID }}
+          NEWSLETTER_FROM: ${{ secrets.NEWSLETTER_FROM || 'onboarding@resend.dev' }}
+          SITE_URL: ${{ secrets.SITE_URL || 'https://mhadi.tv' }}
+          NEW_POSTS_JSON: ${{ steps.detect-posts.outputs.new_posts }}
+        run: |
+          node << 'EOF'
+          const { Resend } = require('resend');
+          const resend = new Resend(process.env.RESEND_API_KEY);
+          
+          if (!process.env.RESEND_API_KEY) {
+            console.error('RESEND_API_KEY is not set');
+            process.exit(1);
+          }
+          
+          if (!process.env.NEW_POSTS_JSON || process.env.NEW_POSTS_JSON === '[]') {
+            console.log('No new posts to send');
+            process.exit(0);
+          }
+          
+          let posts;
+          try {
+            posts = JSON.parse(process.env.NEW_POSTS_JSON);
+          } catch (error) {
+            console.error('Error parsing posts JSON:', error);
+            process.exit(1);
+          }
+          
+          if (!Array.isArray(posts) || posts.length === 0) {
+            console.log('No posts to send');
+            process.exit(0);
+          }
+          
+          async function sendNewsletter() {
+            // Get all contacts from Resend Audience (configured in Resend dashboard)
+            let contacts = [];
+            if (process.env.RESEND_AUDIENCE_ID) {
+              try {
+                const { data, error } = await resend.contacts.list({
+                  audienceId: process.env.RESEND_AUDIENCE_ID,
+                });
+                
+                if (error) {
+                  console.error('Error fetching contacts:', error);
+                } else if (data && data.data) {
+                  contacts = data.data.map(contact => contact.email).filter(Boolean);
+                  console.log(`Found ${contacts.length} subscribers in audience`);
+                }
+              } catch (err) {
+                console.error('Exception fetching contacts:', err.message);
+              }
+            }
+            
+            if (contacts.length === 0) {
+              console.error('No subscribers found. Please create an audience in Resend dashboard and set RESEND_AUDIENCE_ID secret.');
+              process.exit(1);
+            }
+            
+            // Send email for each new post
+            for (const post of posts) {
+              const postUrl = `${process.env.SITE_URL}/writings/${post.slug}`;
+              
+              const emailHtml = `
+                <!DOCTYPE html>
+                <html>
+                <head>
+                  <meta charset="utf-8">
+                  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                  <title>New Post: ${post.title}</title>
+                </head>
+                <body style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; line-height: 1.6; color: #333; max-width: 600px; margin: 0 auto; padding: 20px; background-color: #f8fafc;">
+                  <div style="background-color: #fff; padding: 32px; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.1);">
+                    <h1 style="color: #1e293b; font-size: 24px; margin-bottom: 16px; font-weight: 600;">${post.title}</h1>
+                    
+                    ${post.excerpt ? `<p style="font-size: 16px; color: #64748b; margin-bottom: 24px; line-height: 1.6;">${post.excerpt}</p>` : ''}
+                    
+                    <a href="${postUrl}" style="display: inline-block; background-color: #0f172a; color: #fff; padding: 12px 24px; text-decoration: none; border-radius: 6px; font-weight: 500; margin-top: 16px;">Read More →</a>
+                  </div>
+                  
+                  <p style="font-size: 12px; color: #94a3b8; text-align: center; margin-top: 24px;">
+                    <a href="${postUrl}" style="color: #64748b; text-decoration: none;">${postUrl}</a>
+                  </p>
+                  <p style="font-size: 11px; color: #cbd5e1; text-align: center; margin-top: 16px;">
+                    <a href="${process.env.SITE_URL}/writings" style="color: #94a3b8; text-decoration: underline;">Unsubscribe</a>
+                  </p>
+                </body>
+                </html>
+              `;
+              
+              try {
+                // Send to all subscribers using batch email
+                const fromEmail = process.env.NEWSLETTER_FROM || 'onboarding@resend.dev';
+                const { data, error } = await resend.batch.send(
+                  contacts.map(email => ({
+                    from: fromEmail,
+                    to: email,
+                    subject: `New Post: ${post.title}`,
+                    html: emailHtml,
+                  }))
+                );
+                
+                if (error) {
+                  console.error(`Error sending newsletter for ${post.slug}:`, error);
+                } else {
+                  console.log(`✓ Newsletter sent to ${contacts.length} subscribers for: ${post.title}`);
+                  if (data && data.length > 0) {
+                    console.log(`  Email IDs: ${data.map(e => e.id).join(', ')}`);
+                  }
+                }
+              } catch (err) {
+                console.error(`Exception sending newsletter for ${post.slug}:`, err.message);
+              }
+            }
+          }
+          
+          sendNewsletter().catch((error) => {
+            console.error('Newsletter sending failed:', error);
+            process.exit(1);
+          });
+          EOF
