@@ -18,24 +18,24 @@ export default function About() {
           <div className="flex items-center gap-4">
             <a
               href="https://mhadi.tv"
-              className="text-sm text-slate-400 hover:text-slate-300 transition-colors"
+              className="text-sm text-slate-600 hover:text-purple-600 transition-colors"
             >
               Home
             </a>
             <Link
               to="/writings"
-              className="text-sm text-slate-400 hover:text-slate-300 transition-colors"
+              className="text-sm text-slate-600 hover:text-purple-600 transition-colors"
             >
               Writings
             </Link>
           </div>
         </div>
 
-        <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-slate-50 mb-8">
+        <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-slate-900 mb-8">
           About
         </h1>
 
-        <div className="space-y-6 text-sm sm:text-base leading-relaxed text-slate-300">
+        <div className="space-y-6 text-sm sm:text-base leading-relaxed text-slate-700">
           <p>
             Hi, I&apos;m M Hadi.
           </p>
@@ -47,7 +47,7 @@ export default function About() {
             With over 7 years of experience, I currently work as Head of Services for{' '}
             <a
               href="https://sync.so/"
-              className="text-slate-100 underline-offset-4 hover:underline"
+              className="text-purple-600 underline-offset-4 hover:underline hover:text-purple-700"
               target="_blank"
               rel="noreferrer"
             >
@@ -64,37 +64,37 @@ export default function About() {
             Check out my films and photography at{' '}
             <a
               href="https://awaiten.com"
-              className="text-slate-100 underline-offset-4 hover:underline"
+              className="text-purple-600 underline-offset-4 hover:underline hover:text-purple-700"
               target="_blank"
               rel="noreferrer"
             >
               awaiten.com
             </a>
           </p>
-          <div className="pt-4 border-t border-slate-800">
-            <p className="text-slate-400 mb-4">Connect:</p>
-            <div className="flex flex-wrap items-center gap-4 text-slate-300">
+          <div className="pt-4 border-t border-slate-200">
+            <p className="text-slate-600 mb-4">Connect:</p>
+            <div className="flex flex-wrap items-center gap-4 text-slate-700">
               <a
                 href="https://linkedin.com"
-                className="hover:text-slate-50 transition-colors"
+                className="hover:text-purple-600 transition-colors"
                 target="_blank"
                 rel="noreferrer"
               >
                 LinkedIn
               </a>
-              <span className="text-slate-600">•</span>
+              <span className="text-slate-400">•</span>
               <a
                 href="https://github.com"
-                className="hover:text-slate-50 transition-colors"
+                className="hover:text-purple-600 transition-colors"
                 target="_blank"
                 rel="noreferrer"
               >
                 GitHub
               </a>
-              <span className="text-slate-600">•</span>
+              <span className="text-slate-400">•</span>
               <a
                 href="mailto:hello@awaiten.com"
-                className="hover:text-slate-50 transition-colors"
+                className="hover:text-purple-600 transition-colors"
               >
                 Email
               </a>

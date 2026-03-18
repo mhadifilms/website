@@ -9,10 +9,10 @@ export default function Post() {
   if (!post) {
     return (
       <div className="w-full text-center py-12">
-        <h1 className="text-xl font-semibold text-slate-50 mb-4">Post not found</h1>
+        <h1 className="text-xl font-semibold text-slate-900 mb-4">Post not found</h1>
         <Link
           to="/writings"
-          className="text-slate-300 hover:text-slate-50 underline underline-offset-4"
+          className="text-purple-600 hover:text-purple-700 underline underline-offset-4"
         >
           Back to Writings
         </Link>
@@ -31,7 +31,7 @@ export default function Post() {
     >
       <Link
         to="/writings"
-        className="inline-flex items-center text-xs text-slate-400 hover:text-slate-300 mb-6 transition-colors"
+        className="inline-flex items-center text-xs text-slate-600 hover:text-purple-600 mb-6 transition-colors"
       >
         <svg
           className="w-4 h-4 mr-2"
@@ -50,31 +50,31 @@ export default function Post() {
       </Link>
 
       <header className="mb-8">
-        <div className="flex flex-wrap items-center gap-2 mb-4 text-xs text-slate-400">
+        <div className="flex flex-wrap items-center gap-2 mb-4 text-xs text-slate-600">
           {post.tags && post.tags.length > 0 && (
             <>
               {post.tags.map((tag) => (
                 <span
                   key={tag}
-                  className="px-2 py-1 rounded-full bg-slate-800/60 text-slate-400 uppercase tracking-[0.12em]"
+                  className="px-2 py-1 rounded-full bg-purple-100 text-purple-700 uppercase tracking-[0.12em]"
                 >
                   {tag}
                 </span>
               ))}
-              <span className="text-slate-700">•</span>
+              <span className="text-slate-400">•</span>
             </>
           )}
           <span>{formatDate(post.date)}</span>
-          <span className="text-slate-700">•</span>
+          <span className="text-slate-400">•</span>
           <span>{getReadingTime(post.content)}</span>
         </div>
 
-        <h1 className="text-2xl sm:text-3xl md:text-4xl font-semibold tracking-tight text-slate-50 mb-4">
+        <h1 className="text-2xl sm:text-3xl md:text-4xl font-semibold tracking-tight text-slate-900 mb-4">
           {post.title}
         </h1>
 
         {post.excerpt && (
-          <p className="text-sm sm:text-base leading-relaxed text-slate-300">
+          <p className="text-sm sm:text-base leading-relaxed text-slate-700">
             {post.excerpt}
           </p>
         )}
@@ -82,9 +82,6 @@ export default function Post() {
 
       <div
         className="markdown-content text-sm sm:text-base leading-relaxed"
-        style={{
-          color: '#cbd5e1',
-        }}
         dangerouslySetInnerHTML={{ __html: htmlContent }}
       />
     </motion.article>

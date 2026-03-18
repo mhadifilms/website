@@ -11,19 +11,18 @@ export default function SubscribeForm() {
     setErrorMessage('')
 
     try {
-      // Netlify Forms submission
-      const formData = new FormData()
-      formData.append('form-name', 'subscribe')
-      formData.append('email', email)
-
-      const response = await fetch('/', {
+      // Submit directly to Netlify Function
+      const response = await fetch('/.netlify/functions/subscribe', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: new URLSearchParams(formData).toString(),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email }),
       })
 
       if (!response.ok) {
-        throw new Error('Failed to subscribe')
+        const error = await response.json()
+        throw new Error(error.message || 'Failed to subscribe')
       }
 
       setStatus('success')
@@ -31,46 +30,37 @@ export default function SubscribeForm() {
       setTimeout(() => setStatus('idle'), 3000)
     } catch (error) {
       setStatus('error')
-      setErrorMessage('Something went wrong. Please try again.')
+      setErrorMessage(error.message || 'Something went wrong. Please try again.')
     }
   }
 
   return (
-    <>
-      {/* Hidden form for Netlify to detect during build */}
-      <form name="subscribe" netlify netlify-honeypot="bot-field" hidden>
-        <input type="email" name="email" />
-      </form>
-
-      {/* Visible form */}
-      <form onSubmit={handleSubmit} className="space-y-2">
-        <input type="hidden" name="form-name" value="subscribe" />
-        <div className="flex gap-2 max-w-md">
-          <input
-            type="email"
-            name="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            placeholder="Email"
-            required
-            className="flex-1 px-3 py-1.5 bg-slate-800/40 border border-slate-700/30 rounded text-sm text-slate-300 placeholder-slate-500 focus:outline-none focus:ring-1 focus:ring-slate-600 focus:border-slate-600 transition-colors"
-            disabled={status === 'loading' || status === 'success'}
-          />
-          <button
-            type="submit"
-            disabled={status === 'loading' || status === 'success'}
-            className="px-4 py-1.5 bg-slate-700 text-slate-200 rounded text-sm font-medium hover:bg-slate-600 transition-colors disabled:opacity-50 disabled:cursor-not-allowed whitespace-nowrap"
-          >
-            {status === 'loading' ? '...' : status === 'success' ? '✓' : 'Subscribe'}
-          </button>
-        </div>
-        {status === 'success' && (
-          <p className="text-xs text-emerald-400">Thanks! Check your email.</p>
-        )}
-        {status === 'error' && errorMessage && (
-          <p className="text-xs text-red-400">{errorMessage}</p>
-        )}
-      </form>
-    </>
+    <form onSubmit={handleSubmit} className="space-y-2">
+      <div className="flex gap-2 max-w-md">
+        <input
+          type="email"
+          name="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          placeholder="Email"
+          required
+          className="flex-1 px-3 py-1.5 bg-slate-50 border border-slate-200 rounded text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-1 focus:ring-purple-500 focus:border-purple-500 transition-colors"
+          disabled={status === 'loading' || status === 'success'}
+        />
+        <button
+          type="submit"
+          disabled={status === 'loading' || status === 'success'}
+          className="px-4 py-1.5 bg-purple-600 text-white rounded text-sm font-medium hover:bg-purple-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed whitespace-nowrap"
+        >
+          {status === 'loading' ? '...' : status === 'success' ? '✓' : 'Subscribe'}
+        </button>
+      </div>
+      {status === 'success' && (
+        <p className="text-xs text-emerald-400">Thanks! Check your email.</p>
+      )}
+      {status === 'error' && errorMessage && (
+        <p className="text-xs text-red-400">{errorMessage}</p>
+      )}
+    </form>
   )
 }

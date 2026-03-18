@@ -64,26 +64,26 @@ export default function Writings() {
           <div className="flex items-center gap-4">
             <a
               href="https://mhadi.tv"
-              className="text-sm text-slate-400 hover:text-slate-300 transition-colors"
+              className="text-sm text-slate-600 hover:text-purple-600 transition-colors"
             >
               Home
             </a>
             <Link
               to="/about"
-              className="text-sm text-slate-400 hover:text-slate-300 transition-colors"
+              className="text-sm text-slate-600 hover:text-purple-600 transition-colors"
             >
               About
             </Link>
           </div>
         </div>
         
-        <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-slate-50 mb-4">
+        <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-slate-900 mb-4">
           Creative Chaos
         </h1>
-        <p className="text-lg sm:text-xl leading-relaxed text-slate-400 mb-3">
+        <p className="text-lg sm:text-xl leading-relaxed text-slate-700 mb-3">
           A something-monthly newsletter about the chaos of attempting to be a creator.
         </p>
-        <p className="text-sm text-slate-500 mb-4">
+        <p className="text-sm text-slate-600 mb-4">
           By Muhammad Hadi Yusufali
         </p>
 
@@ -106,7 +106,7 @@ export default function Writings() {
           transition={{ duration: 0.6, delay: 0.3 }}
           className="mb-12"
         >
-          <h2 className="text-xl font-semibold text-slate-50 mb-6">Latest</h2>
+          <h2 className="text-xl font-semibold text-slate-900 mb-6">Latest</h2>
           <PostCard post={latestPost} index={0} viewMode="grid" isFeatured={true} />
         </motion.div>
       )}
@@ -117,10 +117,10 @@ export default function Writings() {
           initial={{ opacity: 0, y: 8 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.4 }}
-          className="border-t border-slate-800 pt-8"
+          className="border-t border-slate-200 pt-8"
         >
           <div className="flex items-center justify-between mb-6">
-            <h2 className="text-xl font-semibold text-slate-50">
+            <h2 className="text-xl font-semibold text-slate-900">
               {searchQuery || selectedTag ? 'Search Results' : 'All Posts'}
             </h2>
             <ViewToggle viewMode={viewMode} onViewChange={setViewMode} />
@@ -151,7 +151,7 @@ export default function Writings() {
             )
           ) : (
             <div className="text-center py-12">
-              <p className="text-slate-400 text-sm">
+              <p className="text-slate-600 text-sm">
                 {searchQuery || selectedTag
                   ? 'No posts found matching your criteria.'
                   : 'No posts available yet.'}

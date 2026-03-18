@@ -1,12 +1,12 @@
 export default function ViewToggle({ viewMode, onViewChange }) {
   return (
-    <div className="flex items-center gap-2 p-1 bg-slate-900/60 border border-slate-800/80 rounded-lg">
+    <div className="flex items-center gap-2 p-1 bg-slate-50 border border-slate-200 rounded-lg">
       <button
         onClick={() => onViewChange('grid')}
         className={`p-2 rounded transition-colors ${
           viewMode === 'grid'
-            ? 'bg-slate-800 text-slate-50'
-            : 'text-slate-400 hover:text-slate-300'
+            ? 'bg-purple-600 text-white'
+            : 'text-slate-600 hover:text-purple-600'
         }`}
         aria-label="Grid view"
       >
@@ -18,8 +18,8 @@ export default function ViewToggle({ viewMode, onViewChange }) {
         onClick={() => onViewChange('list')}
         className={`p-2 rounded transition-colors ${
           viewMode === 'list'
-            ? 'bg-slate-800 text-slate-50'
-            : 'text-slate-400 hover:text-slate-300'
+            ? 'bg-purple-600 text-white'
+            : 'text-slate-600 hover:text-purple-600'
         }`}
         aria-label="List view"
       >

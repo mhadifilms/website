@@ -43,12 +43,12 @@ function App() {
   const bloomRadius = useTransform(bloomStrength, [0, 1], [70, 150])
   const bloomFalloff = useTransform(bloomStrength, [0, 1], [120, 220])
   const bloomSize = useTransform(bloomStrength, [0, 1], [1.6, 5.4])
-  const bloomOpacity = useTransform(bloomStrength, [0, 1], [0, 0.6])
-  const bloomGlow = useTransform(bloomStrength, [0, 1], [0, 0.48])
+  const bloomOpacity = useTransform(bloomStrength, [0, 1], [0, 0.4])
+  const bloomGlow = useTransform(bloomStrength, [0, 1], [0, 0.3])
 
-  const highlightMask = useMotionTemplate`radial-gradient(circle at ${hoverX}px ${hoverY}px, rgba(255,255,255,0.18) 0px, rgba(255,255,255,0.12) ${bloomRadius}px, rgba(255,255,255,0) ${bloomFalloff}px)`
+  const highlightMask = useMotionTemplate`radial-gradient(circle at ${hoverX}px ${hoverY}px, rgba(148,163,184,0.15) 0px, rgba(148,163,184,0.1) ${bloomRadius}px, rgba(148,163,184,0) ${bloomFalloff}px)`
   const bloomSizePx = useMotionTemplate`${bloomSize}px`
-  const bloomFilter = useMotionTemplate`drop-shadow(0 0 20px rgba(220,235,255, ${bloomGlow})) blur(0.25px)`
+  const bloomFilter = useMotionTemplate`drop-shadow(0 0 20px rgba(148,163,184, ${bloomGlow})) blur(0.25px)`
 
   const handleMouseMove = (event) => {
     const { currentTarget, clientX, clientY } = event
@@ -72,9 +72,9 @@ function App() {
   }
 
   return (
-    <div className="dark">
+    <div>
       <div
-        className="relative min-h-screen w-full overflow-hidden bg-zinc-950 text-foreground flex justify-center"
+        className="relative min-h-screen w-full overflow-hidden bg-white text-foreground flex justify-center"
         onMouseMove={handleMouseMove}
         onMouseLeave={handleMouseLeave}
         style={{ width: '100vw', minWidth: '100vw', position: 'relative', isolation: 'isolate' }}
@@ -85,11 +85,11 @@ function App() {
             className="absolute inset-0 mix-blend-screen"
             animate={{
               '--dot-size': ['1.35px', '1.7px', '1.35px'],
-              '--dot-opacity': [0.32, 0.46, 0.32],
+              '--dot-opacity': [0.1, 0.14, 0.1],
               filter: [
-                'drop-shadow(0 0 12px rgba(110,140,200,0.035))',
-                'drop-shadow(0 0 18px rgba(110,140,200,0.08))',
-                'drop-shadow(0 0 12px rgba(110,140,200,0.035))',
+                'drop-shadow(0 0 12px rgba(139,92,246,0.04))',
+                'drop-shadow(0 0 18px rgba(139,92,246,0.06))',
+                'drop-shadow(0 0 12px rgba(139,92,246,0.04))',
               ],
             }}
             transition={{
@@ -99,15 +99,15 @@ function App() {
               ease: 'easeInOut',
             }}
             style={{
-              '--dot-color': '186,202,224',
-              '--dot-opacity': 0.38,
+              '--dot-color': '139,92,246',
+              '--dot-opacity': 0.1,
               '--dot-size': '1.35px',
               backgroundImage:
                 'radial-gradient(circle, rgba(var(--dot-color), var(--dot-opacity)) var(--dot-size), transparent calc(var(--dot-size) + 1px))',
               backgroundSize: '12px 12px',
-              opacity: 0.78,
+              opacity: 0.65,
               transform: 'translateZ(0)',
-              filter: 'drop-shadow(0 0 14px rgba(110,140,200,0.045))',
+              filter: 'drop-shadow(0 0 14px rgba(139,92,246,0.05))',
             }}
           />
 
@@ -116,7 +116,7 @@ function App() {
             className="absolute inset-0 mix-blend-screen pointer-events-none"
             style={{
               '--dot-size': bloomSizePx,
-              '--dot-color': '220,235,255',
+              '--dot-color': '148,163,184',
               '--dot-opacity': bloomOpacity,
               backgroundImage:
                 'radial-gradient(circle, rgba(var(--dot-color), var(--dot-opacity)) var(--dot-size), transparent calc(var(--dot-size) + 2px))',
@@ -132,7 +132,7 @@ function App() {
             className="absolute inset-0 pointer-events-none mix-blend-multiply"
             style={{
               background:
-                'radial-gradient(ellipse at center, rgba(6,10,20,0.52) 0%, rgba(6,10,20,0.36) 30%, rgba(6,10,20,0.14) 50%, rgba(6,10,20,0) 70%)',
+                'radial-gradient(ellipse at center, rgba(255,255,255,0.3) 0%, rgba(255,255,255,0.2) 30%, rgba(255,255,255,0.1) 50%, rgba(255,255,255,0) 70%)',
             }}
           />
 
@@ -141,27 +141,12 @@ function App() {
             className="absolute inset-0 mix-blend-screen pointer-events-none"
             style={{
               background:
-                'radial-gradient(ellipse at center, rgba(255,255,255,0.28) 0%, rgba(255,255,255,0.14) 30%, rgba(255,255,255,0.02) 55%, rgba(255,255,255,0) 70%)',
+                'radial-gradient(ellipse at center, rgba(148,163,184,0.12) 0%, rgba(148,163,184,0.06) 30%, rgba(148,163,184,0.02) 55%, rgba(148,163,184,0) 70%)',
               x: glowX,
               y: glowY,
             }}
           />
         </div>
-
-        {/* Dark diagonals to keep the center clean */}
-        <div
-          className="pointer-events-none fixed inset-0"
-          style={{
-            background:
-              'linear-gradient(115deg, rgba(6,10,20,0.96) 0%, rgba(6,10,20,0.78) 40%, rgba(6,10,20,0.96) 100%)',
-            width: '100vw',
-            height: '100vh',
-            top: 0,
-            left: 0,
-            right: 0,
-            bottom: 0,
-          }}
-        />
 
         <main
           className={`relative z-50 mx-auto flex w-full justify-center px-4 sm:px-6 lg:px-8 ${
