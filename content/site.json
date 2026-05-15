@@ -1,0 +1,16 @@
+{
+  "name": "Muhammad Hadi Yusufali",
+  "role": "Director, builder, and creative technologist",
+  "description": "A fast personal website for writing, portfolio work, and notes on creative systems.",
+  "email": "hello@mhadi.tv",
+  "socials": [
+    {
+      "label": "GitHub",
+      "href": "https://github.com/mhadifilms"
+    },
+    {
+      "label": "Website",
+      "href": "https://mhadi.tv"
+    }
+  ]
+}

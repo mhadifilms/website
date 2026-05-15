@@ -1,0 +1,104 @@
+media:
+  input: public/media
+  output: /media
+
+content:
+  - name: site
+    label: Site settings
+    type: file
+    path: content/site.json
+    fields:
+      - name: name
+        label: Name
+        type: string
+      - name: role
+        label: Role
+        type: string
+      - name: description
+        label: Description
+        type: text
+      - name: email
+        label: Email
+        type: string
+      - name: socials
+        label: Social links
+        type: object
+        list: true
+        fields:
+          - name: label
+            type: string
+          - name: href
+            type: string
+
+  - name: pages
+    label: Pages
+    type: collection
+    path: content/pages
+    filename: "{fields.slug}.md"
+    fields:
+      - name: title
+        type: string
+      - name: slug
+        type: string
+      - name: summary
+        type: text
+      - name: body
+        type: rich-text
+
+  - name: projects
+    label: Projects
+    type: collection
+    path: content/projects
+    filename: "{fields.slug}.md"
+    view:
+      fields: [title, year, featured]
+    fields:
+      - name: title
+        type: string
+      - name: slug
+        type: string
+      - name: year
+        type: number
+      - name: featured
+        type: boolean
+        default: false
+      - name: summary
+        type: text
+      - name: tags
+        type: string
+        list: true
+      - name: href
+        label: External URL
+        type: string
+      - name: body
+        type: rich-text
+
+  - name: posts
+    label: Writing
+    type: collection
+    path: content/posts
+    filename: "{fields.slug}.md"
+    view:
+      fields: [title, date, published]
+    fields:
+      - name: title
+        type: string
+      - name: slug
+        type: string
+      - name: date
+        type: date
+      - name: published
+        type: boolean
+        default: true
+      - name: summary
+        type: text
+      - name: tags
+        type: string
+        list: true
+      - name: body
+        type: rich-text
+
+settings:
+  hide: false
+  content:
+    merge: true

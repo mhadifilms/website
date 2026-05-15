@@ -1,154 +1,116 @@
-@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600;700&display=swap');
+@import "tailwindcss";
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@theme {
+  --font-sans: "Manrope", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Fraunces", Georgia, serif;
 
-@layer base {
-  :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
-    --secondary: 262 83% 58%;
-    --secondary-foreground: 0 0% 100%;
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
-    --accent: 262 83% 58%;
-    --accent-foreground: 0 0% 100%;
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 262 83% 58%;
-    --radius: 0.5rem;
-  }
+  --color-background: oklch(0.97 0.024 87.31);
+  --color-foreground: oklch(0.19 0.018 73.12);
+  --color-card: oklch(0.985 0.018 91.07);
+  --color-card-foreground: var(--color-foreground);
+  --color-popover: var(--color-card);
+  --color-popover-foreground: var(--color-foreground);
+  --color-primary: oklch(0.23 0.02 72.28);
+  --color-primary-foreground: oklch(0.97 0.024 87.31);
+  --color-secondary: oklch(0.64 0.113 52.41);
+  --color-secondary-foreground: oklch(0.17 0.015 73.7);
+  --color-muted: oklch(0.9 0.024 86.69);
+  --color-muted-foreground: oklch(0.46 0.025 73.66);
+  --color-accent: oklch(0.58 0.126 45.54);
+  --color-accent-foreground: oklch(0.985 0.018 91.07);
+  --color-border: oklch(0.84 0.028 82.91);
+  --color-input: var(--color-border);
+  --color-ring: oklch(0.58 0.126 45.54);
+
+  --radius-sm: 0.7rem;
+  --radius-md: 1rem;
+  --radius-lg: 1.4rem;
+  --radius-xl: 2rem;
+
+  --shadow-soft: 0 24px 70px -42px oklch(0.19 0.018 73.12 / 0.45);
 }
 
 @layer base {
   * {
     @apply border-border;
   }
-  body {
-    @apply bg-background text-foreground;
-    font-family: 'Raleway', sans-serif;
-    width: 100%;
-    min-width: 100%;
-    margin: 0;
-    padding: 0;
-  }
-  
+
   html {
-    width: 100%;
-    min-width: 100%;
+    scroll-behavior: smooth;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
     margin: 0;
-    padding: 0;
+    min-width: 320px;
+  }
+
+  ::selection {
+    @apply bg-accent text-accent-foreground;
   }
 }
 
-#root {
-  width: 100%;
-  min-width: 100%;
-  margin: 0;
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
 }
 
-/* Markdown content styling */
-.markdown-content {
-  color: #1e293b;
+.prose-content > * + * {
+  margin-top: 1.25rem;
 }
 
-.markdown-content h1,
-.markdown-content h2,
-.markdown-content h3,
-.markdown-content h4,
-.markdown-content h5,
-.markdown-content h6 {
-  color: #0f172a;
-  font-weight: 600;
-  margin-top: 1.5em;
-  margin-bottom: 0.75em;
+.prose-content h2,
+.prose-content h3 {
+  color: var(--color-foreground);
+  font-family: var(--font-display);
+  font-weight: 650;
+  letter-spacing: -0.025em;
+  line-height: 1.05;
+  margin-top: 2.5rem;
 }
 
-.markdown-content h1 {
-  font-size: 2em;
+.prose-content h2 {
+  font-size: clamp(2rem, 5vw, 3.25rem);
 }
 
-.markdown-content h2 {
-  font-size: 1.5em;
+.prose-content h3 {
+  font-size: clamp(1.5rem, 4vw, 2.25rem);
 }
 
-.markdown-content h3 {
-  font-size: 1.25em;
-}
-
-.markdown-content p {
-  margin-bottom: 1em;
-  line-height: 1.7;
-}
-
-.markdown-content a {
-  color: #8b5cf6;
+.prose-content a {
+  color: var(--color-accent);
+  font-weight: 700;
   text-decoration: underline;
-  text-underline-offset: 4px;
+  text-decoration-thickness: 0.08em;
+  text-underline-offset: 0.22em;
 }
 
-.markdown-content a:hover {
-  color: #7c3aed;
+.prose-content ul,
+.prose-content ol {
+  padding-left: 1.4rem;
 }
 
-.markdown-content strong {
-  color: #0f172a;
-  font-weight: 600;
+.prose-content li + li {
+  margin-top: 0.6rem;
 }
 
-.markdown-content code {
-  background-color: rgba(139, 92, 246, 0.1);
-  color: #7c3aed;
-  padding: 0.125rem 0.25rem;
-  border-radius: 0.25rem;
-  font-size: 0.875em;
-}
-
-.markdown-content pre {
-  background-color: #f8fafc;
-  border: 1px solid #e2e8f0;
-  border-radius: 0.5rem;
-  padding: 1rem;
-  overflow-x: auto;
-  margin-bottom: 1em;
-}
-
-.markdown-content pre code {
-  background-color: transparent;
-  padding: 0;
-  color: #1e293b;
-}
-
-.markdown-content ul,
-.markdown-content ol {
-  margin-bottom: 1em;
-  padding-left: 1.5em;
-}
-
-.markdown-content li {
-  margin-bottom: 0.5em;
-}
-
-.markdown-content hr {
-  border: none;
-  border-top: 1px solid #e2e8f0;
-  margin: 2em 0;
-}
-
-.markdown-content blockquote {
-  border-left: 4px solid #8b5cf6;
-  padding-left: 1em;
-  margin-left: 0;
-  color: #64748b;
-  font-style: italic;
+.prose-content blockquote {
+  border-left: 0.25rem solid var(--color-accent);
+  color: var(--color-muted-foreground);
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  line-height: 1.5;
+  padding-left: 1rem;
 }
 
