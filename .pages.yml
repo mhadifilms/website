@@ -9,94 +9,130 @@ content:
     path: content/site.json
     fields:
       - name: name
-        label: Name
+        label: Full name
+        type: string
+      - name: shortName
+        label: Short name (used in headlines)
         type: string
       - name: role
         label: Role
         type: string
       - name: description
-        label: Description
+        label: SEO / meta description
         type: text
       - name: email
         label: Email
         type: string
+      - name: bio
+        label: About bio (one or two paragraphs)
+        type: text
+      - name: polaroids
+        label: About polaroid strip
+        type: object
+        list:
+          min: 0
+          max: 4
+        fields:
+          - name: src
+            label: Image
+            type: image
+          - name: alt
+            label: Alt text
+            type: string
+          - name: caption
+            label: Caption
+            type: string
       - name: socials
         label: Social links
         type: object
         list: true
         fields:
           - name: label
-            type: string
+            label: Platform
+            type: select
+            options:
+              values: ["Linkedin", "Twitter", "Instagram", "Substack", "YouTube"]
           - name: href
+            label: Profile URL
             type: string
 
-  - name: pages
-    label: Pages
+  - name: experiences
+    label: Experiences
     type: collection
-    path: content/pages
-    filename: "{fields.slug}.md"
-    fields:
-      - name: title
-        type: string
-      - name: slug
-        type: string
-      - name: summary
-        type: text
-      - name: body
-        type: rich-text
-
-  - name: projects
-    label: Projects
-    type: collection
-    path: content/projects
+    path: content/experiences
     filename: "{fields.slug}.md"
     view:
-      fields: [title, year, featured]
+      fields: [title, company, dateStart, dateEnd]
     fields:
       - name: title
+        label: Title
         type: string
       - name: slug
+        label: Slug
         type: string
-      - name: year
-        type: number
-      - name: featured
-        type: boolean
-        default: false
+      - name: company
+        label: Company / Organization
+        type: string
+      - name: role
+        label: Role
+        type: string
+      - name: location
+        label: Location
+        type: string
+      - name: dateStart
+        label: Start date
+        type: date
+      - name: dateEnd
+        label: End date (leave blank for present)
+        type: date
       - name: summary
+        label: Summary
         type: text
       - name: tags
+        label: Tags
         type: string
         list: true
       - name: href
         label: External URL
         type: string
+      - name: logo
+        label: Logo
+        type: image
       - name: body
+        label: Body
         type: rich-text
 
-  - name: posts
-    label: Writing
+  - name: archives
+    label: Archives
     type: collection
-    path: content/posts
+    path: content/archives
     filename: "{fields.slug}.md"
     view:
-      fields: [title, date, published]
+      fields: [title, platform, date]
     fields:
-      - name: title
-        type: string
       - name: slug
+        label: Slug
+        type: string
+      - name: platform
+        label: Platform
+        type: select
+        options:
+          values: ["Linkedin", "Twitter", "Instagram", "Substack", "YouTube"]
+      - name: title
+        label: Title
+        type: string
+      - name: image
+        label: Image
+        type: image
+      - name: href
+        label: External URL
         type: string
       - name: date
+        label: Date
         type: date
-      - name: published
-        type: boolean
-        default: true
       - name: summary
+        label: Summary
         type: text
-      - name: tags
-        type: string
-        list: true
-      - name: body
-        type: rich-text
 
 settings:
   hide: false

@@ -1,16 +1,21 @@
 {
   "name": "Muhammad Hadi Yusufali",
-  "role": "Director, builder, and creative technologist",
-  "description": "A fast personal website for writing, portfolio work, and notes on creative systems.",
+  "shortName": "M Hadi",
+  "role": "Creator at the intersection of tech and creativity",
+  "description": "Writing my story as you read it. A creator experimenting across many mediums at the intersection of tech and creativity.",
   "email": "hello@mhadi.tv",
+  "bio": "I'm a filmmaker and content creator with over seven years of experience. I'm currently Chief of Staff & Head of Story at sync. — a research lab modifying humans in video.\n\nOn the side, I co-founded Awaiten Films, a Bay Area production company with my friend Aalyan, and I co-host Journey Tellers, a podcast on the story of the Muslim West. I've had the privilege of working with some of the best creatives I know on a few hundred projects so far.",
+  "polaroids": [
+    { "src": "/media/polaroid-1.jpg", "alt": "On set", "caption": "on set" },
+    { "src": "/media/polaroid-2.jpg", "alt": "Behind the camera", "caption": "the lens" },
+    { "src": "/media/polaroid-3.jpg", "alt": "Sync labs", "caption": "sync. labs" },
+    { "src": "/media/polaroid-4.jpg", "alt": "UCLA", "caption": "ucla" }
+  ],
   "socials": [
-    {
-      "label": "GitHub",
-      "href": "https://github.com/mhadifilms"
-    },
-    {
-      "label": "Website",
-      "href": "https://mhadi.tv"
-    }
+    { "label": "Linkedin", "href": "https://www.linkedin.com/in/mhadi" },
+    { "label": "Twitter", "href": "https://twitter.com/mhadifilms" },
+    { "label": "Instagram", "href": "https://www.instagram.com/mhadifilms" },
+    { "label": "Substack", "href": "https://mhadi.substack.com" },
+    { "label": "YouTube", "href": "https://www.youtube.com/@mhadifilms" }
   ]
 }

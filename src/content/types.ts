@@ -3,38 +3,46 @@ export type SocialLink = {
   href: string
 }
 
+export type PolaroidImage = {
+  src: string
+  alt?: string
+  caption?: string
+}
+
 export type SiteConfig = {
   name: string
+  shortName?: string
   role: string
   description: string
   email: string
+  bio: string
+  polaroids?: PolaroidImage[]
   socials: SocialLink[]
 }
 
-export type Page = {
+export type Experience = {
   title: string
   slug: string
+  company: string
+  role: string
+  location?: string
+  dateStart: string
+  dateEnd?: string
   summary: string
-  html: string
-}
-
-export type Project = {
-  title: string
-  slug: string
-  year: number
-  featured?: boolean
-  summary: string
-  tags: string[]
+  tags?: string[]
   href?: string
+  logo?: string
   html: string
 }
 
-export type Post = {
-  title: string
+export type ArchivePlatform = "Linkedin" | "Twitter" | "Instagram" | "Substack" | "YouTube"
+
+export type ArchiveItem = {
   slug: string
+  platform: ArchivePlatform
+  title: string
+  image?: string
+  href: string
   date: string
-  published?: boolean
-  summary: string
-  tags: string[]
-  html: string
+  summary?: string
 }
