@@ -38,7 +38,7 @@ export const site = {
   "socials": [
     {
       "label": "Linkedin",
-      "href": "https://www.linkedin.com/in/mhadimedia"
+      "href": "https://www.linkedin.com/in/mhadifilms"
     },
     {
       "label": "Twitter",
@@ -50,7 +50,7 @@ export const site = {
     },
     {
       "label": "Substack",
-      "href": "https://mhadi.substack.com"
+      "href": "https://mhadimedia.substack.com"
     },
     {
       "label": "YouTube",
@@ -173,119 +173,38 @@ export const archives = [
   {
     "slug": "instagram-1",
     "platform": "Instagram",
-    "title": "Instagram: @mhadifilms",
+    "title": "@mhadifilms on Instagram",
     "date": "2026-06-07T00:00:00.000Z",
     "href": "https://www.instagram.com/mhadifilms",
     "image": "/media/polaroid-on-set.webp",
-    "summary": "Behind-the-scenes filmmaking, production stills, travel frames, and visual experiments."
-  },
-  {
-    "slug": "linkedin-1",
-    "platform": "Linkedin",
-    "title": "Muhammad Hadi Yusufali on LinkedIn",
-    "date": "2026-06-07T00:00:00.000Z",
-    "href": "https://www.linkedin.com/in/mhadimedia",
-    "image": "/media/figma-mhadi-camera.png",
-    "summary": "Public profile for work across sync. labs, Awaiten, Journey Tellers, filmmaking, editing, and creative technology."
+    "summary": "Profile connection for behind-the-scenes filmmaking, production stills, travel frames, and visual experiments. Instagram does not provide a reliable public feed here, so this card links directly to the profile."
   },
   {
     "slug": "linkedin-2",
     "platform": "Linkedin",
-    "title": "DaVinci Resolve MCP post",
+    "title": "I built a DaVinci Resolve MCP",
     "date": "2026-06-07T00:00:00.000Z",
     "href": "https://www.linkedin.com/posts/mhadifilms_i-built-a-davinci-resolve-mcp-so-claude-can-activity-7455733839189946368-QHAG",
     "image": "/media/polaroid-camera.webp",
-    "summary": "A public LinkedIn post on building a DaVinci Resolve MCP so Claude can work with editing timelines."
+    "summary": "A public LinkedIn post about building a Python library, CLI, and local MCP server so Claude can help edit video timelines faster."
   },
   {
     "slug": "twitter-1",
     "platform": "Twitter",
-    "title": "X: @mhadifilms",
+    "title": "@mhadifilms on X",
     "date": "2026-06-07T00:00:00.000Z",
     "href": "https://x.com/mhadifilms",
     "image": "/media/polaroid-camera.webp",
-    "summary": "Short-form notes on creative tools, AI video, filmmaking, and whatever is being built that week."
+    "summary": "Profile connection for short-form notes on creative tools, AI video, filmmaking, and current builds. Public X feeds require API access, so this card links directly to the profile."
   },
   {
-    "slug": "instagram-2",
-    "platform": "Instagram",
-    "title": "Production stills and frames",
-    "date": "2026-06-06T00:00:00.000Z",
-    "href": "https://www.instagram.com/mhadifilms",
-    "image": "/media/polaroid-camera.webp",
-    "summary": "A visual feed for frames from shoots, camera tests, edits, and everyday production work."
-  },
-  {
-    "slug": "linkedin-3",
-    "platform": "Linkedin",
-    "title": "sync. labs work updates",
-    "date": "2026-06-06T00:00:00.000Z",
-    "href": "https://www.linkedin.com/in/mhadimedia",
-    "image": "/media/figma-mhadi-camera.png",
-    "summary": "Follow role updates from Chief of Staff and Head of Production work at sync. labs, a studio-grade lipsync and visual dubbing company."
-  },
-  {
-    "slug": "twitter-2",
-    "platform": "Twitter",
-    "title": "Building-in-public updates",
-    "date": "2026-06-06T00:00:00.000Z",
-    "href": "https://x.com/mhadifilms",
-    "image": "/media/figma-mhadi-camera.png",
-    "summary": "Follow quick updates from experiments across software, post-production tooling, and creative workflows."
-  },
-  {
-    "slug": "instagram-3",
-    "platform": "Instagram",
-    "title": "Short-form creative updates",
-    "date": "2026-06-05T00:00:00.000Z",
-    "href": "https://www.instagram.com/mhadifilms",
-    "image": "/media/polaroid-beach.webp",
-    "summary": "Follow lightweight updates that do not become full essays, videos, or portfolio projects."
-  },
-  {
-    "slug": "linkedin-4",
-    "platform": "Linkedin",
-    "title": "Film, AI, and creator tooling notes",
-    "date": "2026-06-05T00:00:00.000Z",
-    "href": "https://www.linkedin.com/in/mhadimedia/recent-activity/all/",
-    "image": "/media/polaroid-on-set.webp",
-    "summary": "Recent LinkedIn activity around filmmaking, AI video workflows, creative tools, and startup operations."
-  },
-  {
-    "slug": "twitter-3",
-    "platform": "Twitter",
-    "title": "Film and AI video notes",
-    "date": "2026-06-05T00:00:00.000Z",
-    "href": "https://x.com/mhadifilms",
-    "image": "/media/polaroid-beach.webp",
-    "summary": "Short thoughts on lipsync, visual dubbing, editing, models, and the UX of media creation."
-  },
-  {
-    "slug": "instagram-4",
-    "platform": "Instagram",
-    "title": "Filmmaking snapshots",
-    "date": "2026-06-04T00:00:00.000Z",
-    "href": "https://www.instagram.com/mhadifilms",
-    "image": "/media/polaroid-podcast.webp",
-    "summary": "A profile-connected archive for visual work until Instagram API access is configured."
-  },
-  {
-    "slug": "twitter-4",
-    "platform": "Twitter",
-    "title": "Live creative scratchpad",
-    "date": "2026-06-04T00:00:00.000Z",
-    "href": "https://x.com/mhadifilms",
-    "image": "/media/polaroid-mountains.webp",
-    "summary": "A profile-connected stream for small observations that do not need a full post or video."
-  },
-  {
-    "slug": "substack-post-1",
+    "slug": "substack-building-an-app-every-day-but-idk-how-to-code-1",
     "platform": "Substack",
-    "title": "من الرباط إلى الضريح: القصة التي لا تُروى",
-    "date": "2026-05-01",
-    "href": "https://mhadi.substack.com/p/295",
-    "image": "https://substackcdn.com/image/fetch/$s_!WTVJ!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F1af4c0cc-5f65-4234-a3f3-554a73eca46e_1376x768.png",
-    "summary": "كيف روّضت السلطة روح الصوفية تمهيد: ماذا نعني بـ”الترويض”؟ قبل أن تقرأ سطرًا واحدًا، لا بدّ من تحديد المقصود بكلمة “روّضت” في هذه القصة، حتى لا يُساء فهمها...."
+    "title": "building an app every day but idk how to code...",
+    "date": "2025-12-26",
+    "href": "https://mhadimedia.substack.com/p/building-an-app-every-day-but-idk",
+    "image": "https://substackcdn.com/image/fetch/$s_!SadC!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F9a983c58-9242-4321-b4ec-91ff4ef3be3c_1584x446.png",
+    "summary": "for the past month, I’ve been building an app almost every single day using AI to bring whatever random idea I have to life. mac apps, websites, python..."
   },
   {
     "slug": "youtube-we-spent-a-week-exploring-tanzania-1",
@@ -293,8 +212,35 @@ export const archives = [
     "title": "We Spent a Week Exploring Tanzania",
     "date": "2025-09-27",
     "href": "https://www.youtube.com/watch?v=Vy6LJhDH3Bk",
-    "image": "https://i.ytimg.com/vi/Vy6LJhDH3Bk/hq720.jpg",
+    "image": "https://i.ytimg.com/vi/Vy6LJhDH3Bk/sddefault.jpg",
     "summary": "A few months ago, I had the chance to travel to Tanzania with friends for a week. Join us we chill with lions, swim with dolphins, visit one of the biggest..."
+  },
+  {
+    "slug": "substack-we-made-a-movie-in-six-weeks-2",
+    "platform": "Substack",
+    "title": "we made a movie in six weeks.",
+    "date": "2025-09-26",
+    "href": "https://mhadimedia.substack.com/p/we-made-a-movie-in-six-weeks",
+    "image": "https://substackcdn.com/image/fetch/$s_!03A4!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F3efef56e-c3ca-4e88-8d6a-f60b5ee38384_6240x4160.jpeg",
+    "summary": "a few weeks ago, I had the chance to edit my first official short film featuring an entire production crew, and professional actors. it was literally a dream..."
+  },
+  {
+    "slug": "substack-to-know-what-you-want-learn-what-you-don-t-3",
+    "platform": "Substack",
+    "title": "to know what you want, learn what you don't",
+    "date": "2025-09-03",
+    "href": "https://mhadimedia.substack.com/p/to-know-what-you-want-learn-what",
+    "image": "https://substackcdn.com/image/fetch/$s_!8FHv!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F7678f84c-6612-49d9-83bf-2aacf2f0df23.heic",
+    "summary": "Suddenly, amidst all the chaos, confusion, and commotion, There was clarity . …is what I wish I could be saying right now 😬 Welcome back to Creative Chaos, a..."
+  },
+  {
+    "slug": "substack-just-rented-seven-electric-scooters-in-one-day-4",
+    "platform": "Substack",
+    "title": "just rented seven electric scooters in one day",
+    "date": "2025-08-22",
+    "href": "https://mhadimedia.substack.com/p/just-rented-seven-electric-scooters",
+    "image": "https://substackcdn.com/image/fetch/$s_!CAAe!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F7c30175d-e7c0-41ed-a222-6091a0205ff3.heic",
+    "summary": "clarity . that’s all I wanted when I decided to spend six weeks of my summer living away from family in Los Angeles. some clarity on whether I should… a...."
   },
   {
     "slug": "youtube-two-weeks-in-the-middle-east-with-my-school-part-3-2",
@@ -302,7 +248,7 @@ export const archives = [
     "title": "Two Weeks in the Middle East with My School (Part 3)",
     "date": "2024-12-21",
     "href": "https://www.youtube.com/watch?v=6EblOyuUj34",
-    "image": "https://i.ytimg.com/vi/6EblOyuUj34/hq720.jpg",
+    "image": "https://i.ytimg.com/vi/6EblOyuUj34/maxresdefault.jpg",
     "summary": "Watch part two first: https://youtu.be/TCrVwEoOvMk During the winter break of 2023, I went on a life-changing trip to the Middle East along with my high school..."
   },
   {
@@ -311,7 +257,7 @@ export const archives = [
     "title": "Two Weeks in the Middle East with My School (Part 2)",
     "date": "2024-11-28",
     "href": "https://www.youtube.com/watch?v=TCrVwEoOvMk",
-    "image": "https://i.ytimg.com/vi/TCrVwEoOvMk/hq720.jpg",
+    "image": "https://i.ytimg.com/vi/TCrVwEoOvMk/maxresdefault.jpg",
     "summary": "Watch the part one: https://youtu.be/iPT8JzCvBTE During the winter break of 2023, I went on a life-changing trip to the Middle East along with my high school..."
   },
   {
@@ -320,7 +266,16 @@ export const archives = [
     "title": "We Turned a Youth Camp into a Documentary",
     "date": "2024-10-31",
     "href": "https://www.youtube.com/watch?v=04p3ls98W7Y",
-    "image": "https://i.ytimg.com/vi/04p3ls98W7Y/hq720.jpg",
+    "image": "https://i.ytimg.com/vi/04p3ls98W7Y/maxresdefault.jpg",
     "summary": "Watch the full documentary on @JourneyTellers: https://www.youtube.com/watch?v=zkvAHvcw8DE In May 2024, the Journey Tellers team partnered with Camp Noor to..."
+  },
+  {
+    "slug": "linkedin-1",
+    "platform": "Linkedin",
+    "title": "Why is AI Scary? Robots Already Control You.",
+    "date": "2024-02-01T00:00:00.000Z",
+    "href": "https://www.linkedin.com/pulse/why-ai-scary-robots-already-control-you-muhammad-hadi-yusufali",
+    "image": "/media/figma-mhadi-camera.png",
+    "summary": "A public LinkedIn article about how recommendation algorithms already shape attention, behavior, and creative culture."
   }
 ] satisfies ArchiveItem[]

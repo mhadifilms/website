@@ -7,7 +7,7 @@ const archivesDir = path.join(root, "content", "archives")
 const SOURCES = {
   substack: {
     platform: "Substack",
-    feedUrl: "https://mhadi.substack.com/feed",
+    feedUrl: "https://mhadimedia.substack.com/feed",
     prefix: "substack",
     limit: 4,
   },
@@ -104,18 +104,41 @@ function parseSubstack(xml, limit) {
   })
 }
 
-function youtubeWideThumbnail(href = "", fallback = "") {
-  const id = href.match(/[?&]v=([^&]+)/)?.[1] ?? fallback.match(/\/vi\/([^/]+)/)?.[1]
-  if (!id) return fallback
-  return `https://i.ytimg.com/vi/${id}/hq720.jpg`
+async function isReachable(url = "") {
+  if (!url) return false
+  try {
+    const response = await fetch(url, { method: "HEAD" })
+    return response.ok
+  } catch {
+    return false
+  }
 }
 
-function parseYouTube(xml, limit) {
-  return matchAll(xml, "entry").slice(0, limit).map((entry, index) => {
+async function youtubeThumbnail(href = "", fallback = "") {
+  const id = href.match(/[?&]v=([^&]+)/)?.[1] ?? fallback.match(/\/vi\/([^/]+)/)?.[1]
+  if (!id) return fallback
+
+  const candidates = [
+    `https://i.ytimg.com/vi/${id}/maxresdefault.jpg`,
+    `https://i.ytimg.com/vi/${id}/hq720.jpg`,
+    `https://i.ytimg.com/vi/${id}/sddefault.jpg`,
+    `https://i.ytimg.com/vi/${id}/hqdefault.jpg`,
+    fallback,
+  ].filter(Boolean)
+
+  for (const candidate of candidates) {
+    if (await isReachable(candidate)) return candidate
+  }
+
+  return fallback
+}
+
+async function parseYouTube(xml, limit) {
+  return Promise.all(matchAll(xml, "entry").slice(0, limit).map(async (entry, index) => {
     const title = matchOne(entry, "title")
     const href = matchAttr(entry, "link", "href")
     const date = new Date(matchOne(entry, "published")).toISOString().slice(0, 10)
-    const image = youtubeWideThumbnail(href, matchAttr(entry, "media:thumbnail", "url"))
+    const image = await youtubeThumbnail(href, matchAttr(entry, "media:thumbnail", "url"))
     const description = matchOne(entry, "media:description")
     return {
       slug: `youtube-${slugify(title)}-${index + 1}`,
@@ -126,7 +149,7 @@ function parseYouTube(xml, limit) {
       image,
       summary: excerpt(description || title),
     }
-  })
+  }))
 }
 
 async function fetchText(url) {
@@ -162,7 +185,7 @@ async function syncSource(key, source) {
   const xml = await fetchText(source.feedUrl)
   const items = key === "substack"
     ? parseSubstack(xml, source.limit)
-    : parseYouTube(xml, source.limit)
+    : await parseYouTube(xml, source.limit)
 
   if (items.length === 0) throw new Error(`No ${source.platform} items found`)
   await removeGenerated(source.prefix)

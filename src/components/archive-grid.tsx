@@ -12,6 +12,9 @@ type ArchiveGridProps = {
 }
 
 export function ArchiveGrid({ items, platformKey, className }: ArchiveGridProps) {
+  const isLandscape = platformKey === "YouTube"
+  const isSingle = items.length <= 1
+
   return (
     <div
       className={cn("relative w-full", className)}
@@ -26,17 +29,19 @@ export function ArchiveGrid({ items, platformKey, className }: ArchiveGridProps)
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -8 }}
           transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
-          className="grid grid-cols-2 gap-5 sm:grid-cols-4 lg:gap-[34px]"
+          className={cn(
+            "grid gap-5 lg:gap-[34px]",
+            isSingle && !isLandscape && "mx-auto w-full max-w-[312px] grid-cols-1",
+            isSingle && isLandscape && "mx-auto w-full max-w-[640px] grid-cols-1",
+            !isSingle && !isLandscape && "grid-cols-2 sm:grid-cols-4",
+            !isSingle && isLandscape && "grid-cols-1 sm:grid-cols-2",
+          )}
         >
           {items.slice(0, 4).map((item, index) => (
             <ArchiveCard key={`${platformKey}-${item.slug}`} item={item} index={index} />
           ))}
         </m.ul>
       </AnimatePresence>
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-y-[-40px] right-[-8px] hidden w-[56%] bg-gradient-to-l from-background via-background/75 to-transparent lg:block"
-      />
     </div>
   )
 }
@@ -48,6 +53,7 @@ type ArchiveCardProps = {
 
 function ArchiveCard({ item, index }: ArchiveCardProps) {
   const isPlaceholder = !item.title
+  const isLandscape = item.platform === "YouTube"
   const inner = (
     <m.div
       initial={{ opacity: 0, y: 10 }}
@@ -56,7 +62,8 @@ function ArchiveCard({ item, index }: ArchiveCardProps) {
       whileTap={!isPlaceholder ? { scale: 0.985 } : undefined}
       transition={CARD_TRANSITION}
       className={cn(
-        "relative aspect-[312/485] w-full overflow-hidden bg-[#d9d9d9] transform-gpu",
+        "relative w-full overflow-hidden bg-[#d9d9d9] transform-gpu",
+        isLandscape ? "aspect-video" : "aspect-[312/485]",
         !isPlaceholder && "transition-shadow",
       )}
     >
@@ -66,7 +73,10 @@ function ArchiveCard({ item, index }: ArchiveCardProps) {
           alt={item.title}
           loading="lazy"
           decoding="async"
-          className="block size-full object-cover transition-transform duration-500 ease-out group-hover:scale-[1.045]"
+          className={cn(
+            "block size-full transition-transform duration-500 ease-out group-hover:scale-[1.045]",
+            isLandscape ? "object-contain bg-black/5" : "object-cover",
+          )}
         />
       ) : (
         <div className="size-full bg-[#d9d9d9]" />

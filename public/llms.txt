@@ -21,10 +21,10 @@ Core facts:
 
 ## External Profiles
 
-- [LinkedIn](https://www.linkedin.com/in/mhadimedia): Professional profile for Muhammad Hadi Yusufali.
+- [LinkedIn](https://www.linkedin.com/in/mhadifilms): Professional profile for Muhammad Hadi Yusufali.
 - [Twitter/X](https://x.com/mhadifilms): Public social profile under mhadifilms.
 - [Instagram](https://www.instagram.com/mhadifilms): Visual and creative work under mhadifilms.
-- [Substack](https://mhadi.substack.com): Writing by M Hadi.
+- [Substack](https://mhadimedia.substack.com): Creative Chaos, writing by M Hadi.
 - [YouTube](https://www.youtube.com/@mhadifilms): Video channel for mhadifilms.
 
 ## Optional

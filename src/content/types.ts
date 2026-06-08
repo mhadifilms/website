@@ -1,6 +1,9 @@
 export type SocialLink = {
   label: string
   href: string
+  embedSrc?: string
+  embedTitle?: string
+  embedHeight?: number
 }
 
 export type PolaroidImage = {

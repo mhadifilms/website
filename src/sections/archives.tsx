@@ -4,6 +4,7 @@ import { ArrowUpRight } from "lucide-react"
 
 import { ArchiveGrid } from "@/components/archive-grid"
 import { Section } from "@/components/section"
+import { SocialFeedEmbed } from "@/components/social-feed-embed"
 import { SocialSwitcher } from "@/components/social-switcher"
 import { useSectionMotion } from "@/hooks/use-section-motion"
 import { archives, site } from "@/content/generated"
@@ -23,10 +24,11 @@ export function ArchivesSection() {
   }, [])
 
   const filtered = useMemo(() => archives.filter((item) => item.platform === active), [active])
-  const profileHref = useMemo(
-    () => site.socials.find((s) => s.label === active)?.href ?? "#",
+  const activeSocial = useMemo(
+    () => site.socials.find((s) => s.label === active),
     [active],
   )
+  const profileHref = activeSocial?.href ?? "#"
 
   return (
     <Section
@@ -60,7 +62,8 @@ export function ArchivesSection() {
             className="mx-auto self-center lg:mx-0 lg:self-start lg:pt-[62px]"
           />
 
-          <div className="flex min-w-0 flex-col">
+          <div className="flex min-w-0 flex-col overflow-hidden">
+            <SocialFeedEmbed platform={active} social={activeSocial} items={filtered} />
             <ArchiveGrid items={filtered} platformKey={active} />
 
             <div className="mt-8 flex justify-center">
@@ -71,7 +74,7 @@ export function ArchivesSection() {
                 whileHover={{ y: -1 }}
                 whileTap={{ scale: 0.985 }}
                 transition={{ duration: 0.16, ease: [0.22, 1, 0.36, 1] }}
-                className="group inline-flex items-center gap-2 text-2xl font-light text-[#808080] transition hover:text-black focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-4 focus-visible:ring-offset-background"
+                className="group inline-flex items-center gap-2 text-2xl font-light text-muted-foreground transition hover:text-black focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-4 focus-visible:ring-offset-background"
               >
                 <span>
                   view more on{" "}

@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from "react"
 import { AnimatePresence, m } from "framer-motion"
-import { ArrowUpRight } from "lucide-react"
+import { ArrowUpRight, ChevronDown, ChevronUp } from "lucide-react"
 
 import type { Experience } from "@/content/types"
 import { cn } from "@/lib/utils"
@@ -84,12 +84,11 @@ export function Timeline({ items, className }: TimelineProps) {
     )
   }
 
-  const active = items.find((item) => item.slug === activeSlug) ?? items[0]
-
-  const openDrawer = (slug: string) => {
-    setActiveSlug(slug)
+  const toggleDrawer = (slug: string) => {
+    const nextSlug = activeSlug === slug ? "" : slug
+    setActiveSlug(nextSlug)
     if (typeof window !== "undefined") {
-      window.history.replaceState(null, "", `/experiences#${slug}`)
+      window.history.replaceState(null, "", nextSlug ? `/experiences#${nextSlug}` : "/experiences")
     }
   }
 
@@ -127,14 +126,14 @@ export function Timeline({ items, className }: TimelineProps) {
         className="relative overflow-hidden bg-background/30"
       >
         {indexedItems.map(({ item, index }) => {
-          const isActive = item.slug === active.slug
+          const isActive = item.slug === activeSlug
           return (
             <ExperienceDrawer
               key={item.slug}
               item={item}
               index={index}
               isActive={isActive}
-              onOpen={() => openDrawer(item.slug)}
+              onOpen={() => toggleDrawer(item.slug)}
               onPreview={movePreview}
               onPreviewLeave={hidePreview}
             />
@@ -162,7 +161,7 @@ export function Timeline({ items, className }: TimelineProps) {
             <img
               src={preview.src}
               alt=""
-              className="aspect-[4/5] w-full object-cover saturate-[0.9] contrast-[0.96] sepia-[0.08]"
+              className="aspect-4/5 w-full object-cover saturate-[0.9] contrast-[0.96] sepia-[0.08]"
             />
             <div className="absolute inset-x-3 bottom-2 truncate text-[10px] font-light lowercase tracking-[0.08em] text-black/55">
               {preview.title}
@@ -242,11 +241,11 @@ function ExperienceDrawer({
           <span>{formatDateRange(item.dateStart, item.dateEnd)}</span>
           <m.span
             aria-hidden="true"
-            animate={isActive ? { rotate: 45 } : { rotate: 0 }}
+            animate={isActive ? { y: -1 } : { y: 1 }}
             transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
-            className="grid size-8 place-items-center rounded-full border border-black/15 text-xl leading-none text-black/55 transition-colors group-hover:border-black/30 group-hover:text-black"
+            className="grid size-8 place-items-center rounded-full border border-black/15 text-black/55 transition-colors group-hover:border-black/30 group-hover:text-black"
           >
-            +
+            {isActive ? <ChevronUp className="size-4" strokeWidth={1.8} /> : <ChevronDown className="size-4" strokeWidth={1.8} />}
           </m.span>
         </span>
       </m.button>
@@ -265,7 +264,7 @@ function ExperienceDrawer({
             className="overflow-hidden"
           >
             <div className="grid gap-8 px-4 pb-8 pt-1 sm:px-7 lg:grid-cols-[minmax(0,1fr)_220px] lg:gap-12">
-              <div className="pl-[calc(3.25rem+1rem)] sm:pl-[calc(4.25rem+1rem)]">
+              <div className="pl-17 sm:pl-21">
                 <p className="max-w-[720px] text-pretty text-xl font-light leading-[1.34] text-black/75 sm:text-2xl">
                   {item.summary}
                 </p>
@@ -313,7 +312,7 @@ function ExperienceDrawer({
                     alt=""
                     loading="lazy"
                     decoding="async"
-                    className="aspect-[4/5] w-full object-cover saturate-[0.9] contrast-[0.96] sepia-[0.08]"
+                    className="aspect-4/5 w-full object-cover saturate-[0.9] contrast-[0.96] sepia-[0.08]"
                   />
                   <figcaption className="mt-2 truncate text-center text-[10px] font-light lowercase tracking-[0.08em] text-black/50">
                     {item.location ?? item.company}

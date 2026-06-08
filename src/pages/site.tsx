@@ -1,5 +1,7 @@
 import { useMemo } from "react"
+import { useMotionValue } from "framer-motion"
 
+import { HeroPolaroidLayer } from "@/components/hero-polaroid-layer"
 import { PillNav } from "@/components/pill-nav"
 import { SeoMetadata } from "@/components/seo-metadata"
 import { AboutSection } from "@/sections/about"
@@ -10,6 +12,7 @@ import { SectionContext } from "@/hooks/section-context"
 import { buildSections, useSectionRouter } from "@/hooks/use-section-router"
 
 export default function SitePage() {
+  const homeScrollProgress = useMotionValue(0)
   const sections = useMemo(
     () =>
       buildSections([
@@ -32,11 +35,12 @@ export default function SitePage() {
     <SectionContext.Provider value={contextValue}>
       <SeoMetadata activeId={activeId} />
       <main id="content">
-        <HomeSection />
-        <AboutSection />
+        <HomeSection transitionProgress={homeScrollProgress} />
+        <AboutSection transitionProgress={homeScrollProgress} />
         <ExperiencesSection />
         <ArchivesSection />
       </main>
+      <HeroPolaroidLayer />
       <PillNav />
     </SectionContext.Provider>
   )
