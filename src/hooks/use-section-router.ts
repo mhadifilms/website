@@ -13,8 +13,6 @@ type SectionRouterState = {
   scrollToId: (id: string, options?: { behavior?: ScrollBehavior }) => void
 }
 
-const PILL_OFFSET_PX = 96
-
 function prefersReducedMotion() {
   if (typeof window === "undefined") return false
   return window.matchMedia("(prefers-reduced-motion: reduce)").matches
@@ -138,5 +136,3 @@ export function useSectionRouter(sections: SectionDescriptor[]): SectionRouterSt
     [activeId, register, scrollToId],
   )
 }
-
-export { PILL_OFFSET_PX }

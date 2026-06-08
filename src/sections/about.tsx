@@ -7,10 +7,34 @@ import { site } from "@/content/generated"
 import { scenePolaroids } from "@/lib/polaroid-scene"
 
 const POLAROID_LAYOUT = [
-  { x: -8, threadY: 20.5, top: 25.5, width: "clamp(76px,8vw,132px)", rotate: -5, hideOnSmall: false },
-  { x: 14, threadY: 22.2, top: 29, width: "clamp(72px,7.4vw,124px)", rotate: 4, hideOnSmall: true },
-  { x: 86, threadY: 22.2, top: 29, width: "clamp(72px,7.4vw,124px)", rotate: -3, hideOnSmall: true },
-  { x: 108, threadY: 20.5, top: 25.5, width: "clamp(76px,8vw,132px)", rotate: 5, hideOnSmall: false },
+  {
+    x: "12%",
+    threadY: "clamp(5.25rem, 13svh, 8rem)",
+    top: "clamp(9.75rem, 25svh, 14.5rem)",
+    width: "clamp(54px, 13vw, 126px)",
+    rotate: -6,
+  },
+  {
+    x: "34%",
+    threadY: "clamp(4.75rem, 12svh, 7.4rem)",
+    top: "clamp(8.6rem, 21.5svh, 12.8rem)",
+    width: "clamp(50px, 11.8vw, 116px)",
+    rotate: 4,
+  },
+  {
+    x: "66%",
+    threadY: "clamp(4.95rem, 12.5svh, 7.8rem)",
+    top: "clamp(9.1rem, 22.8svh, 13.4rem)",
+    width: "clamp(50px, 11.8vw, 116px)",
+    rotate: -4,
+  },
+  {
+    x: "88%",
+    threadY: "clamp(5.4rem, 13.6svh, 8.25rem)",
+    top: "clamp(10.1rem, 25.8svh, 15rem)",
+    width: "clamp(54px, 13vw, 126px)",
+    rotate: 6,
+  },
 ] as const
 
 const BIO_LINKS: Record<string, { slug: string; label: string }> = {
@@ -51,7 +75,7 @@ export function AboutSection() {
         viewBox="0 0 100 16"
         preserveAspectRatio="none"
         aria-hidden="true"
-        className="absolute left-[4vw] top-[17svh] z-[4] h-[7svh] w-[92vw]"
+        className="absolute left-[4vw] top-[clamp(4.5rem,12svh,7.4rem)] z-[4] h-[clamp(2rem,7svh,4.75rem)] w-[92vw]"
       >
         <m.path
           d="M0 5.5 C24 14 76 14 100 5.5"
@@ -78,13 +102,13 @@ export function AboutSection() {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.45 }}
         transition={{ duration: 0.75, delay: 0.18, ease: [0.22, 1, 0.36, 1] }}
-        className="relative z-10 mx-auto flex min-h-svh w-[min(92vw,620px)] flex-col items-center justify-center px-4 text-center"
+        className="relative z-10 mx-auto flex min-h-svh w-[min(92vw,680px)] flex-col items-center px-4 pb-36 pt-[clamp(17rem,36svh,25rem)] text-center"
       >
-        <h2 className="text-balance text-4xl font-light leading-none tracking-[-0.04em] text-black sm:text-6xl">
+        <h2 className="text-balance text-[clamp(2.1rem,6vw,3.75rem)] font-light leading-none tracking-[-0.04em] text-black">
           Hey, I&apos;m <span className="font-display font-semibold">{site.shortName ?? site.name}</span>.
         </h2>
 
-        <div className="mt-7 space-y-5 text-pretty text-lg font-light leading-[1.45] text-black/75 sm:text-2xl">
+        <div className="mt-6 space-y-5 text-pretty text-[clamp(1rem,2.6vw,1.45rem)] font-light leading-[1.42] text-black/75">
           {paragraphs.map((paragraph, index) => (
             <p key={index}>{renderBioParagraph(paragraph)}</p>
           ))}
@@ -149,22 +173,19 @@ type HangingPolaroidProps = {
 }
 
 function HangingPolaroid({ src, alt, caption, layout, delay = 0 }: HangingPolaroidProps) {
-  const drop = Math.max(layout.top - layout.threadY, 1.5)
   const style = {
-    "--polaroid-x": `${layout.x}%`,
-    "--polaroid-top": `${layout.top}svh`,
+    "--polaroid-x": layout.x,
+    "--polaroid-top": layout.top,
     "--polaroid-width": layout.width,
-    "--thread-drop": `${drop}svh`,
+    "--thread-y": layout.threadY,
+    "--thread-drop": "max(2rem, calc(var(--polaroid-top) - var(--thread-y)))",
   } as CSSProperties
 
   return (
     <div
       aria-hidden="true"
       style={style}
-      className={[
-        "pointer-events-none absolute left-[var(--polaroid-x)] top-[var(--polaroid-top)] z-[5] w-[var(--polaroid-width)]",
-        layout.hideOnSmall ? "max-sm:hidden" : "",
-      ].join(" ")}
+      className="pointer-events-none absolute left-[var(--polaroid-x)] top-[var(--polaroid-top)] z-[5] w-[var(--polaroid-width)] -translate-x-1/2"
     >
       <span
         className="absolute bottom-[calc(100%-1px)] left-1/2 w-px -translate-x-1/2 bg-accent/70"

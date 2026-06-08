@@ -3,12 +3,11 @@ import { m, useScroll, useTransform } from "framer-motion"
 import type { MotionValue } from "framer-motion"
 
 import { Section } from "@/components/section"
-import { ScrollWorkCta } from "@/components/scroll-work-cta"
-import { site } from "@/content/generated"
 import { scenePolaroids } from "@/lib/polaroid-scene"
 
 const MAC_IMAGE = `${import.meta.env.BASE_URL}media/figma-macintosh.svg`
 const HERO_IMAGE = `${import.meta.env.BASE_URL}media/figma-mhadi-camera.png`
+
 const SCREEN_CENTER_X = 47.5
 const SCREEN_CENTER_Y = 26.6
 const SCREEN_RECT = {
@@ -30,24 +29,24 @@ export function HomeSection() {
     offset: ["start start", "end end"],
   })
   const reduced = prefersReducedMotion()
-  const bioParagraphs = site.bio.split(/\n+/).map((p) => p.trim()).filter(Boolean)
 
-  const scale = useTransform(scrollYProgress, [0, 0.62, 1], reduced ? [1, 1, 1] : [1, 9.2, 9.2])
-  const shellOpacity = useTransform(scrollYProgress, [0.6, 0.74], reduced ? [1, 1] : [1, 0])
+  const scale = useTransform(scrollYProgress, [0, 0.72, 1], reduced ? [1, 1, 1] : [1, 9.2, 9.2])
+  const shellOpacity = useTransform(scrollYProgress, [0.58, 0.76], reduced ? [1, 1] : [1, 0])
+  const sceneOpacity = useTransform(scrollYProgress, [0.9, 1], reduced ? [1, 1] : [1, 0])
   const screenGridOpacity = useTransform(scrollYProgress, [0.12, 0.24], [0, 1])
   const heroFrameOpacity = useTransform(scrollYProgress, [0.08, 0.18], [0, 1])
-  const heroWidth = useTransform(scrollYProgress, [0, 0.22, 0.44, 0.78], reduced ? ["16%", "16%", "16%", "16%"] : ["100%", "34%", "16%", "11.5%"])
-  const heroHeight = useTransform(scrollYProgress, [0, 0.22, 0.44, 0.78], reduced ? ["28%", "28%", "28%", "28%"] : ["100%", "50%", "28%", "20%"])
-  const heroTop = useTransform(scrollYProgress, [0, 0.22, 0.78], reduced ? ["31%", "31%", "31%"] : ["0%", "24%", "27.8%"])
+  const heroWidth = useTransform(scrollYProgress, [0, 0.22, 0.48, 0.86], reduced ? ["16%", "16%", "16%", "16%"] : ["100%", "34%", "13%", "9%"])
+  const heroHeight = useTransform(scrollYProgress, [0, 0.22, 0.48, 0.86], reduced ? ["28%", "28%", "28%", "28%"] : ["100%", "50%", "23%", "15.5%"])
+  const heroTop = useTransform(scrollYProgress, [0, 0.22, 0.86], reduced ? ["31%", "31%", "31%"] : ["0%", "24%", "31.8%"])
   const heroLeft = useTransform(scrollYProgress, [0, 0.22], reduced ? ["50%", "50%"] : ["0%", "50%"])
   const heroX = useTransform(scrollYProgress, [0, 0.22], reduced ? ["-50%", "-50%"] : ["0%", "-50%"])
-  const heroRotate = useTransform(scrollYProgress, [0.14, 0.44, 0.78], reduced ? [-4, -4, -4] : [0, -3.2, -4.5])
+  const heroRotate = useTransform(scrollYProgress, [0.14, 0.48, 0.86], reduced ? [-4, -4, -4] : [0, -3.2, -4.5])
   const heroPhotoInset = useTransform(scrollYProgress, [0.08, 0.22], ["0%", "5%"])
   const heroPhotoBottomInset = useTransform(scrollYProgress, [0.08, 0.22], ["0%", "18%"])
   const supportingPolaroidOpacity = useTransform(scrollYProgress, [0.14, 0.24], [0, 1])
   const supportingPolaroidY = useTransform(scrollYProgress, [0.14, 0.24], ["7%", "0%"])
-  const aboutScale = useTransform(scrollYProgress, [0.5, 0.94], reduced ? [1, 1] : [1.08, 1])
-  const aboutLineOpacity = useTransform(scrollYProgress, [0.14, 0.24], [0, 1])
+  const sceneScale = useTransform(scrollYProgress, [0.5, 0.94], reduced ? [1, 1] : [1.08, 1])
+  const threadOpacity = useTransform(scrollYProgress, [0.14, 0.24], [0, 1])
   const taglineOpacity = useTransform(scrollYProgress, [0, 0.18], reduced ? [1, 1] : [1, 0])
 
   const [imageFailed, setImageFailed] = useState(false)
@@ -72,7 +71,7 @@ export function HomeSection() {
     <Section
       id="home"
       label="Home"
-      className="h-[320svh] snap-none overflow-visible"
+      className="h-[280svh] snap-none overflow-visible"
       innerClassName="relative h-full w-full"
     >
       <div ref={ref} className="relative h-full w-full">
@@ -86,7 +85,7 @@ export function HomeSection() {
           >
             <p className="text-balance text-3xl font-light leading-tight text-foreground sm:text-4xl">
               Writing my <span className="font-medium">story</span> as you{" "}
-              <span className="font-display italic">read</span> it
+              <span className="font-display">read</span> it
             </p>
           </m.div>
 
@@ -102,7 +101,7 @@ export function HomeSection() {
             aria-hidden="true"
             className="pointer-events-none absolute right-[10.8vw] top-[47.1svh] z-10 hidden -translate-y-1/2 whitespace-nowrap text-4xl font-light text-foreground lg:block xl:text-5xl"
           >
-            as you <span className="font-display italic">read</span> it
+            as you <span className="font-display">read</span> it
           </m.p>
 
           <m.div
@@ -116,7 +115,10 @@ export function HomeSection() {
             </span>
           </m.div>
 
-          <div className="pointer-events-none absolute inset-0 z-20 flex items-center justify-center">
+          <m.div
+            style={{ opacity: sceneOpacity }}
+            className="pointer-events-none absolute inset-0 z-20 flex items-center justify-center"
+          >
             <m.div
               style={{
                 scale,
@@ -131,22 +133,21 @@ export function HomeSection() {
                   width: SCREEN_RECT.width,
                   height: SCREEN_RECT.height,
                 }}
-                className="pointer-events-none absolute z-30 overflow-hidden rounded-[2.5%] bg-background"
+                className="absolute z-30 overflow-hidden rounded-[2.5%] bg-background"
               >
                 <m.div
                   style={{
-                    scale: aboutScale,
+                    scale: sceneScale,
                     transformOrigin: "50% 43%",
                   }}
                   className="absolute inset-0 z-20 bg-background text-foreground"
                 >
-                  <AboutInsideMac
+                  <MacScreenScene
                     polaroids={scenePolaroids}
-                    paragraphs={bioParagraphs}
                     imageFailed={imageFailed}
                     onImageError={() => setImageFailed(true)}
                     gridOpacity={screenGridOpacity}
-                    lineOpacity={aboutLineOpacity}
+                    threadOpacity={threadOpacity}
                     supportingPolaroidOpacity={supportingPolaroidOpacity}
                     supportingPolaroidY={supportingPolaroidY}
                     heroMorph={{
@@ -173,20 +174,19 @@ export function HomeSection() {
                 className="relative z-20 block aspect-[522.54/511.434] w-full select-none"
               />
             </m.div>
-          </div>
+          </m.div>
         </div>
       </div>
     </Section>
   )
 }
 
-type AboutInsideMacProps = {
+type MacScreenSceneProps = {
   polaroids: typeof scenePolaroids
-  paragraphs: string[]
   imageFailed: boolean
   onImageError: () => void
   gridOpacity: MotionValue<number>
-  lineOpacity: MotionValue<number>
+  threadOpacity: MotionValue<number>
   supportingPolaroidOpacity: MotionValue<number>
   supportingPolaroidY: MotionValue<string>
   heroMorph: HeroMorphStyle
@@ -204,17 +204,16 @@ type HeroMorphStyle = {
   photoBottomInset: MotionValue<string>
 }
 
-function AboutInsideMac({
+function MacScreenScene({
   polaroids,
-  paragraphs,
   imageFailed,
   onImageError,
   gridOpacity,
-  lineOpacity,
+  threadOpacity,
   supportingPolaroidOpacity,
   supportingPolaroidY,
   heroMorph,
-}: AboutInsideMacProps) {
+}: MacScreenSceneProps) {
   const slots = [0, 1, 2].map((index) => polaroids[index % Math.max(polaroids.length, 1)])
 
   return (
@@ -231,7 +230,7 @@ function AboutInsideMac({
       />
 
       <m.svg
-        style={{ opacity: lineOpacity }}
+        style={{ opacity: threadOpacity }}
         viewBox="0 0 1627 36"
         preserveAspectRatio="none"
         aria-hidden="true"
@@ -257,30 +256,15 @@ function AboutInsideMac({
           key={`${polaroid?.src ?? "missing"}-${index}`}
           src={polaroid?.src}
           className={[
-            index === 0 ? "left-[32.8%] top-[31.6%] w-[11.5%]" : "",
-            index === 1 ? "right-[24.4%] top-[31.4%] w-[11.2%]" : "",
-            index === 2 ? "right-[12%] top-[28.8%] w-[11.8%]" : "",
+            index === 0 ? "left-[33.5%] top-[34.8%] w-[8.2%]" : "",
+            index === 1 ? "right-[37%] top-[34.4%] w-[8%]" : "",
+            index === 2 ? "right-[32%] top-[32.2%] w-[8.4%]" : "",
           ].join(" ")}
           baseRotate={index === 0 ? 4 : index === 1 ? -3 : 5}
           delay={index * 0.35}
           style={{ opacity: supportingPolaroidOpacity, y: supportingPolaroidY }}
         />
       ))}
-
-      <div
-        className="absolute left-1/2 top-[70%] z-10 flex w-[36%] -translate-x-1/2 -translate-y-1/2 flex-col items-center text-center"
-      >
-        <h2 className="text-[4.6px] font-normal leading-none">
-          <span aria-hidden="true" className="mr-[0.18em]">👋</span>
-          Hey, I&apos;m <span className="font-display font-semibold">{site.shortName ?? site.name}</span>
-        </h2>
-        <div className="mt-[4.2%] space-y-[3%] text-[1.65px] font-light leading-[1.32]">
-          {paragraphs.map((paragraph, index) => (
-            <p key={index}>{paragraph}</p>
-          ))}
-        </div>
-        <ScrollWorkCta variant="mac" className="mt-[5%]" />
-      </div>
     </div>
   )
 }
@@ -351,7 +335,6 @@ type HangingScreenPolaroidProps = {
   delay?: number
   style?: {
     opacity?: MotionValue<number>
-    scale?: MotionValue<number>
     y?: MotionValue<string>
   }
 }
@@ -370,32 +353,32 @@ function HangingScreenPolaroid({
       className={`absolute z-20 ${className}`}
     >
       <m.figure
-      animate={{
-        rotate: [baseRotate - 0.7, baseRotate + 0.9, baseRotate - 0.4],
-        y: [0, -0.25, 0.18],
-      }}
-      transition={{
-        duration: 4.5 + delay,
-        repeat: Infinity,
-        repeatType: "mirror",
-        ease: "easeInOut",
-        delay,
-      }}
-      className="relative origin-top"
-    >
-      <span className="absolute left-1/2 top-[-17%] h-[19%] w-px -translate-x-1/2 bg-accent/70" />
-      <span className="absolute left-1/2 top-[-19%] size-[3%] -translate-x-1/2 rounded-full bg-accent" />
-      <div className="relative aspect-[188/254] bg-[#efede2] p-[5%] pb-[18%] shadow-polaroid">
-        {src ? (
-          <img
-            src={src}
-            alt=""
-            className="block size-full object-cover saturate-[0.88] contrast-[0.96] sepia-[0.08]"
-          />
-        ) : (
-          <div className="size-full bg-[#d9d9d9]" />
-        )}
-      </div>
+        animate={{
+          rotate: [baseRotate - 0.7, baseRotate + 0.9, baseRotate - 0.4],
+          y: [0, -0.25, 0.18],
+        }}
+        transition={{
+          duration: 4.5 + delay,
+          repeat: Infinity,
+          repeatType: "mirror",
+          ease: "easeInOut",
+          delay,
+        }}
+        className="relative origin-top"
+      >
+        <span className="absolute left-1/2 top-[-17%] h-[19%] w-px -translate-x-1/2 bg-accent/70" />
+        <span className="absolute left-1/2 top-[-19%] size-[3%] -translate-x-1/2 rounded-full bg-accent" />
+        <div className="relative aspect-[188/254] bg-[#efede2] p-[5%] pb-[18%] shadow-polaroid">
+          {src ? (
+            <img
+              src={src}
+              alt=""
+              className="block size-full object-cover saturate-[0.88] contrast-[0.96] sepia-[0.08]"
+            />
+          ) : (
+            <div className="size-full bg-[#d9d9d9]" />
+          )}
+        </div>
       </m.figure>
     </m.div>
   )
@@ -403,7 +386,7 @@ function HangingScreenPolaroid({
 
 function MacScreenEffect() {
   return (
-    <div aria-hidden="true" className="mac-screen-effect absolute inset-0 z-40 pointer-events-none">
+    <div aria-hidden="true" className="mac-screen-effect pointer-events-none absolute inset-0 z-40">
       <span className="mac-screen-glare" />
       <span className="mac-screen-noise" />
     </div>
