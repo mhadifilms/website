@@ -35,17 +35,16 @@ export function ArchiveGrid({ items, platformKey, className }: ArchiveGridProps)
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -8 }}
           transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
-          className="grid grid-cols-2 gap-4 sm:grid-cols-4 sm:gap-5"
+          className="grid grid-cols-2 gap-5 sm:grid-cols-4 lg:gap-[34px]"
         >
-          {slots.map((item, index) => (
-            <ArchiveCard key={`${platformKey}-${item.slug}`} item={item} index={index} />
+          {slots.map((item) => (
+            <ArchiveCard key={`${platformKey}-${item.slug}`} item={item} />
           ))}
         </m.ul>
       </AnimatePresence>
-
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-y-0 right-0 w-1/2 bg-gradient-to-l from-background via-background/70 to-transparent sm:w-[55%]"
+        className="pointer-events-none absolute inset-y-[-40px] right-[-8px] hidden w-[56%] bg-gradient-to-l from-background via-background/75 to-transparent lg:block"
       />
     </div>
   )
@@ -53,18 +52,17 @@ export function ArchiveGrid({ items, platformKey, className }: ArchiveGridProps)
 
 type ArchiveCardProps = {
   item: ArchiveItem
-  index: number
 }
 
-function ArchiveCard({ item, index }: ArchiveCardProps) {
+function ArchiveCard({ item }: ArchiveCardProps) {
   const isPlaceholder = !item.title
   const inner = (
     <m.div
-      whileHover={!isPlaceholder ? { y: -4 } : undefined}
-      transition={{ type: "spring", stiffness: 280, damping: 22 }}
+      whileHover={!isPlaceholder ? { y: -3 } : undefined}
+      transition={{ type: "spring", stiffness: 260, damping: 24 }}
       className={cn(
-        "relative aspect-[3/4] w-full overflow-hidden rounded-2xl bg-muted/80 ring-1 ring-border/60",
-        !isPlaceholder && "shadow-soft",
+        "relative aspect-[312/485] w-full overflow-hidden bg-[#d9d9d9]",
+        !isPlaceholder && "transition",
       )}
     >
       {item.image ? (
@@ -76,36 +74,29 @@ function ArchiveCard({ item, index }: ArchiveCardProps) {
           className="block size-full object-cover transition-transform duration-500 group-hover:scale-[1.04]"
         />
       ) : (
-        <div className="grid size-full place-items-center px-4 text-center text-[11px] font-medium uppercase tracking-[0.28em] text-muted-foreground/70">
-          {isPlaceholder ? "" : item.platform}
-        </div>
+        <div className="size-full bg-[#d9d9d9]" />
       )}
 
       {!isPlaceholder && item.title && (
-        <div className="absolute inset-x-0 bottom-0 flex flex-col gap-1 bg-gradient-to-t from-foreground/85 to-transparent p-4 pt-12 text-background">
-          <p className="font-mono text-[10px] uppercase tracking-[0.28em] opacity-80">
+        <div className="absolute inset-x-0 bottom-0 translate-y-2 bg-gradient-to-t from-background/95 via-background/75 to-transparent p-4 pt-16 text-black opacity-0 transition duration-300 group-hover:translate-y-0 group-hover:opacity-100 group-focus-visible:translate-y-0 group-focus-visible:opacity-100">
+          <p className="text-xs font-light uppercase tracking-[0.22em] text-black/55">
             {new Date(item.date).toLocaleDateString("en", { month: "short", year: "numeric" })}
           </p>
-          <p className="text-sm font-medium leading-tight">{item.title}</p>
+          <p className="mt-1 text-lg font-light leading-tight">{item.title}</p>
         </div>
       )}
     </m.div>
   )
 
   return (
-    <li
-      style={{
-        opacity: isPlaceholder ? 0.45 - index * 0.08 : 1,
-        transform: `translateY(${index * 4}px)`,
-      }}
-    >
+    <li className={cn(isPlaceholder && "opacity-60")}>
       {!isPlaceholder && item.href ? (
         <a
           href={item.href}
           target="_blank"
           rel="noreferrer"
           aria-label={`${item.title} on ${item.platform}`}
-          className="group block focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+          className="group block focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-4 focus-visible:ring-offset-background"
         >
           {inner}
         </a>

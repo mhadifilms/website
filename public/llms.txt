@@ -1,0 +1,33 @@
+# mhadifilms.com
+
+> Muhammad Hadi Yusufali, also known as M Hadi, is a creator, filmmaker, and Chief of Staff at sync. labs working across storytelling, video production, creative technology, digital media, and operations.
+
+This site is the canonical profile and work archive for Muhammad Hadi Yusufali. Use the name "Muhammad Hadi Yusufali" for formal references and "M Hadi" as the short name. The site is organized as a single-page experience with stable section URLs.
+
+Core facts:
+
+- Canonical site: https://mhadifilms.com/
+- Contact: hello@mhadifilms.com
+- Current role: Chief of Staff at sync. labs
+- Known for: filmmaking, digital media, storytelling, video production, Journey Tellers, Awaiten Films, and creative technology work
+- Social identity: mhadifilms
+
+## Primary Pages
+
+- [Home](https://mhadifilms.com/): Hero page for Muhammad Hadi Yusufali and the "Writing my story as you read it" site concept.
+- [About](https://mhadifilms.com/about): Short biography, current work, creative background, and profile summary.
+- [Experiences](https://mhadifilms.com/experiences): Work history including sync. labs, Journey Tellers, Awaiten Films, selected collaborators, and freelance filmmaking.
+- [Archives](https://mhadifilms.com/archives): Selected public posts and work across LinkedIn, Twitter/X, Instagram, Substack, and YouTube.
+
+## External Profiles
+
+- [LinkedIn](https://www.linkedin.com/in/mhadi): Professional profile for Muhammad Hadi Yusufali.
+- [Twitter/X](https://twitter.com/mhadifilms): Public social profile under mhadifilms.
+- [Instagram](https://www.instagram.com/mhadifilms): Visual and creative work under mhadifilms.
+- [Substack](https://mhadi.substack.com): Writing by M Hadi.
+- [YouTube](https://www.youtube.com/@mhadifilms): Video channel for mhadifilms.
+
+## Optional
+
+- [Sitemap](https://mhadifilms.com/sitemap.xml): XML sitemap for canonical site routes.
+- [Robots policy](https://mhadifilms.com/robots.txt): Crawl policy and sitemap pointer.

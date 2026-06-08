@@ -1,6 +1,7 @@
 import { useMemo } from "react"
 
 import { PillNav } from "@/components/pill-nav"
+import { SeoMetadata } from "@/components/seo-metadata"
 import { AboutSection } from "@/sections/about"
 import { ArchivesSection } from "@/sections/archives"
 import { ExperiencesSection } from "@/sections/experiences"
@@ -29,7 +30,8 @@ export default function SitePage() {
 
   return (
     <SectionContext.Provider value={contextValue}>
-      <main>
+      <SeoMetadata activeId={activeId} />
+      <main id="content">
         <HomeSection />
         <AboutSection />
         <ExperiencesSection />

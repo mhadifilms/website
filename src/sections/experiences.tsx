@@ -15,32 +15,22 @@ export function ExperiencesSection() {
       id="experiences"
       label="Experiences"
       className="bg-background"
-      innerClassName="mx-auto flex w-full max-w-[1500px] flex-1 flex-col items-center justify-center px-4 py-20 sm:px-8 sm:py-24"
+      innerClassName="mx-auto flex w-full max-w-[1728px] flex-1 flex-col items-center justify-center px-6 py-24 sm:px-8"
     >
       <m.div
         ref={ref}
         style={{ opacity, scale, y: translateY }}
-        className="flex w-full flex-col items-center"
+        className="flex min-h-[760px] w-full flex-col items-center justify-center lg:min-h-[920px]"
       >
-        <header className="mx-auto mb-10 max-w-3xl text-center sm:mb-14">
-          <m.p
-            initial={{ opacity: 0, y: 12 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.1 }}
-            transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
-            className="font-mono text-xs uppercase tracking-[0.4em] text-muted-foreground"
-          >
-            A working timeline
-          </m.p>
+        <header className="mx-auto mb-14 max-w-3xl text-center sm:mb-20">
           <m.h2
             initial={{ opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.1 }}
             transition={{ duration: 0.65, delay: 0.05, ease: [0.22, 1, 0.36, 1] }}
-            className="mt-3 text-balance font-display text-5xl leading-[1] tracking-tight text-foreground sm:text-6xl md:text-7xl"
+            className="text-balance text-5xl font-light leading-none tracking-[-0.04em] text-foreground sm:text-6xl"
           >
-            <span className="italic">experiences</span>
-            <span className="font-display">.</span>
+            the <span className="font-display font-semibold">experiences</span>.
           </m.h2>
         </header>
 

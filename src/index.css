@@ -4,23 +4,23 @@
   --font-sans: "Raleway", ui-sans-serif, system-ui, sans-serif;
   --font-display: "DM Serif Display", "DM Serif Text", Georgia, serif;
 
-  --color-background: oklch(0.978 0.014 95);
-  --color-foreground: oklch(0.18 0.012 80);
+  --color-background: #fffff6;
+  --color-foreground: #000000;
   --color-card: oklch(1 0 0);
   --color-card-foreground: var(--color-foreground);
   --color-popover: var(--color-card);
   --color-popover-foreground: var(--color-foreground);
-  --color-primary: oklch(0.2 0.012 80);
+  --color-primary: #000000;
   --color-primary-foreground: oklch(0.978 0.014 95);
-  --color-secondary: oklch(0.92 0.014 90);
+  --color-secondary: #dddddd;
   --color-secondary-foreground: var(--color-foreground);
-  --color-muted: oklch(0.93 0.012 90);
-  --color-muted-foreground: oklch(0.45 0.012 80);
-  --color-accent: oklch(0.82 0.16 84);
-  --color-accent-foreground: oklch(0.18 0.012 80);
-  --color-border: oklch(0.88 0.01 85);
+  --color-muted: #d9d9d9;
+  --color-muted-foreground: #808080;
+  --color-accent: #c0bca9;
+  --color-accent-foreground: #000000;
+  --color-border: rgba(192, 188, 169, 0.18);
   --color-input: var(--color-border);
-  --color-ring: oklch(0.55 0.04 80);
+  --color-ring: #807c68;
 
   --color-mac-case: oklch(0.78 0.04 92);
   --color-mac-case-shadow: oklch(0.6 0.04 90);
@@ -33,11 +33,11 @@
   --radius-xl: 2rem;
   --radius-pill: 999px;
 
-  --shadow-soft: 0 24px 70px -42px oklch(0.18 0.012 80 / 0.45);
+  --shadow-soft: 0 8px 15px rgba(0, 0, 0, 0.25);
   --shadow-polaroid: 0 18px 40px -22px oklch(0.18 0.012 80 / 0.55);
-  --shadow-pill: 0 8px 24px -10px oklch(0.18 0.012 80 / 0.25);
+  --shadow-pill: 0 8px 15px rgba(0, 0, 0, 0.25);
 
-  --grid-line: oklch(0.18 0.012 80 / 0.07);
+  --grid-line: rgba(192, 188, 169, 0.16);
 }
 
 @layer base {
@@ -47,7 +47,7 @@
 
   html {
     scroll-behavior: smooth;
-    scroll-snap-type: y proximity;
+    scroll-snap-type: none;
     text-rendering: optimizeLegibility;
     background-color: var(--color-background);
   }
@@ -62,13 +62,17 @@
     background-image:
       linear-gradient(to right, var(--grid-line) 1px, transparent 1px),
       linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px);
-    background-size: 80px 80px;
-    background-position: -1px -1px;
+    background-size: 80.7px 80.7px;
+    background-position: 46.6px 21.4px;
   }
 
   ::selection {
     background-color: var(--color-accent);
     color: var(--color-accent-foreground);
+  }
+
+  :focus-visible {
+    outline-color: var(--color-ring);
   }
 }
 

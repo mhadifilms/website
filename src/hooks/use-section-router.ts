@@ -94,7 +94,7 @@ export function useSectionRouter(sections: SectionDescriptor[]): SectionRouterSt
           }
         }
 
-        if (bestId && bestRatio > 0.45) {
+        if (bestId && bestRatio > 0.18) {
           setActiveId((prev) => (prev === bestId ? prev : bestId))
           const section = sections.find((s) => s.id === bestId)
           if (section && section.path !== lastPushedPathRef.current) {
@@ -104,7 +104,7 @@ export function useSectionRouter(sections: SectionDescriptor[]): SectionRouterSt
         }
       },
       {
-        threshold: [0, 0.25, 0.45, 0.6, 0.8, 1],
+        threshold: [0, 0.1, 0.18, 0.25, 0.45, 0.6, 0.8, 1],
       },
     )
 

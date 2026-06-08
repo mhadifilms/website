@@ -1,4 +1,5 @@
-import { m } from "framer-motion"
+import { useState } from "react"
+import { AnimatePresence, m } from "framer-motion"
 import { ArrowUpRight } from "lucide-react"
 
 import type { Experience } from "@/content/types"
@@ -21,6 +22,8 @@ type TimelineProps = {
 }
 
 export function Timeline({ items, className }: TimelineProps) {
+  const [activeSlug, setActiveSlug] = useState(items[0]?.slug ?? "")
+
   if (items.length === 0) {
     return (
       <p className={cn("mx-auto max-w-md text-center text-sm italic text-muted-foreground", className)}>
@@ -29,61 +32,92 @@ export function Timeline({ items, className }: TimelineProps) {
     )
   }
 
+  const active = items.find((item) => item.slug === activeSlug) ?? items[0]
+
   return (
-    <ol
+    <div
       className={cn(
-        "relative mx-auto w-full max-w-3xl",
-        "before:absolute before:bottom-2 before:left-[7px] before:top-2 before:w-px before:bg-border sm:before:left-[11px]",
+        "mx-auto grid w-full max-w-[1120px] gap-8 lg:grid-cols-[260px_minmax(0,1fr)] lg:items-start lg:gap-20",
         className,
       )}
     >
-      {items.map((item, index) => (
-        <TimelineEntry key={item.slug} item={item} index={index} />
-      ))}
-    </ol>
+      <div
+        role="tablist"
+        aria-label="Experiences"
+        aria-orientation="vertical"
+        className="flex gap-3 overflow-x-auto pb-2 [scrollbar-width:none] lg:flex-col lg:gap-6 lg:overflow-visible lg:pb-0 [&::-webkit-scrollbar]:hidden"
+      >
+        {items.map((item) => {
+          const isActive = item.slug === active.slug
+          return (
+            <button
+              key={item.slug}
+              type="button"
+              role="tab"
+              aria-selected={isActive}
+              aria-controls={`experience-panel-${item.slug}`}
+              id={`experience-tab-${item.slug}`}
+              onClick={() => setActiveSlug(item.slug)}
+              className={cn(
+                "group relative shrink-0 text-left text-xl font-light leading-none text-black/55 transition outline-none hover:text-black focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-4 focus-visible:ring-offset-background sm:text-2xl",
+                isActive && "font-medium text-black",
+              )}
+            >
+              <span className="block whitespace-nowrap">{item.company}</span>
+              <span
+                aria-hidden="true"
+                className={cn(
+                  "mt-2 block h-px bg-black transition-all duration-300",
+                  isActive ? "w-full opacity-100" : "w-0 opacity-0 group-hover:w-8 group-hover:opacity-40",
+                )}
+              />
+            </button>
+          )
+        })}
+      </div>
+
+      <AnimatePresence mode="wait">
+        <TimelineEntry key={active.slug} item={active} />
+      </AnimatePresence>
+    </div>
   )
 }
 
 type TimelineEntryProps = {
   item: Experience
-  index: number
 }
 
-function TimelineEntry({ item, index }: TimelineEntryProps) {
+function TimelineEntry({ item }: TimelineEntryProps) {
   return (
-    <m.li
-      initial={{ opacity: 0, x: -16 }}
-      whileInView={{ opacity: 1, x: 0 }}
-      viewport={{ once: true, margin: "-10%" }}
-      transition={{ duration: 0.5, delay: 0.06 * index, ease: [0.22, 1, 0.36, 1] }}
-      className="relative pb-10 pl-8 last:pb-0 sm:pl-12"
+    <m.article
+      role="tabpanel"
+      id={`experience-panel-${item.slug}`}
+      aria-labelledby={`experience-tab-${item.slug}`}
+      initial={{ opacity: 0, y: 12 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -8 }}
+      transition={{ duration: 0.38, ease: [0.22, 1, 0.36, 1] }}
+      className="min-h-[360px] border-l border-[#c0bca9]/35 pl-8 text-left sm:pl-10"
     >
-      <span
-        aria-hidden="true"
-        className="absolute left-0 top-2 grid size-[15px] place-items-center rounded-full bg-background sm:size-[23px]"
-      >
-        <span className="size-2 rounded-full bg-foreground sm:size-2.5" />
-      </span>
-
-      <p className="font-mono text-[11px] uppercase tracking-[0.3em] text-muted-foreground">
+      <p className="text-sm font-light uppercase tracking-[0.28em] text-black/45">
         {formatDateRange(item.dateStart, item.dateEnd)}
-        {item.location ? ` \u00b7 ${item.location}` : ""}
+        {item.location ? ` · ${item.location}` : ""}
       </p>
 
-      <h3 className="mt-2 font-display text-3xl leading-tight tracking-tight text-foreground sm:text-4xl">
-        {item.role} <span className="italic text-foreground/70">at {item.company}</span>
+      <h3 className="mt-5 max-w-[760px] text-balance text-4xl font-light leading-[1.05] tracking-[-0.03em] text-black sm:text-6xl">
+        {item.role} <span className="font-display font-normal">{item.company}</span>
       </h3>
 
-      <p className="mt-3 max-w-[60ch] text-base leading-7 text-foreground/80 sm:text-[17px] sm:leading-8">
+      <p className="mt-6 max-w-[680px] text-pretty text-xl font-light leading-[1.32] text-black/75 sm:text-2xl">
         {item.summary}
       </p>
 
       {item.tags && item.tags.length > 0 && (
-        <ul className="mt-4 flex flex-wrap gap-2">
+        <ul className="mt-8 flex flex-wrap gap-3">
           {item.tags.map((tag) => (
             <li
               key={tag}
-              className="rounded-full border border-border/70 bg-card/70 px-3 py-1 text-[11px] font-medium uppercase tracking-[0.18em] text-muted-foreground"
+              className="rounded-full bg-[#c0bca9]/20 px-4 py-2 text-xs font-light uppercase tracking-[0.2em] text-black/55"
             >
               {tag}
             </li>
@@ -96,12 +130,12 @@ function TimelineEntry({ item, index }: TimelineEntryProps) {
           href={item.href}
           target="_blank"
           rel="noreferrer"
-          className="mt-4 inline-flex items-center gap-1.5 text-sm font-medium text-foreground hover:text-accent"
+          className="mt-8 inline-flex items-center gap-2 text-2xl font-light text-black underline-offset-4 transition hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-4 focus-visible:ring-offset-background"
         >
-          Visit
-          <ArrowUpRight className="size-3.5" strokeWidth={2} />
+          visit
+          <ArrowUpRight className="size-5" strokeWidth={1.8} />
         </a>
       )}
-    </m.li>
+    </m.article>
   )
 }

@@ -1,5 +1,4 @@
 import { useCallback, useRef } from "react"
-import { m } from "framer-motion"
 
 import type { ArchivePlatform } from "@/content/types"
 import { cn } from "@/lib/utils"
@@ -37,9 +36,8 @@ export function SocialSwitcher({ platforms, active, onSelect, className, icons }
     <div
       role="tablist"
       aria-label="Archives by platform"
-      aria-orientation="vertical"
       className={cn(
-        "flex flex-row flex-wrap gap-x-6 gap-y-3 lg:flex-col lg:items-start lg:gap-3",
+        "flex max-w-full flex-row gap-6 overflow-x-auto pb-2 [scrollbar-width:none] lg:flex-col lg:items-start lg:gap-[37px] lg:overflow-visible lg:pb-0 [&::-webkit-scrollbar]:hidden",
         className,
       )}
     >
@@ -60,31 +58,19 @@ export function SocialSwitcher({ platforms, active, onSelect, className, icons }
             onClick={() => onSelect(platform)}
             onKeyDown={(event) => handleKey(event, index)}
             className={cn(
-              "group relative inline-flex items-center gap-2 rounded-sm text-base transition-colors duration-200 outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-4 focus-visible:ring-offset-background sm:text-lg",
-              isActive ? "text-foreground" : "text-muted-foreground hover:text-foreground",
+              "group relative inline-flex shrink-0 items-center gap-2 text-xl font-light leading-none text-black transition-colors duration-200 outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-4 focus-visible:ring-offset-background sm:text-2xl",
+              isActive ? "font-medium" : "hover:text-black/70",
             )}
           >
-            <span
-              className={cn(
-                "relative h-px bg-foreground transition-[width] duration-300",
-                isActive ? "w-5" : "w-0",
-              )}
-              aria-hidden="true"
-            />
             {icons?.[platform] && (
-              <span aria-hidden="true" className="grid size-4 place-items-center text-muted-foreground">
+              <span
+                aria-hidden="true"
+                className="hidden size-4 place-items-center transition-colors"
+              >
                 {icons[platform]}
               </span>
             )}
-            <span className={cn("font-medium", isActive && "font-semibold")}>{platform}</span>
-            {isActive && (
-              <m.span
-                layoutId="social-active-dot"
-                transition={{ type: "spring", stiffness: 360, damping: 30 }}
-                className="size-1.5 rounded-full bg-accent"
-                aria-hidden="true"
-              />
-            )}
+            <span>{platform}</span>
           </button>
         )
       })}

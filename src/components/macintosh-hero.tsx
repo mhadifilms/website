@@ -165,7 +165,7 @@ export function MacintoshHero({
             fill="var(--color-foreground)"
             opacity="0.5"
           >
-            mhadi.tv
+            mhadifilms.com
           </text>
         </g>
 

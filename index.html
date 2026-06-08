@@ -3,27 +3,124 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+    <meta name="googlebot" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+    <meta name="bingbot" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
     <meta
       name="description"
-      content="The personal site, writing, projects, and field notes of Muhammad Hadi Yusufali."
+      content="Muhammad Hadi Yusufali, also known as M Hadi, is a filmmaker, creator, and Chief of Staff at sync. labs working across story, video, creative technology, and digital media."
     />
-    <meta name="theme-color" content="#11100d" />
+    <meta
+      name="keywords"
+      content="Muhammad Hadi Yusufali, M Hadi, mhadi, mhadifilms, filmmaker, creator, sync labs, Journey Tellers, Awaiten Films, video production, storytelling, creative technology"
+    />
+    <meta name="author" content="Muhammad Hadi Yusufali" />
+    <meta name="theme-color" content="#fffff6" />
+    <link rel="canonical" href="https://mhadifilms.com/" />
+    <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
     <meta property="og:type" content="website" />
     <meta property="og:title" content="Muhammad Hadi Yusufali" />
     <meta
       property="og:description"
-      content="A fast, CMS-backed personal website for writing, projects, and creative systems."
+      content="The personal site of Muhammad Hadi Yusufali: creator, filmmaker, and operator at the intersection of tech and creativity."
     />
+    <meta property="og:url" content="https://mhadifilms.com/" />
+    <meta property="og:site_name" content="mhadifilms.com" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:image" content="https://mhadifilms.com/media/figma-mhadi-camera.png" />
+    <meta property="og:image:alt" content="A black-and-white photo strip from Muhammad Hadi Yusufali's creative work." />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Muhammad Hadi Yusufali" />
+    <meta
+      name="twitter:description"
+      content="Creator, filmmaker, and Chief of Staff at sync. labs working across story, video, creative technology, and digital media."
+    />
+    <meta name="twitter:image" content="https://mhadifilms.com/media/figma-mhadi-camera.png" />
+    <meta name="twitter:creator" content="@mhadifilms" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Raleway:wght@300;400;500;600;700&display=swap"
       rel="stylesheet"
     />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "Person",
+            "@id": "https://mhadifilms.com/#person",
+            "name": "Muhammad Hadi Yusufali",
+            "alternateName": ["M Hadi", "mhadi", "mhadifilms"],
+            "url": "https://mhadifilms.com/",
+            "email": "mailto:hello@mhadifilms.com",
+            "jobTitle": "Chief of Staff at sync. labs",
+            "description": "Muhammad Hadi Yusufali is a filmmaker and creator experimenting across digital media, storytelling, video production, creative technology, and operations.",
+            "image": "https://mhadifilms.com/media/figma-mhadi-camera.png",
+            "sameAs": [
+              "https://www.linkedin.com/in/mhadi",
+              "https://twitter.com/mhadifilms",
+              "https://www.instagram.com/mhadifilms",
+              "https://mhadi.substack.com",
+              "https://www.youtube.com/@mhadifilms"
+            ],
+            "knowsAbout": [
+              "Filmmaking",
+              "Digital media",
+              "Video production",
+              "Storytelling",
+              "Creative technology",
+              "Podcasting",
+              "Operations"
+            ],
+            "worksFor": {
+              "@type": "Organization",
+              "name": "sync. labs",
+              "url": "https://sync.so"
+            }
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://mhadifilms.com/#website",
+            "url": "https://mhadifilms.com/",
+            "name": "mhadifilms.com",
+            "description": "The personal site, work archive, and story of Muhammad Hadi Yusufali.",
+            "inLanguage": "en-US",
+            "publisher": { "@id": "https://mhadifilms.com/#person" }
+          },
+          {
+            "@type": "ProfilePage",
+            "@id": "https://mhadifilms.com/#profile",
+            "url": "https://mhadifilms.com/",
+            "name": "Muhammad Hadi Yusufali",
+            "description": "A profile and work archive for Muhammad Hadi Yusufali, also known as M Hadi.",
+            "inLanguage": "en-US",
+            "isPartOf": { "@id": "https://mhadifilms.com/#website" },
+            "mainEntity": { "@id": "https://mhadifilms.com/#person" }
+          }
+        ]
+      }
+    </script>
     <title>Muhammad Hadi Yusufali</title>
   </head>
   <body>
     <div id="root"></div>
+    <noscript>
+      <main>
+        <h1>Muhammad Hadi Yusufali</h1>
+        <p>
+          M Hadi is a creator experimenting across many mediums at the intersection of tech and creativity.
+          He is Chief of Staff at sync. labs and works across filmmaking, storytelling, video production,
+          podcasting, and creative technology.
+        </p>
+        <nav aria-label="Primary sections">
+          <a href="/">Home</a>
+          <a href="/about">About</a>
+          <a href="/experiences">Experiences</a>
+          <a href="/archives">Archives</a>
+        </nav>
+      </main>
+    </noscript>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
