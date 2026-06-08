@@ -1,0 +1,42 @@
+name: Sync social archives
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "17 10 * * *"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: "sync-archives"
+  cancel-in-progress: true
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Set up Node
+        uses: actions/setup-node@v6
+        with:
+          node-version: lts/*
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Sync public archive feeds
+        run: npm run archives:sync
+
+      - name: Rebuild generated content
+        run: npm run content:build
+
+      - name: Commit archive updates
+        uses: stefanzweifel/git-auto-commit-action@v7
+        with:
+          commit_message: Sync public social archives
+          file_pattern: content/archives/*.md src/content/generated.ts

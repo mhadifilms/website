@@ -14,7 +14,7 @@ const PLATFORM_ORDER: ArchivePlatform[] = ["Linkedin", "Twitter", "Instagram", "
 export function ArchivesSection() {
   const ref = useRef<HTMLDivElement>(null)
   const { opacity, scale, translateY } = useSectionMotion(ref)
-  const [active, setActive] = useState<ArchivePlatform>("Instagram")
+  const [active, setActive] = useState<ArchivePlatform>("YouTube")
 
   const platforms = useMemo<ArchivePlatform[]>(() => {
     const present = new Set<ArchivePlatform>(archives.map((item) => item.platform))

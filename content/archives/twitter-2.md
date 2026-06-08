@@ -1,8 +1,8 @@
 ---
 slug: twitter-2
 platform: Twitter
-title: Sync. labs shipped a new model
-date: 2026-04-18
-href: https://twitter.com/mhadifilms
-summary: Quick reaction to the latest release.
+title: Building-in-public updates
+date: 2026-06-06
+href: https://x.com/mhadifilms
+summary: Follow quick updates from experiments across software, post-production tooling, and creative workflows.
 ---

@@ -38,11 +38,11 @@ export const site = {
   "socials": [
     {
       "label": "Linkedin",
-      "href": "https://www.linkedin.com/in/mhadi"
+      "href": "https://www.linkedin.com/in/mhadimedia"
     },
     {
       "label": "Twitter",
-      "href": "https://twitter.com/mhadifilms"
+      "href": "https://x.com/mhadifilms"
     },
     {
       "label": "Instagram",
@@ -61,37 +61,39 @@ export const site = {
 
 export const experiences = [
   {
-    "title": "Chief of Staff & Head of Story at sync.",
+    "title": "Chief of Staff & Head of Production at sync.",
     "slug": "sync-labs",
     "company": "sync.",
-    "role": "Chief of Staff & Head of Story",
+    "role": "Chief of Staff & Head of Production",
     "location": "San Francisco, CA",
     "dateStart": "2024",
-    "summary": "Building the team and the narrative behind sync. — the research lab modifying humans in video.",
+    "summary": "Building operations, production systems, and the story behind sync. — a studio-grade lipsync and visual dubbing company modifying humans in video.",
     "tags": [
       "operations",
-      "storytelling",
-      "brand",
-      "product"
+      "production",
+      "product",
+      "ai video"
     ],
     "href": "https://sync.so",
-    "html": ""
+    "html": "<p>At sync. I work across the parts of a startup that need both taste and execution: production workflows, customer-facing delivery, team operations, and narrative. The company builds studio-grade lipsync and visual dubbing technology for video projects where quality has to hold up under real production pressure.</p>\n<p>Highlights:</p>\n<ul>\n<li>Helped shape production and operations as sync. moved from research lab energy into customer-facing workflows.</li>\n<li>Worked at the intersection of AI video, creative production, product feedback, and company-building.</li>\n<li>Brought a filmmaker&#39;s eye to a technical product where the last 5% of quality is the difference between impressive and usable.</li>\n</ul>\n"
   },
   {
-    "title": "Co-Host at Journey Tellers",
+    "title": "Founder & Host at Journey Tellers",
     "slug": "journey-tellers",
     "company": "Journey Tellers",
-    "role": "Co-Host & Producer",
+    "role": "Founder, Host & Producer",
     "location": "Worldwide",
     "dateStart": "2023",
-    "summary": "A podcast on reading, writing, and celebrating the story of the Muslim West, with co-host Ali Almathkur.",
+    "dateEnd": "2025",
+    "summary": "Founded and hosted a long-form podcast on real people, real stories, and the story of the Muslim West with co-host Ali Almathkur.",
     "tags": [
       "podcast",
       "storytelling",
+      "production",
       "audio"
     ],
     "href": "https://jtpodcast.com",
-    "html": ""
+    "html": "<p>Journey Tellers was built around a simple premise: real people, real stories, real insights. I co-hosted with Ali Almathkur and helped shape the show across research, guest conversations, production, editing, and distribution.</p>\n<p>Highlights:</p>\n<ul>\n<li>Hosted conversations with founders, community builders, creatives, and people carrying under-told stories.</li>\n<li>Produced episodes for YouTube and major podcast platforms, balancing narrative depth with accessible long-form media.</li>\n<li>Built the project as both a creative outlet and a way to document the story of the Muslim West from the inside.</li>\n</ul>\n"
   },
   {
     "title": "Co-Founder at Awaiten Films",
@@ -99,15 +101,16 @@ export const experiences = [
     "company": "Awaiten Films",
     "role": "Co-Founder",
     "location": "Bay Area, CA",
-    "dateStart": "2022",
-    "summary": "A Bay Area production company built with Aalyan Aamir, focused on quality multimedia work at prices that make sense.",
+    "dateStart": "2018",
+    "summary": "Co-founded a Bay Area creative production studio with Aalyan Aamir, focused on real stories, polished visuals, and accessible multimedia work.",
     "tags": [
       "production",
       "directing",
-      "editing"
+      "editing",
+      "cinematography"
     ],
-    "href": "https://awaiten.co",
-    "html": ""
+    "href": "https://awaiten.com",
+    "html": "<p>Awaiten is where a lot of my filmmaking muscles were built: working with clients, shaping stories, shooting in imperfect conditions, editing under deadlines, and learning how to make good work sustainable.</p>\n<p>Highlights:</p>\n<ul>\n<li>Co-founded the studio with Aalyan Aamir to make high-quality multimedia production more accessible.</li>\n<li>Worked across directing, cinematography, editing, motion graphics, and client delivery.</li>\n<li>Helped produce community, brand, documentary, and event work that collectively reached 1M+ views.</li>\n</ul>\n"
   },
   {
     "title": "Selected past collaborators",
@@ -116,14 +119,14 @@ export const experiences = [
     "role": "Editor, VFX, Producer",
     "dateStart": "2017",
     "dateEnd": "2023",
-    "summary": "Years of multimedia work across community, brand, and documentary — from the Wondertime show to the ALI website to short documentaries with Loquat.",
+    "summary": "Years of multimedia work across community, brand, web, documentary, and nonprofit projects — from shows and short films to websites and campaigns.",
     "tags": [
       "editing",
       "vfx",
       "producing",
       "community"
     ],
-    "html": ""
+    "html": "<p>Before the current chapter, I built range by saying yes to hard creative problems: editing shows, producing short documentaries, designing web experiences, helping with brand launches, and contributing wherever a project needed technical taste.</p>\n<p>Selected areas:</p>\n<ul>\n<li>Editing and visual effects for community and documentary projects.</li>\n<li>Web and creative systems work for organizations and early-stage ideas.</li>\n<li>Production support for collaborators including Wondertime, ALI, SABA, Loquat, and others.</li>\n</ul>\n"
   },
   {
     "title": "Filmmaker & Editor (Freelance)",
@@ -132,176 +135,157 @@ export const experiences = [
     "role": "Filmmaker, Editor, VFX",
     "location": "Worldwide",
     "dateStart": "2017",
-    "summary": "Seven-plus years contributing to hundreds of projects — video editing, visual effects, and directing for clients across the country and abroad.",
+    "summary": "Eight-plus years contributing to hundreds of projects across video editing, visual effects, cinematography, directing, and creative problem-solving.",
     "tags": [
       "editing",
       "vfx",
       "directing",
       "cinematography"
     ],
-    "html": ""
+    "html": "<p>Freelance work taught me the full stack of production: finding the story, planning the shoot, capturing the image, shaping the edit, cleaning the details, and delivering something people actually want to watch.</p>\n<p>What this includes:</p>\n<ul>\n<li>Video editing, color, sound cleanup, titles, and motion graphics.</li>\n<li>Camera operation and directing for documentary, event, brand, and community work.</li>\n<li>Practical creative problem-solving across small teams, tight budgets, and ambitious ideas.</li>\n</ul>\n"
   }
 ] satisfies Experience[]
 
 export const archives = [
   {
-    "slug": "substack-1",
-    "platform": "Substack",
-    "title": "Writing my story as you read it",
-    "date": "2026-05-09T00:00:00.000Z",
-    "href": "https://mhadi.substack.com",
-    "summary": "An intro essay on this site and what comes next."
-  },
-  {
-    "slug": "twitter-1",
-    "platform": "Twitter",
-    "title": "Notes on building creative tools",
-    "date": "2026-05-02T00:00:00.000Z",
-    "href": "https://twitter.com/mhadifilms",
-    "summary": "A short thread on building tools for creators that don't suck."
-  },
-  {
-    "slug": "substack-3",
-    "platform": "Substack",
-    "title": "Letters from a chief of staff",
-    "date": "2026-04-30T00:00:00.000Z",
-    "href": "https://mhadi.substack.com",
-    "summary": "A monthly note on what I'm learning in the room with founders and engineers."
-  },
-  {
-    "slug": "twitter-4",
-    "platform": "Twitter",
-    "title": "Shot of the day",
-    "date": "2026-04-22T00:00:00.000Z",
-    "href": "https://twitter.com/mhadifilms",
-    "summary": "A frame from an unreleased short. Still figuring out how it ends."
-  },
-  {
-    "slug": "twitter-2",
-    "platform": "Twitter",
-    "title": "Sync. labs shipped a new model",
-    "date": "2026-04-18T00:00:00.000Z",
-    "href": "https://twitter.com/mhadifilms",
-    "summary": "Quick reaction to the latest release."
-  },
-  {
     "slug": "instagram-1",
     "platform": "Instagram",
-    "title": "On set, late golden hour",
-    "date": "2026-04-12T00:00:00.000Z",
+    "title": "Instagram: @mhadifilms",
+    "date": "2026-06-07T00:00:00.000Z",
     "href": "https://www.instagram.com/mhadifilms",
-    "summary": "Behind the camera on a shoot in the hills."
-  },
-  {
-    "slug": "instagram-2",
-    "platform": "Instagram",
-    "title": "A frame from the new piece",
-    "date": "2026-03-29T00:00:00.000Z",
-    "href": "https://www.instagram.com/mhadifilms",
-    "summary": "Still from the latest short."
-  },
-  {
-    "slug": "youtube-2",
-    "platform": "YouTube",
-    "title": "Inside sync. labs — a year of building",
-    "date": "2026-03-18T00:00:00.000Z",
-    "href": "https://www.youtube.com/@mhadifilms",
-    "summary": "An informal walkthrough of what we shipped, what broke, and what's next."
-  },
-  {
-    "slug": "instagram-3",
-    "platform": "Instagram",
-    "title": "Camera test, 35mm",
-    "date": "2026-03-10T00:00:00.000Z",
-    "href": "https://www.instagram.com/mhadifilms",
-    "summary": "Quick test with a new lens."
-  },
-  {
-    "slug": "substack-2",
-    "platform": "Substack",
-    "title": "The director as a prompt engineer",
-    "date": "2026-03-02T00:00:00.000Z",
-    "href": "https://mhadi.substack.com",
-    "summary": "How direction translates almost one-to-one to the prompts we write at sync."
-  },
-  {
-    "slug": "instagram-4",
-    "platform": "Instagram",
-    "title": "Studio, around midnight",
-    "date": "2026-02-22T00:00:00.000Z",
-    "href": "https://www.instagram.com/mhadifilms",
-    "summary": "Long edit nights."
-  },
-  {
-    "slug": "linkedin-4",
-    "platform": "Linkedin",
-    "title": "Talks I gave this season",
-    "date": "2026-02-18T00:00:00.000Z",
-    "href": "https://www.linkedin.com/in/mhadi",
-    "summary": "Three campuses, two studios, one panel — slides + recordings inside."
-  },
-  {
-    "slug": "twitter-3",
-    "platform": "Twitter",
-    "title": "A thread on lip-sync as a UX problem",
-    "date": "2026-01-09T00:00:00.000Z",
-    "href": "https://twitter.com/mhadifilms",
-    "summary": "Why getting the mouth right matters more than the rest of the face."
-  },
-  {
-    "slug": "youtube-1",
-    "platform": "YouTube",
-    "title": "A short film, one year later",
-    "date": "2026-01-08T00:00:00.000Z",
-    "href": "https://www.youtube.com/@mhadifilms",
-    "summary": "A look back at the making of last year's short."
-  },
-  {
-    "slug": "substack-4",
-    "platform": "Substack",
-    "title": "Things I wish I knew at twenty",
-    "date": "2025-12-12T00:00:00.000Z",
-    "href": "https://mhadi.substack.com",
-    "summary": "A short list, written for someone who isn't me anymore."
-  },
-  {
-    "slug": "linkedin-2",
-    "platform": "Linkedin",
-    "title": "How creative teams ship faster with AI tooling",
-    "date": "2025-11-20T00:00:00.000Z",
-    "href": "https://www.linkedin.com/in/mhadi",
-    "summary": "Notes from a year of pairing filmmakers with model‑native workflows."
-  },
-  {
-    "slug": "youtube-3",
-    "platform": "YouTube",
-    "title": "How I cut a 3-minute short in a day",
-    "date": "2025-10-04T00:00:00.000Z",
-    "href": "https://www.youtube.com/@mhadifilms",
-    "summary": "A start-to-finish edit, no music license drama — promise."
-  },
-  {
-    "slug": "linkedin-3",
-    "platform": "Linkedin",
-    "title": "Hiring at sync. labs — Founding Researcher",
-    "date": "2025-08-04T00:00:00.000Z",
-    "href": "https://www.linkedin.com/in/mhadi",
-    "summary": "We're a small team building generative video models — come help us push them out the door."
-  },
-  {
-    "slug": "youtube-4",
-    "platform": "YouTube",
-    "title": "A small interview with a big filmmaker",
-    "date": "2025-07-22T00:00:00.000Z",
-    "href": "https://www.youtube.com/@mhadifilms",
-    "summary": "An hour of conversation with someone whose work raised me."
+    "summary": "Behind-the-scenes filmmaking, production stills, travel frames, and visual experiments."
   },
   {
     "slug": "linkedin-1",
     "platform": "Linkedin",
-    "title": "Joined sync. labs as Chief of Staff",
-    "date": "2024-06-15T00:00:00.000Z",
-    "href": "https://www.linkedin.com/in/mhadi",
-    "summary": "Thrilled to be helping build the technology that modifies humans in video."
+    "title": "Muhammad Hadi Yusufali on LinkedIn",
+    "date": "2026-06-07T00:00:00.000Z",
+    "href": "https://www.linkedin.com/in/mhadimedia",
+    "summary": "Public profile for work across sync., Awaiten, Journey Tellers, filmmaking, editing, and creative technology."
+  },
+  {
+    "slug": "linkedin-2",
+    "platform": "Linkedin",
+    "title": "DaVinci Resolve MCP post",
+    "date": "2026-06-07T00:00:00.000Z",
+    "href": "https://www.linkedin.com/posts/mhadifilms_i-built-a-davinci-resolve-mcp-so-claude-can-activity-7455733839189946368-QHAG",
+    "summary": "A public LinkedIn post on building a DaVinci Resolve MCP so Claude can work with editing timelines."
+  },
+  {
+    "slug": "twitter-1",
+    "platform": "Twitter",
+    "title": "X: @mhadifilms",
+    "date": "2026-06-07T00:00:00.000Z",
+    "href": "https://x.com/mhadifilms",
+    "summary": "Short-form notes on creative tools, AI video, filmmaking, and whatever is being built that week."
+  },
+  {
+    "slug": "instagram-2",
+    "platform": "Instagram",
+    "title": "Production stills and frames",
+    "date": "2026-06-06T00:00:00.000Z",
+    "href": "https://www.instagram.com/mhadifilms",
+    "summary": "A visual feed for frames from shoots, camera tests, edits, and everyday production work."
+  },
+  {
+    "slug": "linkedin-3",
+    "platform": "Linkedin",
+    "title": "sync. work updates",
+    "date": "2026-06-06T00:00:00.000Z",
+    "href": "https://www.linkedin.com/in/mhadimedia",
+    "summary": "Follow role updates from Chief of Staff and Head of Production work at sync., a studio-grade lipsync and visual dubbing company."
+  },
+  {
+    "slug": "twitter-2",
+    "platform": "Twitter",
+    "title": "Building-in-public updates",
+    "date": "2026-06-06T00:00:00.000Z",
+    "href": "https://x.com/mhadifilms",
+    "summary": "Follow quick updates from experiments across software, post-production tooling, and creative workflows."
+  },
+  {
+    "slug": "instagram-3",
+    "platform": "Instagram",
+    "title": "Short-form creative updates",
+    "date": "2026-06-05T00:00:00.000Z",
+    "href": "https://www.instagram.com/mhadifilms",
+    "summary": "Follow lightweight updates that do not become full essays, videos, or portfolio projects."
+  },
+  {
+    "slug": "linkedin-4",
+    "platform": "Linkedin",
+    "title": "Film, AI, and creator tooling notes",
+    "date": "2026-06-05T00:00:00.000Z",
+    "href": "https://www.linkedin.com/in/mhadimedia/recent-activity/all/",
+    "summary": "Recent LinkedIn activity around filmmaking, AI video workflows, creative tools, and startup operations."
+  },
+  {
+    "slug": "twitter-3",
+    "platform": "Twitter",
+    "title": "Film and AI video notes",
+    "date": "2026-06-05T00:00:00.000Z",
+    "href": "https://x.com/mhadifilms",
+    "summary": "Short thoughts on lipsync, visual dubbing, editing, models, and the UX of media creation."
+  },
+  {
+    "slug": "instagram-4",
+    "platform": "Instagram",
+    "title": "Filmmaking snapshots",
+    "date": "2026-06-04T00:00:00.000Z",
+    "href": "https://www.instagram.com/mhadifilms",
+    "summary": "A profile-connected archive for visual work until Instagram API access is configured."
+  },
+  {
+    "slug": "twitter-4",
+    "platform": "Twitter",
+    "title": "Live creative scratchpad",
+    "date": "2026-06-04T00:00:00.000Z",
+    "href": "https://x.com/mhadifilms",
+    "summary": "A profile-connected stream for small observations that do not need a full post or video."
+  },
+  {
+    "slug": "substack-post-1",
+    "platform": "Substack",
+    "title": "من الرباط إلى الضريح: القصة التي لا تُروى",
+    "date": "2026-05-01",
+    "href": "https://mhadi.substack.com/p/295",
+    "image": "https://substackcdn.com/image/fetch/$s_!WTVJ!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F1af4c0cc-5f65-4234-a3f3-554a73eca46e_1376x768.png",
+    "summary": "كيف روّضت السلطة روح الصوفية تمهيد: ماذا نعني بـ”الترويض”؟ قبل أن تقرأ سطرًا واحدًا، لا بدّ من تحديد المقصود بكلمة “روّضت” في هذه القصة، حتى لا يُساء فهمها...."
+  },
+  {
+    "slug": "youtube-we-spent-a-week-exploring-tanzania-1",
+    "platform": "YouTube",
+    "title": "We Spent a Week Exploring Tanzania",
+    "date": "2025-09-27",
+    "href": "https://www.youtube.com/watch?v=Vy6LJhDH3Bk",
+    "image": "https://i3.ytimg.com/vi/Vy6LJhDH3Bk/hqdefault.jpg",
+    "summary": "A few months ago, I had the chance to travel to Tanzania with friends for a week. Join us we chill with lions, swim with dolphins, visit one of the biggest..."
+  },
+  {
+    "slug": "youtube-two-weeks-in-the-middle-east-with-my-school-part-3-2",
+    "platform": "YouTube",
+    "title": "Two Weeks in the Middle East with My School (Part 3)",
+    "date": "2024-12-21",
+    "href": "https://www.youtube.com/watch?v=6EblOyuUj34",
+    "image": "https://i3.ytimg.com/vi/6EblOyuUj34/hqdefault.jpg",
+    "summary": "Watch part two first: https://youtu.be/TCrVwEoOvMk During the winter break of 2023, I went on a life-changing trip to the Middle East along with my high school..."
+  },
+  {
+    "slug": "youtube-two-weeks-in-the-middle-east-with-my-school-part-2-3",
+    "platform": "YouTube",
+    "title": "Two Weeks in the Middle East with My School (Part 2)",
+    "date": "2024-11-28",
+    "href": "https://www.youtube.com/watch?v=TCrVwEoOvMk",
+    "image": "https://i1.ytimg.com/vi/TCrVwEoOvMk/hqdefault.jpg",
+    "summary": "Watch the part one: https://youtu.be/iPT8JzCvBTE During the winter break of 2023, I went on a life-changing trip to the Middle East along with my high school..."
+  },
+  {
+    "slug": "youtube-we-turned-a-youth-camp-into-a-documentary-4",
+    "platform": "YouTube",
+    "title": "We Turned a Youth Camp into a Documentary",
+    "date": "2024-10-31",
+    "href": "https://www.youtube.com/watch?v=04p3ls98W7Y",
+    "image": "https://i1.ytimg.com/vi/04p3ls98W7Y/hqdefault.jpg",
+    "summary": "Watch the full documentary on @JourneyTellers: https://www.youtube.com/watch?v=zkvAHvcw8DE In May 2024, the Journey Tellers team partnered with Camp Noor to..."
   }
 ] satisfies ArchiveItem[]

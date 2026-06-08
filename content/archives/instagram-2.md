@@ -1,8 +1,8 @@
 ---
 slug: instagram-2
 platform: Instagram
-title: A frame from the new piece
-date: 2026-03-29
+title: Production stills and frames
+date: 2026-06-06
 href: https://www.instagram.com/mhadifilms
-summary: Still from the latest short.
+summary: A visual feed for frames from shoots, camera tests, edits, and everyday production work.
 ---

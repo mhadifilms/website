@@ -1,8 +1,8 @@
 ---
 slug: linkedin-3
 platform: Linkedin
-title: Hiring at sync. labs — Founding Researcher
-date: 2025-08-04
-href: https://www.linkedin.com/in/mhadi
-summary: We're a small team building generative video models — come help us push them out the door.
+title: sync. work updates
+date: 2026-06-06
+href: https://www.linkedin.com/in/mhadimedia
+summary: Follow role updates from Chief of Staff and Head of Production work at sync., a studio-grade lipsync and visual dubbing company.
 ---

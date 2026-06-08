@@ -45,7 +45,7 @@ export function Timeline({ items, className }: TimelineProps) {
         role="tablist"
         aria-label="Experiences"
         aria-orientation="vertical"
-        className="flex gap-3 overflow-x-auto pb-2 [scrollbar-width:none] lg:flex-col lg:gap-6 lg:overflow-visible lg:pb-0 [&::-webkit-scrollbar]:hidden"
+        className="scrollbar-none flex gap-3 overflow-x-auto pb-2 lg:flex-col lg:gap-6 lg:overflow-visible lg:pb-0 [&::-webkit-scrollbar]:hidden"
       >
         {items.map((item) => {
           const isActive = item.slug === active.slug
@@ -97,7 +97,7 @@ function TimelineEntry({ item }: TimelineEntryProps) {
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -8 }}
       transition={{ duration: 0.38, ease: [0.22, 1, 0.36, 1] }}
-      className="min-h-[360px] border-l border-[#c0bca9]/35 pl-8 text-left sm:pl-10"
+      className="min-h-[360px] border-l border-accent/35 pl-8 text-left sm:pl-10"
     >
       <p className="text-sm font-light uppercase tracking-[0.28em] text-black/45">
         {formatDateRange(item.dateStart, item.dateEnd)}
@@ -112,12 +112,19 @@ function TimelineEntry({ item }: TimelineEntryProps) {
         {item.summary}
       </p>
 
+      {item.html && (
+        <div
+          className="prose-content mt-7 max-w-[680px] text-base font-light leading-7 text-black/70 sm:text-lg sm:leading-8"
+          dangerouslySetInnerHTML={{ __html: item.html }}
+        />
+      )}
+
       {item.tags && item.tags.length > 0 && (
         <ul className="mt-8 flex flex-wrap gap-3">
           {item.tags.map((tag) => (
             <li
               key={tag}
-              className="rounded-full bg-[#c0bca9]/20 px-4 py-2 text-xs font-light uppercase tracking-[0.2em] text-black/55"
+              className="rounded-full bg-accent/20 px-4 py-2 text-xs font-light uppercase tracking-[0.2em] text-black/55"
             >
               {tag}
             </li>

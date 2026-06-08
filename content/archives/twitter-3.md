@@ -1,8 +1,8 @@
 ---
 slug: twitter-3
 platform: Twitter
-title: A thread on lip-sync as a UX problem
-date: 2026-01-09
-href: https://twitter.com/mhadifilms
-summary: Why getting the mouth right matters more than the rest of the face.
+title: Film and AI video notes
+date: 2026-06-05
+href: https://x.com/mhadifilms
+summary: Short thoughts on lipsync, visual dubbing, editing, models, and the UX of media creation.
 ---

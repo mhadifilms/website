@@ -8,6 +8,7 @@
     "build": "npm run content:build && tsc -b && vite build && cp dist/index.html dist/404.html",
     "lint": "eslint .",
     "preview": "vite preview",
+    "archives:sync": "node scripts/sync-archives.mjs",
     "content:build": "node scripts/build-content.mjs",
     "typecheck": "tsc -b"
   },

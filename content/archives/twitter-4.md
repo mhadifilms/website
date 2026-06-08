@@ -1,8 +1,8 @@
 ---
 slug: twitter-4
 platform: Twitter
-title: Shot of the day
-date: 2026-04-22
-href: https://twitter.com/mhadifilms
-summary: A frame from an unreleased short. Still figuring out how it ends.
+title: Live creative scratchpad
+date: 2026-06-04
+href: https://x.com/mhadifilms
+summary: A profile-connected stream for small observations that do not need a full post or video.
 ---

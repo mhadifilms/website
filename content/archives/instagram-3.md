@@ -1,8 +1,8 @@
 ---
 slug: instagram-3
 platform: Instagram
-title: Camera test, 35mm
-date: 2026-03-10
+title: Short-form creative updates
+date: 2026-06-05
 href: https://www.instagram.com/mhadifilms
-summary: Quick test with a new lens.
+summary: Follow lightweight updates that do not become full essays, videos, or portfolio projects.
 ---
