@@ -1,4 +1,5 @@
 import { useCallback, useRef } from "react"
+import { m } from "framer-motion"
 
 import type { ArchivePlatform } from "@/content/types"
 import { cn } from "@/lib/utils"
@@ -37,19 +38,22 @@ export function SocialSwitcher({ platforms, active, onSelect, className, icons }
       role="tablist"
       aria-label="Archives by platform"
       className={cn(
-        "flex max-w-full flex-row gap-6 overflow-x-auto pb-2 [scrollbar-width:none] lg:flex-col lg:items-start lg:gap-[37px] lg:overflow-visible lg:pb-0 [&::-webkit-scrollbar]:hidden",
+        "scrollbar-none flex max-w-full flex-row gap-6 overflow-x-auto pb-2 lg:flex-col lg:items-start lg:gap-[37px] lg:overflow-visible lg:pb-0 [&::-webkit-scrollbar]:hidden",
         className,
       )}
     >
       {platforms.map((platform, index) => {
         const isActive = platform === active
         return (
-          <button
+          <m.button
             key={platform}
             ref={(node) => {
               buttonsRef.current[index] = node
             }}
             type="button"
+            whileHover={!isActive ? { y: -1 } : undefined}
+            whileTap={{ scale: 0.985 }}
+            transition={{ duration: 0.16, ease: [0.22, 1, 0.36, 1] }}
             role="tab"
             id={`archive-tab-${platform}`}
             aria-selected={isActive}
@@ -71,7 +75,15 @@ export function SocialSwitcher({ platforms, active, onSelect, className, icons }
               </span>
             )}
             <span>{platform}</span>
-          </button>
+            {isActive && (
+              <m.span
+                layoutId="archive-platform-underline"
+                aria-hidden="true"
+                className="absolute -bottom-2 left-0 h-px w-full bg-black"
+                transition={{ type: "spring", stiffness: 420, damping: 34 }}
+              />
+            )}
+          </m.button>
         )
       })}
     </div>

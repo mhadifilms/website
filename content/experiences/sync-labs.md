@@ -1,23 +1,24 @@
 ---
-title: Chief of Staff & Head of Production at sync.
+title: Chief of Staff & Head of Production at sync. labs
 slug: sync-labs
-company: sync.
+company: sync. labs
 role: Chief of Staff & Head of Production
 location: San Francisco, CA
 dateStart: "2024"
-summary: Building operations, production systems, and the story behind sync. — a studio-grade lipsync and visual dubbing company modifying humans in video.
+summary: Helping sync. labs turn high-end AI video research into production work that can survive real clients, real footage, and real deadlines.
 tags:
   - operations
   - production
   - product
   - ai video
 href: https://sync.so
+logo: /media/figma-mhadi-camera.png
 ---
 
-At sync. I work across the parts of a startup that need both taste and execution: production workflows, customer-facing delivery, team operations, and narrative. The company builds studio-grade lipsync and visual dubbing technology for video projects where quality has to hold up under real production pressure.
+At sync. labs, my job sits between the product, the team, and the work that leaves the building. I help shape production workflows, customer delivery, internal operations, and the story we tell around the technology.
 
 Highlights:
 
-- Helped shape production and operations as sync. moved from research lab energy into customer-facing workflows.
-- Worked at the intersection of AI video, creative production, product feedback, and company-building.
-- Brought a filmmaker's eye to a technical product where the last 5% of quality is the difference between impressive and usable.
+- Built systems around messy, high-stakes creative work instead of treating video like a clean demo.
+- Worked closely with product feedback, production needs, and the company narrative.
+- Brought an editor's eye to AI video, where a few frames can be the difference between impressive and believable.

@@ -4,5 +4,6 @@ platform: Twitter
 title: "X: @mhadifilms"
 date: 2026-06-07
 href: https://x.com/mhadifilms
+image: /media/polaroid-camera.webp
 summary: Short-form notes on creative tools, AI video, filmmaking, and whatever is being built that week.
 ---

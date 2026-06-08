@@ -104,12 +104,18 @@ function parseSubstack(xml, limit) {
   })
 }
 
+function youtubeWideThumbnail(href = "", fallback = "") {
+  const id = href.match(/[?&]v=([^&]+)/)?.[1] ?? fallback.match(/\/vi\/([^/]+)/)?.[1]
+  if (!id) return fallback
+  return `https://i.ytimg.com/vi/${id}/hq720.jpg`
+}
+
 function parseYouTube(xml, limit) {
   return matchAll(xml, "entry").slice(0, limit).map((entry, index) => {
     const title = matchOne(entry, "title")
     const href = matchAttr(entry, "link", "href")
     const date = new Date(matchOne(entry, "published")).toISOString().slice(0, 10)
-    const image = matchAttr(entry, "media:thumbnail", "url")
+    const image = youtubeWideThumbnail(href, matchAttr(entry, "media:thumbnail", "url"))
     const description = matchOne(entry, "media:description")
     return {
       slug: `youtube-${slugify(title)}-${index + 1}`,

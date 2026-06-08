@@ -97,9 +97,12 @@ export function useSectionRouter(sections: SectionDescriptor[]): SectionRouterSt
         if (bestId && bestRatio > 0.18) {
           setActiveId((prev) => (prev === bestId ? prev : bestId))
           const section = sections.find((s) => s.id === bestId)
-          if (section && section.path !== lastPushedPathRef.current) {
-            window.history.replaceState(null, "", section.path)
-            lastPushedPathRef.current = section.path
+          if (section) {
+            const path = section.id === "experiences" && window.location.hash ? `${section.path}${window.location.hash}` : section.path
+            if (path !== lastPushedPathRef.current) {
+              window.history.replaceState(null, "", path)
+              lastPushedPathRef.current = path
+            }
           }
         }
       },

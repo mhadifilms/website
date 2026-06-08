@@ -66,12 +66,15 @@ export function PillNav() {
           {sections.map((section, index) => {
             const isActive = section.id === activeId
             return (
-              <a
+              <m.a
                 key={section.id}
                 ref={(node) => {
                   linksRef.current[index] = node
                 }}
                 href={section.path}
+                whileHover={{ y: -1 }}
+                whileTap={{ scale: 0.98 }}
+                transition={{ duration: 0.16, ease: [0.22, 1, 0.36, 1] }}
                 aria-current={isActive ? "page" : undefined}
                 onClick={(event) => {
                   event.preventDefault()
@@ -79,7 +82,7 @@ export function PillNav() {
                 }}
                 onKeyDown={(event) => handleKey(event, index)}
                 className={cn(
-                  "relative isolate flex h-9 items-center justify-center rounded-full px-2 text-[13px] font-light text-black/60 transition-colors outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background sm:h-10 sm:text-sm",
+                  "relative isolate flex h-9 items-center justify-center rounded-full px-2 text-[13px] font-light text-black/60 transition-colors duration-200 outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background sm:h-10 sm:text-sm",
                   isActive && "font-normal text-black",
                 )}
               >
@@ -91,7 +94,7 @@ export function PillNav() {
                   />
                 )}
                 <span className="relative">{section.label}</span>
-              </a>
+              </m.a>
             )
           })}
         </div>

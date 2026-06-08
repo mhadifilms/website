@@ -61,13 +61,13 @@ export const site = {
 
 export const experiences = [
   {
-    "title": "Chief of Staff & Head of Production at sync.",
+    "title": "Chief of Staff & Head of Production at sync. labs",
     "slug": "sync-labs",
-    "company": "sync.",
+    "company": "sync. labs",
     "role": "Chief of Staff & Head of Production",
     "location": "San Francisco, CA",
     "dateStart": "2024",
-    "summary": "Building operations, production systems, and the story behind sync. — a studio-grade lipsync and visual dubbing company modifying humans in video.",
+    "summary": "Helping sync. labs turn high-end AI video research into production work that can survive real clients, real footage, and real deadlines.",
     "tags": [
       "operations",
       "production",
@@ -75,7 +75,8 @@ export const experiences = [
       "ai video"
     ],
     "href": "https://sync.so",
-    "html": "<p>At sync. I work across the parts of a startup that need both taste and execution: production workflows, customer-facing delivery, team operations, and narrative. The company builds studio-grade lipsync and visual dubbing technology for video projects where quality has to hold up under real production pressure.</p>\n<p>Highlights:</p>\n<ul>\n<li>Helped shape production and operations as sync. moved from research lab energy into customer-facing workflows.</li>\n<li>Worked at the intersection of AI video, creative production, product feedback, and company-building.</li>\n<li>Brought a filmmaker&#39;s eye to a technical product where the last 5% of quality is the difference between impressive and usable.</li>\n</ul>\n"
+    "logo": "/media/figma-mhadi-camera.png",
+    "html": "<p>At sync. labs, my job sits between the product, the team, and the work that leaves the building. I help shape production workflows, customer delivery, internal operations, and the story we tell around the technology.</p>\n<p>Highlights:</p>\n<ul>\n<li>Built systems around messy, high-stakes creative work instead of treating video like a clean demo.</li>\n<li>Worked closely with product feedback, production needs, and the company narrative.</li>\n<li>Brought an editor&#39;s eye to AI video, where a few frames can be the difference between impressive and believable.</li>\n</ul>\n"
   },
   {
     "title": "Founder & Host at Journey Tellers",
@@ -85,7 +86,7 @@ export const experiences = [
     "location": "Worldwide",
     "dateStart": "2023",
     "dateEnd": "2025",
-    "summary": "Founded and hosted a long-form podcast on real people, real stories, and the story of the Muslim West with co-host Ali Almathkur.",
+    "summary": "Built and hosted a long-form podcast with Ali Almathkur about real people, hard-earned lessons, and the story of the Muslim West.",
     "tags": [
       "podcast",
       "storytelling",
@@ -93,7 +94,26 @@ export const experiences = [
       "audio"
     ],
     "href": "https://jtpodcast.com",
-    "html": "<p>Journey Tellers was built around a simple premise: real people, real stories, real insights. I co-hosted with Ali Almathkur and helped shape the show across research, guest conversations, production, editing, and distribution.</p>\n<p>Highlights:</p>\n<ul>\n<li>Hosted conversations with founders, community builders, creatives, and people carrying under-told stories.</li>\n<li>Produced episodes for YouTube and major podcast platforms, balancing narrative depth with accessible long-form media.</li>\n<li>Built the project as both a creative outlet and a way to document the story of the Muslim West from the inside.</li>\n</ul>\n"
+    "logo": "/media/polaroid-podcast.webp",
+    "html": "<p>Journey Tellers started as a way to have slower, better conversations than social media usually allows. I co-hosted with Ali Almathkur and worked across guest research, interview prep, production, editing, and distribution.</p>\n<p>Highlights:</p>\n<ul>\n<li>Hosted founders, community builders, creatives, and people with stories that deserved more time.</li>\n<li>Produced episodes for YouTube and major podcast platforms.</li>\n<li>Used the show as a way to practice listening, pacing, and long-form narrative.</li>\n</ul>\n"
+  },
+  {
+    "title": "UCLA Summer Sessions",
+    "slug": "ucla-summer-sessions",
+    "company": "UCLA Summer Sessions",
+    "role": "Film & Storytelling Study",
+    "location": "Los Angeles, CA",
+    "dateStart": "2022",
+    "dateEnd": "2022",
+    "summary": "Studied film, story structure, and production craft through UCLA Summer Sessions, learning from instructors who brought a working filmmaker's eye to the classroom.",
+    "tags": [
+      "film study",
+      "storytelling",
+      "directing",
+      "craft"
+    ],
+    "logo": "/media/polaroid-beach.webp",
+    "html": "<p>UCLA helped sharpen the way I think about story before a camera ever turns on. The strongest lessons were practical: how scenes carry pressure, how performances change a cut, and how structure can make a small piece feel bigger than its budget.</p>\n<p>What stayed with me:</p>\n<ul>\n<li>A more disciplined way to break down scripts, scenes, and character motivation.</li>\n<li>Classroom critique from instructors with real production experience.</li>\n<li>A stronger foundation for the directing, editing, and documentary work I took on afterward.</li>\n</ul>\n"
   },
   {
     "title": "Co-Founder at Awaiten Films",
@@ -102,7 +122,7 @@ export const experiences = [
     "role": "Co-Founder",
     "location": "Bay Area, CA",
     "dateStart": "2018",
-    "summary": "Co-founded a Bay Area creative production studio with Aalyan Aamir, focused on real stories, polished visuals, and accessible multimedia work.",
+    "summary": "Co-founded a Bay Area production studio with Aalyan Aamir, making polished films, event pieces, and community media without losing the human part.",
     "tags": [
       "production",
       "directing",
@@ -110,7 +130,8 @@ export const experiences = [
       "cinematography"
     ],
     "href": "https://awaiten.com",
-    "html": "<p>Awaiten is where a lot of my filmmaking muscles were built: working with clients, shaping stories, shooting in imperfect conditions, editing under deadlines, and learning how to make good work sustainable.</p>\n<p>Highlights:</p>\n<ul>\n<li>Co-founded the studio with Aalyan Aamir to make high-quality multimedia production more accessible.</li>\n<li>Worked across directing, cinematography, editing, motion graphics, and client delivery.</li>\n<li>Helped produce community, brand, documentary, and event work that collectively reached 1M+ views.</li>\n</ul>\n"
+    "logo": "/media/polaroid-on-set.webp",
+    "html": "<p>Awaiten is where I learned how to make the work hold up outside of my own head. That meant working with clients, shaping stories before a shoot, filming in imperfect rooms, editing under pressure, and still caring about the final frame.</p>\n<p>Highlights:</p>\n<ul>\n<li>Co-founded the studio with Aalyan Aamir.</li>\n<li>Worked across directing, cinematography, editing, motion graphics, and delivery.</li>\n<li>Helped produce community, brand, documentary, and event work that reached 1M+ views.</li>\n</ul>\n"
   },
   {
     "title": "Selected past collaborators",
@@ -119,14 +140,15 @@ export const experiences = [
     "role": "Editor, VFX, Producer",
     "dateStart": "2017",
     "dateEnd": "2023",
-    "summary": "Years of multimedia work across community, brand, web, documentary, and nonprofit projects — from shows and short films to websites and campaigns.",
+    "summary": "Early work across community media, websites, short documentaries, nonprofit projects, and scrappy production teams.",
     "tags": [
       "editing",
       "vfx",
       "producing",
       "community"
     ],
-    "html": "<p>Before the current chapter, I built range by saying yes to hard creative problems: editing shows, producing short documentaries, designing web experiences, helping with brand launches, and contributing wherever a project needed technical taste.</p>\n<p>Selected areas:</p>\n<ul>\n<li>Editing and visual effects for community and documentary projects.</li>\n<li>Web and creative systems work for organizations and early-stage ideas.</li>\n<li>Production support for collaborators including Wondertime, ALI, SABA, Loquat, and others.</li>\n</ul>\n"
+    "logo": "/media/polaroid-mountains.webp",
+    "html": "<p>Before the current chapter, I built range by saying yes to a lot of different creative problems. Some needed an editor. Some needed a producer. Some needed a website, a visual system, or someone willing to figure it out.</p>\n<p>Selected areas:</p>\n<ul>\n<li>Editing and visual effects for community and documentary projects.</li>\n<li>Web and creative systems work for organizations and early-stage ideas.</li>\n<li>Production support for Wondertime, ALI, SABA, Loquat, and other collaborators.</li>\n</ul>\n"
   },
   {
     "title": "Filmmaker & Editor (Freelance)",
@@ -135,14 +157,15 @@ export const experiences = [
     "role": "Filmmaker, Editor, VFX",
     "location": "Worldwide",
     "dateStart": "2017",
-    "summary": "Eight-plus years contributing to hundreds of projects across video editing, visual effects, cinematography, directing, and creative problem-solving.",
+    "summary": "Eight-plus years editing, shooting, fixing, and finishing videos for clients, communities, events, and personal projects.",
     "tags": [
       "editing",
       "vfx",
       "directing",
       "cinematography"
     ],
-    "html": "<p>Freelance work taught me the full stack of production: finding the story, planning the shoot, capturing the image, shaping the edit, cleaning the details, and delivering something people actually want to watch.</p>\n<p>What this includes:</p>\n<ul>\n<li>Video editing, color, sound cleanup, titles, and motion graphics.</li>\n<li>Camera operation and directing for documentary, event, brand, and community work.</li>\n<li>Practical creative problem-solving across small teams, tight budgets, and ambitious ideas.</li>\n</ul>\n"
+    "logo": "/media/polaroid-camera.webp",
+    "html": "<p>Freelance work taught me the whole production loop. Find the story, plan what can actually be shot, capture enough to make the edit work, clean the details, and deliver something people want to watch.</p>\n<p>What this includes:</p>\n<ul>\n<li>Editing, color, sound cleanup, titles, and motion graphics.</li>\n<li>Camera operation and directing for documentary, event, brand, and community work.</li>\n<li>Practical fixes for small teams, tight budgets, bad rooms, and ambitious ideas.</li>\n</ul>\n"
   }
 ] satisfies Experience[]
 
@@ -153,6 +176,7 @@ export const archives = [
     "title": "Instagram: @mhadifilms",
     "date": "2026-06-07T00:00:00.000Z",
     "href": "https://www.instagram.com/mhadifilms",
+    "image": "/media/polaroid-on-set.webp",
     "summary": "Behind-the-scenes filmmaking, production stills, travel frames, and visual experiments."
   },
   {
@@ -161,7 +185,8 @@ export const archives = [
     "title": "Muhammad Hadi Yusufali on LinkedIn",
     "date": "2026-06-07T00:00:00.000Z",
     "href": "https://www.linkedin.com/in/mhadimedia",
-    "summary": "Public profile for work across sync., Awaiten, Journey Tellers, filmmaking, editing, and creative technology."
+    "image": "/media/figma-mhadi-camera.png",
+    "summary": "Public profile for work across sync. labs, Awaiten, Journey Tellers, filmmaking, editing, and creative technology."
   },
   {
     "slug": "linkedin-2",
@@ -169,6 +194,7 @@ export const archives = [
     "title": "DaVinci Resolve MCP post",
     "date": "2026-06-07T00:00:00.000Z",
     "href": "https://www.linkedin.com/posts/mhadifilms_i-built-a-davinci-resolve-mcp-so-claude-can-activity-7455733839189946368-QHAG",
+    "image": "/media/polaroid-camera.webp",
     "summary": "A public LinkedIn post on building a DaVinci Resolve MCP so Claude can work with editing timelines."
   },
   {
@@ -177,6 +203,7 @@ export const archives = [
     "title": "X: @mhadifilms",
     "date": "2026-06-07T00:00:00.000Z",
     "href": "https://x.com/mhadifilms",
+    "image": "/media/polaroid-camera.webp",
     "summary": "Short-form notes on creative tools, AI video, filmmaking, and whatever is being built that week."
   },
   {
@@ -185,15 +212,17 @@ export const archives = [
     "title": "Production stills and frames",
     "date": "2026-06-06T00:00:00.000Z",
     "href": "https://www.instagram.com/mhadifilms",
+    "image": "/media/polaroid-camera.webp",
     "summary": "A visual feed for frames from shoots, camera tests, edits, and everyday production work."
   },
   {
     "slug": "linkedin-3",
     "platform": "Linkedin",
-    "title": "sync. work updates",
+    "title": "sync. labs work updates",
     "date": "2026-06-06T00:00:00.000Z",
     "href": "https://www.linkedin.com/in/mhadimedia",
-    "summary": "Follow role updates from Chief of Staff and Head of Production work at sync., a studio-grade lipsync and visual dubbing company."
+    "image": "/media/figma-mhadi-camera.png",
+    "summary": "Follow role updates from Chief of Staff and Head of Production work at sync. labs, a studio-grade lipsync and visual dubbing company."
   },
   {
     "slug": "twitter-2",
@@ -201,6 +230,7 @@ export const archives = [
     "title": "Building-in-public updates",
     "date": "2026-06-06T00:00:00.000Z",
     "href": "https://x.com/mhadifilms",
+    "image": "/media/figma-mhadi-camera.png",
     "summary": "Follow quick updates from experiments across software, post-production tooling, and creative workflows."
   },
   {
@@ -209,6 +239,7 @@ export const archives = [
     "title": "Short-form creative updates",
     "date": "2026-06-05T00:00:00.000Z",
     "href": "https://www.instagram.com/mhadifilms",
+    "image": "/media/polaroid-beach.webp",
     "summary": "Follow lightweight updates that do not become full essays, videos, or portfolio projects."
   },
   {
@@ -217,6 +248,7 @@ export const archives = [
     "title": "Film, AI, and creator tooling notes",
     "date": "2026-06-05T00:00:00.000Z",
     "href": "https://www.linkedin.com/in/mhadimedia/recent-activity/all/",
+    "image": "/media/polaroid-on-set.webp",
     "summary": "Recent LinkedIn activity around filmmaking, AI video workflows, creative tools, and startup operations."
   },
   {
@@ -225,6 +257,7 @@ export const archives = [
     "title": "Film and AI video notes",
     "date": "2026-06-05T00:00:00.000Z",
     "href": "https://x.com/mhadifilms",
+    "image": "/media/polaroid-beach.webp",
     "summary": "Short thoughts on lipsync, visual dubbing, editing, models, and the UX of media creation."
   },
   {
@@ -233,6 +266,7 @@ export const archives = [
     "title": "Filmmaking snapshots",
     "date": "2026-06-04T00:00:00.000Z",
     "href": "https://www.instagram.com/mhadifilms",
+    "image": "/media/polaroid-podcast.webp",
     "summary": "A profile-connected archive for visual work until Instagram API access is configured."
   },
   {
@@ -241,6 +275,7 @@ export const archives = [
     "title": "Live creative scratchpad",
     "date": "2026-06-04T00:00:00.000Z",
     "href": "https://x.com/mhadifilms",
+    "image": "/media/polaroid-mountains.webp",
     "summary": "A profile-connected stream for small observations that do not need a full post or video."
   },
   {
@@ -258,7 +293,7 @@ export const archives = [
     "title": "We Spent a Week Exploring Tanzania",
     "date": "2025-09-27",
     "href": "https://www.youtube.com/watch?v=Vy6LJhDH3Bk",
-    "image": "https://i3.ytimg.com/vi/Vy6LJhDH3Bk/hqdefault.jpg",
+    "image": "https://i.ytimg.com/vi/Vy6LJhDH3Bk/hq720.jpg",
     "summary": "A few months ago, I had the chance to travel to Tanzania with friends for a week. Join us we chill with lions, swim with dolphins, visit one of the biggest..."
   },
   {
@@ -267,7 +302,7 @@ export const archives = [
     "title": "Two Weeks in the Middle East with My School (Part 3)",
     "date": "2024-12-21",
     "href": "https://www.youtube.com/watch?v=6EblOyuUj34",
-    "image": "https://i3.ytimg.com/vi/6EblOyuUj34/hqdefault.jpg",
+    "image": "https://i.ytimg.com/vi/6EblOyuUj34/hq720.jpg",
     "summary": "Watch part two first: https://youtu.be/TCrVwEoOvMk During the winter break of 2023, I went on a life-changing trip to the Middle East along with my high school..."
   },
   {
@@ -276,7 +311,7 @@ export const archives = [
     "title": "Two Weeks in the Middle East with My School (Part 2)",
     "date": "2024-11-28",
     "href": "https://www.youtube.com/watch?v=TCrVwEoOvMk",
-    "image": "https://i1.ytimg.com/vi/TCrVwEoOvMk/hqdefault.jpg",
+    "image": "https://i.ytimg.com/vi/TCrVwEoOvMk/hq720.jpg",
     "summary": "Watch the part one: https://youtu.be/iPT8JzCvBTE During the winter break of 2023, I went on a life-changing trip to the Middle East along with my high school..."
   },
   {
@@ -285,7 +320,7 @@ export const archives = [
     "title": "We Turned a Youth Camp into a Documentary",
     "date": "2024-10-31",
     "href": "https://www.youtube.com/watch?v=04p3ls98W7Y",
-    "image": "https://i1.ytimg.com/vi/04p3ls98W7Y/hqdefault.jpg",
+    "image": "https://i.ytimg.com/vi/04p3ls98W7Y/hq720.jpg",
     "summary": "Watch the full documentary on @JourneyTellers: https://www.youtube.com/watch?v=zkvAHvcw8DE In May 2024, the Journey Tellers team partnered with Camp Noor to..."
   }
 ] satisfies ArchiveItem[]

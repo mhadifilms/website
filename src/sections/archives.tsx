@@ -64,18 +64,21 @@ export function ArchivesSection() {
             <ArchiveGrid items={filtered} platformKey={active} />
 
             <div className="mt-8 flex justify-center">
-              <a
+              <m.a
                 href={profileHref}
                 target="_blank"
                 rel="noreferrer"
-                className="inline-flex items-center gap-2 text-2xl font-light text-[#808080] transition hover:text-black focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-4 focus-visible:ring-offset-background"
+                whileHover={{ y: -1 }}
+                whileTap={{ scale: 0.985 }}
+                transition={{ duration: 0.16, ease: [0.22, 1, 0.36, 1] }}
+                className="group inline-flex items-center gap-2 text-2xl font-light text-[#808080] transition hover:text-black focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-4 focus-visible:ring-offset-background"
               >
                 <span>
                   view more on{" "}
                   <span className="font-medium text-black underline underline-offset-4">{active}</span>
                 </span>
-                <ArrowUpRight className="size-5 text-black" strokeWidth={1.8} />
-              </a>
+                <ArrowUpRight className="size-5 text-black transition-transform duration-200 ease-out group-hover:-translate-y-0.5 group-hover:translate-x-0.5" strokeWidth={1.8} />
+              </m.a>
             </div>
           </div>
         </div>
