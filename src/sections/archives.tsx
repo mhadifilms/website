@@ -8,14 +8,14 @@ import { SocialFeedEmbed } from "@/components/social-feed-embed"
 import { SocialSwitcher } from "@/components/social-switcher"
 import { useSectionMotion } from "@/hooks/use-section-motion"
 import { archives, site } from "@/content/generated"
-import type { ArchivePlatform } from "@/content/types"
+import type { ArchivePlatform, SocialLink } from "@/content/types"
 
-const PLATFORM_ORDER: ArchivePlatform[] = ["Linkedin", "Twitter", "Instagram", "Substack", "YouTube"]
+const PLATFORM_ORDER: ArchivePlatform[] = ["Substack", "YouTube", "Instagram", "Twitter", "Linkedin"]
 
 export function ArchivesSection() {
   const ref = useRef<HTMLDivElement>(null)
   const { opacity, scale, translateY } = useSectionMotion(ref)
-  const [active, setActive] = useState<ArchivePlatform>("YouTube")
+  const [active, setActive] = useState<ArchivePlatform>("Substack")
 
   const platforms = useMemo<ArchivePlatform[]>(() => {
     const present = new Set<ArchivePlatform>(archives.map((item) => item.platform))
@@ -24,11 +24,16 @@ export function ArchivesSection() {
   }, [])
 
   const filtered = useMemo(() => archives.filter((item) => item.platform === active), [active])
-  const activeSocial = useMemo(
+  const activeSocial = useMemo<SocialLink | undefined>(
     () => site.socials.find((s) => s.label === active),
     [active],
   )
   const profileHref = activeSocial?.href ?? "#"
+  const hasLiveEmbed = Boolean(
+    activeSocial?.embedSrc ||
+      (active === "Instagram" && activeSocial?.embedAppId) ||
+      (active === "Linkedin" && filtered.some((item) => /activity-\d+/.test(item.href))),
+  )
 
   return (
     <Section
@@ -64,7 +69,7 @@ export function ArchivesSection() {
 
           <div className="flex min-w-0 flex-col overflow-hidden">
             <SocialFeedEmbed platform={active} social={activeSocial} items={filtered} />
-            <ArchiveGrid items={filtered} platformKey={active} />
+            {!hasLiveEmbed && <ArchiveGrid items={filtered} platformKey={active} />}
 
             <div className="mt-8 flex justify-center">
               <m.a

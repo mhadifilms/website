@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from "react"
+import { useEffect, useMemo } from "react"
 import { m } from "framer-motion"
 
 import type { ArchiveItem, ArchivePlatform, SocialLink } from "@/content/types"
@@ -9,22 +9,11 @@ type SocialFeedEmbedProps = {
   items: ArchiveItem[]
 }
 
-type TwitterWindow = Window & {
-  twttr?: {
-    widgets?: {
-      load: (element?: HTMLElement | null) => Promise<unknown> | void
-    }
-  }
-}
-
 function linkedInActivityId(href: string) {
   return href.match(/activity-(\d+)/)?.[1]
 }
 
 export function SocialFeedEmbed({ platform, social, items }: SocialFeedEmbedProps) {
-  const containerRef = useRef<HTMLDivElement>(null)
-  const profileHref = social?.href ?? "#"
-  const [twitterReady, setTwitterReady] = useState(false)
   const linkedInEmbeds = useMemo(
     () =>
       items
@@ -34,69 +23,24 @@ export function SocialFeedEmbed({ platform, social, items }: SocialFeedEmbedProp
   )
 
   useEffect(() => {
-    if (platform !== "Twitter") return
+    if (platform !== "Instagram" || !social?.embedScriptSrc || !social.embedAppId) return
 
-    setTwitterReady(false)
-    const win = window as TwitterWindow
-    const container = containerRef.current
-    const markReady = () => setTwitterReady(Boolean(container?.querySelector("iframe")))
-    const observer = new MutationObserver(markReady)
-    if (container) observer.observe(container, { childList: true, subtree: true })
-    const loadTwitterWidgets = () => {
-      const result = win.twttr?.widgets?.load(container)
-      if (result && "then" in result) result.then(markReady)
-      markReady()
-    }
-
-    if (win.twttr?.widgets) {
-      loadTwitterWidgets()
-      return () => observer.disconnect()
-    }
-
-    const existing = document.querySelector<HTMLScriptElement>("script[src='https://platform.twitter.com/widgets.js']")
+    const existing = document.querySelector<HTMLScriptElement>(`script[src='${social.embedScriptSrc}']`)
     if (existing) {
-      existing.addEventListener("load", loadTwitterWidgets, { once: true })
-      return () => observer.disconnect()
+      existing.remove()
     }
 
     const script = document.createElement("script")
-    script.src = "https://platform.twitter.com/widgets.js"
+    script.src = social.embedScriptSrc
     script.async = true
-    script.charset = "utf-8"
-    script.onload = loadTwitterWidgets
     document.body.appendChild(script)
 
-    return () => observer.disconnect()
-  }, [platform, profileHref])
+    return () => {
+      script.remove()
+    }
+  }, [platform, social?.embedAppId, social?.embedScriptSrc])
 
-  if (platform === "Twitter") {
-    return (
-      <m.div
-        ref={containerRef}
-        initial={{ opacity: 0, y: 10 }}
-        animate={{ opacity: 1, y: 0 }}
-        className="relative mx-auto mb-6 w-full max-w-[min(100%,680px)] overflow-hidden rounded-[28px] bg-white/70 p-3 shadow-[0_18px_60px_rgba(0,0,0,0.08)] [&_iframe[id^='twitter-widget']]:h-[min(62svh,560px)]! [&_iframe[id^='twitter-widget']]:max-w-full! [&_iframe[id^='twitter-widget']]:w-full!"
-      >
-        {!twitterReady && (
-          <div className="pointer-events-none absolute inset-3 grid min-h-[220px] place-items-center rounded-[22px] bg-white/70 px-6 text-center text-sm font-light text-black/55">
-            Loading latest posts from X...
-          </div>
-        )}
-        <a
-          className="twitter-timeline"
-          data-height="560"
-          data-width="680"
-          data-dnt="true"
-          data-chrome="noheader nofooter noborders transparent"
-          href={profileHref}
-        >
-          Latest posts from {profileHref}
-        </a>
-      </m.div>
-    )
-  }
-
-  if (platform === "Instagram" && social?.embedSrc) {
+  if (platform === "Twitter" && social?.embedSrc) {
     return (
       <m.div
         initial={{ opacity: 0, y: 10 }}
@@ -105,9 +49,25 @@ export function SocialFeedEmbed({ platform, social, items }: SocialFeedEmbedProp
       >
         <iframe
           src={social.embedSrc}
-          title={social.embedTitle ?? "Latest Instagram posts"}
+          title={social.embedTitle ?? "Latest posts from X"}
           loading="lazy"
           className="block h-[min(72svh,760px)] w-full rounded-[20px] bg-white"
+        />
+      </m.div>
+    )
+  }
+
+  if (platform === "Instagram" && social?.embedAppId) {
+    return (
+      <m.div
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="mx-auto mb-6 w-full max-w-[min(100%,860px)] overflow-hidden rounded-[28px] bg-white/70 p-3 shadow-[0_18px_60px_rgba(0,0,0,0.08)]"
+      >
+        <div
+          className={`elfsight-app-${social.embedAppId}`}
+          data-elfsight-app-lazy=""
+          aria-label={social.embedTitle ?? "Latest Instagram posts"}
         />
       </m.div>
     )

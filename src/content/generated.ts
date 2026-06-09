@@ -37,24 +37,27 @@ export const site = {
   ],
   "socials": [
     {
-      "label": "Linkedin",
-      "href": "https://www.linkedin.com/in/mhadifilms"
-    },
-    {
-      "label": "Twitter",
-      "href": "https://x.com/mhadifilms"
-    },
-    {
-      "label": "Instagram",
-      "href": "https://www.instagram.com/mhadifilms"
-    },
-    {
       "label": "Substack",
       "href": "https://mhadimedia.substack.com"
     },
     {
       "label": "YouTube",
       "href": "https://www.youtube.com/@mhadifilms"
+    },
+    {
+      "label": "Instagram",
+      "href": "https://www.instagram.com/mhadifilms",
+      "embedScriptSrc": "https://elfsightcdn.com/platform.js",
+      "embedAppId": "4bca295b-052a-430d-a96c-9f1fd7c63633",
+      "embedTitle": "Latest Instagram posts"
+    },
+    {
+      "label": "Twitter",
+      "href": "https://x.com/mhadifilms"
+    },
+    {
+      "label": "Linkedin",
+      "href": "https://www.linkedin.com/in/mhadifilms"
     }
   ]
 } satisfies SiteConfig

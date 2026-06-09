@@ -144,8 +144,13 @@ export function Timeline({ items, className }: TimelineProps) {
       <AnimatePresence>
         {preview.visible && preview.src && (
           <m.div
-            key={preview.src}
-            initial={{ opacity: 0, scale: 0.94, rotate: -1 }}
+            initial={{
+              opacity: 0,
+              scale: 0.96,
+              rotate: -1,
+              x: preview.x + PREVIEW_OFFSET.x,
+              y: preview.y + PREVIEW_OFFSET.y,
+            }}
             animate={{
               opacity: 1,
               scale: 1,

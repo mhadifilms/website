@@ -2,6 +2,8 @@ export type SocialLink = {
   label: string
   href: string
   embedSrc?: string
+  embedScriptSrc?: string
+  embedAppId?: string
   embedTitle?: string
   embedHeight?: number
 }
