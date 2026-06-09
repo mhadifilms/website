@@ -4,8 +4,8 @@ slug: awaiten-films
 company: Awaiten Films
 role: Co-Founder
 location: Bay Area, CA
-dateStart: "2018"
-summary: Co-founded a Bay Area production studio with Aalyan Aamir, making polished films, event pieces, and community media without losing the human part.
+dateStart: "2018-09-01"
+summary: Co-founded a Bay Area-based production company dedicated to sharing real stories and experiences with the world.
 tags:
   - production
   - directing
@@ -15,10 +15,11 @@ href: https://awaiten.com
 logo: /media/polaroid-on-set.webp
 ---
 
-Awaiten is where I learned how to make the work hold up outside of my own head. That meant working with clients, shaping stories before a shoot, filming in imperfect rooms, editing under pressure, and still caring about the final frame.
+Awaiten is where I learned how to make the work hold up outside of my own head. We combine technical craft with narrative depth to create visual content for real communities, real clients, and real stories.
 
 Highlights:
 
 - Co-founded the studio with Aalyan Aamir.
-- Worked across directing, cinematography, editing, motion graphics, and delivery.
-- Helped produce community, brand, documentary, and event work that reached 1M+ views.
+- Worked across directing, cinematography, editing, motion graphics, production, and delivery.
+- Built more than seven years of production experience through the studio.
+- Helped produce community, brand, documentary, and event work reaching 1M+ views.

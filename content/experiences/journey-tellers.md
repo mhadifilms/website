@@ -3,9 +3,9 @@ title: Founder & Host at Journey Tellers
 slug: journey-tellers
 company: Journey Tellers
 role: Founder, Host & Producer
-location: Worldwide
-dateStart: "2023"
-dateEnd: "2025"
+location: San Francisco Bay Area
+dateStart: "2023-01-01"
+dateEnd: "2025-01-01"
 summary: Built and hosted a long-form podcast with Ali Almathkur about real people, hard-earned lessons, and the story of the Muslim West.
 tags:
   - podcast

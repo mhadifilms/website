@@ -64,13 +64,13 @@ export const site = {
 
 export const experiences = [
   {
-    "title": "Chief of Staff & Head of Production at sync. labs",
+    "title": "Chief of Staff at sync. labs",
     "slug": "sync-labs",
     "company": "sync. labs",
-    "role": "Chief of Staff & Head of Production",
+    "role": "Chief of Staff",
     "location": "San Francisco, CA",
-    "dateStart": "2024",
-    "summary": "Helping sync. labs turn high-end AI video research into production work that can survive real clients, real footage, and real deadlines.",
+    "dateStart": "2023-08-01",
+    "summary": "Grew with sync. from early growth work into production leadership and now Chief of Staff, helping turn high-end AI video research into work that survives real clients, real footage, and real deadlines.",
     "tags": [
       "operations",
       "production",
@@ -79,16 +79,50 @@ export const experiences = [
     ],
     "href": "https://sync.so",
     "logo": "/media/figma-mhadi-camera.png",
-    "html": "<p>At sync. labs, my job sits between the product, the team, and the work that leaves the building. I help shape production workflows, customer delivery, internal operations, and the story we tell around the technology.</p>\n<p>Highlights:</p>\n<ul>\n<li>Built systems around messy, high-stakes creative work instead of treating video like a clean demo.</li>\n<li>Worked closely with product feedback, production needs, and the company narrative.</li>\n<li>Brought an editor&#39;s eye to AI video, where a few frames can be the difference between impressive and believable.</li>\n</ul>\n"
+    "html": "<p>At sync. labs, my job has moved with the company: Growth Intern, Growth Marketer, Head of Production, and now Chief of Staff. The thread through all of it has been helping the product, the team, and the work that leaves the building become sharper.</p>\n<p>Role progression:</p>\n<ul>\n<li>Chief of Staff, full-time, Feb 2026 to present.</li>\n<li>Head of Production, full-time, Jun 2024 to Mar 2026.</li>\n<li>Growth Marketer, part-time, Nov 2023 to Jun 2024.</li>\n<li>Growth Intern, contract, Aug 2023 to Nov 2023.</li>\n</ul>\n<p>What I worked on:</p>\n<ul>\n<li>Built systems around messy, high-stakes creative work instead of treating video like a clean demo.</li>\n<li>Worked closely with product feedback, production needs, and the company narrative.</li>\n<li>Brought an editor&#39;s eye to AI video, content, and production workflows where a few frames can be the difference between impressive and believable.</li>\n</ul>\n"
+  },
+  {
+    "title": "Multimedia Intern at TMS Media",
+    "slug": "tms-media",
+    "company": "TMS Media",
+    "role": "Multimedia Intern",
+    "dateStart": "2023-06-01",
+    "dateEnd": "2023-09-01",
+    "summary": "Worked on podcast editing, short-form content, and content ideation for TMS Media.",
+    "tags": [
+      "video editing",
+      "video production",
+      "podcast editing",
+      "content"
+    ],
+    "logo": "/media/polaroid-podcast.webp",
+    "html": "<p>TMS Media gave me a more focused production environment for quick-turn media work. The work sat close to the edit: making conversations tighter, shaping clips for social, and thinking through what a piece of content needed before it hit the timeline.</p>\n<p>What this included:</p>\n<ul>\n<li>Podcast editing and cleanup.</li>\n<li>Short-form content for social distribution.</li>\n<li>Content ideation for repeatable media formats.</li>\n</ul>\n"
+  },
+  {
+    "title": "Chief Marketing Officer at coglayer",
+    "slug": "coglayer",
+    "company": "coglayer",
+    "role": "Chief Marketing Officer",
+    "dateStart": "2023-03-01",
+    "dateEnd": "2024-01-01",
+    "summary": "Helped build and scale coglayer from an early product into a learning tool with 35,000 users.",
+    "tags": [
+      "marketing",
+      "product",
+      "project management",
+      "seo"
+    ],
+    "logo": "/media/polaroid-camera.webp",
+    "html": "<p>coglayer was a product and growth chapter: part positioning, part product management, part figuring out what students and users actually needed from a tool that called itself training wheels for your brain.</p>\n<p>Highlights:</p>\n<ul>\n<li>Helped build and scale from 0 to 35,000 users.</li>\n<li>Worked across product management, project management, beta testing, marketing, and SEO.</li>\n<li>Helped translate a product idea into clearer messaging, feedback loops, and launch motion.</li>\n</ul>\n"
   },
   {
     "title": "Founder & Host at Journey Tellers",
     "slug": "journey-tellers",
     "company": "Journey Tellers",
     "role": "Founder, Host & Producer",
-    "location": "Worldwide",
-    "dateStart": "2023",
-    "dateEnd": "2025",
+    "location": "San Francisco Bay Area",
+    "dateStart": "2023-01-01",
+    "dateEnd": "2025-01-01",
     "summary": "Built and hosted a long-form podcast with Ali Almathkur about real people, hard-earned lessons, and the story of the Muslim West.",
     "tags": [
       "podcast",
@@ -119,13 +153,30 @@ export const experiences = [
     "html": "<p>UCLA helped sharpen the way I think about story before a camera ever turns on. The strongest lessons were practical: how scenes carry pressure, how performances change a cut, and how structure can make a small piece feel bigger than its budget.</p>\n<p>What stayed with me:</p>\n<ul>\n<li>A more disciplined way to break down scripts, scenes, and character motivation.</li>\n<li>Classroom critique from instructors with real production experience.</li>\n<li>A stronger foundation for the directing, editing, and documentary work I took on afterward.</li>\n</ul>\n"
   },
   {
+    "title": "Co-Founder at SR Studios",
+    "slug": "sr-studios",
+    "company": "SR Studios",
+    "role": "Co-Founder",
+    "dateStart": "2020-09-01",
+    "dateEnd": "2021-07-01",
+    "summary": "Co-founded a student-led multimedia organization that helped young creatives collaborate across borders.",
+    "tags": [
+      "content creation",
+      "video editing",
+      "teaching",
+      "marketing"
+    ],
+    "logo": "/media/polaroid-mountains.webp",
+    "html": "<p>SR Studios was an early lesson in creative leadership: getting students from different places to make things together, learn practical media skills, and ship collaborative projects before everyone had a polished portfolio.</p>\n<p>Highlights:</p>\n<ul>\n<li>Co-founded the student-led organization.</li>\n<li>Helped students learn photography, editing, and multimedia basics.</li>\n<li>Led marketing while helping shape the group into a real creative home for young collaborators.</li>\n</ul>\n"
+  },
+  {
     "title": "Co-Founder at Awaiten Films",
     "slug": "awaiten-films",
     "company": "Awaiten Films",
     "role": "Co-Founder",
     "location": "Bay Area, CA",
-    "dateStart": "2018",
-    "summary": "Co-founded a Bay Area production studio with Aalyan Aamir, making polished films, event pieces, and community media without losing the human part.",
+    "dateStart": "2018-09-01",
+    "summary": "Co-founded a Bay Area-based production company dedicated to sharing real stories and experiences with the world.",
     "tags": [
       "production",
       "directing",
@@ -134,7 +185,7 @@ export const experiences = [
     ],
     "href": "https://awaiten.com",
     "logo": "/media/polaroid-on-set.webp",
-    "html": "<p>Awaiten is where I learned how to make the work hold up outside of my own head. That meant working with clients, shaping stories before a shoot, filming in imperfect rooms, editing under pressure, and still caring about the final frame.</p>\n<p>Highlights:</p>\n<ul>\n<li>Co-founded the studio with Aalyan Aamir.</li>\n<li>Worked across directing, cinematography, editing, motion graphics, and delivery.</li>\n<li>Helped produce community, brand, documentary, and event work that reached 1M+ views.</li>\n</ul>\n"
+    "html": "<p>Awaiten is where I learned how to make the work hold up outside of my own head. We combine technical craft with narrative depth to create visual content for real communities, real clients, and real stories.</p>\n<p>Highlights:</p>\n<ul>\n<li>Co-founded the studio with Aalyan Aamir.</li>\n<li>Worked across directing, cinematography, editing, motion graphics, production, and delivery.</li>\n<li>Built more than seven years of production experience through the studio.</li>\n<li>Helped produce community, brand, documentary, and event work reaching 1M+ views.</li>\n</ul>\n"
   },
   {
     "title": "Selected past collaborators",
