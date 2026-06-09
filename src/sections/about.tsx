@@ -312,7 +312,7 @@ function HangingPolaroid({
         transition={{
           rotate: { duration: 4.8 + delay, repeat: Infinity, repeatType: "mirror", ease: "easeInOut", delay },
         }}
-        className="group pointer-events-auto absolute left-1/2 top-(--thread-drop) block w-full -translate-x-1/2 cursor-pointer origin-top focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-4 focus-visible:ring-offset-background"
+        className="group pointer-events-auto absolute left-1/2 top-(--thread-drop) block w-full -translate-x-1/2 cursor-crosshair origin-top focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-4 focus-visible:ring-offset-background"
       >
         <div className="relative aspect-188/254 bg-[#efede2] p-[5%] pb-[18%] shadow-polaroid transition-shadow duration-300 hover:shadow-[0_22px_55px_rgba(0,0,0,0.18)]">
           {src ? (

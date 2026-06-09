@@ -267,7 +267,7 @@ export function HeroPolaroidLayer() {
         type="button"
         aria-label="Jump to the experiences section"
         onClick={scrollToExperiences}
-        className="pointer-events-auto fixed left-0 top-0 block cursor-pointer overflow-visible focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-4 focus-visible:ring-offset-background"
+        className="pointer-events-auto fixed left-0 top-0 block cursor-crosshair overflow-visible focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-4 focus-visible:ring-offset-background"
       >
         <span
           ref={stringRef}
