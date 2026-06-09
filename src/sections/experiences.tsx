@@ -28,9 +28,9 @@ export function ExperiencesSection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.1 }}
             transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-            className="mb-5 text-[10px] font-medium uppercase tracking-[0.5em] text-black/35"
+            className="mb-5 text-[10px] font-medium tracking-[0.36em] text-black/35"
           >
-            02 · where i&apos;ve been
+            02 · Where I&apos;ve Been
           </m.p>
           <m.h2
             initial={{ opacity: 0, y: 16 }}
@@ -39,7 +39,7 @@ export function ExperiencesSection() {
             transition={{ duration: 0.65, delay: 0.05, ease: [0.22, 1, 0.36, 1] }}
             className="text-balance text-5xl font-light leading-none tracking-[-0.04em] text-foreground sm:text-6xl"
           >
-            the <span className="font-display font-semibold">experiences</span>.
+            The <span className="font-display font-normal">Experiences</span>
           </m.h2>
         </header>
 

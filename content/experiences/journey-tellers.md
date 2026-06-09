@@ -12,7 +12,7 @@ tags:
   - storytelling
   - production
   - audio
-href: https://jtpodcast.com
+href: https://awaiten.com/podcast/
 logo: /media/polaroid-podcast.webp
 ---
 

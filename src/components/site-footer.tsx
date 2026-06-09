@@ -33,8 +33,8 @@ export function SiteFooter() {
       </div>
 
       <div className="mx-auto flex w-full max-w-[1180px] flex-col items-center px-6 pb-36 pt-20 text-center sm:pt-24">
-        <p className="mb-6 text-[10px] font-medium uppercase tracking-[0.5em] text-black/35">
-          04 · say hello
+        <p className="mb-6 text-[10px] font-medium tracking-[0.36em] text-black/35">
+          04 · Say Hello
         </p>
 
         <m.a
@@ -45,7 +45,7 @@ export function SiteFooter() {
           className="group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-8 focus-visible:ring-offset-background"
         >
           <span className="block text-balance text-[clamp(2.2rem,7vw,4.75rem)] font-light leading-[1.04] tracking-[-0.04em] text-black">
-            let&apos;s tell <span className="font-display italic">your</span> story
+            What&apos;s <span className="font-display italic">Your</span> Story?
             <span className="inline-block transition-transform duration-300 ease-out group-hover:-translate-y-1 group-hover:translate-x-1">
               .
             </span>

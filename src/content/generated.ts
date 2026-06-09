@@ -96,7 +96,7 @@ export const experiences = [
       "production",
       "audio"
     ],
-    "href": "https://jtpodcast.com",
+    "href": "https://awaiten.com/podcast/",
     "logo": "/media/polaroid-podcast.webp",
     "html": "<p>Journey Tellers started as a way to have slower, better conversations than social media usually allows. I co-hosted with Ali Almathkur and worked across guest research, interview prep, production, editing, and distribution.</p>\n<p>Highlights:</p>\n<ul>\n<li>Hosted founders, community builders, creatives, and people with stories that deserved more time.</li>\n<li>Produced episodes for YouTube and major podcast platforms.</li>\n<li>Used the show as a way to practice listening, pacing, and long-form narrative.</li>\n</ul>\n"
   },

@@ -171,11 +171,11 @@ export function AboutSection({ transitionProgress }: AboutSectionProps) {
         style={{ opacity: copyOpacity, y: copyY }}
         className="relative z-10 mx-auto flex min-h-svh w-[min(92vw,680px)] flex-col items-center px-4 pb-36 pt-[clamp(18rem,40svh,26rem)] text-center lg:pt-[clamp(19rem,43svh,29rem)] xl:pt-[clamp(20rem,45svh,31rem)]"
       >
-        <p className="mb-5 text-[10px] font-medium uppercase tracking-[0.5em] text-black/35">
-          01 · the story so far
+        <p className="mb-5 text-[10px] font-medium tracking-[0.36em] text-black/35">
+          01 · The Story So Far
         </p>
         <h2 className="text-balance text-[clamp(2.1rem,6vw,3.75rem)] font-light leading-none tracking-[-0.04em] text-black">
-          Hey, I&apos;m <span className="font-display font-semibold">{site.shortName ?? site.name}</span>.
+          Hey, I&apos;m <span className="font-display font-normal">{site.shortName ?? site.name}</span>.
         </h2>
 
         <div className="mt-6 space-y-5 text-pretty text-[clamp(1rem,2.6vw,1.45rem)] font-light leading-[1.42] text-black/75">
