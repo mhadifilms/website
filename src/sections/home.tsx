@@ -158,7 +158,7 @@ export function HomeSection({ transitionProgress }: HomeSectionProps) {
 
           <div
             data-mac-scene
-            className="hero-entrance pointer-events-none absolute inset-0 z-20 flex items-center justify-center"
+            className="hero-entrance pointer-events-none fixed inset-0 z-20 flex items-center justify-center"
           >
             <m.div
               style={{

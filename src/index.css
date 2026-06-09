@@ -47,6 +47,8 @@
   }
 
   html {
+    color-scheme: only light;
+    overscroll-behavior-y: none;
     scroll-behavior: smooth;
     scroll-snap-type: none;
     text-rendering: optimizeLegibility;
@@ -61,6 +63,7 @@
     -webkit-font-smoothing: antialiased;
     margin: 0;
     min-width: 320px;
+    overscroll-behavior-y: none;
     font-family: var(--font-sans);
     background-image:
       linear-gradient(to right, var(--grid-line) 1px, transparent 1px),
@@ -76,6 +79,42 @@
 
   :focus-visible {
     outline-color: var(--color-ring);
+  }
+
+  #root {
+    background-color: var(--color-background);
+  }
+
+  html[data-darkreader-mode],
+  html[data-darkreader-scheme] {
+    --color-background: #fffff6 !important;
+    --color-foreground: #000000 !important;
+    --color-card: #ffffff !important;
+    --color-muted: #d9d9d9 !important;
+    --color-muted-foreground: #808080 !important;
+    --color-accent: #c0bca9 !important;
+    --color-accent-foreground: #000000 !important;
+    --color-border: rgba(192, 188, 169, 0.18) !important;
+    --grid-line: rgba(192, 188, 169, 0.16) !important;
+    background-color: #fffff6 !important;
+    color-scheme: only light !important;
+  }
+
+  html[data-darkreader-mode] body,
+  html[data-darkreader-scheme] body,
+  html[data-darkreader-mode] #root,
+  html[data-darkreader-scheme] #root {
+    background-color: #fffff6 !important;
+    color: #000000 !important;
+  }
+
+  html[data-darkreader-mode] img,
+  html[data-darkreader-scheme] img,
+  html[data-darkreader-mode] svg,
+  html[data-darkreader-scheme] svg,
+  html[data-darkreader-mode] video,
+  html[data-darkreader-scheme] video {
+    filter: none !important;
   }
 }
 
