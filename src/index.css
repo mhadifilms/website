@@ -3,6 +3,7 @@
 @theme {
   --font-sans: "Raleway", ui-sans-serif, system-ui, sans-serif;
   --font-display: "DM Serif Display", "DM Serif Text", Georgia, serif;
+  --font-hand: "Caveat", "Comic Sans MS", cursive;
 
   --color-background: #fffff6;
   --color-foreground: #000000;
@@ -50,6 +51,8 @@
     scroll-snap-type: none;
     text-rendering: optimizeLegibility;
     background-color: var(--color-background);
+    scrollbar-width: thin;
+    scrollbar-color: rgba(192, 188, 169, 0.85) transparent;
   }
 
   body {
@@ -236,6 +239,105 @@
   50% {
     transform: translateY(18%);
   }
+}
+
+/* Site-wide film grain: a nod to celluloid, kept faint enough to read as texture. */
+.film-grain {
+  position: fixed;
+  inset: -60%;
+  z-index: 60;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.72' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)' opacity='0.6'/%3E%3C/svg%3E");
+  background-size: 220px 220px;
+  mix-blend-mode: overlay;
+  opacity: 0.05;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .film-grain {
+    animation: film-grain-shift 0.6s steps(3, end) infinite;
+  }
+}
+
+@keyframes film-grain-shift {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  33% {
+    transform: translate3d(-1.4%, 0.9%, 0);
+  }
+  66% {
+    transform: translate3d(1.1%, -1.2%, 0);
+  }
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+/* Blinking ink caret for the hero tagline. */
+.ink-caret {
+  animation: ink-caret-blink 1.15s steps(1, end) infinite;
+}
+
+@keyframes ink-caret-blink {
+  0%,
+  48% {
+    opacity: 1;
+  }
+  49%,
+  97% {
+    opacity: 0;
+  }
+  98%,
+  100% {
+    opacity: 1;
+  }
+}
+
+/* One-shot entrance fades for the hero Mac and its screen layer (opacity only:
+   GSAP measures these elements' rects, so transforms here would skew them). */
+.hero-entrance {
+  /* `backwards` (not `both`): GSAP scroll timelines drive inline opacity on these
+     elements afterwards, and a forwards fill would override those inline styles. */
+  animation: hero-entrance-fade 1.1s cubic-bezier(0.22, 1, 0.36, 1) backwards;
+  animation-delay: 0.12s;
+}
+
+@keyframes hero-entrance-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Footer credits marquee. */
+.footer-marquee {
+  animation: footer-marquee-scroll 30s linear infinite;
+}
+
+.footer-marquee:hover {
+  animation-play-state: paused;
+}
+
+@keyframes footer-marquee-scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* Polaroids "develop" into color on hover. */
+.polaroid-photo {
+  transition: filter 600ms ease;
+}
+
+.group:hover .polaroid-photo,
+.group:focus-visible .polaroid-photo {
+  filter: none;
 }
 
 .prose-content > * + * {

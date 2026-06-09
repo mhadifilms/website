@@ -60,7 +60,7 @@ export function PillNav() {
         layout
         aria-label="Sections"
         transition={PILL_TRANSITION}
-        className="pointer-events-auto flex h-11 w-full max-w-[420px] items-center rounded-full bg-[#dddddd]/95 p-1 shadow-pill backdrop-blur-sm sm:h-12"
+        className="pointer-events-auto flex h-11 w-full max-w-[420px] items-center rounded-full border border-black/10 bg-white/60 p-1 shadow-pill backdrop-blur-md sm:h-12"
       >
         <div className="grid w-full grid-cols-4">
           {sections.map((section, index) => {

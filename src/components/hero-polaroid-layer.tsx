@@ -191,7 +191,7 @@ export function HeroPolaroidLayer() {
         })
         gsap.set(frame, { opacity: 0 })
         gsap.set([string, pin], { opacity: 0 })
-        gsap.set(photo, { inset: 0 })
+        gsap.set(photo, { top: 0, right: 0, bottom: 0, left: 0 })
 
         timeline = gsap.timeline({
           defaults: { ease: "none" },
@@ -261,7 +261,7 @@ export function HeroPolaroidLayer() {
   )
 
   return (
-    <div ref={scopeRef} className="pointer-events-none fixed inset-0 z-30">
+    <div ref={scopeRef} className="hero-entrance pointer-events-none fixed inset-0 z-30">
       <button
         ref={heroRef}
         type="button"
@@ -280,9 +280,9 @@ export function HeroPolaroidLayer() {
           className="absolute left-1/2 top-[-16%] size-[2.8%] -translate-x-1/2 rounded-full bg-accent"
         />
         <div ref={frameRef} aria-hidden="true" className="absolute inset-0 bg-[#efede2] shadow-polaroid" />
-        <div ref={photoRef} className="absolute overflow-hidden bg-muted">
+        <div ref={photoRef} className="absolute inset-0 overflow-hidden bg-muted">
           {imageFailed ? (
-            <div className="size-full bg-muted" />
+            <div className="absolute inset-0 bg-muted" />
           ) : (
             <img
               src={HERO_IMAGE}
@@ -290,7 +290,7 @@ export function HeroPolaroidLayer() {
               aria-hidden="true"
               loading="eager"
               decoding="async"
-              className="block size-full object-cover grayscale contrast-[1.08]"
+              className="absolute inset-0 h-full w-full object-cover grayscale contrast-[1.08]"
               onError={() => setImageFailed(true)}
             />
           )}

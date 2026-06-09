@@ -48,6 +48,15 @@ export function ArchivesSection() {
         className="flex min-h-[760px] w-full flex-col justify-center lg:min-h-[920px]"
       >
         <header className="mx-auto mb-9 text-center">
+          <m.p
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.1 }}
+            transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+            className="mb-5 text-[10px] font-medium uppercase tracking-[0.5em] text-black/35"
+          >
+            03 · what i&apos;ve made
+          </m.p>
           <m.h2
             initial={{ opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}

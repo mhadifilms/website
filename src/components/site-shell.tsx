@@ -12,6 +12,7 @@ export function SiteShell() {
       <div className="relative z-10">
         <Outlet />
       </div>
+      <div className="film-grain" aria-hidden="true" />
     </div>
   )
 }

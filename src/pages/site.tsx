@@ -4,6 +4,7 @@ import { useMotionValue } from "framer-motion"
 import { HeroPolaroidLayer } from "@/components/hero-polaroid-layer"
 import { PillNav } from "@/components/pill-nav"
 import { SeoMetadata } from "@/components/seo-metadata"
+import { SiteFooter } from "@/components/site-footer"
 import { AboutSection } from "@/sections/about"
 import { ArchivesSection } from "@/sections/archives"
 import { ExperiencesSection } from "@/sections/experiences"
@@ -39,6 +40,7 @@ export default function SitePage() {
         <AboutSection transitionProgress={homeScrollProgress} />
         <ExperiencesSection />
         <ArchivesSection />
+        <SiteFooter />
       </main>
       <HeroPolaroidLayer />
       <PillNav />

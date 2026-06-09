@@ -157,6 +157,7 @@ export function AboutSection({ transitionProgress }: AboutSectionProps) {
           key={`${polaroid?.src ?? "hero-slot"}-${index}`}
           src={polaroid?.src}
           alt={polaroid?.alt}
+          caption={polaroid?.caption}
           layout={POLAROID_LAYOUT[index]}
           delay={index * 0.35}
           index={index}
@@ -170,6 +171,9 @@ export function AboutSection({ transitionProgress }: AboutSectionProps) {
         style={{ opacity: copyOpacity, y: copyY }}
         className="relative z-10 mx-auto flex min-h-svh w-[min(92vw,680px)] flex-col items-center px-4 pb-36 pt-[clamp(18rem,40svh,26rem)] text-center lg:pt-[clamp(19rem,43svh,29rem)] xl:pt-[clamp(20rem,45svh,31rem)]"
       >
+        <p className="mb-5 text-[10px] font-medium uppercase tracking-[0.5em] text-black/35">
+          01 · the story so far
+        </p>
         <h2 className="text-balance text-[clamp(2.1rem,6vw,3.75rem)] font-light leading-none tracking-[-0.04em] text-black">
           Hey, I&apos;m <span className="font-display font-semibold">{site.shortName ?? site.name}</span>.
         </h2>
@@ -233,6 +237,7 @@ function ExperienceBioLink({ slug, ariaLabel, children }: ExperienceBioLinkProps
 type HangingPolaroidProps = {
   src?: string
   alt?: string
+  caption?: string
   layout: (typeof POLAROID_LAYOUT)[number]
   delay?: number
   index: number
@@ -244,6 +249,7 @@ type HangingPolaroidProps = {
 function HangingPolaroid({
   src,
   alt,
+  caption,
   layout,
   delay = 0,
   index,
@@ -306,7 +312,7 @@ function HangingPolaroid({
         transition={{
           rotate: { duration: 4.8 + delay, repeat: Infinity, repeatType: "mirror", ease: "easeInOut", delay },
         }}
-        className="pointer-events-auto absolute left-1/2 top-(--thread-drop) block w-full -translate-x-1/2 cursor-pointer origin-top focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-4 focus-visible:ring-offset-background"
+        className="group pointer-events-auto absolute left-1/2 top-(--thread-drop) block w-full -translate-x-1/2 cursor-pointer origin-top focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-4 focus-visible:ring-offset-background"
       >
         <div className="relative aspect-188/254 bg-[#efede2] p-[5%] pb-[18%] shadow-polaroid transition-shadow duration-300 hover:shadow-[0_22px_55px_rgba(0,0,0,0.18)]">
           {src ? (
@@ -315,10 +321,19 @@ function HangingPolaroid({
               alt={alt ?? ""}
               loading="eager"
               decoding="async"
-              className="block size-full object-cover saturate-[0.88] contrast-[0.96] sepia-[0.08]"
+              className="polaroid-photo block size-full object-cover saturate-[0.88] contrast-[0.96] sepia-[0.08]"
             />
           ) : (
             <div className="size-full bg-muted" />
+          )}
+          {caption && (
+            <span
+              aria-hidden="true"
+              className="pointer-events-none absolute inset-x-[5%] bottom-0 flex h-[16%] items-center justify-center truncate font-hand text-black/45 transition-colors duration-300 group-hover:text-black/70"
+              style={{ fontSize: "clamp(0.5rem, 1.15vw, 0.85rem)" }}
+            >
+              {caption}
+            </span>
           )}
         </div>
       </m.button>

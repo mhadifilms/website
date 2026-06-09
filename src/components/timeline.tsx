@@ -311,13 +311,13 @@ function ExperienceDrawer({
               </div>
 
               {imageSrc && (
-                <figure className="hidden self-start bg-[#efede2] p-3 pb-9 shadow-polaroid lg:block">
+                <figure className="group hidden rotate-[1.6deg] self-start bg-[#efede2] p-3 pb-9 shadow-polaroid transition-transform duration-300 ease-out hover:rotate-0 lg:block">
                   <img
                     src={imageSrc}
                     alt=""
                     loading="lazy"
                     decoding="async"
-                    className="aspect-4/5 w-full object-cover saturate-[0.9] contrast-[0.96] sepia-[0.08]"
+                    className="polaroid-photo aspect-4/5 w-full object-cover saturate-[0.9] contrast-[0.96] sepia-[0.08]"
                   />
                   <figcaption className="mt-2 truncate text-center text-[10px] font-light lowercase tracking-[0.08em] text-black/50">
                     {item.location ?? item.company}
