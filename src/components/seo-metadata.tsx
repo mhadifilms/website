@@ -3,6 +3,8 @@ import { useEffect } from "react"
 import { site } from "@/content/generated"
 
 const SITE_URL = "https://mhadifilms.com"
+const SOCIAL_IMAGE = `${SITE_URL}/media/social-card.png`
+const SOCIAL_IMAGE_ALT = "A black-and-white film strip from Muhammad Hadi Yusufali's creative work."
 
 const ROUTE_META: Record<string, { title: string; description: string; path: string }> = {
   home: {
@@ -51,8 +53,13 @@ export function SeoMetadata({ activeId }: SeoMetadataProps) {
     setMeta('meta[property="og:title"]', "content", meta.title)
     setMeta('meta[property="og:description"]', "content", meta.description)
     setMeta('meta[property="og:url"]', "content", canonical)
+    setMeta('meta[property="og:image"]', "content", SOCIAL_IMAGE)
+    setMeta('meta[property="og:image:secure_url"]', "content", SOCIAL_IMAGE)
+    setMeta('meta[property="og:image:alt"]', "content", SOCIAL_IMAGE_ALT)
     setMeta('meta[name="twitter:title"]', "content", meta.title)
     setMeta('meta[name="twitter:description"]', "content", meta.description)
+    setMeta('meta[name="twitter:image"]', "content", SOCIAL_IMAGE)
+    setMeta('meta[name="twitter:image:alt"]', "content", SOCIAL_IMAGE_ALT)
     setMeta('link[rel="canonical"]', "href", canonical)
   }, [activeId])
 
