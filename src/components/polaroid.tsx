@@ -17,7 +17,6 @@ export type PolaroidProps = {
 export function Polaroid({
   src,
   alt = "",
-  caption,
   tilt = -4,
   className,
   index = 0,
@@ -80,11 +79,6 @@ export function Polaroid({
           <PolaroidPlaceholder kind={placeholderKind} />
         )}
       </div>
-      {caption && (
-        <figcaption className="mt-2 hidden text-center font-display text-sm italic text-foreground/70 sm:mt-3 lg:block">
-          {caption}
-        </figcaption>
-      )}
     </m.figure>
   )
 }

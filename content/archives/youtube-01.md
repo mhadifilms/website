@@ -1,6 +1,8 @@
 ---
 slug: "youtube-we-spent-a-week-exploring-tanzania-1"
 platform: "YouTube"
+projectType: "Video"
+project: "youtube-films"
 title: "We Spent a Week Exploring Tanzania"
 date: "2025-09-27"
 href: "https://www.youtube.com/watch?v=Vy6LJhDH3Bk"

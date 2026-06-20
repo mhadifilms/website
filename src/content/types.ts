@@ -28,6 +28,7 @@ export type SiteConfig = {
 export type Experience = {
   title: string
   slug: string
+  order: number
   company: string
   role: string
   location?: string
@@ -36,15 +37,35 @@ export type Experience = {
   summary: string
   tags?: string[]
   href?: string
+  visitLabel?: string
   logo?: string
+  media?: ExperienceMedia[]
   html: string
+}
+
+export type ExperienceMedia = {
+  type: "youtube" | "vimeo" | "iframe" | "image" | "link"
+  url: string
+  title?: string
+  thumbnail?: string
 }
 
 export type ArchivePlatform = "Linkedin" | "Twitter" | "Instagram" | "Substack" | "YouTube"
 
+export type Project = {
+  slug: string
+  title: string
+  type: string
+  summary: string
+  href?: string
+  html: string
+}
+
 export type ArchiveItem = {
   slug: string
   platform: ArchivePlatform
+  projectType: string
+  project?: string
   title: string
   image?: string
   href: string

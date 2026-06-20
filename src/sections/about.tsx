@@ -5,8 +5,6 @@ import type { CSSProperties, MouseEvent, ReactNode } from "react"
 import { Section } from "@/components/section"
 import { ScrollWorkCta } from "@/components/scroll-work-cta"
 import { site } from "@/content/generated"
-import { useSectionContext } from "@/hooks/section-context"
-import { scenePolaroids } from "@/lib/polaroid-scene"
 
 const HERO_POLAROID_INDEX = 2
 
@@ -48,14 +46,6 @@ const POLAROID_LAYOUT = [
   },
 ] as const
 
-const POLAROID_TARGETS = [
-  { sectionId: "home", label: "Return to the home section" },
-  { sectionId: "experiences", label: "Jump to the experiences section" },
-  { sectionId: "experiences", label: "Jump to the experiences section" },
-  { sectionId: "archives", label: "Jump to the archives section" },
-  { sectionId: "about", label: "Return to the about section" },
-] as const
-
 const BIO_LINKS: Record<string, { slug: string; label: string }> = {
   "Chief of Staff at sync. labs": { slug: "sync-labs", label: "Open sync. labs experience" },
   "UCLA professors": { slug: "ucla-summer-sessions", label: "Open UCLA Summer Sessions experience" },
@@ -69,26 +59,12 @@ type AboutSectionProps = {
 }
 
 export function AboutSection({ transitionProgress }: AboutSectionProps) {
-  const sectionContext = useSectionContext()
   const paragraphs = site.bio.split(/\n+/).map((p) => p.trim()).filter(Boolean)
   const revealOpacity = useTransform(transitionProgress, [0.72, 0.92], [0, 1])
   const threadOpacity = useTransform(transitionProgress, [0.58, 0.76], [0, 1])
   const threadPathLength = useTransform(transitionProgress, [0.58, 0.84], [0, 1])
   const copyOpacity = useTransform(transitionProgress, [0.82, 1], [0, 1])
   const copyY = useTransform(transitionProgress, [0.82, 1], [28, 0])
-  const slots = POLAROID_LAYOUT.map((_, index) => {
-    if (index === HERO_POLAROID_INDEX) {
-      return null
-    }
-
-    const supportingIndex = index > HERO_POLAROID_INDEX ? index - 1 : index
-    return scenePolaroids[supportingIndex % Math.max(scenePolaroids.length, 1)]
-  })
-  const handlePolaroidClick = (sectionId: string) => {
-    sectionContext?.scrollToId(sectionId, {
-      behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth",
-    })
-  }
 
   return (
     <Section
@@ -152,18 +128,13 @@ export function AboutSection({ transitionProgress }: AboutSectionProps) {
         />
       </m.svg>
 
-      {slots.map((polaroid, index) => (
+      {POLAROID_LAYOUT.map((layout, index) => (
         <HangingPolaroid
-          key={`${polaroid?.src ?? "hero-slot"}-${index}`}
-          src={polaroid?.src}
-          alt={polaroid?.alt}
-          caption={polaroid?.caption}
-          layout={POLAROID_LAYOUT[index]}
+          key={`string-slot-${index}`}
+          layout={layout}
           delay={index * 0.35}
           index={index}
-          target={POLAROID_TARGETS[index]}
           transitionProgress={transitionProgress}
-          onActivate={handlePolaroidClick}
         />
       ))}
 
@@ -171,11 +142,8 @@ export function AboutSection({ transitionProgress }: AboutSectionProps) {
         style={{ opacity: copyOpacity, y: copyY }}
         className="relative z-10 mx-auto flex min-h-svh w-[min(92vw,680px)] flex-col items-center px-4 pb-36 pt-[clamp(18rem,40svh,26rem)] text-center lg:pt-[clamp(19rem,43svh,29rem)] xl:pt-[clamp(20rem,45svh,31rem)]"
       >
-        <p className="mb-5 text-[10px] font-medium tracking-[0.36em] text-black/35">
-          01 · The Story So Far
-        </p>
-        <h2 className="text-balance text-[clamp(2.1rem,6vw,3.75rem)] font-light leading-none tracking-[-0.04em] text-black">
-          Hey, I&apos;m <span className="font-display font-normal">{site.shortName ?? site.name}</span>.
+        <h2 className="text-balance text-[clamp(2.25rem,6vw,4rem)] font-light leading-none tracking-[-0.04em] text-black">
+          Hey, I&apos;m <span className="font-display font-normal">Hadi</span>.
         </h2>
 
         <div className="mt-6 space-y-5 text-pretty text-[clamp(1rem,2.6vw,1.45rem)] font-light leading-[1.42] text-black/75">
@@ -235,27 +203,17 @@ function ExperienceBioLink({ slug, ariaLabel, children }: ExperienceBioLinkProps
 }
 
 type HangingPolaroidProps = {
-  src?: string
-  alt?: string
-  caption?: string
   layout: (typeof POLAROID_LAYOUT)[number]
   delay?: number
   index: number
-  target: (typeof POLAROID_TARGETS)[number]
   transitionProgress: MotionValue<number>
-  onActivate: (sectionId: string) => void
 }
 
 function HangingPolaroid({
-  src,
-  alt,
-  caption,
   layout,
   delay = 0,
   index,
-  target,
   transitionProgress,
-  onActivate,
 }: HangingPolaroidProps) {
   const isHero = index === HERO_POLAROID_INDEX
   const distanceFromHero = Math.abs(index - HERO_POLAROID_INDEX)
@@ -263,8 +221,6 @@ function HangingPolaroid({
   const revealEnd = isHero ? 0.76 : revealStart + 0.18
   const rootOpacity = useTransform(transitionProgress, [revealStart, revealEnd], [0, 1])
   const threadScaleY = useTransform(transitionProgress, [revealStart - 0.04, revealEnd], [0.08, 1])
-  const cardScale = useTransform(transitionProgress, [revealStart, revealEnd], [0.82, 1])
-  const cardY = useTransform(transitionProgress, [revealStart, revealEnd], [-18, 0])
   const style = {
     "--polaroid-x": layout.x,
     "--polaroid-width": layout.width,
@@ -287,57 +243,12 @@ function HangingPolaroid({
         animate={{ y: [0, -0.5, 0.5, 0] }}
         transition={{ duration: 4.8 + delay, repeat: Infinity, repeatType: "mirror", ease: "easeInOut", delay }}
       />
-      {isHero ? (
-        <div
-          data-hero-polaroid-marker="about"
-          aria-hidden="true"
-          className="absolute left-1/2 top-(--thread-drop) aspect-188/254 w-full -translate-x-1/2"
-        />
-      ) : (
-      <m.button
-        type="button"
-        aria-label={target.label}
-        onClick={() => onActivate(target.sectionId)}
-        style={{ scale: cardScale, y: cardY }}
-        animate={{
-          rotate: [layout.rotate - 0.7, layout.rotate + 0.9, layout.rotate - 0.4],
-        }}
-        whileHover={{
-          y: -9,
-          scale: 1.08,
-          rotate: layout.rotate * 0.45,
-          transition: { duration: 0.22, ease: [0.22, 1, 0.36, 1] },
-        }}
-        whileTap={{ scale: 0.98 }}
-        transition={{
-          rotate: { duration: 4.8 + delay, repeat: Infinity, repeatType: "mirror", ease: "easeInOut", delay },
-        }}
-        className="group pointer-events-auto absolute left-1/2 top-(--thread-drop) block w-full -translate-x-1/2 cursor-crosshair origin-top focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-4 focus-visible:ring-offset-background"
-      >
-        <div className="relative aspect-188/254 bg-[#efede2] p-[5%] pb-[18%] shadow-polaroid transition-shadow duration-300 hover:shadow-[0_22px_55px_rgba(0,0,0,0.18)]">
-          {src ? (
-            <img
-              src={src}
-              alt={alt ?? ""}
-              loading="eager"
-              decoding="async"
-              className="polaroid-photo block size-full object-cover saturate-[0.88] contrast-[0.96] sepia-[0.08]"
-            />
-          ) : (
-            <div className="size-full bg-muted" />
-          )}
-          {caption && (
-            <span
-              aria-hidden="true"
-              className="pointer-events-none absolute inset-x-[5%] bottom-0 flex h-[16%] items-center justify-center truncate font-hand text-black/45 transition-colors duration-300 group-hover:text-black/70"
-              style={{ fontSize: "clamp(0.5rem, 1.15vw, 0.85rem)" }}
-            >
-              {caption}
-            </span>
-          )}
-        </div>
-      </m.button>
-      )}
+      <m.div
+        data-hero-polaroid-marker={`about-${index}`}
+        data-hero-polaroid-center={isHero ? "true" : undefined}
+        aria-hidden="true"
+        className="absolute left-1/2 top-(--thread-drop) aspect-188/254 w-full -translate-x-1/2 origin-top"
+      />
     </m.div>
   )
 }

@@ -17,6 +17,7 @@ const routes = [
   },
   {
     path: "/about",
+    canonicalPath: "/",
     output: "about/index.html",
     title: "About Muhammad Hadi Yusufali | M Hadi",
     description:
@@ -92,7 +93,7 @@ function setMetaProperty(html, property, content) {
 }
 
 function routeHtml(template, route) {
-  const canonical = canonicalFor(route.path)
+  const canonical = canonicalFor(route.canonicalPath ?? route.path)
   let html = template
 
   html = setTitle(html, route.title)

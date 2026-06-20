@@ -1,16 +1,13 @@
 ---
 title: Filmmaker & Editor (Freelance)
 slug: independent-filmmaker
+order: 7
 company: Freelance
 role: Filmmaker, Editor, VFX
 location: Worldwide
 dateStart: "2017"
-summary: Eight-plus years editing, shooting, fixing, and finishing videos for clients, communities, events, and personal projects.
-tags:
-  - editing
-  - vfx
-  - directing
-  - cinematography
+summary: Eight-plus years editing, shooting, fixing, and finishing videos for clients, communities, events, collaborators, and personal projects.
+visitLabel: Work sample coming soon
 logo: /media/polaroid-camera.webp
 ---
 
@@ -21,3 +18,5 @@ What this includes:
 - Editing, color, sound cleanup, titles, and motion graphics.
 - Camera operation and directing for documentary, event, brand, and community work.
 - Practical fixes for small teams, tight budgets, bad rooms, and ambitious ideas.
+- Early range across community media, websites, short documentaries, nonprofit projects, and scrappy production teams.
+- Creative leadership from co-founding SR Studios, where I helped young collaborators learn media basics and ship projects before anyone had a polished portfolio.

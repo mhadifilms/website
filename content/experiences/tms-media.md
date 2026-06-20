@@ -1,23 +1,20 @@
 ---
-title: Multimedia Intern at TMS Media
+title: Multimedia Intern at TMS Productions
 slug: tms-media
-company: TMS Media
+order: 4
+company: TMS Productions
 role: Multimedia Intern
 dateStart: "2023-06-01"
 dateEnd: "2023-09-01"
-summary: Worked on podcast editing, short-form content, and content ideation for TMS Media.
-tags:
-  - video editing
-  - video production
-  - podcast editing
-  - content
+summary: Edited podcasts, short-form content, and production pieces for TMS Productions while learning inside a focused media team.
+visitLabel: Work sample coming soon
 logo: /media/polaroid-podcast.webp
 ---
 
-TMS Media gave me a more focused production environment for quick-turn media work. The work sat close to the edit: making conversations tighter, shaping clips for social, and thinking through what a piece of content needed before it hit the timeline.
+TMS Productions gave me a more focused production environment for quick-turn media work, mentorship, and a closer look at how a production company serves an established YouTube subscriber base.
 
-What this included:
+What stuck with me:
 
-- Podcast editing and cleanup.
-- Short-form content for social distribution.
-- Content ideation for repeatable media formats.
+- Podcast editing, short-form content, and content ideation for repeatable media formats.
+- Mentorship around how production choices, client needs, and the final edit connect.
+- A full-circle moment: one of my first editing challenges with footage I did not shoot was cutting a car commercial from TMS footage.

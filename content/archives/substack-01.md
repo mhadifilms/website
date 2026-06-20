@@ -1,6 +1,8 @@
 ---
 slug: "substack-building-an-app-every-day-but-idk-how-to-code-1"
 platform: "Substack"
+projectType: "Writing"
+project: "creative-chaos"
 title: "building an app every day but idk how to code..."
 date: "2025-12-26"
 href: "https://mhadimedia.substack.com/p/building-an-app-every-day-but-idk"

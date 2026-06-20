@@ -7,12 +7,16 @@ const archivesDir = path.join(root, "content", "archives")
 const SOURCES = {
   substack: {
     platform: "Substack",
+    projectType: "Writing",
+    project: "creative-chaos",
     feedUrl: "https://mhadimedia.substack.com/feed",
     prefix: "substack",
     limit: 4,
   },
   youtube: {
     platform: "YouTube",
+    projectType: "Video",
+    project: "youtube-films",
     feedUrl: "https://www.youtube.com/feeds/videos.xml?channel_id=UC3tjIqn37AFGX-M7CWHc_xw",
     prefix: "youtube",
     limit: 4,
@@ -85,7 +89,8 @@ function matchAttr(xml, tag, attr) {
   return decodeHtml(match?.[1] ?? "")
 }
 
-function parseSubstack(xml, limit) {
+function parseSubstack(xml, source) {
+  const { limit, projectType, project } = source
   return matchAll(xml, "item").slice(0, limit).map((item, index) => {
     const title = matchOne(item, "title")
     const href = matchOne(item, "link")
@@ -95,6 +100,8 @@ function parseSubstack(xml, limit) {
     return {
       slug: `substack-${slugify(title)}-${index + 1}`,
       platform: "Substack",
+      projectType,
+      project,
       title,
       date,
       href,
@@ -133,7 +140,8 @@ async function youtubeThumbnail(href = "", fallback = "") {
   return fallback
 }
 
-async function parseYouTube(xml, limit) {
+async function parseYouTube(xml, source) {
+  const { limit, projectType, project } = source
   return Promise.all(matchAll(xml, "entry").slice(0, limit).map(async (entry, index) => {
     const title = matchOne(entry, "title")
     const href = matchAttr(entry, "link", "href")
@@ -143,6 +151,8 @@ async function parseYouTube(xml, limit) {
     return {
       slug: `youtube-${slugify(title)}-${index + 1}`,
       platform: "YouTube",
+      projectType,
+      project,
       title,
       date,
       href,
@@ -184,8 +194,8 @@ async function writeItems(prefix, items) {
 async function syncSource(key, source) {
   const xml = await fetchText(source.feedUrl)
   const items = key === "substack"
-    ? parseSubstack(xml, source.limit)
-    : await parseYouTube(xml, source.limit)
+    ? parseSubstack(xml, source)
+    : await parseYouTube(xml, source)
 
   if (items.length === 0) throw new Error(`No ${source.platform} items found`)
   await removeGenerated(source.prefix)

@@ -4,23 +4,6 @@ import { ArrowUpRight } from "lucide-react"
 
 import { site } from "@/content/generated"
 
-const MARQUEE_WORDS = ["filmmaker", "storyteller", "editor", "creator", "operator"]
-
-function MarqueeRun() {
-  return (
-    <span className="flex shrink-0 items-center">
-      {MARQUEE_WORDS.map((word) => (
-        <span key={word} className="flex items-center">
-          <span className="px-7 font-display text-xl italic text-black/55 transition-colors duration-300 hover:text-black sm:px-10 sm:text-2xl">
-            {word}
-          </span>
-          <span className="footer-marquee-star text-sm text-accent">✳</span>
-        </span>
-      ))}
-    </span>
-  )
-}
-
 const CURSOR_SPRING = { stiffness: 480, damping: 40, mass: 0.55 } as const
 
 type ViewfinderCursorProps = {
@@ -113,18 +96,7 @@ export function SiteFooter() {
     <footer ref={footerRef} className="footer-cursor-zone relative border-t border-black/10 bg-background">
       <ViewfinderCursor zoneRef={footerRef} />
 
-      <div aria-hidden="true" className="overflow-hidden border-b border-black/10 py-3.5">
-        <div className="footer-marquee flex w-max">
-          <MarqueeRun />
-          <MarqueeRun />
-        </div>
-      </div>
-
       <div className="mx-auto flex w-full max-w-[1180px] flex-col items-center px-6 pb-36 pt-20 text-center sm:pt-24">
-        <p className="mb-6 text-[10px] font-medium tracking-[0.36em] text-black/35">
-          04 · Say Hello
-        </p>
-
         <m.a
           href={`mailto:${site.email}`}
           whileHover={{ y: -2 }}
@@ -132,10 +104,10 @@ export function SiteFooter() {
           transition={{ duration: 0.18, ease: [0.22, 1, 0.36, 1] }}
           className="group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-8 focus-visible:ring-offset-background"
         >
-          <span className="block text-balance text-[clamp(2.2rem,7vw,4.75rem)] font-light leading-[1.04] tracking-[-0.04em] text-black">
+          <span className="block text-balance text-[clamp(2.25rem,6vw,4rem)] font-light leading-none tracking-[-0.04em] text-black">
             What&apos;s <span className="font-display italic">your</span> story?
           </span>
-          <span className="mt-5 inline-flex items-center gap-2 text-lg font-light text-muted-foreground transition-colors duration-200 group-hover:text-black sm:text-xl">
+          <span className="mt-5 inline-flex items-center gap-2 text-base font-light text-muted-foreground transition-colors duration-200 group-hover:text-black sm:text-lg">
             {site.email}
             <ArrowUpRight
               className="size-5 transition-transform duration-200 ease-out group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
@@ -159,7 +131,7 @@ export function SiteFooter() {
         </nav>
 
         <p className="mt-14 text-xs font-light tracking-[0.08em] text-black/35">
-          © {year} {site.name} · <span className="font-hand text-sm text-black/45">shot on a vintage macintosh</span>
+          © {year} {site.name}
         </p>
       </div>
     </footer>

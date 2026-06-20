@@ -1,6 +1,8 @@
 ---
 slug: "substack-to-know-what-you-want-learn-what-you-don-t-3"
 platform: "Substack"
+projectType: "Writing"
+project: "creative-chaos"
 title: "to know what you want, learn what you don't"
 date: "2025-09-03"
 href: "https://mhadimedia.substack.com/p/to-know-what-you-want-learn-what"

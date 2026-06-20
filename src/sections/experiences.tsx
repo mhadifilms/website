@@ -23,21 +23,12 @@ export function ExperiencesSection() {
         className="flex min-h-[760px] w-full flex-col items-center justify-center lg:min-h-[920px]"
       >
         <header className="mx-auto mb-14 max-w-3xl text-center sm:mb-20">
-          <m.p
-            initial={{ opacity: 0, y: 10 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.1 }}
-            transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-            className="mb-5 text-[10px] font-medium tracking-[0.36em] text-black/35"
-          >
-            02 · Where I&apos;ve Been
-          </m.p>
           <m.h2
             initial={{ opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.1 }}
             transition={{ duration: 0.65, delay: 0.05, ease: [0.22, 1, 0.36, 1] }}
-            className="text-balance text-5xl font-light leading-none tracking-[-0.04em] text-foreground sm:text-6xl"
+            className="text-balance text-[clamp(2.25rem,6vw,4rem)] font-light leading-none tracking-[-0.04em] text-foreground"
           >
             The <span className="font-display font-normal">Experiences</span>
           </m.h2>

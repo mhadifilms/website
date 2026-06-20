@@ -1,6 +1,8 @@
 ---
 slug: "substack-we-made-a-movie-in-six-weeks-2"
 platform: "Substack"
+projectType: "Writing"
+project: "creative-chaos"
 title: "we made a movie in six weeks."
 date: "2025-09-26"
 href: "https://mhadimedia.substack.com/p/we-made-a-movie-in-six-weeks"

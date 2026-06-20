@@ -351,24 +351,6 @@
   }
 }
 
-/* Footer credits marquee. */
-.footer-marquee {
-  animation: footer-marquee-scroll 30s linear infinite;
-}
-
-.footer-marquee:hover {
-  animation-play-state: paused;
-}
-
-@keyframes footer-marquee-scroll {
-  from {
-    transform: translateX(0);
-  }
-  to {
-    transform: translateX(-50%);
-  }
-}
-
 /* Footer viewfinder cursor: hide the native cursor only where the custom one renders. */
 @media (pointer: fine) and (prefers-reduced-motion: no-preference) {
   .footer-cursor-zone,
@@ -393,19 +375,6 @@
 .footer-social-link:hover,
 .footer-social-link:focus-visible {
   background-size: 100% 1px;
-}
-
-/* Marquee separators rotate slowly, like sprocket holes ticking by. */
-@media (prefers-reduced-motion: no-preference) {
-  .footer-marquee-star {
-    animation: footer-star-spin 14s linear infinite;
-  }
-}
-
-@keyframes footer-star-spin {
-  to {
-    transform: rotate(360deg);
-  }
 }
 
 /* Polaroids "develop" into color on hover. */

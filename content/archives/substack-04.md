@@ -1,6 +1,8 @@
 ---
 slug: "substack-just-rented-seven-electric-scooters-in-one-day-4"
 platform: "Substack"
+projectType: "Writing"
+project: "creative-chaos"
 title: "just rented seven electric scooters in one day"
 date: "2025-08-22"
 href: "https://mhadimedia.substack.com/p/just-rented-seven-electric-scooters"

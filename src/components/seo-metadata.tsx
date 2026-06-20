@@ -6,7 +6,7 @@ const SITE_URL = "https://mhadifilms.com"
 const SOCIAL_IMAGE = `${SITE_URL}/media/social-card.png`
 const SOCIAL_IMAGE_ALT = "A black-and-white film strip from Muhammad Hadi Yusufali's creative work."
 
-const ROUTE_META: Record<string, { title: string; description: string; path: string }> = {
+const ROUTE_META: Record<string, { title: string; description: string; path: string; canonicalPath?: string }> = {
   home: {
     title: "Muhammad Hadi Yusufali | M Hadi",
     description: site.description,
@@ -17,6 +17,7 @@ const ROUTE_META: Record<string, { title: string; description: string; path: str
     description:
       "Learn about Muhammad Hadi Yusufali, a creator and filmmaker working across storytelling, video production, creative technology, and digital media.",
     path: "/about",
+    canonicalPath: "/",
   },
   experiences: {
     title: "Experiences | Muhammad Hadi Yusufali",
@@ -46,7 +47,8 @@ function setMeta(selector: string, attr: "content" | "href", value: string) {
 export function SeoMetadata({ activeId }: SeoMetadataProps) {
   useEffect(() => {
     const meta = ROUTE_META[activeId] ?? ROUTE_META.home
-    const canonical = `${SITE_URL}${meta.path === "/" ? "/" : meta.path}`
+    const canonicalPath = meta.canonicalPath ?? meta.path
+    const canonical = `${SITE_URL}${canonicalPath === "/" ? "/" : canonicalPath}`
 
     document.title = meta.title
     setMeta('meta[name="description"]', "content", meta.description)

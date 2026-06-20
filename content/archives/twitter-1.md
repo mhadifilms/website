@@ -1,6 +1,8 @@
 ---
 slug: twitter-1
 platform: Twitter
+projectType: Profiles
+project: mhadifilms-profile
 title: "@mhadifilms on X"
 date: 2026-06-07
 href: https://x.com/mhadifilms

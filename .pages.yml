@@ -62,7 +62,7 @@ content:
     path: content/experiences
     filename: "{fields.slug}.md"
     view:
-      fields: [title, company, dateStart, dateEnd]
+      fields: [order, title, company, dateStart, dateEnd]
     fields:
       - name: title
         label: Title
@@ -70,6 +70,9 @@ content:
       - name: slug
         label: Slug
         type: string
+      - name: order
+        label: Display order
+        type: number
       - name: company
         label: Company / Organization
         type: string
@@ -95,9 +98,60 @@ content:
       - name: href
         label: External URL
         type: string
+      - name: visitLabel
+        label: Visit button label
+        type: string
       - name: logo
         label: Logo
         type: image
+      - name: media
+        label: Media embeds
+        type: object
+        list: true
+        fields:
+          - name: type
+            label: Media type
+            type: select
+            options:
+              values: ["youtube", "vimeo", "iframe", "image", "link"]
+          - name: url
+            label: URL
+            type: string
+          - name: title
+            label: Title
+            type: string
+          - name: thumbnail
+            label: Thumbnail
+            type: image
+      - name: body
+        label: Body
+        type: rich-text
+
+  - name: projects
+    label: Projects / initiatives
+    type: collection
+    path: content/projects
+    filename: "{fields.slug}.md"
+    view:
+      fields: [title, type, href]
+    fields:
+      - name: slug
+        label: Slug
+        type: string
+      - name: title
+        label: Title
+        type: string
+      - name: type
+        label: Project type
+        type: select
+        options:
+          values: ["Writing", "Video", "Tools", "Profiles"]
+      - name: summary
+        label: Summary
+        type: text
+      - name: href
+        label: External URL
+        type: string
       - name: body
         label: Body
         type: rich-text
@@ -118,6 +172,14 @@ content:
         type: select
         options:
           values: ["Linkedin", "Twitter", "Instagram", "Substack", "YouTube"]
+      - name: projectType
+        label: Project type
+        type: select
+        options:
+          values: ["Writing", "Video", "Tools", "Profiles"]
+      - name: project
+        label: Linked project / initiative slug
+        type: string
       - name: title
         label: Title
         type: string

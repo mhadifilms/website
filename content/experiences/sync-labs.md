@@ -1,17 +1,14 @@
 ---
 title: Chief of Staff at sync. labs
 slug: sync-labs
+order: 1
 company: sync. labs
 role: Chief of Staff
 location: San Francisco, CA
 dateStart: "2023-08-01"
 summary: Grew with sync. from early growth work into production leadership and now Chief of Staff, helping turn high-end AI video research into work that survives real clients, real footage, and real deadlines.
-tags:
-  - operations
-  - production
-  - product
-  - ai video
 href: https://sync.so
+visitLabel: Visit sync. labs
 logo: /media/figma-mhadi-camera.png
 ---
 

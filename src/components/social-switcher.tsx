@@ -1,18 +1,17 @@
 import { useCallback, useRef } from "react"
 import { m } from "framer-motion"
 
-import type { ArchivePlatform } from "@/content/types"
 import { cn } from "@/lib/utils"
 
-type SocialSwitcherProps = {
-  platforms: ArchivePlatform[]
-  active: ArchivePlatform
-  onSelect: (platform: ArchivePlatform) => void
+type CategorySwitcherProps = {
+  categories: string[]
+  active: string
+  onSelect: (category: string) => void
   className?: string
-  icons?: Partial<Record<ArchivePlatform, React.ReactNode>>
+  label?: string
 }
 
-export function SocialSwitcher({ platforms, active, onSelect, className, icons }: SocialSwitcherProps) {
+export function CategorySwitcher({ categories, active, onSelect, className, label = "Archives by project type" }: CategorySwitcherProps) {
   const buttonsRef = useRef<Array<HTMLButtonElement | null>>([])
 
   const handleKey = useCallback(
@@ -28,25 +27,28 @@ export function SocialSwitcher({ platforms, active, onSelect, className, icons }
       if (next === null) return
       event.preventDefault()
       buttons[next].focus()
-      onSelect(platforms[next])
+      onSelect(categories[next])
     },
-    [onSelect, platforms],
+    [onSelect, categories],
   )
 
   return (
     <div
       role="tablist"
-      aria-label="Archives by platform"
+      aria-label={label}
       className={cn(
-        "scrollbar-none flex max-w-full flex-row gap-6 overflow-x-auto pb-2 lg:flex-col lg:items-start lg:gap-[37px] lg:overflow-visible lg:pb-0 [&::-webkit-scrollbar]:hidden",
+        "scrollbar-none flex max-w-full flex-row gap-5 overflow-x-auto pb-2 lg:flex-col lg:items-start lg:gap-5 lg:overflow-visible lg:pb-0 [&::-webkit-scrollbar]:hidden",
         className,
       )}
     >
-      {platforms.map((platform, index) => {
-        const isActive = platform === active
+      {categories.map((category, index) => {
+        const isActive = category === active
+        const categoryId = category.replace(/\s+/g, "-").toLowerCase()
+        const tabId = `archive-tab-${categoryId}`
+        const panelId = `archive-panel-${categoryId}`
         return (
           <m.button
-            key={platform}
+            key={category}
             ref={(node) => {
               buttonsRef.current[index] = node
             }}
@@ -55,29 +57,21 @@ export function SocialSwitcher({ platforms, active, onSelect, className, icons }
             whileTap={{ scale: 0.985 }}
             transition={{ duration: 0.16, ease: [0.22, 1, 0.36, 1] }}
             role="tab"
-            id={`archive-tab-${platform}`}
+            id={tabId}
             aria-selected={isActive}
-            aria-controls={`archive-panel-${platform}`}
+            aria-controls={panelId}
             tabIndex={isActive ? 0 : -1}
-            onClick={() => onSelect(platform)}
+            onClick={() => onSelect(category)}
             onKeyDown={(event) => handleKey(event, index)}
             className={cn(
-              "group relative inline-flex shrink-0 items-center gap-2 text-xl font-light leading-none text-black transition-colors duration-200 outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-4 focus-visible:ring-offset-background sm:text-2xl",
+              "group relative inline-flex shrink-0 items-center gap-2 text-base font-light leading-none text-black transition-colors duration-200 outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-4 focus-visible:ring-offset-background sm:text-lg",
               isActive ? "font-medium" : "hover:text-black/70",
             )}
           >
-            {icons?.[platform] && (
-              <span
-                aria-hidden="true"
-                className="hidden size-4 place-items-center transition-colors"
-              >
-                {icons[platform]}
-              </span>
-            )}
-            <span>{platform}</span>
+            <span>{category}</span>
             {isActive && (
               <m.span
-                layoutId="archive-platform-underline"
+                layoutId="archive-category-underline"
                 aria-hidden="true"
                 className="absolute -bottom-2 left-0 h-px w-full bg-black"
                 transition={{ type: "spring", stiffness: 420, damping: 34 }}

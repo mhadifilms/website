@@ -1,6 +1,8 @@
 ---
 slug: instagram-1
 platform: Instagram
+projectType: Profiles
+project: mhadifilms-profile
 title: "@mhadifilms on Instagram"
 date: 2026-06-07
 href: https://www.instagram.com/mhadifilms

@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from "react"
 import { AnimatePresence, m } from "framer-motion"
 import { ArrowUpRight, ChevronDown, ChevronUp } from "lucide-react"
 
-import type { Experience } from "@/content/types"
+import type { Experience, ExperienceMedia as ExperienceMediaItem } from "@/content/types"
 import { cn } from "@/lib/utils"
 
 const DRAWER_TRANSITION = { type: "spring", stiffness: 260, damping: 30, mass: 0.8 } as const
@@ -35,7 +35,6 @@ type TimelineProps = {
 
 type PreviewState = {
   src?: string
-  title: string
   meta: string
   x: number
   y: number
@@ -49,7 +48,6 @@ export function Timeline({ items, className }: TimelineProps) {
   const [activeSlug, setActiveSlug] = useState(initialSlug)
   const [preview, setPreview] = useState<PreviewState>({
     src: undefined,
-    title: "",
     meta: "",
     x: 0,
     y: 0,
@@ -95,7 +93,6 @@ export function Timeline({ items, className }: TimelineProps) {
   const showPreview = (item: Experience, x: number, y: number) => {
     setPreview({
       src: withBase(item.logo),
-      title: item.company,
       meta: item.role,
       x,
       y,
@@ -168,13 +165,93 @@ export function Timeline({ items, className }: TimelineProps) {
               alt=""
               className="aspect-4/5 w-full object-cover saturate-[0.9] contrast-[0.96] sepia-[0.08]"
             />
-            <div className="absolute inset-x-3 bottom-2 truncate text-[10px] font-light lowercase tracking-[0.08em] text-black/55">
-              {preview.title}
-            </div>
             <div className="sr-only">{preview.meta}</div>
           </m.div>
         )}
       </AnimatePresence>
+    </div>
+  )
+}
+
+type ExperienceMediaProps = {
+  items?: ExperienceMediaItem[]
+}
+
+function getYouTubeId(url: string) {
+  return url.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/|shorts\/))([\w-]{6,})/)?.[1]
+}
+
+function getVimeoId(url: string) {
+  return url.match(/vimeo\.com\/(?:video\/)?(\d+)/)?.[1]
+}
+
+function embedSrcFor(item: ExperienceMediaItem) {
+  if (item.type === "youtube") {
+    const id = getYouTubeId(item.url)
+    return id ? `https://www.youtube-nocookie.com/embed/${id}` : item.url
+  }
+  if (item.type === "vimeo") {
+    const id = getVimeoId(item.url)
+    return id ? `https://player.vimeo.com/video/${id}` : item.url
+  }
+  if (item.type === "iframe") return item.url
+  return undefined
+}
+
+function ExperienceMedia({ items }: ExperienceMediaProps) {
+  if (!items || items.length === 0) return null
+
+  return (
+    <div className="mt-7 grid gap-4">
+      {items.map((item, index) => {
+        const title = item.title ?? "Experience media"
+        const embedSrc = embedSrcFor(item)
+
+        if (item.type === "image") {
+          return (
+            <figure key={`${item.url}-${index}`} className="overflow-hidden border border-black/10 bg-white/35 p-2">
+              <img
+                src={withBase(item.url)}
+                alt={title}
+                loading="lazy"
+                decoding="async"
+                className="aspect-video w-full object-cover"
+              />
+            </figure>
+          )
+        }
+
+        if (embedSrc) {
+          return (
+            <div key={`${item.url}-${index}`} className="overflow-hidden border border-black/10 bg-white/35 p-2">
+              <iframe
+                src={embedSrc}
+                title={title}
+                loading="lazy"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowFullScreen
+                className="aspect-video w-full"
+              />
+            </div>
+          )
+        }
+
+        return (
+          <m.a
+            key={`${item.url}-${index}`}
+            href={item.url}
+            target="_blank"
+            rel="noreferrer"
+            whileHover={{ y: -1 }}
+            whileTap={{ scale: 0.985 }}
+            transition={{ duration: 0.16, ease: [0.22, 1, 0.36, 1] }}
+            className="group inline-flex w-fit items-center gap-2 rounded-full border border-black/15 bg-white/35 px-4 py-2 text-sm font-light uppercase tracking-[0.18em] text-black/60 transition hover:border-black/30 hover:text-black focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-4 focus-visible:ring-offset-background"
+          >
+            {title}
+            <ArrowUpRight className="size-4 transition-transform duration-200 ease-out group-hover:-translate-y-0.5 group-hover:translate-x-0.5" strokeWidth={1.8} />
+          </m.a>
+        )
+      })}
     </div>
   )
 }
@@ -197,6 +274,7 @@ function ExperienceDrawer({
   onPreviewLeave,
 }: ExperienceDrawerProps) {
   const imageSrc = withBase(item.logo)
+  const visitLabel = item.visitLabel ?? (item.href ? "visit" : "work sample coming soon")
 
   return (
     <m.article
@@ -281,20 +359,9 @@ function ExperienceDrawer({
                   />
                 )}
 
-                {item.tags && item.tags.length > 0 && (
-                  <ul className="mt-7 flex flex-wrap gap-3">
-                    {item.tags.map((tag) => (
-                      <li
-                        key={tag}
-                        className="rounded-full bg-accent/20 px-4 py-2 text-xs font-light uppercase tracking-[0.2em] text-black/55"
-                      >
-                        {tag}
-                      </li>
-                    ))}
-                  </ul>
-                )}
+                <ExperienceMedia items={item.media} />
 
-                {item.href && (
+                {item.href ? (
                   <m.a
                     href={item.href}
                     target="_blank"
@@ -302,11 +369,15 @@ function ExperienceDrawer({
                     whileHover={{ y: -1 }}
                     whileTap={{ scale: 0.985 }}
                     transition={{ duration: 0.16, ease: [0.22, 1, 0.36, 1] }}
-                    className="group mt-7 inline-flex items-center gap-2 text-2xl font-light text-black underline-offset-4 transition hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-4 focus-visible:ring-offset-background"
+                    className="group mt-7 inline-flex items-center gap-2 rounded-full border border-black/15 px-5 py-2.5 text-sm font-light uppercase tracking-[0.18em] text-black/70 transition hover:border-black/35 hover:text-black focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-4 focus-visible:ring-offset-background"
                   >
-                    visit
+                    {visitLabel}
                     <ArrowUpRight className="size-5 transition-transform duration-200 ease-out group-hover:-translate-y-0.5 group-hover:translate-x-0.5" strokeWidth={1.8} />
                   </m.a>
+                ) : (
+                  <span className="mt-7 inline-flex items-center rounded-full border border-black/10 px-5 py-2.5 text-sm font-light uppercase tracking-[0.18em] text-black/35">
+                    {visitLabel}
+                  </span>
                 )}
               </div>
 
@@ -319,9 +390,6 @@ function ExperienceDrawer({
                     decoding="async"
                     className="polaroid-photo aspect-4/5 w-full object-cover saturate-[0.9] contrast-[0.96] sepia-[0.08]"
                   />
-                  <figcaption className="mt-2 truncate text-center text-[10px] font-light lowercase tracking-[0.08em] text-black/50">
-                    {item.location ?? item.company}
-                  </figcaption>
                 </figure>
               )}
             </div>

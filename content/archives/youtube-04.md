@@ -1,6 +1,8 @@
 ---
 slug: "youtube-we-turned-a-youth-camp-into-a-documentary-4"
 platform: "YouTube"
+projectType: "Video"
+project: "journey-tellers"
 title: "We Turned a Youth Camp into a Documentary"
 date: "2024-10-31"
 href: "https://www.youtube.com/watch?v=04p3ls98W7Y"

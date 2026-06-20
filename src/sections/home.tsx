@@ -141,13 +141,13 @@ export function HomeSection({ transitionProgress }: HomeSectionProps) {
           <m.div
             style={{ opacity: taglineOpacity }}
             aria-hidden="true"
-            className="pointer-events-none absolute bottom-[12svh] left-1/2 z-10 flex -translate-x-1/2 flex-col items-center"
+            className="pointer-events-none absolute inset-x-0 bottom-[12svh] z-10 flex justify-center text-center"
           >
             <m.span
               initial={{ opacity: 0, y: 8 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 1.9, ease: WORD_EASE }}
-              className="flex flex-col items-center gap-2"
+              className="flex flex-col items-center justify-center gap-2"
             >
               <span className="size-1.5 animate-pulse rounded-full bg-foreground/40" />
               <span className="text-[10px] font-medium uppercase tracking-[0.4em] text-muted-foreground">
