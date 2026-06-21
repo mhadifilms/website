@@ -121,6 +121,7 @@ export function HeroPolaroidLayer() {
     () =>
       Array.from({ length: POLAROID_COUNT }, (_, index) => {
         const fallback = { src: HERO_IMAGE, alt: "" }
+        if (index === CENTER_POLAROID_INDEX) return fallback
         if (scenePolaroids.length === 0) return fallback
         return scenePolaroids[index % scenePolaroids.length] ?? fallback
       }),
@@ -212,12 +213,13 @@ export function HeroPolaroidLayer() {
 
         gsap.set(macScene, { opacity: 1 })
         gsap.set([macShell, macScreenEffect], { opacity: 1 })
-        polaroidElements.forEach(({ hero, frame, photo, screenEffect }) => {
-          gsap.set([screenEffect], { opacity: 1 })
+        polaroidElements.forEach(({ hero, frame, photo, screenEffect, index }) => {
+          gsap.set([screenEffect], { opacity: 0 })
           gsap.set(hero, {
             ...rectVars(screenStart),
-            opacity: 0,
+            opacity: index === CENTER_POLAROID_INDEX ? 1 : 0,
             rotate: 0,
+            zIndex: index === CENTER_POLAROID_INDEX ? 50 : 20 - Math.abs(index - CENTER_POLAROID_INDEX),
             transformOrigin: "50% 0%",
           })
           gsap.set(frame, { opacity: 0 })
@@ -244,9 +246,9 @@ export function HeroPolaroidLayer() {
 
         polaroidElements.forEach(({ hero, frame, photo, marker, index }) => {
           const offsetFromCenter = index - CENTER_POLAROID_INDEX
-          const enterAt = 0.08 + index * 0.035
-          const shrinkAt = 0.28 + index * 0.025
-          const attachAt = 0.55 + Math.abs(offsetFromCenter) * 0.035
+          const enterAt = 0.12 + index * 0.045
+          const shrinkAt = 0.34 + index * 0.035
+          const attachAt = 0.62 + Math.abs(offsetFromCenter) * 0.04
           const finalRotate = FINAL_ROTATIONS[index] ?? -3
           const screenPolaroid = polaroidInScreen(screenRectAt(screenBase, 0.22), {
             width: 0.3,

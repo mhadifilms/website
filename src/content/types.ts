@@ -51,24 +51,37 @@ export type ExperienceMedia = {
 }
 
 export type ArchivePlatform = "Linkedin" | "Twitter" | "Instagram" | "Substack" | "YouTube"
+export type ProjectType = "Writing" | "Video" | "Tools" | "Profiles"
+export type ProjectStatus = "Active" | "Archive" | "Profile"
+export type ArchiveEntryType = "Article" | "Video" | "Post" | "Profile" | "Tool" | "Prototype" | "Project"
 
 export type Project = {
   slug: string
   title: string
-  type: string
+  order: number
+  type: ProjectType
+  status?: ProjectStatus
+  dateStart?: string
+  dateEnd?: string
+  image?: string
   summary: string
   href?: string
+  relatedExperience?: string
+  platforms?: ArchivePlatform[]
+  featured?: boolean
   html: string
 }
 
 export type ArchiveItem = {
   slug: string
   platform: ArchivePlatform
-  projectType: string
+  projectType: ProjectType
+  entryType: ArchiveEntryType
   project?: string
   title: string
   image?: string
   href: string
   date: string
   summary?: string
+  featured?: boolean
 }

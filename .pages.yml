@@ -91,10 +91,6 @@ content:
       - name: summary
         label: Summary
         type: text
-      - name: tags
-        label: Tags
-        type: string
-        list: true
       - name: href
         label: External URL
         type: string
@@ -133,7 +129,7 @@ content:
     path: content/projects
     filename: "{fields.slug}.md"
     view:
-      fields: [title, type, href]
+      fields: [order, title, type, status, href]
     fields:
       - name: slug
         label: Slug
@@ -141,29 +137,58 @@ content:
       - name: title
         label: Title
         type: string
+      - name: order
+        label: Display order
+        type: number
       - name: type
         label: Project type
         type: select
         options:
           values: ["Writing", "Video", "Tools", "Profiles"]
+      - name: status
+        label: Status
+        type: select
+        options:
+          values: ["Active", "Archive", "Profile"]
+      - name: dateStart
+        label: Start date
+        type: date
+      - name: dateEnd
+        label: End date (leave blank for present)
+        type: date
+      - name: image
+        label: Cover image
+        type: image
       - name: summary
         label: Summary
         type: text
       - name: href
         label: External URL
         type: string
+      - name: relatedExperience
+        label: Related experience slug
+        type: string
+      - name: platforms
+        label: Platforms
+        type: select
+        list: true
+        options:
+          values: ["Linkedin", "Twitter", "Instagram", "Substack", "YouTube"]
+      - name: featured
+        label: Featured project
+        type: boolean
       - name: body
         label: Body
         type: rich-text
 
-  - name: archives
-    label: Archives
+  - name: archives_substack
+    label: Archives / Substack
     type: collection
-    path: content/archives
+    path: content/archives/substack
     filename: "{fields.slug}.md"
-    view:
-      fields: [title, platform, date]
-    fields:
+    view: &archive_view
+      fields: [title, project, entryType, platform, date]
+    fields: &archive_fields
       - name: slug
         label: Slug
         type: string
@@ -173,13 +198,18 @@ content:
         options:
           values: ["Linkedin", "Twitter", "Instagram", "Substack", "YouTube"]
       - name: projectType
-        label: Project type
+        label: Project type (auto from project if blank)
         type: select
         options:
           values: ["Writing", "Video", "Tools", "Profiles"]
       - name: project
         label: Linked project / initiative slug
         type: string
+      - name: entryType
+        label: Entry type
+        type: select
+        options:
+          values: ["Article", "Video", "Post", "Profile", "Tool", "Prototype", "Project"]
       - name: title
         label: Title
         type: string
@@ -195,6 +225,41 @@ content:
       - name: summary
         label: Summary
         type: text
+      - name: featured
+        label: Featured entry
+        type: boolean
+
+  - name: archives_youtube
+    label: Archives / YouTube
+    type: collection
+    path: content/archives/youtube
+    filename: "{fields.slug}.md"
+    view: *archive_view
+    fields: *archive_fields
+
+  - name: archives_twitter
+    label: Archives / Twitter
+    type: collection
+    path: content/archives/twitter
+    filename: "{fields.slug}.md"
+    view: *archive_view
+    fields: *archive_fields
+
+  - name: archives_linkedin
+    label: Archives / LinkedIn
+    type: collection
+    path: content/archives/linkedin
+    filename: "{fields.slug}.md"
+    view: *archive_view
+    fields: *archive_fields
+
+  - name: archives_instagram
+    label: Archives / Instagram
+    type: collection
+    path: content/archives/instagram
+    filename: "{fields.slug}.md"
+    view: *archive_view
+    fields: *archive_fields
 
 settings:
   hide: false

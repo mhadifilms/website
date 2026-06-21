@@ -102,7 +102,7 @@ export function HomeSection({ transitionProgress }: HomeSectionProps) {
     <Section
       id="home"
       label="Home"
-      className="h-[280svh] snap-none overflow-visible"
+      className="h-[320svh] snap-none overflow-visible"
       innerClassName="relative h-full w-full"
     >
       <div ref={ref} className="relative h-full w-full">

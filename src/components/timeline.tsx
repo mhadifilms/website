@@ -44,7 +44,7 @@ type PreviewState = {
 export function Timeline({ items, className }: TimelineProps) {
   const getHashSlug = () => (typeof window === "undefined" ? "" : window.location.hash.replace(/^#/, ""))
   const hashSlug = getHashSlug()
-  const initialSlug = items.some((item) => item.slug === hashSlug) ? hashSlug : items[0]?.slug ?? ""
+  const initialSlug = items.some((item) => item.slug === hashSlug) ? hashSlug : ""
   const [activeSlug, setActiveSlug] = useState(initialSlug)
   const [preview, setPreview] = useState<PreviewState>({
     src: undefined,
@@ -312,7 +312,7 @@ function ExperienceDrawer({
         </span>
 
         <span className="min-w-0">
-          <span className="block text-balance text-3xl font-light leading-none tracking-[-0.035em] text-black sm:text-5xl">
+          <span className="block text-balance text-3xl font-light leading-none tracking-[-0.045em] text-black/85 sm:text-[2.85rem]">
             {item.company}
           </span>
           <span className="mt-2 block text-sm font-light uppercase tracking-[0.24em] text-black/45">

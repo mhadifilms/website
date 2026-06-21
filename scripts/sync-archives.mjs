@@ -1,5 +1,6 @@
 import fs from "node:fs/promises"
 import path from "node:path"
+import matter from "gray-matter"
 
 const root = process.cwd()
 const archivesDir = path.join(root, "content", "archives")
@@ -9,19 +10,24 @@ const SOURCES = {
     platform: "Substack",
     projectType: "Writing",
     project: "creative-chaos",
+    entryType: "Article",
     feedUrl: "https://mhadimedia.substack.com/feed",
-    prefix: "substack",
-    limit: 4,
+    folder: "substack",
+    limit: 100,
   },
   youtube: {
     platform: "YouTube",
     projectType: "Video",
     project: "youtube-films",
+    entryType: "Video",
     feedUrl: "https://www.youtube.com/feeds/videos.xml?channel_id=UC3tjIqn37AFGX-M7CWHc_xw",
-    prefix: "youtube",
-    limit: 4,
+    folder: "youtube",
+    limit: 100,
   },
 }
+
+const PRESERVED_FIELDS = ["project", "projectType", "entryType", "featured"]
+const ARCHIVE_FIELD_ORDER = ["slug", "platform", "projectType", "project", "entryType", "title", "date", "href", "image", "summary", "featured"]
 
 function decodeHtml(value = "") {
   return value
@@ -51,6 +57,32 @@ function excerpt(value = "", max = 160) {
   return `${clean.slice(0, max).replace(/\s+\S*$/, "")}...`
 }
 
+function classifyProject(item, source) {
+  const haystack = `${item.title ?? ""} ${item.summary ?? ""} ${item.href ?? ""}`.toLowerCase()
+
+  if (source.platform === "Substack") {
+    if (/\b(app|code|coding|mcp|ai|tool|software|cursor|claude|davinci|resolve)\b|building an app|google search|hack google/.test(haystack)) {
+      return { project: "creative-tools", projectType: "Tools", entryType: "Article" }
+    }
+    if (/\b(movie|film|filmmaking|short film|production|editing|documentary|camera|video)\b/.test(haystack)) {
+      return { project: "awaiten-films", projectType: "Video", entryType: "Article" }
+    }
+    return { project: source.project, projectType: source.projectType, entryType: source.entryType }
+  }
+
+  if (source.platform === "YouTube") {
+    if (/(journey tellers|camp noor|youth camp|podcast)/.test(haystack)) {
+      return { project: "journey-tellers", projectType: "Video", entryType: "Video" }
+    }
+    if (/(movie|film|documentary|commercial|production|behind the scenes)/.test(haystack)) {
+      return { project: "awaiten-films", projectType: "Video", entryType: "Video" }
+    }
+    return { project: source.project, projectType: source.projectType, entryType: source.entryType }
+  }
+
+  return { project: source.project, projectType: source.projectType, entryType: source.entryType }
+}
+
 function slugify(value = "") {
   const slug = value
     .toLowerCase()
@@ -63,17 +95,64 @@ function slugify(value = "") {
 
 function frontmatter(fields) {
   const lines = ["---"]
-  for (const [key, value] of Object.entries(fields)) {
+  const keys = [...ARCHIVE_FIELD_ORDER, ...Object.keys(fields).filter((key) => !ARCHIVE_FIELD_ORDER.includes(key))]
+  for (const key of keys) {
+    const value = fields[key]
     if (value === undefined || value === "") continue
+    const normalizedValue = value instanceof Date
+      ? value.toISOString().slice(0, 10)
+      : typeof value === "string" && /^\d{4}-\d{2}-\d{2}T/.test(value)
+        ? value.slice(0, 10)
+        : value
     if (Array.isArray(value)) {
       lines.push(`${key}:`)
       for (const item of value) lines.push(`  - ${JSON.stringify(item)}`)
     } else {
-      lines.push(`${key}: ${JSON.stringify(value)}`)
+      lines.push(`${key}: ${JSON.stringify(normalizedValue)}`)
     }
   }
   lines.push("---", "")
   return lines.join("\n")
+}
+
+async function markdownFilesIn(dir) {
+  const entries = await fs.readdir(dir, { withFileTypes: true }).catch(() => [])
+  const files = await Promise.all(
+    entries.map(async (entry) => {
+      const entryPath = path.join(dir, entry.name)
+      if (entry.isDirectory()) return markdownFilesIn(entryPath)
+      if (entry.isFile() && entry.name.endsWith(".md")) return [entryPath]
+      return []
+    }),
+  )
+
+  return files.flat()
+}
+
+async function existingGeneratedByHref(source) {
+  const files = await markdownFilesIn(path.join(archivesDir, source.folder))
+  const byHref = new Map()
+
+  for (const file of files) {
+    const markdown = await fs.readFile(file, "utf8")
+    const { data } = matter(markdown)
+    if (data.href) byHref.set(data.href, data)
+  }
+
+  return byHref
+}
+
+function mergePreservedFields(item, existing) {
+  if (!existing) return item
+  const merged = { ...item }
+
+  for (const field of PRESERVED_FIELDS) {
+    if (existing[field] !== undefined && existing[field] !== "") {
+      merged[field] = existing[field]
+    }
+  }
+
+  return merged
 }
 
 function matchAll(xml, tag) {
@@ -90,23 +169,29 @@ function matchAttr(xml, tag, attr) {
 }
 
 function parseSubstack(xml, source) {
-  const { limit, projectType, project } = source
-  return matchAll(xml, "item").slice(0, limit).map((item, index) => {
+  const { limit, projectType, project, entryType } = source
+  return matchAll(xml, "item").slice(0, limit).map((item) => {
     const title = matchOne(item, "title")
     const href = matchOne(item, "link")
     const date = new Date(matchOne(item, "pubDate")).toISOString().slice(0, 10)
     const body = matchOne(item, "content:encoded") || matchOne(item, "description")
     const image = matchAttr(item, "enclosure", "url") || matchAttr(body, "img", "src")
-    return {
-      slug: `substack-${slugify(title)}-${index + 1}`,
+    const base = {
+      slug: `substack-${slugify(title)}`,
       platform: "Substack",
-      projectType,
-      project,
       title,
       date,
       href,
       image,
       summary: excerpt(body),
+    }
+    return {
+      ...base,
+      ...classifyProject(base, source),
+      projectType,
+      project,
+      entryType,
+      ...classifyProject(base, source),
     }
   })
 }
@@ -141,23 +226,29 @@ async function youtubeThumbnail(href = "", fallback = "") {
 }
 
 async function parseYouTube(xml, source) {
-  const { limit, projectType, project } = source
-  return Promise.all(matchAll(xml, "entry").slice(0, limit).map(async (entry, index) => {
+  const { limit, projectType, project, entryType } = source
+  return Promise.all(matchAll(xml, "entry").slice(0, limit).map(async (entry) => {
     const title = matchOne(entry, "title")
     const href = matchAttr(entry, "link", "href")
     const date = new Date(matchOne(entry, "published")).toISOString().slice(0, 10)
     const image = await youtubeThumbnail(href, matchAttr(entry, "media:thumbnail", "url"))
     const description = matchOne(entry, "media:description")
-    return {
-      slug: `youtube-${slugify(title)}-${index + 1}`,
+    const base = {
+      slug: `youtube-${slugify(title)}`,
       platform: "YouTube",
-      projectType,
-      project,
       title,
       date,
       href,
       image,
       summary: excerpt(description || title),
+    }
+    return {
+      ...base,
+      ...classifyProject(base, source),
+      projectType,
+      project,
+      entryType,
+      ...classifyProject(base, source),
     }
   }))
 }
@@ -173,20 +264,19 @@ async function fetchText(url) {
   return response.text()
 }
 
-async function removeGenerated(prefix) {
-  const entries = await fs.readdir(archivesDir, { withFileTypes: true }).catch(() => [])
-  await Promise.all(
-    entries
-      .filter((entry) => entry.isFile() && entry.name.startsWith(`${prefix}-`) && entry.name.endsWith(".md"))
-      .map((entry) => fs.unlink(path.join(archivesDir, entry.name))),
-  )
+async function removeGenerated(source) {
+  const dir = path.join(archivesDir, source.folder)
+  const files = await markdownFilesIn(dir)
+  await Promise.all(files.map((file) => fs.unlink(file)))
 }
 
-async function writeItems(prefix, items) {
+async function writeItems(source, items) {
+  const dir = path.join(archivesDir, source.folder)
+  await fs.mkdir(dir, { recursive: true })
   await Promise.all(
-    items.map((item, index) => {
-      const filename = `${prefix}-${String(index + 1).padStart(2, "0")}.md`
-      return fs.writeFile(path.join(archivesDir, filename), frontmatter(item))
+    items.map((item) => {
+      const filename = `${slugify(item.title)}.md`
+      return fs.writeFile(path.join(dir, filename), frontmatter(item))
     }),
   )
 }
@@ -196,11 +286,13 @@ async function syncSource(key, source) {
   const items = key === "substack"
     ? parseSubstack(xml, source)
     : await parseYouTube(xml, source)
+  const existing = await existingGeneratedByHref(source)
+  const mergedItems = items.map((item) => mergePreservedFields(item, existing.get(item.href)))
 
-  if (items.length === 0) throw new Error(`No ${source.platform} items found`)
-  await removeGenerated(source.prefix)
-  await writeItems(source.prefix, items)
-  console.log(`Synced ${items.length} ${source.platform} archive items`)
+  if (mergedItems.length === 0) throw new Error(`No ${source.platform} items found`)
+  await removeGenerated(source)
+  await writeItems(source, mergedItems)
+  console.log(`Synced ${mergedItems.length} ${source.platform} archive items`)
 }
 
 await fs.mkdir(archivesDir, { recursive: true })

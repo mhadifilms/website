@@ -1,8 +1,9 @@
 ---
-slug: "youtube-two-weeks-in-the-middle-east-with-my-school-part-2-3"
+slug: "youtube-two-weeks-in-the-middle-east-with-my-school-part-2"
 platform: "YouTube"
 projectType: "Video"
 project: "youtube-films"
+entryType: "Video"
 title: "Two Weeks in the Middle East with My School (Part 2)"
 date: "2024-11-28"
 href: "https://www.youtube.com/watch?v=TCrVwEoOvMk"
