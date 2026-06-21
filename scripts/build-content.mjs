@@ -6,10 +6,10 @@ import { marked } from "marked"
 const root = process.cwd()
 const contentDir = path.join(root, "content")
 const outputFile = path.join(root, "src", "content", "generated.ts")
-const PROJECT_TYPES = ["Writing", "Video", "Tools", "Profiles"]
-const PROJECT_STATUSES = ["Active", "Archive", "Profile"]
-const ARCHIVE_ENTRY_TYPES = ["Article", "Video", "Post", "Profile", "Tool", "Prototype", "Project"]
-const ARCHIVE_PLATFORMS = ["Linkedin", "Twitter", "Instagram", "Substack", "YouTube"]
+const ARCHIVE_CATEGORIES = ["Writings", "Vlogumentaries", "Films & Commercials", "Photography", "Tools", "Freelance"]
+const PROJECT_STATUSES = ["Active", "Archive"]
+const ARCHIVE_ENTRY_TYPES = ["Article", "Video", "Post", "Tool", "Prototype", "Project", "Photo"]
+const ARCHIVE_PLATFORMS = ["Linkedin", "Twitter", "Instagram", "Substack", "YouTube", "Website"]
 
 marked.use({
   gfm: true,
@@ -108,25 +108,34 @@ function assertProjectRefs(archives, projects) {
   }
 }
 
-function defaultProjectTypeForPlatform(platform) {
-  if (platform === "Substack") return "Writing"
-  if (platform === "YouTube") return "Video"
-  if (platform === "Linkedin") return "Writing"
-  if (platform === "Instagram" || platform === "Twitter") return "Profiles"
-  return "Writing"
+function defaultCategoryForPlatform(platform) {
+  if (platform === "Substack" || platform === "Linkedin") return "Writings"
+  if (platform === "YouTube") return "Vlogumentaries"
+  return "Writings"
+}
+
+function legacyCategory(value) {
+  if (ARCHIVE_CATEGORIES.includes(value)) return value
+  if (value === "Writing") return "Writings"
+  if (value === "Video") return "Vlogumentaries"
+  if (value === "Tools") return "Tools"
+  return undefined
 }
 
 function defaultEntryTypeForPlatform(platform) {
   if (platform === "Substack") return "Article"
   if (platform === "YouTube") return "Video"
   if (platform === "Linkedin") return "Post"
-  if (platform === "Instagram" || platform === "Twitter") return "Profile"
   return "Project"
 }
 
 function normalizeProject(project, index) {
+  const category = project.category ?? legacyCategory(project.type)
   return {
     ...project,
+    category,
+    type: category,
+    status: project.status === "Profile" ? "Archive" : project.status,
     order: Number(project.order ?? index + 1),
     platforms: project.platforms ?? [],
   }
@@ -134,18 +143,20 @@ function normalizeProject(project, index) {
 
 function normalizeArchive(archive, projectBySlug) {
   const linkedProject = archive.project ? projectBySlug.get(archive.project) : undefined
-  const projectType = archive.projectType ?? linkedProject?.type ?? defaultProjectTypeForPlatform(archive.platform)
+  const category = archive.category ?? linkedProject?.category ?? legacyCategory(archive.projectType) ?? defaultCategoryForPlatform(archive.platform)
 
   return {
     ...archive,
-    projectType,
+    category,
+    projectType: category,
     entryType: archive.entryType ?? defaultEntryTypeForPlatform(archive.platform),
   }
 }
 
 function assertProjectShape(projects) {
   for (const project of projects) {
-    assertEnum(project.type, PROJECT_TYPES, "type", project)
+    assertEnum(project.category, ARCHIVE_CATEGORIES, "category", project)
+    assertEnum(project.type, ARCHIVE_CATEGORIES, "type", project)
     assertEnum(project.status, PROJECT_STATUSES, "status", project)
     for (const platform of project.platforms ?? []) {
       assertEnum(platform, ARCHIVE_PLATFORMS, "platforms[]", project)
@@ -156,11 +167,12 @@ function assertProjectShape(projects) {
 function assertArchiveShape(archives, projectBySlug) {
   for (const archive of archives) {
     assertEnum(archive.platform, ARCHIVE_PLATFORMS, "platform", archive)
-    assertEnum(archive.projectType, PROJECT_TYPES, "projectType", archive)
+    assertEnum(archive.category, ARCHIVE_CATEGORIES, "category", archive)
+    assertEnum(archive.projectType, ARCHIVE_CATEGORIES, "projectType", archive)
     assertEnum(archive.entryType, ARCHIVE_ENTRY_TYPES, "entryType", archive)
     const project = archive.project ? projectBySlug.get(archive.project) : undefined
-    if (project && archive.projectType !== project.type) {
-      throw new Error(`archives/${archive.slug} has projectType "${archive.projectType}" but project "${archive.project}" is "${project.type}"`)
+    if (project && archive.category !== project.category) {
+      throw new Error(`archives/${archive.slug} has category "${archive.category}" but project "${archive.project}" is "${project.category}"`)
     }
   }
 }
@@ -170,13 +182,14 @@ const site = (await readJson("site.json")) ?? {}
 const experiences = (await readCollection("experiences")).sort(byExperienceOrder)
 const projects = (await readCollection("projects")).map(normalizeProject).sort(byProjectOrder)
 const projectBySlug = new Map(projects.map((project) => [project.slug, project]))
-const archives = (await readCollection("archives", { renderBody: false }))
+const archives = (await readCollection("archives"))
+  .filter((archive) => archive.entryType !== "Profile" && archive.project !== "mhadifilms-profile")
   .map((archive) => normalizeArchive(archive, projectBySlug))
   .sort(byDateDesc)
 
 assertRequiredFields(experiences, "experiences", ["title", "slug", "order", "company", "role", "dateStart", "summary"])
-assertRequiredFields(projects, "projects", ["slug", "title", "order", "type", "summary"])
-assertRequiredFields(archives, "archives", ["slug", "platform", "projectType", "entryType", "title", "href", "date"])
+assertRequiredFields(projects, "projects", ["slug", "title", "order", "category", "summary"])
+assertRequiredFields(archives, "archives", ["slug", "platform", "category", "entryType", "title", "href", "date"])
 assertUniqueSlugs(experiences, "experiences")
 assertUniqueSlugs(projects, "projects")
 assertUniqueSlugs(archives, "archives")

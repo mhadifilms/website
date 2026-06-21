@@ -1,7 +1,7 @@
 ---
 slug: "linkedin-i-built-a-davinci-resolve-mcp"
 platform: "Linkedin"
-projectType: "Tools"
+category: "Tools"
 project: "creative-tools"
 entryType: "Tool"
 title: "I built a DaVinci Resolve MCP"
@@ -11,3 +11,11 @@ image: "/media/polaroid-camera.webp"
 summary: "A public LinkedIn post about building a Python library, CLI, and local MCP server so Claude can help edit video timelines faster."
 featured: true
 ---
+
+A public LinkedIn post about building a Python library, CLI, and local MCP server so Claude can help edit video timelines faster.
+
+A public LinkedIn post about building a Python library, CLI, and local MCP server so Claude can help edit video timelines faster.
+
+This page keeps a short on-site excerpt for discovery, then points readers back to the original Linkedin post for the full piece.
+
+[Read the rest on Linkedin](https://www.linkedin.com/posts/mhadifilms_i-built-a-davinci-resolve-mcp-so-claude-can-activity-7455733839189946368-QHAG)

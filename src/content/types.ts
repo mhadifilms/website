@@ -50,16 +50,18 @@ export type ExperienceMedia = {
   thumbnail?: string
 }
 
-export type ArchivePlatform = "Linkedin" | "Twitter" | "Instagram" | "Substack" | "YouTube"
-export type ProjectType = "Writing" | "Video" | "Tools" | "Profiles"
-export type ProjectStatus = "Active" | "Archive" | "Profile"
-export type ArchiveEntryType = "Article" | "Video" | "Post" | "Profile" | "Tool" | "Prototype" | "Project"
+export type ArchivePlatform = "Linkedin" | "Twitter" | "Instagram" | "Substack" | "YouTube" | "Website"
+export type ArchiveCategory = "Writings" | "Vlogumentaries" | "Films & Commercials" | "Photography" | "Tools" | "Freelance"
+export type ProjectType = ArchiveCategory
+export type ProjectStatus = "Active" | "Archive"
+export type ArchiveEntryType = "Article" | "Video" | "Post" | "Tool" | "Prototype" | "Project" | "Photo"
 
 export type Project = {
   slug: string
   title: string
   order: number
-  type: ProjectType
+  category: ArchiveCategory
+  type?: ProjectType
   status?: ProjectStatus
   dateStart?: string
   dateEnd?: string
@@ -75,7 +77,8 @@ export type Project = {
 export type ArchiveItem = {
   slug: string
   platform: ArchivePlatform
-  projectType: ProjectType
+  category: ArchiveCategory
+  projectType?: ProjectType
   entryType: ArchiveEntryType
   project?: string
   title: string
@@ -84,4 +87,5 @@ export type ArchiveItem = {
   date: string
   summary?: string
   featured?: boolean
+  html: string
 }

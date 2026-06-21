@@ -1,7 +1,7 @@
 ---
 slug: "substack-building-an-app-every-day-but-idk-how-to-code"
 platform: "Substack"
-projectType: "Tools"
+category: "Tools"
 project: "creative-tools"
 entryType: "Article"
 title: "building an app every day but idk how to code..."
@@ -11,3 +11,13 @@ image: "https://substackcdn.com/image/fetch/$s_!SadC!,f_auto,q_auto:good,fl_prog
 summary: "for the past month, I’ve been building an app almost every single day using AI to bring whatever random idea I have to life. mac apps, websites, python..."
 featured: true
 ---
+
+for the past month, I’ve been building an app almost every single day using AI to bring whatever random idea I have to life. mac apps, websites, python...
+
+for the past month, I’ve been building an app almost every single day using AI to bring whatever random idea I have to life.
+
+mac apps, websites, python scripts, you name it.
+
+to be clear: I am not a developer. I’ve never coded in my life.
+
+[Read the rest on Substack](https://mhadimedia.substack.com/p/building-an-app-every-day-but-idk)

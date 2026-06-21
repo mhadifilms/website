@@ -2,7 +2,8 @@
 slug: creative-chaos
 title: Creative Chaos
 order: 1
-type: Writing
+category: Writings
+type: Writings
 status: Active
 dateStart: 2025-08-01
 image: /media/polaroid-camera.webp

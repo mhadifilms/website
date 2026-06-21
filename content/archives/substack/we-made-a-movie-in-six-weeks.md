@@ -1,8 +1,8 @@
 ---
 slug: "substack-we-made-a-movie-in-six-weeks"
 platform: "Substack"
-projectType: "Video"
-project: "awaiten-films"
+category: "Films & Commercials"
+project: "short-films"
 entryType: "Article"
 title: "we made a movie in six weeks."
 date: "2025-09-26"
@@ -11,3 +11,13 @@ image: "https://substackcdn.com/image/fetch/$s_!03A4!,f_auto,q_auto:good,fl_prog
 summary: "a few weeks ago, I had the chance to edit my first official short film featuring an entire production crew, and professional actors. it was literally a dream..."
 featured: true
 ---
+
+a few weeks ago, I had the chance to edit my first official short film featuring an entire production crew, and professional actors. it was literally a dream...
+
+a few weeks ago, I had the chance to edit my first official short film featuring an entire production crew, and professional actors.
+
+it was literally a dream come true - I’d spent the past two years hoping to get on a real film set and experience what it’s like to be a filmmaker with a team.
+
+together with twenty other cast and crew members, we successfully made a 10 minute short film from start to finish in under six weeks, with two days of filming and one week of editing.
+
+[Read the rest on Substack](https://mhadimedia.substack.com/p/we-made-a-movie-in-six-weeks)

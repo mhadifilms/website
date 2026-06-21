@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react"
+import { useLocation } from "react-router-dom"
 
 export type SectionDescriptor = {
   id: string
@@ -26,6 +27,7 @@ export function buildSections(items: Array<Omit<SectionDescriptor, "path">>): Se
 }
 
 export function useSectionRouter(sections: SectionDescriptor[]): SectionRouterState {
+  const location = useLocation()
   const elementsRef = useRef<Map<string, HTMLElement>>(new Map())
   const [activeId, setActiveId] = useState<string>(sections[0]?.id ?? "")
   const lastPushedPathRef = useRef<string>("")
@@ -50,11 +52,21 @@ export function useSectionRouter(sections: SectionDescriptor[]): SectionRouterSt
   )
 
   useEffect(() => {
-    if (initialScrollDoneRef.current) return
-    const initialPath = window.location.pathname.replace(/\/+$/, "") || "/"
+    const initialPath = location.pathname.replace(/\/+$/, "") || "/"
     const match = sections.find((section) => section.path === initialPath)
     const targetId = match?.id ?? sections[0]?.id
     if (!targetId) return
+    const currentTarget = elementsRef.current.get(targetId)
+    if (
+      initialScrollDoneRef.current &&
+      lastPushedPathRef.current === (match?.path ?? "/") &&
+      currentTarget &&
+      Math.abs(currentTarget.getBoundingClientRect().top) < 2
+    ) {
+      return
+    }
+
+    initialScrollDoneRef.current = false
 
     const tryScroll = () => {
       const element = elementsRef.current.get(targetId)
@@ -62,13 +74,17 @@ export function useSectionRouter(sections: SectionDescriptor[]): SectionRouterSt
         requestAnimationFrame(tryScroll)
         return
       }
-      element.scrollIntoView({ behavior: "auto", block: "start" })
-      setActiveId(targetId)
-      lastPushedPathRef.current = match?.path ?? "/"
-      initialScrollDoneRef.current = true
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          element.scrollIntoView({ behavior: "auto", block: "start" })
+          setActiveId(targetId)
+          lastPushedPathRef.current = match?.path ?? "/"
+          initialScrollDoneRef.current = true
+        })
+      })
     }
     tryScroll()
-  }, [sections])
+  }, [sections, location.pathname])
 
   useEffect(() => {
     if (typeof window === "undefined") return
@@ -77,6 +93,8 @@ export function useSectionRouter(sections: SectionDescriptor[]): SectionRouterSt
 
     const observer = new IntersectionObserver(
       (entries) => {
+        if (!initialScrollDoneRef.current) return
+
         for (const entry of entries) {
           const id = entry.target.getAttribute("data-section-id")
           if (!id) continue

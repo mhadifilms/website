@@ -5,6 +5,7 @@ import { LazyMotion, MotionConfig, domAnimation } from "framer-motion"
 import { SiteShell } from "@/components/site-shell"
 
 const SitePage = lazy(() => import("@/pages/site"))
+const ArchiveEntryPage = lazy(() => import("@/pages/archive-entry"))
 
 function RouteFallback() {
   return (
@@ -21,6 +22,7 @@ export default function App() {
         <Suspense fallback={<RouteFallback />}>
           <Routes>
             <Route element={<SiteShell />}>
+              <Route path="/archives/:categorySlug/:entrySlug" element={<ArchiveEntryPage />} />
               <Route path="*" element={<SitePage />} />
             </Route>
           </Routes>

@@ -129,7 +129,7 @@ content:
     path: content/projects
     filename: "{fields.slug}.md"
     view:
-      fields: [order, title, type, status, href]
+      fields: [order, title, category, status, href]
     fields:
       - name: slug
         label: Slug
@@ -140,11 +140,16 @@ content:
       - name: order
         label: Display order
         type: number
-      - name: type
-        label: Project type
+      - name: category
+        label: Archive category
         type: select
         options:
-          values: ["Writing", "Video", "Tools", "Profiles"]
+          values: ["Writings", "Vlogumentaries", "Films & Commercials", "Photography", "Tools", "Freelance"]
+      - name: type
+        label: Legacy category (optional)
+        type: select
+        options:
+          values: ["Writings", "Vlogumentaries", "Films & Commercials", "Photography", "Tools", "Freelance"]
       - name: status
         label: Status
         type: select
@@ -173,7 +178,7 @@ content:
         type: select
         list: true
         options:
-          values: ["Linkedin", "Twitter", "Instagram", "Substack", "YouTube"]
+              values: ["Linkedin", "Twitter", "Instagram", "Substack", "YouTube", "Website"]
       - name: featured
         label: Featured project
         type: boolean
@@ -187,7 +192,7 @@ content:
     path: content/archives/substack
     filename: "{fields.slug}.md"
     view: &archive_view
-      fields: [title, project, entryType, platform, date]
+      fields: [title, category, project, entryType, platform, date]
     fields: &archive_fields
       - name: slug
         label: Slug
@@ -196,12 +201,12 @@ content:
         label: Platform
         type: select
         options:
-          values: ["Linkedin", "Twitter", "Instagram", "Substack", "YouTube"]
-      - name: projectType
-        label: Project type (auto from project if blank)
+            values: ["Linkedin", "Twitter", "Instagram", "Substack", "YouTube", "Website"]
+      - name: category
+        label: Archive category (auto from series if blank)
         type: select
         options:
-          values: ["Writing", "Video", "Tools", "Profiles"]
+          values: ["Writings", "Vlogumentaries", "Films & Commercials", "Photography", "Tools", "Freelance"]
       - name: project
         label: Linked project / initiative slug
         type: string
@@ -209,7 +214,7 @@ content:
         label: Entry type
         type: select
         options:
-          values: ["Article", "Video", "Post", "Profile", "Tool", "Prototype", "Project"]
+            values: ["Article", "Video", "Post", "Tool", "Prototype", "Project", "Photo"]
       - name: title
         label: Title
         type: string
@@ -228,6 +233,9 @@ content:
       - name: featured
         label: Featured entry
         type: boolean
+      - name: body
+        label: Body
+        type: rich-text
 
   - name: archives_youtube
     label: Archives / YouTube

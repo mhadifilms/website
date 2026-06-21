@@ -8,7 +8,7 @@ const archivesDir = path.join(root, "content", "archives")
 const SOURCES = {
   substack: {
     platform: "Substack",
-    projectType: "Writing",
+    category: "Writings",
     project: "creative-chaos",
     entryType: "Article",
     feedUrl: "https://mhadimedia.substack.com/feed",
@@ -17,8 +17,8 @@ const SOURCES = {
   },
   youtube: {
     platform: "YouTube",
-    projectType: "Video",
-    project: "youtube-films",
+    category: "Vlogumentaries",
+    project: "school-years",
     entryType: "Video",
     feedUrl: "https://www.youtube.com/feeds/videos.xml?channel_id=UC3tjIqn37AFGX-M7CWHc_xw",
     folder: "youtube",
@@ -26,8 +26,8 @@ const SOURCES = {
   },
 }
 
-const PRESERVED_FIELDS = ["project", "projectType", "entryType", "featured"]
-const ARCHIVE_FIELD_ORDER = ["slug", "platform", "projectType", "project", "entryType", "title", "date", "href", "image", "summary", "featured"]
+const PRESERVED_FIELDS = ["category", "project", "entryType", "featured"]
+const ARCHIVE_FIELD_ORDER = ["slug", "platform", "category", "project", "entryType", "title", "date", "href", "image", "summary", "featured"]
 
 function decodeHtml(value = "") {
   return value
@@ -57,30 +57,72 @@ function excerpt(value = "", max = 160) {
   return `${clean.slice(0, max).replace(/\s+\S*$/, "")}...`
 }
 
+function firstParagraphs(value = "", max = 3) {
+  const paragraphs = [...value.matchAll(/<p\b[^>]*>([\s\S]*?)<\/p>/gi)]
+    .map((match) => stripHtml(match[1]))
+    .filter((text) => text.length > 35 && !/subscribe|share|upgrade|substack/i.test(text))
+    .slice(0, max)
+  return paragraphs
+}
+
+function sourceBody(item, sourceBody = "") {
+  if (item.platform === "Substack") {
+    const paragraphs = firstParagraphs(sourceBody)
+    const body = [
+      item.summary,
+      ...(paragraphs.length > 0
+        ? paragraphs
+        : [`This page keeps a short on-site excerpt for discovery, then points readers back to the original Substack post for the full piece.`]),
+      `[Read the rest on Substack](${item.href})`,
+    ].filter(Boolean)
+    return body.join("\n\n")
+  }
+
+  if (item.platform === "YouTube") {
+    return [
+      `${item.title} belongs to ${item.projectTitle ?? "the video archive"}, one of the archive's experiments across documentary, vlogumentary, film, or production work.`,
+      item.summary,
+      `Watch the original video on YouTube, or use the embedded player on this archive page to see the piece in context.`,
+      `[Watch on YouTube](${item.href})`,
+    ].filter(Boolean).join("\n\n")
+  }
+
+  return ""
+}
+
 function classifyProject(item, source) {
   const haystack = `${item.title ?? ""} ${item.summary ?? ""} ${item.href ?? ""}`.toLowerCase()
 
   if (source.platform === "Substack") {
     if (/\b(app|code|coding|mcp|ai|tool|software|cursor|claude|davinci|resolve)\b|building an app|google search|hack google/.test(haystack)) {
-      return { project: "creative-tools", projectType: "Tools", entryType: "Article" }
+      return { project: "creative-tools", category: "Tools", entryType: "Article", projectTitle: "Creative Tools" }
     }
-    if (/\b(movie|film|filmmaking|short film|production|editing|documentary|camera|video)\b/.test(haystack)) {
-      return { project: "awaiten-films", projectType: "Video", entryType: "Article" }
+    if (/(podcast|target audience)/.test(haystack)) {
+      return { project: "journey-tellers-podcast", category: "Vlogumentaries", entryType: "Article", projectTitle: "Journey Tellers Podcast" }
     }
-    return { project: source.project, projectType: source.projectType, entryType: source.entryType }
+    if (/\b(movie|film|filmmaking|short film|production|editing|documentary|camera|video|hollywood|logan paul)\b/.test(haystack)) {
+      return { project: "short-films", category: "Films & Commercials", entryType: "Article", projectTitle: "Short Films" }
+    }
+    return { project: source.project, category: source.category, entryType: source.entryType, projectTitle: "Creative Chaos" }
   }
 
   if (source.platform === "YouTube") {
-    if (/(journey tellers|camp noor|youth camp|podcast)/.test(haystack)) {
-      return { project: "journey-tellers", projectType: "Video", entryType: "Video" }
+    if (/(journey tellers|podcast)/.test(haystack)) {
+      return { project: "journey-tellers-podcast", category: "Vlogumentaries", entryType: "Video", projectTitle: "Journey Tellers Podcast" }
+    }
+    if (/(camp noor|youth camp|tanzania|orphanage|middle east)/.test(haystack)) {
+      return { project: "journey-tellers", category: "Vlogumentaries", entryType: "Video", projectTitle: "Journey Tellers in the World" }
+    }
+    if (/(music video|pain you hide|reedoftawheed)/.test(haystack)) {
+      return { project: "music-videos", category: "Films & Commercials", entryType: "Video", projectTitle: "Music Videos" }
     }
     if (/(movie|film|documentary|commercial|production|behind the scenes)/.test(haystack)) {
-      return { project: "awaiten-films", projectType: "Video", entryType: "Video" }
+      return { project: "short-films", category: "Films & Commercials", entryType: "Video", projectTitle: "Short Films" }
     }
-    return { project: source.project, projectType: source.projectType, entryType: source.entryType }
+    return { project: source.project, category: source.category, entryType: source.entryType, projectTitle: "School Years" }
   }
 
-  return { project: source.project, projectType: source.projectType, entryType: source.entryType }
+  return { project: source.project, category: source.category, entryType: source.entryType }
 }
 
 function slugify(value = "") {
@@ -93,11 +135,14 @@ function slugify(value = "") {
   return slug || "post"
 }
 
-function frontmatter(fields) {
+function frontmatter(fields, body = "") {
   const lines = ["---"]
-  const keys = [...ARCHIVE_FIELD_ORDER, ...Object.keys(fields).filter((key) => !ARCHIVE_FIELD_ORDER.includes(key))]
+  const cleanFields = { ...fields }
+  delete cleanFields.projectTitle
+  delete cleanFields.body
+  const keys = [...ARCHIVE_FIELD_ORDER, ...Object.keys(cleanFields).filter((key) => !ARCHIVE_FIELD_ORDER.includes(key))]
   for (const key of keys) {
-    const value = fields[key]
+    const value = cleanFields[key]
     if (value === undefined || value === "") continue
     const normalizedValue = value instanceof Date
       ? value.toISOString().slice(0, 10)
@@ -111,7 +156,7 @@ function frontmatter(fields) {
       lines.push(`${key}: ${JSON.stringify(normalizedValue)}`)
     }
   }
-  lines.push("---", "")
+  lines.push("---", "", body.trim(), "")
   return lines.join("\n")
 }
 
@@ -135,8 +180,8 @@ async function existingGeneratedByHref(source) {
 
   for (const file of files) {
     const markdown = await fs.readFile(file, "utf8")
-    const { data } = matter(markdown)
-    if (data.href) byHref.set(data.href, data)
+    const { data, content } = matter(markdown)
+    if (data.href) byHref.set(data.href, { data, content })
   }
 
   return byHref
@@ -147,9 +192,13 @@ function mergePreservedFields(item, existing) {
   const merged = { ...item }
 
   for (const field of PRESERVED_FIELDS) {
-    if (existing[field] !== undefined && existing[field] !== "") {
-      merged[field] = existing[field]
+    if (existing.data[field] !== undefined && existing.data[field] !== "") {
+      merged[field] = existing.data[field]
     }
+  }
+
+  if (existing.content.trim()) {
+    merged.body = existing.content.trim()
   }
 
   return merged
@@ -169,7 +218,7 @@ function matchAttr(xml, tag, attr) {
 }
 
 function parseSubstack(xml, source) {
-  const { limit, projectType, project, entryType } = source
+  const { limit, category, project, entryType } = source
   return matchAll(xml, "item").slice(0, limit).map((item) => {
     const title = matchOne(item, "title")
     const href = matchOne(item, "link")
@@ -185,13 +234,15 @@ function parseSubstack(xml, source) {
       image,
       summary: excerpt(body),
     }
+    const classification = classifyProject(base, source)
     return {
       ...base,
-      ...classifyProject(base, source),
-      projectType,
+      ...classification,
+      category,
       project,
       entryType,
-      ...classifyProject(base, source),
+      ...classification,
+      body: sourceBody({ ...base, ...classification }, body),
     }
   })
 }
@@ -226,7 +277,7 @@ async function youtubeThumbnail(href = "", fallback = "") {
 }
 
 async function parseYouTube(xml, source) {
-  const { limit, projectType, project, entryType } = source
+  const { limit, category, project, entryType } = source
   return Promise.all(matchAll(xml, "entry").slice(0, limit).map(async (entry) => {
     const title = matchOne(entry, "title")
     const href = matchAttr(entry, "link", "href")
@@ -242,13 +293,15 @@ async function parseYouTube(xml, source) {
       image,
       summary: excerpt(description || title),
     }
+    const classification = classifyProject(base, source)
     return {
       ...base,
-      ...classifyProject(base, source),
-      projectType,
+      ...classification,
+      category,
       project,
       entryType,
-      ...classifyProject(base, source),
+      ...classification,
+      body: sourceBody({ ...base, ...classification }),
     }
   }))
 }
@@ -276,7 +329,7 @@ async function writeItems(source, items) {
   await Promise.all(
     items.map((item) => {
       const filename = `${slugify(item.title)}.md`
-      return fs.writeFile(path.join(dir, filename), frontmatter(item))
+      return fs.writeFile(path.join(dir, filename), frontmatter(item, item.body))
     }),
   )
 }

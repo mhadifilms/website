@@ -2,6 +2,7 @@
 slug: creative-tools
 title: Creative Tools
 order: 5
+category: Tools
 type: Tools
 status: Active
 dateStart: 2026-06-01

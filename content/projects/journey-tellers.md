@@ -1,13 +1,14 @@
 ---
 slug: journey-tellers
-title: Journey Tellers
+title: Journey Tellers in the World
 order: 4
-type: Video
+category: Vlogumentaries
+type: Vlogumentaries
 status: Archive
 dateStart: 2023-01-01
 dateEnd: 2025-01-01
 image: /media/polaroid-podcast.webp
-summary: A long-form podcast and documentary initiative about real people, hard-earned lessons, and the story of the Muslim West.
+summary: Documentary stories from the Muslim West, following communities, camps, travels, and people in motion.
 href: https://awaiten.com/podcast/
 relatedExperience: journey-tellers
 platforms:
@@ -15,4 +16,4 @@ platforms:
 featured: true
 ---
 
-Journey Tellers brings slower, more intentional conversations and documentary stories into one public initiative.
+Journey Tellers in the World is the documentary side of the broader Journey Tellers initiative: field pieces, community stories, and travel-driven experiments in slower storytelling.
