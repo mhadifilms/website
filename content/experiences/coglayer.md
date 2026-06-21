@@ -10,10 +10,6 @@ summary: Helped build and scale coglayer from an early product into a learning t
 href: https://worthy-chart-537025.framer.app/
 visitLabel: View prototype
 logo: /media/polaroid-camera.webp
-media:
-  - type: link
-    url: https://worthy-chart-537025.framer.app/
-    title: coglayer prototype
 ---
 
 coglayer was a product and growth chapter: part positioning, part product management, and part figuring out what students and users actually needed from a tool that called itself training wheels for your brain.

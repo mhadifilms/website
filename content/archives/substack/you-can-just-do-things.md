@@ -1,5 +1,5 @@
 ---
-slug: "substack-you-can-just-do-things"
+slug: "you-can-just-do-things"
 platform: "Substack"
 category: "Writings"
 project: "creative-chaos"

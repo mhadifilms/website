@@ -7,7 +7,6 @@ role: Multimedia Intern
 dateStart: "2023-06-01"
 dateEnd: "2023-09-01"
 summary: Edited podcasts, short-form content, and production pieces for TMS Productions while learning inside a focused media team.
-visitLabel: Work sample coming soon
 logo: /media/polaroid-podcast.webp
 ---
 

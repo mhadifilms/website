@@ -8,7 +8,6 @@ location: Los Angeles, CA
 dateStart: "2022"
 dateEnd: "2022"
 summary: Studied film, story structure, and production craft through UCLA Summer Sessions, learning from instructors who brought a working filmmaker's eye to the classroom.
-visitLabel: Work sample coming soon
 logo: /media/polaroid-beach.webp
 ---
 

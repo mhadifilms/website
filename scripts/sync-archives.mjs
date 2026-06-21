@@ -26,7 +26,7 @@ const SOURCES = {
   },
 }
 
-const PRESERVED_FIELDS = ["category", "project", "format", "entryType", "dek", "role", "curatorNote", "credits", "gallery", "relatedEntries", "seoTitle", "seoDescription", "featured"]
+const PRESERVED_FIELDS = ["slug", "category", "project", "format", "entryType", "dek", "role", "curatorNote", "credits", "gallery", "relatedEntries", "seoTitle", "seoDescription", "featured"]
 const ARCHIVE_FIELD_ORDER = ["slug", "platform", "category", "project", "format", "entryType", "title", "dek", "date", "href", "image", "summary", "role", "curatorNote", "credits", "featured"]
 
 function decodeHtml(value = "") {
@@ -125,14 +125,51 @@ function classifyProject(item, source) {
   return { project: source.project, category: source.category, entryType: source.entryType }
 }
 
-function slugify(value = "") {
-  const slug = value
+const SLUG_STOPWORDS = new Set(
+  "a an the and or but nor of to in into onto on at by for from with as my your our his her their its this that these those".split(" "),
+)
+const SLUG_MAX_WORDS = 7
+const SLUG_MAX_LENGTH = 56
+
+// Short, readable slugs: drop the platform prefix, trim function words, keep
+// numbers, and cap the length. Mirrors scripts/shorten-archive-slugs.mjs.
+function conciseSlug(value = "") {
+  const cleaned = value
     .toLowerCase()
+    .replace(/['’]/g, "")
+    .replace(/&/g, " and ")
     .normalize("NFKD")
     .replace(/[\u0300-\u036f]/g, "")
-    .replace(/[^a-z0-9]+/g, "-")
-    .replace(/^-+|-+$/g, "")
-  return slug || "post"
+
+  const words = cleaned.split(/[^a-z0-9]+/).filter(Boolean)
+  let meaningful = words.filter((word) => !SLUG_STOPWORDS.has(word) && (word.length > 1 || /\d/.test(word)))
+  if (meaningful.length < 3) meaningful = words
+
+  const picked = []
+  let length = 0
+  for (const word of meaningful) {
+    if (picked.length >= SLUG_MAX_WORDS) break
+    if (length + word.length + 1 > SLUG_MAX_LENGTH && picked.length >= 3) break
+    picked.push(word)
+    length += word.length + 1
+  }
+
+  return picked.join("-") || "post"
+}
+
+function dedupeSlugs(items) {
+  const used = new Set()
+  for (const item of items) {
+    let slug = item.slug
+    let n = 2
+    while (used.has(slug)) {
+      slug = `${item.slug}-${n}`
+      n += 1
+    }
+    used.add(slug)
+    item.slug = slug
+  }
+  return items
 }
 
 function frontmatter(fields, body = "") {
@@ -226,7 +263,7 @@ function parseSubstack(xml, source) {
     const body = matchOne(item, "content:encoded") || matchOne(item, "description")
     const image = matchAttr(item, "enclosure", "url") || matchAttr(body, "img", "src")
     const base = {
-      slug: `substack-${slugify(title)}`,
+      slug: conciseSlug(title),
       platform: "Substack",
       title,
       date,
@@ -285,7 +322,7 @@ async function parseYouTube(xml, source) {
     const image = await youtubeThumbnail(href, matchAttr(entry, "media:thumbnail", "url"))
     const description = matchOne(entry, "media:description")
     const base = {
-      slug: `youtube-${slugify(title)}`,
+      slug: conciseSlug(title),
       platform: "YouTube",
       title,
       date,
@@ -328,7 +365,7 @@ async function writeItems(source, items) {
   await fs.mkdir(dir, { recursive: true })
   await Promise.all(
     items.map((item) => {
-      const filename = `${slugify(item.title)}.md`
+      const filename = `${item.slug}.md`
       return fs.writeFile(path.join(dir, filename), frontmatter(item, item.body))
     }),
   )
@@ -340,7 +377,7 @@ async function syncSource(key, source) {
     ? parseSubstack(xml, source)
     : await parseYouTube(xml, source)
   const existing = await existingGeneratedByHref(source)
-  const mergedItems = items.map((item) => mergePreservedFields(item, existing.get(item.href)))
+  const mergedItems = dedupeSlugs(items.map((item) => mergePreservedFields(item, existing.get(item.href))))
 
   if (mergedItems.length === 0) throw new Error(`No ${source.platform} items found`)
   await removeGenerated(source)

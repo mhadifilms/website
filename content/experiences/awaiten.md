@@ -10,10 +10,6 @@ summary: Co-founded a Bay Area-based production company dedicated to sharing rea
 href: https://awaiten.com
 visitLabel: Visit Awaiten
 logo: /media/polaroid-on-set.webp
-media:
-  - type: link
-    url: https://awaiten.com
-    title: Awaiten studio portfolio
 ---
 
 Awaiten is where I learned how to make the work hold up outside of my own head. We combine technical craft with narrative depth to create visual content for real communities, real clients, and real stories.

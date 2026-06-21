@@ -1,5 +1,5 @@
 ---
-slug: "substack-life-is-about-perspectives"
+slug: "life-is-about-perspectives"
 platform: "Substack"
 category: "Writings"
 project: "creative-chaos"

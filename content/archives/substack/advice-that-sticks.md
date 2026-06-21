@@ -1,5 +1,5 @@
 ---
-slug: "substack-advice-that-sticks"
+slug: "advice-that-sticks"
 platform: "Substack"
 category: "Writings"
 project: "creative-chaos"

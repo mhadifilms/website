@@ -351,7 +351,10 @@ function ExperienceDrawer({
   onPreviewLeave,
 }: ExperienceDrawerProps) {
   const imageSrc = withBase(item.logo)
-  const visitLabel = item.visitLabel ?? (item.href ? "visit" : "work sample coming soon")
+  const visitLabel = item.visitLabel ?? "visit"
+  // Drop media links that just repeat the visit button so the same URL doesn't
+  // render twice.
+  const media = item.media?.filter((entry) => !(entry.type === "link" && entry.url === item.href))
 
   return (
     <m.article
@@ -438,9 +441,9 @@ function ExperienceDrawer({
 
                 <RelatedWork experienceSlug={item.slug} />
 
-                <ExperienceMedia items={item.media} />
+                <ExperienceMedia items={media} />
 
-                {item.href ? (
+                {item.href && (
                   <m.a
                     href={item.href}
                     target="_blank"
@@ -453,10 +456,6 @@ function ExperienceDrawer({
                     {visitLabel}
                     <ArrowUpRight className="size-5 transition-transform duration-200 ease-out group-hover:-translate-y-0.5 group-hover:translate-x-0.5" strokeWidth={1.8} />
                   </m.a>
-                ) : (
-                  <span className="mt-7 inline-flex items-center rounded-full border border-black/10 px-5 py-2.5 text-sm font-light uppercase tracking-[0.18em] text-black/35">
-                    {visitLabel}
-                  </span>
                 )}
               </div>
 

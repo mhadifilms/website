@@ -400,13 +400,47 @@
   text-underline-offset: 0.22em;
 }
 
-.prose-content ul,
+.prose-content ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+/* On-brand bullet: a small hard-edged square with the signature offset shadow,
+   echoing the file squares in the archive folders. */
+.prose-content ul > li {
+  position: relative;
+  padding-left: 1.5rem;
+}
+
+.prose-content ul > li::before {
+  content: "";
+  position: absolute;
+  left: 0.05rem;
+  top: 0.66em;
+  width: 0.4rem;
+  height: 0.4rem;
+  background: color-mix(in srgb, var(--color-foreground) 78%, transparent);
+  box-shadow: 1.5px 1.5px 0 0 color-mix(in srgb, var(--color-foreground) 22%, transparent);
+}
+
 .prose-content ol {
   padding-left: 1.4rem;
 }
 
+.prose-content ol > li::marker {
+  color: color-mix(in srgb, var(--color-foreground) 55%, transparent);
+  font-family: var(--font-display);
+}
+
 .prose-content li + li {
-  margin-top: 0.4rem;
+  margin-top: 0.45rem;
+}
+
+/* Nested lists get a lighter, hollow square so hierarchy reads clearly. */
+.prose-content ul ul > li::before {
+  background: transparent;
+  box-shadow: none;
+  border: 1.5px solid color-mix(in srgb, var(--color-foreground) 50%, transparent);
 }
 
 .prose-content blockquote {

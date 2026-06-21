@@ -7,7 +7,6 @@ role: Filmmaker, Editor, VFX
 location: Worldwide
 dateStart: "2017"
 summary: Eight-plus years editing, shooting, fixing, and finishing videos for clients, communities, events, collaborators, and personal projects.
-visitLabel: Work sample coming soon
 logo: /media/polaroid-camera.webp
 ---
 

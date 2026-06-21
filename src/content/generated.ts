@@ -89,13 +89,6 @@ export const experiences = [
     "href": "https://awaiten.com",
     "visitLabel": "Visit Awaiten",
     "logo": "/media/polaroid-on-set.webp",
-    "media": [
-      {
-        "type": "link",
-        "url": "https://awaiten.com",
-        "title": "Awaiten studio portfolio"
-      }
-    ],
     "html": "<p>Awaiten is where I learned how to make the work hold up outside of my own head. We combine technical craft with narrative depth to create visual content for real communities, real clients, and real stories.</p>\n<p>Highlights:</p>\n<ul>\n<li>Co-founded the studio with Aalyan Aamir.</li>\n<li>Worked across directing, cinematography, editing, motion graphics, production, and delivery.</li>\n<li>Built more than seven years of production experience through the studio.</li>\n<li>Helped produce community, brand, documentary, and event work reaching 1M+ views.</li>\n</ul>\n"
   },
   {
@@ -110,13 +103,6 @@ export const experiences = [
     "href": "https://worthy-chart-537025.framer.app/",
     "visitLabel": "View prototype",
     "logo": "/media/polaroid-camera.webp",
-    "media": [
-      {
-        "type": "link",
-        "url": "https://worthy-chart-537025.framer.app/",
-        "title": "coglayer prototype"
-      }
-    ],
     "html": "<p>coglayer was a product and growth chapter: part positioning, part product management, and part figuring out what students and users actually needed from a tool that called itself training wheels for your brain.</p>\n<p>Highlights:</p>\n<ul>\n<li>Helped build and scale from 0 to 35,000 users.</li>\n<li>Worked across product management, project management, beta testing, marketing, and SEO.</li>\n<li>Redesigned the initial UI prototype around floating cards and interactive questions so the interface could adapt to the user instead of feeling like a static lesson page.</li>\n<li>Helped translate the product idea into clearer messaging, feedback loops, and launch motion.</li>\n</ul>\n"
   },
   {
@@ -128,7 +114,6 @@ export const experiences = [
     "dateStart": "2023-06-01",
     "dateEnd": "2023-09-01",
     "summary": "Edited podcasts, short-form content, and production pieces for TMS Productions while learning inside a focused media team.",
-    "visitLabel": "Work sample coming soon",
     "logo": "/media/polaroid-podcast.webp",
     "html": "<p>TMS Productions gave me a more focused production environment for quick-turn media work, mentorship, and a closer look at how a production company serves an established YouTube subscriber base.</p>\n<p>What stuck with me:</p>\n<ul>\n<li>Podcast editing, short-form content, and content ideation for repeatable media formats.</li>\n<li>Mentorship around how production choices, client needs, and the final edit connect.</li>\n<li>A full-circle moment: one of my first editing challenges with footage I did not shoot was cutting a car commercial from TMS footage.</li>\n</ul>\n"
   },
@@ -142,7 +127,6 @@ export const experiences = [
     "dateStart": "2022",
     "dateEnd": "2022",
     "summary": "Studied film, story structure, and production craft through UCLA Summer Sessions, learning from instructors who brought a working filmmaker's eye to the classroom.",
-    "visitLabel": "Work sample coming soon",
     "logo": "/media/polaroid-beach.webp",
     "html": "<p>UCLA helped sharpen the way I think about story before a camera ever turns on. The strongest lessons were practical: how scenes carry pressure, how performances change a cut, and how structure can make a small piece feel bigger than its budget.</p>\n<p>What stayed with me:</p>\n<ul>\n<li>A more disciplined way to break down scripts, scenes, and character motivation.</li>\n<li>Classroom critique from instructors with real production experience.</li>\n<li>Co-founded Section Twelve Productions and was nominated for best editing as part of Los Angeles&#39; 48 Hour Film Festival.</li>\n<li>A stronger foundation for the directing, editing, and documentary work I took on afterward.</li>\n</ul>\n"
   },
@@ -159,13 +143,6 @@ export const experiences = [
     "href": "https://awaiten.com/podcast/",
     "visitLabel": "Visit Journey Tellers",
     "logo": "/media/polaroid-podcast.webp",
-    "media": [
-      {
-        "type": "link",
-        "url": "https://awaiten.com/podcast/",
-        "title": "Journey Tellers podcast"
-      }
-    ],
     "html": "<p>Journey Tellers started as a way to have slower, better conversations than social media usually allows. I co-hosted with <a href=\"https://youtube.com/@alialmathkur/\">Ali Almathkur</a> and worked across guest research, interview prep, production, editing, and distribution.</p>\n<p>Highlights:</p>\n<ul>\n<li>Hosted founders, community builders, creatives, and people with stories that deserved more time.</li>\n<li>Produced episodes for YouTube and major podcast platforms.</li>\n<li>Used the show as a way to practice listening, pacing, and long-form narrative.</li>\n</ul>\n"
   },
   {
@@ -177,7 +154,6 @@ export const experiences = [
     "location": "Worldwide",
     "dateStart": "2017",
     "summary": "Eight-plus years editing, shooting, fixing, and finishing videos for clients, communities, events, collaborators, and personal projects.",
-    "visitLabel": "Work sample coming soon",
     "logo": "/media/polaroid-camera.webp",
     "html": "<p>Freelance work taught me the whole production loop. Find the story, plan what can actually be shot, capture enough to make the edit work, clean the details, and deliver something people want to watch.</p>\n<p>What this includes:</p>\n<ul>\n<li>Editing, color, sound cleanup, titles, and motion graphics.</li>\n<li>Camera operation and directing for documentary, event, brand, and community work.</li>\n<li>Practical fixes for small teams, tight budgets, bad rooms, and ambitious ideas.</li>\n<li>Early range across community media, websites, short documentaries, nonprofit projects, and scrappy production teams.</li>\n<li>Creative leadership from co-founding SR Studios, where I helped young collaborators learn media basics and ship projects before anyone had a polished portfolio.</li>\n</ul>\n"
   }
@@ -492,7 +468,7 @@ export const archives: ArchiveItem[] = [
     "seoDescription": "A client-loved graduation and promotion ceremony coverage project highlighted in Awaiten's testimonials."
   },
   {
-    "slug": "linkedin-i-built-a-davinci-resolve-mcp",
+    "slug": "built-davinci-resolve-mcp",
     "platform": "Linkedin",
     "category": "Tools",
     "project": "creative-tools",
@@ -513,7 +489,7 @@ export const archives: ArchiveItem[] = [
     "seoDescription": "A public LinkedIn post about building a Python library, CLI, and local MCP server so Claude can help edit video timelines faster."
   },
   {
-    "slug": "substack-building-an-app-every-day-but-idk-how-to-code",
+    "slug": "building-app-every-day-idk-how-code",
     "platform": "Substack",
     "category": "Tools",
     "project": "creative-tools",
@@ -534,7 +510,7 @@ export const archives: ArchiveItem[] = [
     "seoDescription": "for the past month, I’ve been building an app almost every single day using AI to bring whatever random idea I have to life. mac apps, websites, python..."
   },
   {
-    "slug": "youtube-we-spent-a-week-exploring-tanzania",
+    "slug": "we-spent-week-exploring-tanzania",
     "platform": "YouTube",
     "category": "Vlogumentaries",
     "project": "journey-tellers",
@@ -555,7 +531,7 @@ export const archives: ArchiveItem[] = [
     "seoDescription": "A few months ago, I had the chance to travel to Tanzania with friends for a week. Join us we chill with lions, swim with dolphins, visit one of the biggest..."
   },
   {
-    "slug": "substack-we-made-a-movie-in-six-weeks",
+    "slug": "we-made-movie-six-weeks",
     "platform": "Substack",
     "category": "Films & Commercials",
     "project": "short-films",
@@ -576,7 +552,7 @@ export const archives: ArchiveItem[] = [
     "seoDescription": "a few weeks ago, I had the chance to edit my first official short film featuring an entire production crew, and professional actors. it was literally a dream..."
   },
   {
-    "slug": "substack-to-know-what-you-want-learn-what-you-don-t",
+    "slug": "know-what-you-want-learn-what-you",
     "platform": "Substack",
     "category": "Writings",
     "project": "creative-chaos",
@@ -596,7 +572,7 @@ export const archives: ArchiveItem[] = [
     "seoDescription": "Suddenly, amidst all the chaos, confusion, and commotion, There was clarity . …is what I wish I could be saying right now 😬 Welcome back to Creative Chaos, a..."
   },
   {
-    "slug": "substack-just-rented-seven-electric-scooters-in-one-day",
+    "slug": "just-rented-seven-electric-scooters-one-day",
     "platform": "Substack",
     "category": "Writings",
     "project": "creative-chaos",
@@ -616,7 +592,7 @@ export const archives: ArchiveItem[] = [
     "seoDescription": "clarity . that’s all I wanted when I decided to spend six weeks of my summer living away from family in Los Angeles. some clarity on whether I should… a...."
   },
   {
-    "slug": "substack-my-co-worker-was-america-s-most-viral-man-for-a-day",
+    "slug": "co-worker-was-americas-most-viral-man",
     "platform": "Substack",
     "category": "Writings",
     "project": "creative-chaos",
@@ -636,7 +612,7 @@ export const archives: ArchiveItem[] = [
     "seoDescription": "this story is honestly so ridiculous i thought i might as well write it up to look back at in 20 years and laugh. tldr; over the last week, a man named Soham..."
   },
   {
-    "slug": "twitter-traveler-a-short-film-shot-on-iphone",
+    "slug": "traveler-short-film-shot-iphone",
     "platform": "Twitter",
     "category": "Films & Commercials",
     "project": "short-films",
@@ -657,7 +633,7 @@ export const archives: ArchiveItem[] = [
     "seoDescription": "A project post sharing traveler, a short film shot on iPhone and finished with DaVinci Resolve color work."
   },
   {
-    "slug": "substack-you-can-just-do-things",
+    "slug": "you-can-just-do-things",
     "platform": "Substack",
     "category": "Writings",
     "project": "creative-chaos",
@@ -677,7 +653,7 @@ export const archives: ArchiveItem[] = [
     "seoDescription": "This saying. It used to bother me. It sounds kind of pretentious—it’s like, someone spends tons of money hundreds of hours and grinding on something, then is..."
   },
   {
-    "slug": "substack-the-next-hollywood-is-unscripted",
+    "slug": "next-hollywood-is-unscripted",
     "platform": "Substack",
     "category": "Films & Commercials",
     "project": "short-films",
@@ -697,7 +673,7 @@ export const archives: ArchiveItem[] = [
     "seoDescription": "In a world where every skill can be mastered by anyone, and the value of all skills goes to zero, those who stand out will be the best storytellers . Not..."
   },
   {
-    "slug": "youtube-two-weeks-in-the-middle-east-with-my-school-part-3",
+    "slug": "two-weeks-middle-east-school-part-3",
     "platform": "YouTube",
     "category": "Vlogumentaries",
     "project": "journey-tellers",
@@ -717,7 +693,7 @@ export const archives: ArchiveItem[] = [
     "seoDescription": "Watch part two first: https://youtu.be/TCrVwEoOvMk During the winter break of 2023, I went on a life-changing trip to the Middle East along with my high school..."
   },
   {
-    "slug": "youtube-two-weeks-in-the-middle-east-with-my-school-part-2",
+    "slug": "two-weeks-middle-east-school-part-2",
     "platform": "YouTube",
     "category": "Vlogumentaries",
     "project": "journey-tellers",
@@ -737,7 +713,7 @@ export const archives: ArchiveItem[] = [
     "seoDescription": "Watch the part one: https://youtu.be/iPT8JzCvBTE During the winter break of 2023, I went on a life-changing trip to the Middle East along with my high school..."
   },
   {
-    "slug": "twitter-editing-coding-and-building-from-the-french-alps",
+    "slug": "editing-coding-building-french-alps",
     "platform": "Twitter",
     "category": "Tools",
     "project": "creative-tools",
@@ -757,7 +733,7 @@ export const archives: ArchiveItem[] = [
     "seoDescription": "A project-adjacent travel/build note from a team trip, connecting editing, coding, and creative work."
   },
   {
-    "slug": "substack-living-in-berkeley-as-a-rejected-student",
+    "slug": "living-berkeley-rejected-student",
     "platform": "Substack",
     "category": "Writings",
     "project": "creative-chaos",
@@ -777,7 +753,7 @@ export const archives: ArchiveItem[] = [
     "seoDescription": "I’ve spent the past three months living right next to the University of California, Berkeley. Last year, after spending months preparing my UC application,..."
   },
   {
-    "slug": "from-the-world-to-within-camp-noor",
+    "slug": "world-within-rekindling-faith-camp-noor",
     "platform": "Website",
     "category": "Films & Commercials",
     "project": "short-films",
@@ -798,7 +774,7 @@ export const archives: ArchiveItem[] = [
     "seoDescription": "A featured documentary project from Awaiten and Journey Tellers, built around Camp Noor and the process of rekindling faith."
   },
   {
-    "slug": "youtube-we-turned-a-youth-camp-into-a-documentary",
+    "slug": "we-turned-youth-camp-documentary",
     "platform": "YouTube",
     "category": "Films & Commercials",
     "project": "short-films",
@@ -819,7 +795,7 @@ export const archives: ArchiveItem[] = [
     "seoDescription": "Watch the full documentary on @JourneyTellers: https://www.youtube.com/watch?v=zkvAHvcw8DE In May 2024, the Journey Tellers team partnered with Camp Noor to..."
   },
   {
-    "slug": "substack-i-m-officially-done-with-waymo-s",
+    "slug": "im-officially-done-waymos",
     "platform": "Substack",
     "category": "Writings",
     "project": "creative-chaos",
@@ -839,7 +815,7 @@ export const archives: ArchiveItem[] = [
     "seoDescription": "In the past 24 hours, I’ve been greeted with “Salaamun Alaykum” (peace be upon you in Arabic, a greeting Muslims use) in three out of four Uber rides I took...."
   },
   {
-    "slug": "substack-i-spent-a-month-studying-the-world-s-fastest-growing-podcast-here-s-their-secrets",
+    "slug": "spent-month-studying-worlds-fastest-growing-podcast",
     "platform": "Substack",
     "category": "Miscellaneous",
     "project": "journey-tellers-podcast",
@@ -859,7 +835,7 @@ export const archives: ArchiveItem[] = [
     "seoDescription": "For the past month, I’ve been obsessed with Steven Bartlett and The Diary of a CEO, his podcast. For context: Steven’s a British entrepreneur and the founder..."
   },
   {
-    "slug": "substack-we-figured-out-how-to-hack-google-search",
+    "slug": "we-figured-out-how-hack-google-search",
     "platform": "Substack",
     "category": "Tools",
     "project": "creative-tools",
@@ -879,7 +855,7 @@ export const archives: ArchiveItem[] = [
     "seoDescription": "Credit: Beata Zawrzel / NurPhoto via Getty Images Co-written by Isa—check out his blog here . During the past few weeks, I've been on a quest to fix my digital..."
   },
   {
-    "slug": "youtube-directing-my-first-documentary-with-no-experience",
+    "slug": "directing-first-documentary-no-experience",
     "platform": "YouTube",
     "category": "Films & Commercials",
     "project": "short-films",
@@ -899,7 +875,7 @@ export const archives: ArchiveItem[] = [
     "seoDescription": "Join my friends and I as we create our first ever mini documentaries and have some fun along the way. Links: • Suhoor Fest Video: https://youtu.be/yh_vlDCPPQI..."
   },
   {
-    "slug": "substack-so-about-that-graduation-thing",
+    "slug": "so-about-graduation-thing",
     "platform": "Substack",
     "category": "Writings",
     "project": "creative-chaos",
@@ -919,7 +895,7 @@ export const archives: ArchiveItem[] = [
     "seoDescription": "The feeling didn’t kick in until now. One week after graduation. Why? Because we had three days of school after graduation. Three tests. Five restaurants. One..."
   },
   {
-    "slug": "youtube-two-weeks-in-the-middle-east-with-my-school-part-1",
+    "slug": "two-weeks-middle-east-school-part-1",
     "platform": "YouTube",
     "category": "Vlogumentaries",
     "project": "journey-tellers",
@@ -939,7 +915,7 @@ export const archives: ArchiveItem[] = [
     "seoDescription": "During the winter break of 2023, I went on a life-changing trip to the Middle East along with my high school senior class. This series documents the memories..."
   },
   {
-    "slug": "substack-editing-how-i-write-my-edit-before-editing-my-edit",
+    "slug": "editing-how-write-edit-before-editing-edit",
     "platform": "Substack",
     "category": "Films & Commercials",
     "project": "short-films",
@@ -959,7 +935,7 @@ export const archives: ArchiveItem[] = [
     "seoDescription": "I’m tired of writing. I’ve been writing all day. I wrote a newsletter today. Now I’m writing another one. I wrote a Letter of Continued Interest for Santa..."
   },
   {
-    "slug": "substack-logan-paul-s-editor-hating-on-my-filmmaking-for-20-minutes",
+    "slug": "logan-pauls-editor-hating-filmmaking-20-minutes",
     "platform": "Substack",
     "category": "Films & Commercials",
     "project": "short-films",
@@ -979,7 +955,7 @@ export const archives: ArchiveItem[] = [
     "seoDescription": "I’m ngl, I’ve been procrastinating on this one. It’s not that I’ve been scared to share this. It happened in front of 200 people already, so another 30 or so..."
   },
   {
-    "slug": "linkedin-why-is-ai-scary-robots-already-control-you",
+    "slug": "why-is-ai-scary-robots-already-control",
     "platform": "Linkedin",
     "category": "Writings",
     "project": "creative-chaos",
@@ -999,7 +975,7 @@ export const archives: ArchiveItem[] = [
     "seoDescription": "A public LinkedIn article about how recommendation algorithms already shape attention, behavior, and creative culture."
   },
   {
-    "slug": "youtube-we-spent-a-day-at-an-iraqi-orphanage",
+    "slug": "we-spent-day-iraqi-orphanage",
     "platform": "YouTube",
     "category": "Vlogumentaries",
     "project": "journey-tellers",
@@ -1019,7 +995,7 @@ export const archives: ArchiveItem[] = [
     "seoDescription": "1.5 million out of 40 million Iraqis are orphans. Along with the rest of my senior class, we visited an orphanage in Iraq, learning about their struggles and..."
   },
   {
-    "slug": "substack-the-power-of-three-s-in-storytelling",
+    "slug": "power-threes-storytelling",
     "platform": "Substack",
     "category": "Writings",
     "project": "creative-chaos",
@@ -1039,7 +1015,7 @@ export const archives: ArchiveItem[] = [
     "seoDescription": "The Rule of Three According to Google, the rule of three is a storytelling principle that suggests people understand concepts, situations, and ideas better in..."
   },
   {
-    "slug": "substack-advice-that-sticks",
+    "slug": "advice-that-sticks",
     "platform": "Substack",
     "category": "Writings",
     "project": "creative-chaos",
@@ -1059,7 +1035,7 @@ export const archives: ArchiveItem[] = [
     "seoDescription": "There is so much advice out there on the internet. I saw a funny reel where a guy's about to drink milk and sees a podcast clip of someone talking about how..."
   },
   {
-    "slug": "substack-find-your-target-audience",
+    "slug": "find-target-audience",
     "platform": "Substack",
     "category": "Miscellaneous",
     "project": "journey-tellers-podcast",
@@ -1079,7 +1055,7 @@ export const archives: ArchiveItem[] = [
     "seoDescription": "When I launched my podcast, I was brainstorming ways I could officially \"launch\" it through a video on my personal YouTube channel. At the time, I was obsessed..."
   },
   {
-    "slug": "substack-we-re-just-ios-1-somewhere-out-there-there-s-an-ios-17",
+    "slug": "were-just-ios-1-somewhere-out-there",
     "platform": "Substack",
     "category": "Writings",
     "project": "creative-chaos",
@@ -1099,7 +1075,7 @@ export const archives: ArchiveItem[] = [
     "seoDescription": "Earlier this year, I was at a program where the speaker brought up a very interesting point. Months later, it's one of my main takeaways from his speeches, and..."
   },
   {
-    "slug": "substack-life-is-about-perspectives",
+    "slug": "life-is-about-perspectives",
     "platform": "Substack",
     "category": "Writings",
     "project": "creative-chaos",
@@ -1119,7 +1095,7 @@ export const archives: ArchiveItem[] = [
     "seoDescription": "The sound designer says to start w/ music and have video flow it. The video editor says to start w/ footage and have music flow to it. The sound designer hates..."
   },
   {
-    "slug": "substack-reflections-on-productive-procrastination",
+    "slug": "reflections-productive-procrastination",
     "platform": "Substack",
     "category": "Writings",
     "project": "creative-chaos",
@@ -1139,7 +1115,7 @@ export const archives: ArchiveItem[] = [
     "seoDescription": "\"Productive procrastination\" - it's a term I learnt from screenwriter Rodney Rothman. A term that changed how I see work and could change how you see it too...."
   },
   {
-    "slug": "youtube-i-spent-a-year-recording-everything-at-my-school-2022-23",
+    "slug": "spent-year-recording-everything-school-2022-23",
     "platform": "YouTube",
     "category": "Vlogumentaries",
     "project": "school-years",
@@ -1159,7 +1135,7 @@ export const archives: ArchiveItem[] = [
     "seoDescription": "A school video yearbook featuring some of the best memories that were recorded throughout the RISE 2022-2023 school year. Thanks to all those who worked hard..."
   },
   {
-    "slug": "youtube-i-started-a-podcast-to-share-your-stories",
+    "slug": "started-podcast-share-stories",
     "platform": "YouTube",
     "category": "Miscellaneous",
     "project": "journey-tellers-podcast",
@@ -1179,7 +1155,7 @@ export const archives: ArchiveItem[] = [
     "seoDescription": "Available now on @JourneyTellers / stream now on https://jtpodcast.com/ All of us have a story to tell - a journey that made us who we are today. We invite..."
   },
   {
-    "slug": "youtube-extreme-hide-and-seek-in-my-school",
+    "slug": "extreme-hide-seek-school",
     "platform": "YouTube",
     "category": "Vlogumentaries",
     "project": "school-years",
@@ -1199,7 +1175,7 @@ export const archives: ArchiveItem[] = [
     "seoDescription": "We played a game of extreme hide & seek in our local community center and school. The last out of the four contestants to get caught wins the challenge,..."
   },
   {
-    "slug": "youtube-camping-by-the-ocean-with-my-school",
+    "slug": "camping-ocean-school",
     "platform": "YouTube",
     "category": "Vlogumentaries",
     "project": "school-years",
@@ -1219,7 +1195,7 @@ export const archives: ArchiveItem[] = [
     "seoDescription": "The long-awaited RISE Academy School Camp 2022 vlog is finally here. Towards the end of the 2021-2022 school year, our school decided to take students on a..."
   },
   {
-    "slug": "youtube-50-good-deeds-in-24-hours",
+    "slug": "50-good-deeds-24-hours",
     "platform": "YouTube",
     "category": "Vlogumentaries",
     "project": "school-years",
@@ -1239,7 +1215,7 @@ export const archives: ArchiveItem[] = [
     "seoDescription": "I spent 24 hours in my local mosque trying to volunteer in 50 different ways. Previously, I've only volunteered in areas where I have skills, such as..."
   },
   {
-    "slug": "youtube-i-spent-a-year-recording-everything-at-my-school-2021-22",
+    "slug": "spent-year-recording-everything-school-2021-22",
     "platform": "YouTube",
     "category": "Vlogumentaries",
     "project": "school-years",
@@ -1259,7 +1235,7 @@ export const archives: ArchiveItem[] = [
     "seoDescription": "A quick compilation of some of the best memories that I recorded throughout the school year, of the RISE Academy Upper School (Middle School and High School)..."
   },
   {
-    "slug": "youtube-we-filmed-a-music-video-in-half-moon-bay",
+    "slug": "we-filmed-music-video-half-moon-bay",
     "platform": "YouTube",
     "category": "Films & Commercials",
     "project": "music-videos",
@@ -1279,7 +1255,7 @@ export const archives: ArchiveItem[] = [
     "seoDescription": "We filmed a music video at a beach in Half Moon Bay, California with four cameras and a drone. Watch how we made @ReedofTawheed's latest project go from idea..."
   },
   {
-    "slug": "youtube-how-we-made-the-pain-you-hide-by-reedoftawheed",
+    "slug": "how-we-made-pain-you-hide-reedoftawheed",
     "platform": "YouTube",
     "category": "Films & Commercials",
     "project": "music-videos",
