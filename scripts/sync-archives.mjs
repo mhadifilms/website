@@ -98,7 +98,7 @@ function classifyProject(item, source) {
       return { project: "creative-tools", category: "Tools", entryType: "Article", projectTitle: "Creative Tools" }
     }
     if (/(podcast|target audience)/.test(haystack)) {
-      return { project: "journey-tellers-podcast", category: "Vlogumentaries", entryType: "Article", projectTitle: "Journey Tellers Podcast" }
+      return { project: "journey-tellers-podcast", category: "Miscellaneous", entryType: "Article", projectTitle: "Journey Tellers Podcast" }
     }
     if (/\b(movie|film|filmmaking|short film|production|editing|documentary|camera|video|hollywood|logan paul)\b/.test(haystack)) {
       return { project: "short-films", category: "Films & Commercials", entryType: "Article", projectTitle: "Short Films" }
@@ -108,7 +108,7 @@ function classifyProject(item, source) {
 
   if (source.platform === "YouTube") {
     if (/(journey tellers|podcast)/.test(haystack)) {
-      return { project: "journey-tellers-podcast", category: "Vlogumentaries", entryType: "Video", projectTitle: "Journey Tellers Podcast" }
+      return { project: "journey-tellers-podcast", category: "Miscellaneous", entryType: "Video", projectTitle: "Journey Tellers Podcast" }
     }
     if (/(camp noor|youth camp|tanzania|orphanage|middle east)/.test(haystack)) {
       return { project: "journey-tellers", category: "Vlogumentaries", entryType: "Video", projectTitle: "Journey Tellers in the World" }

@@ -1,7 +1,7 @@
 ---
 slug: "rise-academy-graduation-coverage"
 platform: "Website"
-category: "Freelance"
+category: "Miscellaneous"
 project: "freelance-productions"
 format: "essay"
 entryType: "Project"

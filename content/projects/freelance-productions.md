@@ -2,8 +2,8 @@
 slug: freelance-productions
 title: Freelance Productions
 order: 7
-category: Freelance
-type: Freelance
+category: Miscellaneous
+type: Miscellaneous
 status: Active
 dateStart: 2018-01-01
 image: /media/polaroid-mountains.webp

@@ -61,7 +61,7 @@ const CATEGORY_SLUGS = {
   "Films & Commercials": "films-commercials",
   Photography: "photography",
   Tools: "tools",
-  Freelance: "freelance",
+  Miscellaneous: "miscellaneous",
 }
 
 async function markdownFilesIn(dir) {

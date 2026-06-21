@@ -1,7 +1,7 @@
 ---
 slug: "substack-i-spent-a-month-studying-the-world-s-fastest-growing-podcast-here-s-their-secrets"
 platform: "Substack"
-category: "Vlogumentaries"
+category: "Miscellaneous"
 project: "journey-tellers-podcast"
 format: "podcast"
 entryType: "Article"

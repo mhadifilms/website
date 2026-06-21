@@ -1,4 +1,11 @@
-import type { ArchiveCategory, ArchiveFormat, ArchiveItem } from "@/content/types"
+import type { ArchiveCategory, ArchiveFormat, ArchiveItem, Project } from "@/content/types"
+
+export const ARCHIVE_OPEN_FOLDER_EVENT = "archive:open-folder"
+
+export type ArchiveOpenFolderDetail = {
+  category: ArchiveCategory
+  series?: string
+}
 
 export const ARCHIVE_CATEGORY_ORDER: ArchiveCategory[] = [
   "Writings",
@@ -6,7 +13,7 @@ export const ARCHIVE_CATEGORY_ORDER: ArchiveCategory[] = [
   "Films & Commercials",
   "Photography",
   "Tools",
-  "Freelance",
+  "Miscellaneous",
 ]
 
 const CATEGORY_SLUGS: Record<ArchiveCategory, string> = {
@@ -15,7 +22,7 @@ const CATEGORY_SLUGS: Record<ArchiveCategory, string> = {
   "Films & Commercials": "films-commercials",
   Photography: "photography",
   Tools: "tools",
-  Freelance: "freelance",
+  Miscellaneous: "miscellaneous",
 }
 
 const FORMAT_LABELS: Record<ArchiveFormat, string> = {
@@ -57,6 +64,47 @@ export function archiveSourceCtaLabel(item: Pick<ArchiveItem, "platform" | "form
 
 export function youtubeId(href = "") {
   return href.match(/[?&]v=([^&]+)/)?.[1] ?? href.match(/youtu\.be\/([^?]+)/)?.[1]
+}
+
+export type ExperienceWorkGroup = {
+  project: Project
+  entries: ArchiveItem[]
+}
+
+/**
+ * The bodies of work produced during an experience: every series whose
+ * `relatedExperience` points back at it, paired with its real archive entries
+ * (newest first). Used to draw the "work from this chapter" contact sheets.
+ */
+export function relatedSeriesForExperience(
+  experienceSlug: string,
+  projects: Project[],
+  items: ArchiveItem[],
+): ExperienceWorkGroup[] {
+  return projects
+    .filter((project) => project.relatedExperience === experienceSlug)
+    .sort((a, b) => a.order - b.order)
+    .map((project) => ({
+      project,
+      entries: items
+        .filter((item) => item.project === project.slug)
+        .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()),
+    }))
+    .filter((group) => group.entries.length > 0)
+}
+
+/**
+ * Opens an Archives folder in place (same-page) and asks it to highlight a
+ * series. Updates the hash too, so the deep link is shareable.
+ */
+export function openArchiveFolder(category: ArchiveCategory, series?: string) {
+  if (typeof window === "undefined") return
+  window.history.replaceState(null, "", `/archives#${archiveCategorySlug(category)}`)
+  window.dispatchEvent(
+    new CustomEvent<ArchiveOpenFolderDetail>(ARCHIVE_OPEN_FOLDER_EVENT, {
+      detail: { category, series },
+    }),
+  )
 }
 
 /**

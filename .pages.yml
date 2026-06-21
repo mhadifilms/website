@@ -144,12 +144,12 @@ content:
         label: Archive category
         type: select
         options:
-          values: ["Writings", "Vlogumentaries", "Films & Commercials", "Photography", "Tools", "Freelance"]
+          values: ["Writings", "Vlogumentaries", "Films & Commercials", "Photography", "Tools", "Miscellaneous"]
       - name: type
         label: Legacy category (optional)
         type: select
         options:
-          values: ["Writings", "Vlogumentaries", "Films & Commercials", "Photography", "Tools", "Freelance"]
+          values: ["Writings", "Vlogumentaries", "Films & Commercials", "Photography", "Tools", "Miscellaneous"]
       - name: status
         label: Status
         type: select
@@ -206,7 +206,7 @@ content:
         label: Archive category (auto from series if blank)
         type: select
         options:
-          values: ["Writings", "Vlogumentaries", "Films & Commercials", "Photography", "Tools", "Freelance"]
+          values: ["Writings", "Vlogumentaries", "Films & Commercials", "Photography", "Tools", "Miscellaneous"]
       - name: project
         label: Linked project / initiative slug (required)
         type: string

@@ -3,6 +3,8 @@ import { AnimatePresence, m } from "framer-motion"
 import { ArrowUpRight, ChevronDown, ChevronUp } from "lucide-react"
 
 import type { Experience, ExperienceMedia as ExperienceMediaItem } from "@/content/types"
+import { archives, projects } from "@/content/generated"
+import { archiveFormatLabel, openArchiveFolder, relatedSeriesForExperience } from "@/lib/archive-utils"
 import { cn } from "@/lib/utils"
 
 const DRAWER_TRANSITION = { type: "spring", stiffness: 260, damping: 30, mass: 0.8 } as const
@@ -170,6 +172,81 @@ export function Timeline({ items, className }: TimelineProps) {
         )}
       </AnimatePresence>
     </div>
+  )
+}
+
+function RelatedWork({ experienceSlug }: { experienceSlug: string }) {
+  const groups = useMemo(
+    () => relatedSeriesForExperience(experienceSlug, projects, archives),
+    [experienceSlug],
+  )
+
+  if (groups.length === 0) return null
+
+  return (
+    <div className="mt-9 max-w-[720px]">
+      <p className="text-[11px] font-light uppercase tracking-[0.28em] text-black/40">Work from this chapter</p>
+      <div className="-mx-1 mt-4 flex gap-4 overflow-x-auto px-1 pb-3 [scrollbar-width:thin]">
+        {groups.map((group) => (
+          <WorkContactSheet key={group.project.slug} group={group} />
+        ))}
+      </div>
+    </div>
+  )
+}
+
+function WorkContactSheet({ group }: { group: ReturnType<typeof relatedSeriesForExperience>[number] }) {
+  const { project, entries } = group
+  const shots = entries.filter((entry) => entry.image).slice(0, 4)
+  const formats = Array.from(new Set(entries.map((entry) => archiveFormatLabel(entry.format)))).slice(0, 2)
+
+  return (
+    <m.button
+      type="button"
+      onClick={() => openArchiveFolder(project.category, project.slug)}
+      whileHover={{ y: -4 }}
+      whileTap={{ scale: 0.985 }}
+      transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
+      className="group/sheet relative w-[224px] shrink-0 border-2 border-black/15 bg-[#fffdf0] p-3 text-left outline-none transition-colors hover:border-black focus-visible:border-black focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-4 focus-visible:ring-offset-background"
+    >
+      <div className="grid grid-cols-2 gap-[3px] border-2 border-black bg-black p-[3px]">
+        {shots.map((shot, index) => (
+          <div
+            key={shot.slug}
+            className={cn(
+              "relative aspect-[4/3] overflow-hidden bg-[#1a1a1a]",
+              shots.length === 1 && "col-span-2 aspect-[16/9]",
+            )}
+          >
+            <img
+              src={shot.image}
+              alt=""
+              loading="lazy"
+              decoding="async"
+              className="size-full object-cover grayscale transition duration-300 group-hover/sheet:grayscale-0"
+            />
+            <span className="sr-only">{shot.title}</span>
+            {index === 3 && entries.length > 4 && (
+              <span className="pointer-events-none absolute bottom-3 right-3 bg-black/80 px-1.5 py-0.5 text-[9px] font-light tracking-[0.1em] text-background">
+                +{entries.length - 4}
+              </span>
+            )}
+          </div>
+        ))}
+      </div>
+
+      <p className="mt-3 font-display text-lg font-normal leading-[1.05] tracking-[-0.03em] text-black/90">
+        {project.title}
+      </p>
+      <p className="mt-1.5 text-[10px] font-light uppercase tracking-[0.16em] text-black/45">
+        {entries.length} {entries.length === 1 ? "file" : "files"}
+        {formats.length > 0 ? ` · ${formats.join(" · ")}` : ""}
+      </p>
+      <span className="mt-2.5 inline-flex items-center gap-1 text-[10px] font-light uppercase tracking-[0.2em] text-black/45 transition group-hover/sheet:text-black">
+        Open in archives
+        <ArrowUpRight className="size-3.5 transition-transform duration-200 group-hover/sheet:-translate-y-0.5 group-hover/sheet:translate-x-0.5" strokeWidth={1.8} />
+      </span>
+    </m.button>
   )
 }
 
@@ -358,6 +435,8 @@ function ExperienceDrawer({
                     dangerouslySetInnerHTML={{ __html: item.html }}
                   />
                 )}
+
+                <RelatedWork experienceSlug={item.slug} />
 
                 <ExperienceMedia items={item.media} />
 

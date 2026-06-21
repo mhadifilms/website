@@ -6,7 +6,7 @@ import { marked } from "marked"
 const root = process.cwd()
 const contentDir = path.join(root, "content")
 const outputFile = path.join(root, "src", "content", "generated.ts")
-const ARCHIVE_CATEGORIES = ["Writings", "Vlogumentaries", "Films & Commercials", "Photography", "Tools", "Freelance"]
+const ARCHIVE_CATEGORIES = ["Writings", "Vlogumentaries", "Films & Commercials", "Photography", "Tools", "Miscellaneous"]
 const PROJECT_STATUSES = ["Active", "Archive"]
 const ARCHIVE_ENTRY_TYPES = ["Article", "Video", "Post", "Tool", "Prototype", "Project", "Photo"]
 const ARCHIVE_PLATFORMS = ["Linkedin", "Twitter", "Instagram", "Substack", "YouTube", "Website"]

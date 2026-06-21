@@ -2,8 +2,8 @@
 slug: journey-tellers-podcast
 title: Journey Tellers Podcast
 order: 3
-category: Vlogumentaries
-type: Vlogumentaries
+category: Miscellaneous
+type: Miscellaneous
 status: Archive
 dateStart: 2023-01-01
 dateEnd: 2025-01-01

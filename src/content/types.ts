@@ -51,7 +51,7 @@ export type ExperienceMedia = {
 }
 
 export type ArchivePlatform = "Linkedin" | "Twitter" | "Instagram" | "Substack" | "YouTube" | "Website"
-export type ArchiveCategory = "Writings" | "Vlogumentaries" | "Films & Commercials" | "Photography" | "Tools" | "Freelance"
+export type ArchiveCategory = "Writings" | "Vlogumentaries" | "Films & Commercials" | "Photography" | "Tools" | "Miscellaneous"
 export type ProjectType = ArchiveCategory
 export type ProjectStatus = "Active" | "Archive"
 export type ArchiveEntryType = "Article" | "Video" | "Post" | "Tool" | "Prototype" | "Project" | "Photo"

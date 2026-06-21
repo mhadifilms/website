@@ -1,10 +1,16 @@
-import { useMemo, useState } from "react"
+import { useEffect, useMemo, useRef, useState } from "react"
 import { AnimatePresence, m } from "framer-motion"
 import { Link } from "react-router-dom"
 import { ArrowLeft, ArrowUpRight } from "lucide-react"
 
 import type { ArchiveCategory, ArchiveItem, Project } from "@/content/types"
-import { ARCHIVE_CATEGORY_ORDER, archiveEntryPath } from "@/lib/archive-utils"
+import {
+  ARCHIVE_CATEGORY_ORDER,
+  ARCHIVE_OPEN_FOLDER_EVENT,
+  archiveCategoryFromSlug,
+  archiveEntryPath,
+  type ArchiveOpenFolderDetail,
+} from "@/lib/archive-utils"
 import { cn } from "@/lib/utils"
 import { PixelImage } from "@/components/pixel-image"
 
@@ -25,6 +31,42 @@ type CategoryFolder = {
 export function ArchiveFolders({ items, projects }: ArchiveFoldersProps) {
   const [openCategory, setOpenCategory] = useState<ArchiveCategory | null>(null)
   const [hoverCategory, setHoverCategory] = useState<ArchiveCategory | null>(null)
+  const [focusSeries, setFocusSeries] = useState<string | null>(null)
+  const rootRef = useRef<HTMLDivElement>(null)
+
+  // Deep links from elsewhere (e.g. the Experiences timeline) open a folder in
+  // place, scroll it into view, and highlight the requested series.
+  useEffect(() => {
+    if (typeof window === "undefined") return
+
+    const focusFolder = (category: ArchiveCategory, series?: string) => {
+      setOpenCategory(category)
+      setFocusSeries(series ?? null)
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          rootRef.current?.scrollIntoView({ behavior: "smooth", block: "start" })
+        })
+      })
+    }
+
+    const handleOpen = (event: Event) => {
+      const detail = (event as CustomEvent<ArchiveOpenFolderDetail>).detail
+      if (detail?.category) focusFolder(detail.category, detail.series)
+    }
+
+    window.addEventListener(ARCHIVE_OPEN_FOLDER_EVENT, handleOpen)
+
+    const hashCategory = archiveCategoryFromSlug(window.location.hash.replace(/^#/, ""))
+    if (hashCategory) focusFolder(hashCategory)
+
+    return () => window.removeEventListener(ARCHIVE_OPEN_FOLDER_EVENT, handleOpen)
+  }, [])
+
+  useEffect(() => {
+    if (!focusSeries) return
+    const timeout = window.setTimeout(() => setFocusSeries(null), 2600)
+    return () => window.clearTimeout(timeout)
+  }, [focusSeries])
 
   const folders = useMemo<CategoryFolder[]>(() => {
     return ARCHIVE_CATEGORY_ORDER.map((category) => {
@@ -46,13 +88,17 @@ export function ArchiveFolders({ items, projects }: ArchiveFoldersProps) {
   const openFolder = folders.find((folder) => folder.category === openCategory) ?? null
 
   return (
-    <div className="w-full">
+    <div ref={rootRef} className="w-full scroll-mt-24">
       <AnimatePresence mode="wait">
         {openFolder ? (
           <FolderView
             key={openFolder.category}
             folder={openFolder}
-            onBack={() => setOpenCategory(null)}
+            focusSeries={focusSeries}
+            onBack={() => {
+              setOpenCategory(null)
+              setFocusSeries(null)
+            }}
           />
         ) : (
           <m.div
@@ -71,7 +117,10 @@ export function ArchiveFolders({ items, projects }: ArchiveFoldersProps) {
                 peeking={hoverCategory === folder.category}
                 onHoverStart={() => setHoverCategory(folder.category)}
                 onHoverEnd={() => setHoverCategory((current) => (current === folder.category ? null : current))}
-                onOpen={() => setOpenCategory(folder.category)}
+                onOpen={() => {
+                  setOpenCategory(folder.category)
+                  setFocusSeries(null)
+                }}
               />
             ))}
           </m.div>
@@ -199,7 +248,15 @@ function PixelFolder({ open, thumbnail }: { open: boolean; thumbnail?: string })
   )
 }
 
-function FolderView({ folder, onBack }: { folder: CategoryFolder; onBack: () => void }) {
+function FolderView({
+  folder,
+  focusSeries,
+  onBack,
+}: {
+  folder: CategoryFolder
+  focusSeries: string | null
+  onBack: () => void
+}) {
   const grouped = folder.projects
     .map((project) => ({
       project,
@@ -207,6 +264,15 @@ function FolderView({ folder, onBack }: { folder: CategoryFolder; onBack: () => 
     }))
     .filter((group) => group.items.length > 0)
   const ungrouped = folder.items.filter((item) => !item.project || !folder.projects.some((project) => project.slug === item.project))
+
+  const focusRef = useRef<HTMLElement>(null)
+  useEffect(() => {
+    if (!focusSeries || !focusRef.current) return
+    const timeout = window.setTimeout(() => {
+      focusRef.current?.scrollIntoView({ behavior: "smooth", block: "center" })
+    }, 360)
+    return () => window.clearTimeout(timeout)
+  }, [focusSeries])
 
   return (
     <m.div
@@ -238,8 +304,19 @@ function FolderView({ folder, onBack }: { folder: CategoryFolder; onBack: () => 
 
         <div className="p-5 sm:p-7">
           <div className="grid min-w-0 gap-5 lg:grid-cols-2">
-            {[...grouped, ...(ungrouped.length > 0 ? [{ project: undefined, items: ungrouped }] : [])].map((group) => (
-              <section key={group.project?.slug ?? "ungrouped"} className="min-w-0 overflow-hidden border border-black/10 bg-white/25 p-4">
+            {[...grouped, ...(ungrouped.length > 0 ? [{ project: undefined, items: ungrouped }] : [])].map((group) => {
+              const isFocused = Boolean(group.project && focusSeries === group.project.slug)
+              return (
+              <section
+                key={group.project?.slug ?? "ungrouped"}
+                ref={isFocused ? focusRef : undefined}
+                className={cn(
+                  "min-w-0 overflow-hidden border bg-white/25 p-4 transition-all duration-500",
+                  isFocused
+                    ? "border-black bg-white/55 shadow-[5px_5px_0_0_rgba(0,0,0,0.82)]"
+                    : "border-black/10",
+                )}
+              >
                 <p className="break-words font-display text-[clamp(1.35rem,6vw,1.5rem)] font-normal tracking-[-0.035em] text-black/85">
                   {group.project?.title ?? "Loose Files"}
                 </p>
@@ -256,7 +333,7 @@ function FolderView({ folder, onBack }: { folder: CategoryFolder; onBack: () => 
                       className="group/file flex gap-3 border-2 border-black/10 bg-[#fffff6] p-2.5 transition hover:-translate-y-0.5 hover:border-black hover:shadow-[3px_3px_0_0_rgba(0,0,0,0.82)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-4 focus-visible:ring-offset-background"
                     >
                       <div className="h-14 w-20 shrink-0 overflow-hidden border border-black/15 bg-[#d9d9d9]">
-                        {item.image ? <PixelImage src={item.image} resolution={20} aspect={80 / 56} className="size-full grayscale transition group-hover/file:grayscale-0" /> : null}
+                        {item.image ? <img src={item.image} alt="" loading="lazy" className="size-full object-cover grayscale transition group-hover/file:grayscale-0" /> : null}
                       </div>
                       <div className="min-w-0 flex-1">
                         <p className="line-clamp-2 break-words text-sm font-light leading-5 text-black/80">{item.title}</p>
@@ -268,7 +345,8 @@ function FolderView({ folder, onBack }: { folder: CategoryFolder; onBack: () => 
                   ))}
                 </div>
               </section>
-            ))}
+              )
+            })}
           </div>
         </div>
       </div>

@@ -1,7 +1,7 @@
 ---
 slug: "substack-find-your-target-audience"
 platform: "Substack"
-category: "Vlogumentaries"
+category: "Miscellaneous"
 project: "journey-tellers-podcast"
 format: "podcast"
 entryType: "Article"

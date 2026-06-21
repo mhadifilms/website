@@ -1,7 +1,7 @@
 ---
 slug: "awaiten-production-services"
 platform: "Website"
-category: "Freelance"
+category: "Miscellaneous"
 project: "freelance-productions"
 format: "essay"
 entryType: "Project"

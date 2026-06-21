@@ -1,7 +1,7 @@
 ---
 slug: "youtube-i-started-a-podcast-to-share-your-stories"
 platform: "YouTube"
-category: "Vlogumentaries"
+category: "Miscellaneous"
 project: "journey-tellers-podcast"
 format: "podcast"
 entryType: "Video"
