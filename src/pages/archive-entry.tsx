@@ -94,13 +94,6 @@ export default function ArchiveEntryPage() {
               <ArrowUpRight className="size-4" strokeWidth={1.8} />
             </a>
 
-            {item.curatorNote && (
-              <div className="border-l-2 border-black/70 bg-white/30 p-4">
-                <p className="text-[10px] font-light uppercase tracking-[0.22em] text-black/40">Why it's archived</p>
-                <p className="mt-2 text-sm font-light leading-6 text-black/70">{item.curatorNote}</p>
-              </div>
-            )}
-
             {item.credits && (
               <div className="border border-black/10 bg-white/30 p-4">
                 <p className="text-[10px] font-light uppercase tracking-[0.22em] text-black/40">Credits</p>

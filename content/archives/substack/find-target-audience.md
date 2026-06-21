@@ -1,9 +1,9 @@
 ---
 slug: "find-target-audience"
 platform: "Substack"
-category: "Miscellaneous"
-project: "journey-tellers-podcast"
-format: "podcast"
+category: "Writings"
+project: "creative-chaos"
+format: "essay"
 entryType: "Article"
 title: "Find your target audience."
 dek: "When I launched my podcast, I was brainstorming ways I could officially \"launch\" it through a video on my personal…"
@@ -11,8 +11,7 @@ date: "2023-12-17"
 href: "https://mhadimedia.substack.com/p/find-your-target-audience"
 image: "https://substack-post-media.s3.amazonaws.com/public/images/5f2d082e-ef4e-4129-977a-970c75fb877f_2048x1360.avif"
 summary: "When I launched my podcast, I was brainstorming ways I could officially \"launch\" it through a video on my personal YouTube channel. At the time, I was obsessed..."
-role: "Host & Producer"
-curatorNote: "Filed under Journey Tellers Podcast. It's a conversation episode where the format is the point: long, unscripted, human. Kept in the archive as a marker of documenting the work as it happens."
+role: "Writer"
 ---
 
 When I launched my podcast, I was brainstorming ways I could officially "launch" it through a video on my personal YouTube channel. At the time, I was obsessed...

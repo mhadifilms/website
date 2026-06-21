@@ -12,13 +12,8 @@ href: "https://www.youtube.com/watch?v=YA9KHwK35gY"
 image: "https://i.ytimg.com/vi/YA9KHwK35gY/maxresdefault.jpg"
 summary: "We played a game of extreme hide & seek in our local community center and school. The last out of the four contestants to get caught wins the challenge,..."
 role: "Director & Editor"
-curatorNote: "Filed under School Years. It's a vlogumentary — part documentary, part diary — made to be watched, not just listed. Kept in the archive as a marker of documenting the work as it happens."
 ---
 
-Extreme Hide and Seek in My School belongs to School Years, one of the archive's format experiments in documentary, vlogumentary, film, or production work.
-
-We played a game of extreme hide & seek in our local community center and school. The last out of the four contestants to get caught wins the challenge,...
-
-Watch the original video on YouTube, or use the embedded player on this archive page to see the piece in context.
+We played a game of extreme hide & seek in our local community center and school. The last out of the four contestants to get caught wins the challenge, securing their spot as the first-ever winner of group challenges on this channel. Thank you to SABA for permitting us to film in the building. Special thanks to Zain K, Zain Z, Rasol A, Nabeel, and Ali Z. Want more hide & seek videos? Ideas for other videos? Leave a comment down below!
 
 [Watch on YouTube](https://www.youtube.com/watch?v=YA9KHwK35gY)

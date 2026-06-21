@@ -12,7 +12,6 @@ href: "https://mhadimedia.substack.com/p/best-versions-of-ourselves"
 image: "https://substack-post-media.s3.amazonaws.com/public/images/f55a698a-fb88-48b0-af59-4bbca69cd2a7_2048x1142.avif"
 summary: "Earlier this year, I was at a program where the speaker brought up a very interesting point. Months later, it's one of my main takeaways from his speeches, and..."
 role: "Writer"
-curatorNote: "Filed under Creative Chaos. It's a piece of writing I wanted to keep findable on its own terms. Kept in the archive as a marker of thinking out loud across formats."
 ---
 
 Earlier this year, I was at a program where the speaker brought up a very interesting point. Months later, it's one of my main takeaways from his speeches, and...

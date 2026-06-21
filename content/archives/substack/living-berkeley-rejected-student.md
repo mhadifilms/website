@@ -12,7 +12,6 @@ href: "https://mhadimedia.substack.com/p/living-in-berkeley-as-a-rejected"
 image: "https://substackcdn.com/image/fetch/$s_!yW4Q!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F392aa48f-2b00-4e33-a6b4-ce9f67fa6eff_3024x4032.heic"
 summary: "I’ve spent the past three months living right next to the University of California, Berkeley. Last year, after spending months preparing my UC application,..."
 role: "Writer"
-curatorNote: "Filed under Creative Chaos. It's a piece of writing I wanted to keep findable on its own terms. Kept in the archive as a marker of thinking out loud across formats."
 ---
 
 I’ve spent the past three months living right next to the University of California, Berkeley. Last year, after spending months preparing my UC application,...

@@ -26,8 +26,8 @@ const SOURCES = {
   },
 }
 
-const PRESERVED_FIELDS = ["slug", "category", "project", "format", "entryType", "dek", "role", "curatorNote", "credits", "gallery", "relatedEntries", "seoTitle", "seoDescription", "featured"]
-const ARCHIVE_FIELD_ORDER = ["slug", "platform", "category", "project", "format", "entryType", "title", "dek", "date", "href", "image", "summary", "role", "curatorNote", "credits", "featured"]
+const PRESERVED_FIELDS = ["slug", "category", "project", "format", "entryType", "dek", "role", "credits", "gallery", "relatedEntries", "seoTitle", "seoDescription", "featured"]
+const ARCHIVE_FIELD_ORDER = ["slug", "platform", "category", "project", "format", "entryType", "title", "dek", "date", "href", "image", "summary", "role", "credits", "featured"]
 
 function decodeHtml(value = "") {
   return value
@@ -65,26 +65,40 @@ function firstParagraphs(value = "", max = 3) {
   return paragraphs
 }
 
+// Pull real, readable prose out of a YouTube description: drop the promo
+// links / timestamps / credits tail and any leading "if you enjoyed" plug,
+// then keep the first few sentences.
+function youtubeDescriptionText(raw = "", max = 480) {
+  let text = decodeHtml(raw)
+  const about = text.match(/about (?:the|this) (?:episode|video|film)[:\s]*/i)
+  if (about) text = text.slice(about.index + about[0].length)
+  text = text.replace(/^.*?if you enjoyed this (?:episode|video),?\s*you'?ll love\s*/i, "")
+  text = text.split(/\b(?:connect with|follow|subscribe|timestamps?|chapters?|credits|produced by|directed by|hosted by|available on|help support|social|instagram|tiktok|patreon|buymeacoffee|sign up for)\b/i)[0]
+  text = text
+    .replace(/https?:\/\/\S+/g, " ")
+    .replace(/[\u{1F000}-\u{1FAFF}\u{2600}-\u{27BF}\u{2190}-\u{21FF}\u{2B00}-\u{2BFF}\uFE0F]/gu, " ")
+    .replace(/#\w+/g, " ")
+    .replace(/\s+/g, " ")
+    .trim()
+  const sentences = text.split(/(?<=[.!?])\s/).slice(0, 4).join(" ")
+  const clipped = sentences.length > max ? `${sentences.slice(0, max).replace(/\s+\S*$/, "")}…` : sentences
+  return clipped
+}
+
 function sourceBody(item, sourceBody = "") {
   if (item.platform === "Substack") {
     const paragraphs = firstParagraphs(sourceBody)
     const body = [
       item.summary,
-      ...(paragraphs.length > 0
-        ? paragraphs
-        : [`This page keeps a short on-site excerpt for discovery, then points readers back to the original Substack post for the full piece.`]),
+      ...paragraphs,
       `[Read the rest on Substack](${item.href})`,
     ].filter(Boolean)
     return body.join("\n\n")
   }
 
   if (item.platform === "YouTube") {
-    return [
-      `${item.title} belongs to ${item.projectTitle ?? "the video archive"}, one of the archive's experiments across documentary, vlogumentary, film, or production work.`,
-      item.summary,
-      `Watch the original video on YouTube, or use the embedded player on this archive page to see the piece in context.`,
-      `[Watch on YouTube](${item.href})`,
-    ].filter(Boolean).join("\n\n")
+    const prose = youtubeDescriptionText(sourceBody) || item.summary
+    return [prose, `[Watch on YouTube](${item.href})`].filter(Boolean).join("\n\n")
   }
 
   return ""
@@ -338,7 +352,7 @@ async function parseYouTube(xml, source) {
       project,
       entryType,
       ...classification,
-      body: sourceBody({ ...base, ...classification }),
+      body: sourceBody({ ...base, ...classification }, description),
     }
   }))
 }

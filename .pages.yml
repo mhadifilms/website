@@ -241,9 +241,6 @@ content:
       - name: role
         label: My role on this piece
         type: string
-      - name: curatorNote
-        label: Why it's archived (curator note)
-        type: text
       - name: credits
         label: Credits (optional)
         type: text

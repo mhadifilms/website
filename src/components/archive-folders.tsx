@@ -74,7 +74,7 @@ export function ArchiveFolders({ items, projects }: ArchiveFoldersProps) {
         .filter((item) => item.category === category)
         .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
       const categoryProjects = projects
-        .filter((project) => project.category === category)
+        .filter((project) => project.category === category && categoryItems.some((item) => item.project === project.slug))
         .sort((a, b) => a.order - b.order)
       return {
         category,
@@ -82,7 +82,7 @@ export function ArchiveFolders({ items, projects }: ArchiveFoldersProps) {
         projects: categoryProjects,
         cover: categoryItems.find((item) => item.image)?.image ?? categoryProjects.find((project) => project.image)?.image,
       }
-    })
+    }).filter((folder) => folder.items.length > 0)
   }, [items, projects])
 
   const openFolder = folders.find((folder) => folder.category === openCategory) ?? null

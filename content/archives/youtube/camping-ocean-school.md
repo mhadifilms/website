@@ -12,13 +12,8 @@ href: "https://www.youtube.com/watch?v=VGYucs8hzXk"
 image: "https://i.ytimg.com/vi/VGYucs8hzXk/sddefault.jpg"
 summary: "The long-awaited RISE Academy School Camp 2022 vlog is finally here. Towards the end of the 2021-2022 school year, our school decided to take students on a..."
 role: "Director & Editor"
-curatorNote: "Filed under School Years. It's a vlogumentary — part documentary, part diary — made to be watched, not just listed. Kept in the archive as a marker of documenting the work as it happens."
 ---
 
-Camping by the Ocean With My School belongs to School Years, one of the archive's format experiments in documentary, vlogumentary, film, or production work.
-
-The long-awaited RISE Academy School Camp 2022 vlog is finally here. Towards the end of the 2021-2022 school year, our school decided to take students on a...
-
-Watch the original video on YouTube, or use the embedded player on this archive page to see the piece in context.
+The long-awaited RISE Academy School Camp 2022 vlog is finally here. Towards the end of the 2021-2022 school year, our school decided to take students on a trip that they'll remember for years to come. For this year's camp, we stayed overnight at a lighthouse in Half Moon Bay, California, in a night filled with adventures. If you enjoyed this video, make sure to drop a like, share, and hit
 
 [Watch on YouTube](https://www.youtube.com/watch?v=VGYucs8hzXk)

@@ -97,7 +97,6 @@ export type ArchiveItem = {
   date: string
   summary?: string
   role?: string
-  curatorNote?: string
   credits?: string
   gallery?: string[]
   relatedEntries?: string[]

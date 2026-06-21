@@ -12,7 +12,6 @@ href: "https://www.linkedin.com/pulse/why-ai-scary-robots-already-control-you-mu
 image: "/media/figma-mhadi-camera.png"
 summary: "A public LinkedIn article about how recommendation algorithms already shape attention, behavior, and creative culture."
 role: "Writer"
-curatorNote: "Filed under Creative Chaos. It's a piece of writing I wanted to keep findable on its own terms. Kept in the archive as a marker of thinking out loud across formats."
 ---
 
 A public LinkedIn article about how recommendation algorithms already shape attention, behavior, and creative culture.

@@ -267,7 +267,7 @@ function archivePrerenderHtml(item, project) {
   ]
     .filter(Boolean)
     .join(" · ")
-  return `<main class="bg-background text-foreground"><article style="max-width:1040px;margin:0 auto;padding:56px 24px"><p>${kicker}</p><h1>${escapeText(item.title)}</h1>${item.dek ? `<p>${escapeText(item.dek)}</p>` : ""}<p>${meta}</p>${item.image ? `<img src="${escapeAttr(item.image)}" alt="${escapeAttr(item.title)}" style="width:100%;height:auto" />` : ""}<div>${item.html}</div>${item.curatorNote ? `<aside><h2>Why it's archived</h2><p>${escapeText(item.curatorNote)}</p></aside>` : ""}${item.credits ? `<aside><h2>Credits</h2><p>${escapeText(item.credits)}</p></aside>` : ""}<p><a href="${escapeAttr(item.href)}">Open original</a></p><p><a href="${escapeAttr(canonical)}">${escapeText(canonical)}</a></p></article></main>`
+  return `<main class="bg-background text-foreground"><article style="max-width:1040px;margin:0 auto;padding:56px 24px"><p>${kicker}</p><h1>${escapeText(item.title)}</h1>${item.dek ? `<p>${escapeText(item.dek)}</p>` : ""}<p>${meta}</p>${item.image ? `<img src="${escapeAttr(item.image)}" alt="${escapeAttr(item.title)}" style="width:100%;height:auto" />` : ""}<div>${item.html}</div>${item.credits ? `<aside><h2>Credits</h2><p>${escapeText(item.credits)}</p></aside>` : ""}<p><a href="${escapeAttr(item.href)}">Open original</a></p><p><a href="${escapeAttr(canonical)}">${escapeText(canonical)}</a></p></article></main>`
 }
 
 function archiveRoute(item, project) {

@@ -12,7 +12,6 @@ href: "https://www.linkedin.com/posts/mhadifilms_i-built-a-davinci-resolve-mcp-s
 image: "/media/polaroid-camera.webp"
 summary: "A public LinkedIn post about building a Python library, CLI, and local MCP server so Claude can help edit video timelines faster."
 role: "Builder"
-curatorNote: "Filed under Creative Tools. It's something I built rather than shot — proof the craft bleeds into code. Kept in the archive as a marker of building the tools the work needs."
 featured: true
 ---
 

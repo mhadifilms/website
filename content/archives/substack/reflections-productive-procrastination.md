@@ -12,7 +12,6 @@ href: "https://mhadimedia.substack.com/p/reflections-on-productive-procrastinati
 image: "https://substack-post-media.s3.amazonaws.com/public/images/afdab8f5-a447-4b70-96a3-63a37fd53166_2271x2271.avif"
 summary: "\"Productive procrastination\" - it's a term I learnt from screenwriter Rodney Rothman. A term that changed how I see work and could change how you see it too...."
 role: "Writer"
-curatorNote: "Filed under Creative Chaos. It's a piece of writing I wanted to keep findable on its own terms. Kept in the archive as a marker of thinking out loud across formats."
 ---
 
 "Productive procrastination" - it's a term I learnt from screenwriter Rodney Rothman. A term that changed how I see work and could change how you see it too....
