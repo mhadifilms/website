@@ -3,8 +3,23 @@ import { m, useMotionValue, useSpring } from "framer-motion"
 import { ArrowUpRight } from "lucide-react"
 
 import { site } from "@/content/generated"
+import {
+  InstagramIcon,
+  LinkedinIcon,
+  SubstackIcon,
+  TwitterIcon,
+  YouTubeIcon,
+} from "@/components/social-icons"
 
 const CURSOR_SPRING = { stiffness: 480, damping: 40, mass: 0.55 } as const
+
+const SOCIAL_META = {
+  Substack: { note: "essays", Icon: SubstackIcon },
+  YouTube: { note: "films", Icon: YouTubeIcon },
+  Instagram: { note: "frames", Icon: InstagramIcon },
+  Twitter: { note: "notes", Icon: TwitterIcon },
+  Linkedin: { note: "work", Icon: LinkedinIcon },
+} as const
 
 type ViewfinderCursorProps = {
   zoneRef: React.RefObject<HTMLElement | null>
@@ -26,33 +41,93 @@ function ViewfinderCursor({ zoneRef }: ViewfinderCursorProps) {
   const [engaged, setEngaged] = useState(false)
   const [pressed, setPressed] = useState(false)
 
+  const visibleRef = useRef(false)
+  const engagedRef = useRef(false)
+  const pressedRef = useRef(false)
+  const lastPos = useRef({ x: -200, y: -200 })
+
   useEffect(() => {
     if (!enabled) return
     const zone = zoneRef.current
     if (!zone) return
 
-    const handleMove = (event: PointerEvent) => {
-      x.set(event.clientX)
-      y.set(event.clientY)
-      setVisible(true)
-      setEngaged(Boolean((event.target as Element | null)?.closest("a, button")))
+    let rafId = 0
+    let pendingTarget: Element | null = null
+
+    // Coalesce every pointermove in a frame into a single state/motion update,
+    // so fast movement (multiple events per frame) can't pile up work.
+    const flush = () => {
+      rafId = 0
+      x.set(lastPos.current.x)
+      y.set(lastPos.current.y)
+      if (!visibleRef.current) {
+        visibleRef.current = true
+        setVisible(true)
+      }
+      const nextEngaged = Boolean(pendingTarget?.closest("a, button"))
+      if (nextEngaged !== engagedRef.current) {
+        engagedRef.current = nextEngaged
+        setEngaged(nextEngaged)
+      }
     }
-    const handleLeave = () => {
-      setVisible(false)
+
+    const handleMove = (event: PointerEvent) => {
+      lastPos.current = { x: event.clientX, y: event.clientY }
+      pendingTarget = event.target as Element | null
+      if (!rafId) rafId = requestAnimationFrame(flush)
+    }
+
+    const hide = () => {
+      if (rafId) {
+        cancelAnimationFrame(rafId)
+        rafId = 0
+      }
+      if (visibleRef.current) {
+        visibleRef.current = false
+        setVisible(false)
+      }
+      if (pressedRef.current) {
+        pressedRef.current = false
+        setPressed(false)
+      }
+    }
+
+    const handleDown = () => {
+      pressedRef.current = true
+      setPressed(true)
+    }
+    const handleUp = () => {
+      pressedRef.current = false
       setPressed(false)
     }
-    const handleDown = () => setPressed(true)
-    const handleUp = () => setPressed(false)
 
-    zone.addEventListener("pointermove", handleMove)
-    zone.addEventListener("pointerleave", handleLeave)
+    // Scroll/blur don't emit pointer events, so the cursor could otherwise get
+    // stranded "inside" a footer that has scrolled out from under the pointer.
+    const handleScroll = () => {
+      if (!visibleRef.current) return
+      const rect = zone.getBoundingClientRect()
+      const { x: px, y: py } = lastPos.current
+      const inside = px >= rect.left && px <= rect.right && py >= rect.top && py <= rect.bottom
+      if (!inside) hide()
+    }
+
+    zone.addEventListener("pointermove", handleMove, { passive: true })
+    zone.addEventListener("pointerleave", hide)
+    zone.addEventListener("pointercancel", hide)
     zone.addEventListener("pointerdown", handleDown)
     zone.addEventListener("pointerup", handleUp)
+    window.addEventListener("scroll", handleScroll, { passive: true })
+    window.addEventListener("blur", hide)
+
     return () => {
+      if (rafId) cancelAnimationFrame(rafId)
       zone.removeEventListener("pointermove", handleMove)
-      zone.removeEventListener("pointerleave", handleLeave)
+      zone.removeEventListener("pointerleave", hide)
+      zone.removeEventListener("pointercancel", hide)
       zone.removeEventListener("pointerdown", handleDown)
       zone.removeEventListener("pointerup", handleUp)
+      window.removeEventListener("scroll", handleScroll)
+      window.removeEventListener("blur", hide)
     }
   }, [enabled, zoneRef, x, y])
 
@@ -116,18 +191,13 @@ export function SiteFooter() {
           </span>
         </m.a>
 
-        <nav aria-label="Social links" className="mt-12 flex flex-wrap items-center justify-center gap-x-7 gap-y-3">
-          {site.socials.map((social) => (
-            <a
-              key={social.label}
-              href={social.href}
-              target="_blank"
-              rel="noreferrer"
-              className="footer-social-link text-sm font-light lowercase tracking-[0.14em] text-black/55 transition-colors duration-200 hover:text-black focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-4 focus-visible:ring-offset-background"
-            >
-              {social.label}
-            </a>
-          ))}
+        <nav aria-label="Social links" className="mt-12 flex w-full max-w-[620px] flex-col items-center gap-5">
+          <p className="text-[10px] font-light uppercase tracking-[0.28em] text-black/30">Elsewhere</p>
+          <div className="flex flex-wrap items-center justify-center gap-2">
+            {site.socials.map((social) => (
+              <SocialLinkChip key={social.label} social={social} />
+            ))}
+          </div>
         </nav>
 
         <p className="mt-14 text-xs font-light tracking-[0.08em] text-black/35">
@@ -135,5 +205,38 @@ export function SiteFooter() {
         </p>
       </div>
     </footer>
+  )
+}
+
+type SocialLinkChipProps = {
+  social: (typeof site.socials)[number]
+}
+
+function SocialLinkChip({ social }: SocialLinkChipProps) {
+  const meta = SOCIAL_META[social.label as keyof typeof SOCIAL_META]
+  const Icon = meta?.Icon
+
+  return (
+    <m.a
+      href={social.href}
+      target="_blank"
+      rel="noreferrer"
+      whileHover={{ y: -2 }}
+      whileTap={{ scale: 0.985 }}
+      transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
+      className="group inline-flex items-center gap-2 border border-black/10 bg-white/20 px-3 py-2 text-black/50 transition hover:border-black/30 hover:bg-white/35 hover:text-black focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-4 focus-visible:ring-offset-background"
+    >
+      <span className="grid size-5 place-items-center">
+        {Icon ? <Icon className="size-3.5" /> : <ArrowUpRight className="size-3.5" strokeWidth={1.6} />}
+      </span>
+      <span className="text-xs font-light lowercase tracking-[0.14em]">{social.label}</span>
+      <span className="hidden text-[9px] font-light uppercase tracking-[0.18em] text-black/30 transition group-hover:text-black/45 sm:inline">
+        {meta?.note ?? "open"}
+      </span>
+      <ArrowUpRight
+        className="size-3 text-black/25 transition group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-black/65"
+        strokeWidth={1.7}
+      />
+    </m.a>
   )
 }

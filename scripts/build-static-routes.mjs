@@ -200,13 +200,14 @@ async function writeRoute(template, route) {
 }
 
 function archiveJsonLd(item, project, canonical) {
+  const description = item.seoDescription || item.summary || item.dek
   const isVideo = item.platform === "YouTube"
   const thing = isVideo
     ? {
         "@context": "https://schema.org",
         "@type": "VideoObject",
         name: item.title,
-        description: item.summary,
+        description,
         thumbnailUrl: item.image ? [absoluteAsset(item.image)] : undefined,
         uploadDate: item.date,
         embedUrl: item.href.replace("watch?v=", "embed/"),
@@ -216,7 +217,7 @@ function archiveJsonLd(item, project, canonical) {
         "@context": "https://schema.org",
         "@type": "Article",
         headline: item.title,
-        description: item.summary,
+        description,
         image: item.image ? [absoluteAsset(item.image)] : undefined,
         datePublished: item.date,
         author: {
@@ -258,17 +259,25 @@ function archiveJsonLd(item, project, canonical) {
 
 function archivePrerenderHtml(item, project) {
   const canonical = canonicalFor(archivePath(item))
-  return `<main class="bg-background text-foreground"><article style="max-width:980px;margin:0 auto;padding:56px 24px"><p>${escapeText(item.category)}${project ? ` / ${escapeText(project.title)}` : ""} / ${escapeText(item.date)}</p><h1>${escapeText(item.title)}</h1>${item.image ? `<img src="${escapeAttr(item.image)}" alt="${escapeAttr(item.title)}" style="width:100%;height:auto" />` : ""}<p>${escapeText(item.summary ?? "")}</p><div>${item.html}</div><p><a href="${escapeAttr(item.href)}">Open original</a></p><p><a href="${escapeAttr(canonical)}">${escapeText(canonical)}</a></p></article></main>`
+  const kicker = `${escapeText(item.category)}${project ? ` / ${escapeText(project.title)}` : ""} / ${escapeText(item.format)} / ${escapeText(item.date)}`
+  const meta = [
+    item.role ? `Role: ${escapeText(item.role)}` : "",
+    `Format: ${escapeText(item.format)}`,
+    `Source: ${escapeText(item.platform)}`,
+  ]
+    .filter(Boolean)
+    .join(" · ")
+  return `<main class="bg-background text-foreground"><article style="max-width:1040px;margin:0 auto;padding:56px 24px"><p>${kicker}</p><h1>${escapeText(item.title)}</h1>${item.dek ? `<p>${escapeText(item.dek)}</p>` : ""}<p>${meta}</p>${item.image ? `<img src="${escapeAttr(item.image)}" alt="${escapeAttr(item.title)}" style="width:100%;height:auto" />` : ""}<div>${item.html}</div>${item.curatorNote ? `<aside><h2>Why it's archived</h2><p>${escapeText(item.curatorNote)}</p></aside>` : ""}${item.credits ? `<aside><h2>Credits</h2><p>${escapeText(item.credits)}</p></aside>` : ""}<p><a href="${escapeAttr(item.href)}">Open original</a></p><p><a href="${escapeAttr(canonical)}">${escapeText(canonical)}</a></p></article></main>`
 }
 
 function archiveRoute(item, project) {
   const routePath = archivePath(item)
   const canonical = canonicalFor(routePath)
-  const description = item.summary || `A ${item.category} archive entry from Muhammad Hadi Yusufali.`
+  const description = item.seoDescription || item.summary || item.dek || `A ${item.category} archive entry from Muhammad Hadi Yusufali.`
   return {
     path: routePath,
     output: `${routePath.replace(/^\/+/, "")}/index.html`,
-    title: `${item.title} | Archives | M Hadi`,
+    title: item.seoTitle || `${item.title} | Archives | M Hadi`,
     description,
     image: absoluteAsset(item.image),
     imageAlt: item.title,

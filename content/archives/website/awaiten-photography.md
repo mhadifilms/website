@@ -3,12 +3,16 @@ slug: "awaiten-photography"
 platform: "Website"
 category: "Photography"
 project: "photography-sets"
+format: "photo-set"
 entryType: "Photo"
 title: "Awaiten Photography"
+dek: "Event, portrait, and community photography from Awaiten's broader creative production work."
 date: "2026-06-20"
 href: "https://awaiten.com"
 image: "/media/polaroid-camera.webp"
 summary: "Event, portrait, and community photography from Awaiten's broader creative production work."
+role: "Photographer"
+curatorNote: "Filed under Photography Sets. It's a set of stills meant to be seen together rather than scrolled past. Kept in the archive as a marker of learning to see before shooting."
 featured: true
 ---
 

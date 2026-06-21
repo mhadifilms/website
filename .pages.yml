@@ -208,8 +208,13 @@ content:
         options:
           values: ["Writings", "Vlogumentaries", "Films & Commercials", "Photography", "Tools", "Freelance"]
       - name: project
-        label: Linked project / initiative slug
+        label: Linked project / initiative slug (required)
         type: string
+      - name: format
+        label: Format (auto-derived if blank)
+        type: select
+        options:
+            values: ["essay", "video", "podcast", "short-film", "commercial", "photo-set", "tool"]
       - name: entryType
         label: Entry type
         type: select
@@ -218,8 +223,11 @@ content:
       - name: title
         label: Title
         type: string
+      - name: dek
+        label: Dek (short editorial subtitle)
+        type: text
       - name: image
-        label: Image
+        label: Hero image
         type: image
       - name: href
         label: External URL
@@ -228,7 +236,26 @@ content:
         label: Date
         type: date
       - name: summary
-        label: Summary
+        label: Summary (cards + SEO)
+        type: text
+      - name: role
+        label: My role on this piece
+        type: string
+      - name: curatorNote
+        label: Why it's archived (curator note)
+        type: text
+      - name: credits
+        label: Credits (optional)
+        type: text
+      - name: gallery
+        label: Gallery (photo sets)
+        type: image
+        list: true
+      - name: seoTitle
+        label: SEO title override (optional)
+        type: string
+      - name: seoDescription
+        label: SEO description override (optional)
         type: text
       - name: featured
         label: Featured entry
@@ -265,6 +292,14 @@ content:
     label: Archives / Instagram
     type: collection
     path: content/archives/instagram
+    filename: "{fields.slug}.md"
+    view: *archive_view
+    fields: *archive_fields
+
+  - name: archives_website
+    label: Archives / Website
+    type: collection
+    path: content/archives/website
     filename: "{fields.slug}.md"
     view: *archive_view
     fields: *archive_fields

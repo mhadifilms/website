@@ -6,6 +6,7 @@ import { ArrowLeft, ArrowUpRight } from "lucide-react"
 import type { ArchiveCategory, ArchiveItem, Project } from "@/content/types"
 import { ARCHIVE_CATEGORY_ORDER, archiveEntryPath } from "@/lib/archive-utils"
 import { cn } from "@/lib/utils"
+import { PixelImage } from "@/components/pixel-image"
 
 const EASE = [0.22, 1, 0.36, 1] as const
 
@@ -172,7 +173,7 @@ function PixelFolder({ open, thumbnail }: { open: boolean; thumbnail?: string })
             open ? "-translate-y-5 rotate-[-2deg]" : "translate-y-0",
           )}
         >
-          <img src={thumbnail} alt="" loading="lazy" className="size-full object-cover grayscale transition group-hover:grayscale-0" />
+          <PixelImage src={thumbnail} resolution={22} aspect={96 / 64} className="size-full grayscale transition group-hover:grayscale-0" />
         </div>
       )}
       <svg
@@ -255,7 +256,7 @@ function FolderView({ folder, onBack }: { folder: CategoryFolder; onBack: () => 
                       className="group/file flex gap-3 border-2 border-black/10 bg-[#fffff6] p-2.5 transition hover:-translate-y-0.5 hover:border-black hover:shadow-[3px_3px_0_0_rgba(0,0,0,0.82)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-4 focus-visible:ring-offset-background"
                     >
                       <div className="h-14 w-20 shrink-0 overflow-hidden border border-black/15 bg-[#d9d9d9]">
-                        {item.image ? <img src={item.image} alt="" loading="lazy" className="size-full object-cover grayscale transition group-hover/file:grayscale-0" /> : null}
+                        {item.image ? <PixelImage src={item.image} resolution={20} aspect={80 / 56} className="size-full grayscale transition group-hover/file:grayscale-0" /> : null}
                       </div>
                       <div className="min-w-0 flex-1">
                         <p className="line-clamp-2 break-words text-sm font-light leading-5 text-black/80">{item.title}</p>

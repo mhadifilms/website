@@ -3,12 +3,16 @@ slug: "from-the-world-to-within-camp-noor"
 platform: "Website"
 category: "Films & Commercials"
 project: "short-films"
+format: "short-film"
 entryType: "Project"
 title: "From the World to Within: Rekindling Faith at Camp Noor"
+dek: "A featured documentary project from Awaiten and Journey Tellers, built around Camp Noor and the process of rekindling…"
 date: "2024-10-31"
 href: "https://awaiten.com"
 image: "https://i.ytimg.com/vi/04p3ls98W7Y/maxresdefault.jpg"
 summary: "A featured documentary project from Awaiten and Journey Tellers, built around Camp Noor and the process of rekindling faith."
+role: "Editor & Filmmaker"
+curatorNote: "Filed under Short Films. It's a finished film, so it earns its own page instead of a slot in a feed. Kept in the archive as a marker of learning story through finished films."
 featured: true
 ---
 

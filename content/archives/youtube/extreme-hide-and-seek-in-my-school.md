@@ -3,12 +3,16 @@ slug: "youtube-extreme-hide-and-seek-in-my-school"
 platform: "YouTube"
 category: "Vlogumentaries"
 project: "school-years"
+format: "video"
 entryType: "Video"
 title: "Extreme Hide and Seek in My School"
+dek: "We played a game of extreme hide & seek in our local community center and school."
 date: "2022-09-10"
 href: "https://www.youtube.com/watch?v=YA9KHwK35gY"
 image: "https://i.ytimg.com/vi/YA9KHwK35gY/maxresdefault.jpg"
 summary: "We played a game of extreme hide & seek in our local community center and school. The last out of the four contestants to get caught wins the challenge,..."
+role: "Director & Editor"
+curatorNote: "Filed under School Years. It's a vlogumentary — part documentary, part diary — made to be watched, not just listed. Kept in the archive as a marker of documenting the work as it happens."
 ---
 
 Extreme Hide and Seek in My School belongs to School Years, one of the archive's format experiments in documentary, vlogumentary, film, or production work.

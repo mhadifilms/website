@@ -26,8 +26,8 @@ const SOURCES = {
   },
 }
 
-const PRESERVED_FIELDS = ["category", "project", "entryType", "featured"]
-const ARCHIVE_FIELD_ORDER = ["slug", "platform", "category", "project", "entryType", "title", "date", "href", "image", "summary", "featured"]
+const PRESERVED_FIELDS = ["category", "project", "format", "entryType", "dek", "role", "curatorNote", "credits", "gallery", "relatedEntries", "seoTitle", "seoDescription", "featured"]
+const ARCHIVE_FIELD_ORDER = ["slug", "platform", "category", "project", "format", "entryType", "title", "dek", "date", "href", "image", "summary", "role", "curatorNote", "credits", "featured"]
 
 function decodeHtml(value = "") {
   return value

@@ -55,6 +55,14 @@ export type ArchiveCategory = "Writings" | "Vlogumentaries" | "Films & Commercia
 export type ProjectType = ArchiveCategory
 export type ProjectStatus = "Active" | "Archive"
 export type ArchiveEntryType = "Article" | "Video" | "Post" | "Tool" | "Prototype" | "Project" | "Photo"
+export type ArchiveFormat =
+  | "essay"
+  | "video"
+  | "podcast"
+  | "short-film"
+  | "commercial"
+  | "photo-set"
+  | "tool"
 
 export type Project = {
   slug: string
@@ -78,14 +86,23 @@ export type ArchiveItem = {
   slug: string
   platform: ArchivePlatform
   category: ArchiveCategory
+  format: ArchiveFormat
   projectType?: ProjectType
   entryType: ArchiveEntryType
-  project?: string
+  project: string
   title: string
-  image?: string
+  dek: string
+  image: string
   href: string
   date: string
   summary?: string
+  role?: string
+  curatorNote?: string
+  credits?: string
+  gallery?: string[]
+  relatedEntries?: string[]
+  seoTitle?: string
+  seoDescription?: string
   featured?: boolean
   html: string
 }
