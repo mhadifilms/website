@@ -165,6 +165,8 @@ export function Timeline({ items, className }: TimelineProps) {
             <img
               src={preview.src}
               alt=""
+              loading="lazy"
+              decoding="async"
               className="aspect-4/5 w-full object-cover saturate-[0.9] contrast-[0.96] sepia-[0.08]"
             />
             <div className="sr-only">{preview.meta}</div>

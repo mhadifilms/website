@@ -4,7 +4,7 @@ import type { ArchiveItem, Experience, Project, SiteConfig } from "./types"
 export const site = {
   "name": "Muhammad Hadi Yusufali",
   "shortName": "M Hadi",
-  "role": "Creator at the intersection of tech and creativity",
+  "role": "Creative Technologist & Producer",
   "description": "Writing my story as you read it. A creator experimenting across many mediums at the intersection of tech and creativity.",
   "email": "hello@mhadifilms.com",
   "bio": "I’m a creator experimenting across many mediums at the intersection of tech and creativity. With over 8 years of experience in digital media, I’m currently Chief of Staff at sync. labs, where we’re building technology to modify humans in video.\n\nI've had the privilege of learning from the world's top creatives including UCLA professors and Emmy-winning filmmakers, allowing my contribution to hundreds of projects gaining 1M+ views and international recognition.",

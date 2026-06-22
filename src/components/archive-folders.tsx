@@ -56,8 +56,11 @@ export function ArchiveFolders({ items, projects }: ArchiveFoldersProps) {
 
     window.addEventListener(ARCHIVE_OPEN_FOLDER_EVENT, handleOpen)
 
-    const hashCategory = archiveCategoryFromSlug(window.location.hash.replace(/^#/, ""))
-    if (hashCategory) focusFolder(hashCategory)
+    // Open a folder from a deep link: /archives/<category> or /archives#<category>.
+    const pathSlug = window.location.pathname.match(/\/archives\/([^/]+)\/?$/)?.[1]
+    const deepLinkCategory =
+      archiveCategoryFromSlug(pathSlug ?? "") ?? archiveCategoryFromSlug(window.location.hash.replace(/^#/, ""))
+    if (deepLinkCategory) focusFolder(deepLinkCategory)
 
     return () => window.removeEventListener(ARCHIVE_OPEN_FOLDER_EVENT, handleOpen)
   }, [])
@@ -333,7 +336,7 @@ function FolderView({
                       className="group/file flex gap-3 border-2 border-black/10 bg-[#fffff6] p-2.5 transition hover:-translate-y-0.5 hover:border-black hover:shadow-[3px_3px_0_0_rgba(0,0,0,0.82)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-4 focus-visible:ring-offset-background"
                     >
                       <div className="h-14 w-20 shrink-0 overflow-hidden border border-black/15 bg-[#d9d9d9]">
-                        {item.image ? <img src={item.image} alt="" loading="lazy" className="size-full object-cover grayscale transition group-hover/file:grayscale-0" /> : null}
+                        {item.image ? <img src={item.image} alt="" loading="lazy" decoding="async" className="size-full object-cover grayscale transition group-hover/file:grayscale-0" /> : null}
                       </div>
                       <div className="min-w-0 flex-1">
                         <p className="line-clamp-2 break-words text-sm font-light leading-5 text-black/80">{item.title}</p>
