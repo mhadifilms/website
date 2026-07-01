@@ -112,7 +112,7 @@ export function HomeSection({ transitionProgress }: HomeSectionProps) {
           <m.div
             style={{ opacity: taglineOpacity }}
             aria-hidden="true"
-            className="pointer-events-none absolute inset-x-0 top-[18svh] z-10 flex justify-center px-6 text-center lg:hidden"
+            className="pointer-events-none absolute inset-x-0 top-[clamp(5.25rem,12svh,7rem)] z-10 flex justify-center px-6 text-center lg:hidden"
           >
             <p className="text-balance text-3xl font-light leading-tight text-foreground sm:text-4xl">
               <StaggerWords words={[...TAGLINE_LEFT, ...TAGLINE_RIGHT]} caret />

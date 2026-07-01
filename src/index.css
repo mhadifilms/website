@@ -64,6 +64,7 @@
     margin: 0;
     min-width: 320px;
     overscroll-behavior-y: none;
+    scroll-snap-type: none;
     font-family: var(--font-sans);
     background-image:
       linear-gradient(to right, var(--grid-line) 1px, transparent 1px),
@@ -83,6 +84,13 @@
 
   #root {
     background-color: var(--color-background);
+  }
+
+  section,
+  article,
+  main {
+    scroll-snap-align: none;
+    scroll-snap-stop: normal;
   }
 
   html[data-darkreader-mode],

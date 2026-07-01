@@ -8,6 +8,7 @@ import { useSectionContext } from "@/hooks/section-context"
 import { scenePolaroids } from "@/lib/polaroid-scene"
 
 gsap.registerPlugin(Flip, ScrollTrigger, useGSAP)
+ScrollTrigger.config({ ignoreMobileResize: true })
 
 const HERO_IMAGE = `${import.meta.env.BASE_URL}media/figma-mhadi-camera.png`
 const POLAROID_COUNT = 5
@@ -40,6 +41,25 @@ function lerp(from: number, to: number, progress: number) {
 
 function clamp(value: number, min: number, max: number) {
   return Math.min(max, Math.max(min, value))
+}
+
+function stableViewportHeight() {
+  if (typeof document === "undefined" || typeof window === "undefined") return 0
+
+  const probe = document.createElement("div")
+  probe.style.cssText = "position:fixed;left:0;top:0;width:0;height:100svh;visibility:hidden;pointer-events:none;"
+  document.documentElement.appendChild(probe)
+  const height = probe.getBoundingClientRect().height
+  probe.remove()
+
+  return height || window.innerHeight
+}
+
+function stableLayoutSize() {
+  return {
+    width: Math.round(window.innerWidth),
+    height: Math.round(stableViewportHeight()),
+  }
 }
 
 function macScaleAt(progress: number) {
@@ -196,6 +216,7 @@ export function HeroPolaroidLayer() {
       let timeline: gsap.core.Timeline | undefined
       let followTimeline: gsap.core.Timeline | undefined
       let resizeFrame = 0
+      let lastLayoutSize = stableLayoutSize()
 
       const buildTimeline = () => {
         timeline?.scrollTrigger?.kill()
@@ -207,9 +228,10 @@ export function HeroPolaroidLayer() {
         gsap.set(macFrame, { scale: 1, transformOrigin: `${SCREEN.originX * 100}% ${SCREEN.originY * 100}%` })
 
         const startScroll = home.offsetTop
-        const endScroll = startScroll + home.offsetHeight - window.innerHeight
+        const endScroll = startScroll + home.offsetHeight - stableViewportHeight()
         const screenBase = elementRect(macScreen)
         const screenStart = screenRectAt(screenBase, 0)
+        const scrub = ScrollTrigger.isTouch ? 0.22 : true
 
         gsap.set(macScene, { opacity: 1 })
         gsap.set([macShell, macScreenEffect], { opacity: 1 })
@@ -231,8 +253,8 @@ export function HeroPolaroidLayer() {
           scrollTrigger: {
             trigger: home,
             start: "top top",
-            end: "bottom bottom",
-            scrub: true,
+            end: () => `+=${Math.max(1, home.offsetHeight - stableViewportHeight())}`,
+            scrub,
             invalidateOnRefresh: true,
           },
         })
@@ -278,8 +300,8 @@ export function HeroPolaroidLayer() {
           scrollTrigger: {
             trigger: about,
             start: "top top",
-            end: "bottom top",
-            scrub: true,
+            end: () => `+=${Math.max(1, about.offsetHeight)}`,
+            scrub,
             invalidateOnRefresh: true,
           },
         })
@@ -300,7 +322,16 @@ export function HeroPolaroidLayer() {
         })
       }
 
-      const queueRebuild = () => {
+      const queueRebuild = (event?: Event | { force?: boolean }) => {
+        const force = Boolean(event && "force" in event && event.force)
+        const nextLayoutSize = stableLayoutSize()
+        const layoutChanged =
+          Math.abs(nextLayoutSize.width - lastLayoutSize.width) > 2 ||
+          Math.abs(nextLayoutSize.height - lastLayoutSize.height) > 12
+
+        if (!force && !layoutChanged) return
+        lastLayoutSize = nextLayoutSize
+
         window.cancelAnimationFrame(resizeFrame)
         resizeFrame = window.requestAnimationFrame(() => {
           buildTimeline()
@@ -310,7 +341,7 @@ export function HeroPolaroidLayer() {
 
       buildTimeline()
       window.addEventListener("resize", queueRebuild)
-      document.fonts?.ready.then(queueRebuild).catch(() => undefined)
+      document.fonts?.ready.then(() => queueRebuild({ force: true })).catch(() => undefined)
 
       return () => {
         window.cancelAnimationFrame(resizeFrame)
@@ -335,7 +366,7 @@ export function HeroPolaroidLayer() {
           type="button"
           aria-label={POLAROID_LABELS[index] ?? "Jump to the experiences section"}
           onClick={() => scrollToTarget(index)}
-          className="pointer-events-auto fixed left-0 top-0 block cursor-crosshair overflow-visible focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-4 focus-visible:ring-offset-background"
+          className="pointer-events-auto fixed left-0 top-0 block transform-gpu cursor-crosshair overflow-visible will-change-transform focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-4 focus-visible:ring-offset-background"
         >
           <div
             ref={(node) => {

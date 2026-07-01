@@ -26,11 +26,30 @@ export function buildSections(items: Array<Omit<SectionDescriptor, "path">>): Se
   }))
 }
 
+function currentBrowserPath(fallback: string) {
+  const path = typeof window === "undefined" ? fallback : window.location.pathname
+  return path.replace(/\/+$/, "") || "/"
+}
+
+const BOOT_BROWSER_PATH = currentBrowserPath("/")
+
+function scrollElementToTop(element: HTMLElement, behavior: ScrollBehavior) {
+  const top = window.scrollY + element.getBoundingClientRect().top
+  window.scrollTo({ top: Math.max(0, top), behavior })
+}
+
 export function useSectionRouter(sections: SectionDescriptor[]): SectionRouterState {
   const location = useLocation()
   const elementsRef = useRef<Map<string, HTMLElement>>(new Map())
   const [activeId, setActiveId] = useState<string>(sections[0]?.id ?? "")
   const lastPushedPathRef = useRef<string>("")
+  const passivePathRef = useRef<string>("")
+  const initialBrowserPath = sections.some((section) => section.path === BOOT_BROWSER_PATH)
+    ? BOOT_BROWSER_PATH
+    : currentBrowserPath(location.pathname)
+  const initialBrowserPathRef = useRef(initialBrowserPath)
+  const pendingRoutePathRef = useRef(initialBrowserPath)
+  const suppressObserverUntilRef = useRef(0)
   const initialScrollDoneRef = useRef(false)
 
   const register = useCallback((id: string, element: HTMLElement | null) => {
@@ -46,44 +65,72 @@ export function useSectionRouter(sections: SectionDescriptor[]): SectionRouterSt
       const element = elementsRef.current.get(id)
       if (!element) return
       const behavior: ScrollBehavior = options?.behavior ?? (prefersReducedMotion() ? "auto" : "smooth")
-      element.scrollIntoView({ behavior, block: "start" })
+      scrollElementToTop(element, behavior)
     },
     [],
   )
 
   useEffect(() => {
-    const initialPath = location.pathname.replace(/\/+$/, "") || "/"
+    const initialPath = pendingRoutePathRef.current || currentBrowserPath(location.pathname)
+    const passivePath = passivePathRef.current.replace(/#.*$/, "")
+    if (passivePath === initialPath) {
+      passivePathRef.current = ""
+      return
+    }
+
     const match = sections.find((section) => section.path === initialPath)
     const targetId = match?.id ?? sections[0]?.id
     if (!targetId) return
+    const targetPath = match?.path ?? "/"
     const currentTarget = elementsRef.current.get(targetId)
     if (
       initialScrollDoneRef.current &&
-      lastPushedPathRef.current === (match?.path ?? "/") &&
+      lastPushedPathRef.current === targetPath &&
       currentTarget &&
       Math.abs(currentTarget.getBoundingClientRect().top) < 2
     ) {
       return
     }
 
+    pendingRoutePathRef.current = targetPath
     initialScrollDoneRef.current = false
+    let cancelled = false
 
-    const tryScroll = () => {
+    const finishRouteScroll = () => {
+      setActiveId(targetId)
+      lastPushedPathRef.current = targetPath
+      pendingRoutePathRef.current = ""
+      suppressObserverUntilRef.current = performance.now() + 500
+      initialScrollDoneRef.current = true
+    }
+
+    const tryScroll = (attempt = 0) => {
+      if (cancelled) return
       const element = elementsRef.current.get(targetId)
       if (!element) {
-        requestAnimationFrame(tryScroll)
+        requestAnimationFrame(() => tryScroll(attempt))
         return
       }
       requestAnimationFrame(() => {
         requestAnimationFrame(() => {
-          element.scrollIntoView({ behavior: "auto", block: "start" })
-          setActiveId(targetId)
-          lastPushedPathRef.current = match?.path ?? "/"
-          initialScrollDoneRef.current = true
+          if (cancelled) return
+          scrollElementToTop(element, "auto")
+          requestAnimationFrame(() => {
+            if (cancelled) return
+            const remainingTop = Math.abs(element.getBoundingClientRect().top)
+            if (remainingTop > 2 && attempt < 45) {
+              requestAnimationFrame(() => tryScroll(attempt + 1))
+              return
+            }
+            finishRouteScroll()
+          })
         })
       })
     }
     tryScroll()
+    return () => {
+      cancelled = true
+    }
   }, [sections, location.pathname])
 
   useEffect(() => {
@@ -93,6 +140,9 @@ export function useSectionRouter(sections: SectionDescriptor[]): SectionRouterSt
 
     const observer = new IntersectionObserver(
       (entries) => {
+        if (pendingRoutePathRef.current) return
+        if (performance.now() < suppressObserverUntilRef.current) return
+        if (initialBrowserPathRef.current !== "/" && lastPushedPathRef.current !== initialBrowserPathRef.current) return
         if (!initialScrollDoneRef.current) return
 
         for (const entry of entries) {
@@ -116,6 +166,7 @@ export function useSectionRouter(sections: SectionDescriptor[]): SectionRouterSt
           if (section) {
             const path = section.id === "experiences" && window.location.hash ? `${section.path}${window.location.hash}` : section.path
             if (path !== lastPushedPathRef.current) {
+              passivePathRef.current = path
               window.history.replaceState(null, "", path)
               lastPushedPathRef.current = path
             }

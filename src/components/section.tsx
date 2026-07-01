@@ -39,7 +39,7 @@ export function Section({
       data-section-id={id}
       aria-label={label}
       className={cn(
-        "relative flex min-h-svh w-full snap-start snap-always flex-col",
+        "relative flex min-h-svh w-full flex-col",
         className,
       )}
     >
