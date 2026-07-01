@@ -9,7 +9,7 @@ title: "Why is AI Scary? Robots Already Control You."
 dek: "A public LinkedIn article about how recommendation algorithms already shape attention, behavior, and creative culture."
 date: "2024-02-01"
 href: "https://www.linkedin.com/pulse/why-ai-scary-robots-already-control-you-muhammad-hadi-yusufali"
-image: "/media/figma-mhadi-camera.png"
+image: "/media/figma-mhadi-camera.webp"
 summary: "A public LinkedIn article about how recommendation algorithms already shape attention, behavior, and creative culture."
 role: "Writer"
 ---

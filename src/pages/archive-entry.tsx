@@ -1,6 +1,8 @@
+import { useEffect, useState } from "react"
 import { Link, Navigate, useParams } from "react-router-dom"
 import { ArrowLeft, ArrowRight, ArrowUpRight } from "lucide-react"
 
+import { PillNav } from "@/components/pill-nav"
 import { archives, projects } from "@/content/generated"
 import type { ArchiveItem } from "@/content/types"
 import {
@@ -11,9 +13,32 @@ import {
   seriesRun,
   youtubeId,
 } from "@/lib/archive-utils"
+import { absoluteAssetUrl, applyPageMeta } from "@/lib/seo"
 
 function formatDate(value: string) {
   return new Date(value).toLocaleDateString("en", { month: "short", day: "numeric", year: "numeric" })
+}
+
+// Rendered markdown bodies live in their own generated chunk so the main
+// bundle stays small; cache the module across entry navigations.
+let cachedBodies: Record<string, string> | null = null
+
+function useArchiveBody(slug: string) {
+  const [bodies, setBodies] = useState(cachedBodies)
+
+  useEffect(() => {
+    if (cachedBodies) return
+    let cancelled = false
+    import("@/content/archive-bodies").then((module) => {
+      cachedBodies = module.archiveBodies
+      if (!cancelled) setBodies(module.archiveBodies)
+    })
+    return () => {
+      cancelled = true
+    }
+  }, [])
+
+  return bodies?.[slug]
 }
 
 export default function ArchiveEntryPage() {
@@ -22,6 +47,18 @@ export default function ArchiveEntryPage() {
   const item = category
     ? archives.find((archive) => archive.category === category && archive.slug === entrySlug)
     : undefined
+  const bodyHtml = useArchiveBody(entrySlug)
+
+  useEffect(() => {
+    if (!item) return
+    applyPageMeta({
+      title: item.seoTitle ?? `${item.title} | Archives | M Hadi`,
+      description: item.seoDescription ?? item.summary ?? item.dek,
+      canonicalPath: archiveEntryPath(item),
+      image: absoluteAssetUrl(item.image),
+      imageAlt: item.title,
+    })
+  }, [item])
 
   if (!item) return <Navigate to="/archives" replace />
 
@@ -32,7 +69,8 @@ export default function ArchiveEntryPage() {
     .slice(0, 3)
 
   return (
-    <main id="content" className="min-h-svh bg-background px-6 py-14 text-foreground sm:px-8">
+    <main id="content" className="min-h-svh bg-background px-6 pb-32 pt-14 text-foreground sm:px-8">
+      <PillNav />
       <article className="mx-auto w-full max-w-[1040px]">
         <Link
           to="/archives"
@@ -78,10 +116,19 @@ export default function ArchiveEntryPage() {
         <ArchiveArtifact item={item} />
 
         <div className="mt-12 grid gap-10 lg:grid-cols-[minmax(0,1fr)_260px] lg:gap-14">
-          <div
-            className="prose-content max-w-none text-[1.02rem] font-light leading-8 text-black/72"
-            dangerouslySetInnerHTML={{ __html: item.html }}
-          />
+          {bodyHtml ? (
+            <div
+              className="prose-content max-w-none text-[1.02rem] font-light leading-8 text-black/72"
+              dangerouslySetInnerHTML={{ __html: bodyHtml }}
+            />
+          ) : (
+            <div aria-hidden="true" className="max-w-none space-y-4">
+              <div className="h-4 w-11/12 animate-pulse rounded bg-black/8" />
+              <div className="h-4 w-full animate-pulse rounded bg-black/8" />
+              <div className="h-4 w-9/12 animate-pulse rounded bg-black/8" />
+              <div className="h-4 w-10/12 animate-pulse rounded bg-black/8" />
+            </div>
+          )}
 
           <aside className="space-y-5 lg:pt-1">
             <a
@@ -180,7 +227,7 @@ function ArchiveArtifact({ item }: { item: ArchiveItem }) {
         <div className="overflow-hidden border-2 border-black bg-black shadow-[8px_8px_0_0_rgba(0,0,0,0.18)]">
           <iframe
             title={item.title}
-            src={`https://www.youtube.com/embed/${id}`}
+            src={`https://www.youtube-nocookie.com/embed/${id}`}
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
             allowFullScreen
             className="aspect-video w-full"
@@ -225,6 +272,7 @@ function ArchiveArtifact({ item }: { item: ArchiveItem }) {
           src={item.image}
           alt={item.title}
           loading="eager"
+          fetchPriority="high"
           decoding="async"
           className="block aspect-video w-full object-cover"
         />

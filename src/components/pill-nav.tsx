@@ -1,7 +1,9 @@
-import { useCallback, useEffect, useRef, useState } from "react"
+import { useCallback, useEffect, useMemo, useRef, useState } from "react"
+import { useLocation, useNavigate } from "react-router-dom"
 import { m } from "framer-motion"
 
 import { useSectionContext } from "@/hooks/section-context"
+import { buildSections } from "@/hooks/use-section-router"
 import { cn } from "@/lib/utils"
 
 const PILL_TRANSITION = { type: "spring", stiffness: 220, damping: 28, mass: 0.7 } as const
@@ -10,13 +12,27 @@ const MOBILE_LABELS: Record<string, string> = {
   archives: "Archive",
 }
 
+const STANDALONE_SECTIONS = buildSections([
+  { id: "home", slug: "", label: "Home" },
+  { id: "about", slug: "about", label: "About" },
+  { id: "experiences", slug: "experiences", label: "Experiences" },
+  { id: "archives", slug: "archives", label: "Archives" },
+])
+
 export function PillNav() {
   const ctx = useSectionContext()
+  const navigate = useNavigate()
+  const location = useLocation()
   const linksRef = useRef<Array<HTMLAnchorElement | null>>([])
   const [hasEnteredMac, setHasEnteredMac] = useState(false)
+  const [hasFocusWithin, setHasFocusWithin] = useState(false)
+
+  // On the main page the nav stays out of the way until the hero scroll scene
+  // is underway. Standalone pages (archive entries) always show it.
+  const gated = Boolean(ctx)
 
   useEffect(() => {
-    if (typeof window === "undefined") return
+    if (!gated || typeof window === "undefined") return
 
     const updateVisibility = () => {
       const viewportHeight = document.documentElement.clientHeight || window.innerHeight
@@ -31,11 +47,18 @@ export function PillNav() {
       window.removeEventListener("scroll", updateVisibility)
       window.removeEventListener("resize", updateVisibility)
     }
-  }, [])
+  }, [gated])
+
+  const sections = ctx?.sections ?? STANDALONE_SECTIONS
+  const standaloneActiveId = useMemo(() => {
+    const first = location.pathname.split("/").filter(Boolean)[0] ?? ""
+    const match = STANDALONE_SECTIONS.find((section) => section.slug === first)
+    return match?.id ?? "home"
+  }, [location.pathname])
+  const activeId = ctx?.activeId ?? standaloneActiveId
 
   const handleKey = useCallback(
     (event: React.KeyboardEvent<HTMLAnchorElement>, currentIndex: number) => {
-      if (!ctx) return
       const links = linksRef.current.filter(Boolean) as HTMLAnchorElement[]
       if (links.length === 0) return
       const last = links.length - 1
@@ -48,11 +71,12 @@ export function PillNav() {
       event.preventDefault()
       links[nextIndex].focus()
     },
-    [ctx],
+    [],
   )
 
-  if (!ctx) return null
-  const { sections, activeId, scrollToId } = ctx
+  // Visible when past the hero, or whenever a link inside holds focus so
+  // keyboard users always see where they are.
+  const visible = !gated || hasEnteredMac || hasFocusWithin
   const activeIndex = Math.max(
     sections.findIndex((section) => section.id === activeId),
     0,
@@ -61,16 +85,22 @@ export function PillNav() {
   return (
     <m.div
       initial={false}
-      animate={hasEnteredMac ? { opacity: 1, y: 0 } : { opacity: 0, y: 12 }}
+      animate={visible ? { opacity: 1, y: 0 } : { opacity: 0, y: 12 }}
       transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
+      onFocus={() => setHasFocusWithin(true)}
+      onBlur={(event) => {
+        if (!event.currentTarget.contains(event.relatedTarget as Node | null)) setHasFocusWithin(false)
+      }}
       className="pointer-events-none fixed inset-x-0 bottom-[calc(0.75rem+env(safe-area-inset-bottom))] z-40 flex justify-center px-2 sm:bottom-7 sm:px-3"
-      aria-hidden={!hasEnteredMac}
     >
       <m.nav
         layout
         aria-label="Sections"
         transition={PILL_TRANSITION}
-        className="pointer-events-auto flex h-12 w-[calc(100vw-1rem)] max-w-[420px] items-center overflow-hidden rounded-full border border-black/10 bg-white/75 p-1.5 shadow-pill backdrop-blur-md sm:w-full sm:bg-white/60 sm:p-1"
+        className={cn(
+          "flex h-12 w-[calc(100vw-1rem)] max-w-[420px] items-center overflow-hidden rounded-full border border-black/10 bg-white/75 p-1.5 shadow-pill backdrop-blur-md sm:w-full sm:bg-white/60 sm:p-1",
+          visible ? "pointer-events-auto" : "pointer-events-none",
+        )}
       >
         <div className="relative grid h-full w-full grid-cols-4">
           <m.span
@@ -98,7 +128,11 @@ export function PillNav() {
                 aria-current={isActive ? "page" : undefined}
                 onClick={(event) => {
                   event.preventDefault()
-                  scrollToId(section.id)
+                  if (ctx) {
+                    ctx.scrollToId(section.id)
+                  } else {
+                    navigate(section.path)
+                  }
                 }}
                 onKeyDown={(event) => handleKey(event, index)}
                 className={cn(

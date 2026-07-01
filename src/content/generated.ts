@@ -46,10 +46,7 @@ export const site = {
     },
     {
       "label": "Instagram",
-      "href": "https://www.instagram.com/mhadifilms",
-      "embedScriptSrc": "https://elfsightcdn.com/platform.js",
-      "embedAppId": "4bca295b-052a-430d-a96c-9f1fd7c63633",
-      "embedTitle": "Latest Instagram posts"
+      "href": "https://www.instagram.com/mhadifilms"
     },
     {
       "label": "Twitter",
@@ -74,7 +71,7 @@ export const experiences = [
     "summary": "Grew with sync. from early growth work into production leadership and now Chief of Staff, helping turn high-end AI video research into work that survives real clients, real footage, and real deadlines.",
     "href": "https://sync.so",
     "visitLabel": "Visit sync. labs",
-    "logo": "/media/figma-mhadi-camera.png",
+    "logo": "/media/figma-mhadi-camera.webp",
     "html": "<p>At sync. labs, my job has moved with the company: Growth Intern, Growth Marketer, Head of Production, and now Chief of Staff. The thread through all of it has been helping the product, the team, and the work that leaves the building become sharper.</p>\n<p>Role progression:</p>\n<ul>\n<li>Chief of Staff, full-time, Feb 2026 to present.</li>\n<li>Head of Production, full-time, Jun 2024 to Mar 2026.</li>\n<li>Growth Marketer, part-time, Nov 2023 to Jun 2024.</li>\n<li>Growth Intern, contract, Aug 2023 to Nov 2023.</li>\n</ul>\n<p>What I worked on:</p>\n<ul>\n<li>Built systems around messy, high-stakes creative work instead of treating video like a clean demo.</li>\n<li>Worked closely with product feedback, production needs, and the company narrative.</li>\n<li>Brought an editor&#39;s eye to AI video, content, and production workflows where a few frames can be the difference between impressive and believable.</li>\n</ul>\n"
   },
   {
@@ -323,7 +320,6 @@ export const archives: ArchiveItem[] = [
     "summary": "A public LinkedIn post about building a Python library, CLI, and local MCP server so Claude can help edit video timelines faster.",
     "role": "Builder",
     "featured": true,
-    "html": "<p>A public LinkedIn post about building a Python library, CLI, and local MCP server so Claude can help edit video timelines faster.</p>\n<p>A public LinkedIn post about building a Python library, CLI, and local MCP server so Claude can help edit video timelines faster.</p>\n<p>This page keeps a short on-site excerpt for discovery, then points readers back to the original Linkedin post for the full piece.</p>\n<p><a href=\"https://www.linkedin.com/posts/mhadifilms_i-built-a-davinci-resolve-mcp-so-claude-can-activity-7455733839189946368-QHAG\">Read the rest on Linkedin</a></p>\n",
     "projectType": "Tools",
     "seoTitle": "I built a DaVinci Resolve MCP | Archives | M Hadi",
     "seoDescription": "A public LinkedIn post about building a Python library, CLI, and local MCP server so Claude can help edit video timelines faster."
@@ -343,7 +339,6 @@ export const archives: ArchiveItem[] = [
     "summary": "for the past month, I’ve been building an app almost every single day using AI to bring whatever random idea I have to life. mac apps, websites, python...",
     "role": "Builder",
     "featured": true,
-    "html": "<p>for the past month, I’ve been building an app almost every single day using AI to bring whatever random idea I have to life. mac apps, websites, python...</p>\n<p>for the past month, I’ve been building an app almost every single day using AI to bring whatever random idea I have to life.</p>\n<p>mac apps, websites, python scripts, you name it.</p>\n<p>to be clear: I am not a developer. I’ve never coded in my life.</p>\n<p><a href=\"https://mhadimedia.substack.com/p/building-an-app-every-day-but-idk\">Read the rest on Substack</a></p>\n",
     "projectType": "Tools",
     "seoTitle": "building an app every day but idk how to code... | Archives | M Hadi",
     "seoDescription": "for the past month, I’ve been building an app almost every single day using AI to bring whatever random idea I have to life. mac apps, websites, python..."
@@ -363,7 +358,6 @@ export const archives: ArchiveItem[] = [
     "summary": "A few months ago, I had the chance to travel to Tanzania with friends for a week. Join us we chill with lions, swim with dolphins, visit one of the biggest...",
     "role": "Director & Editor",
     "featured": true,
-    "html": "<p>A few months ago, I had the chance to travel to Tanzania with friends for a week. Join us we chill with lions, swim with dolphins, visit one of the biggest schools, and celebrate a friend&#39;s wedding together. Stay up to date on</p>\n<p><a href=\"https://www.youtube.com/watch?v=Vy6LJhDH3Bk\">Watch on YouTube</a></p>\n",
     "projectType": "Vlogumentaries",
     "seoTitle": "We Spent a Week Exploring Tanzania | Archives | M Hadi",
     "seoDescription": "A few months ago, I had the chance to travel to Tanzania with friends for a week. Join us we chill with lions, swim with dolphins, visit one of the biggest..."
@@ -383,7 +377,6 @@ export const archives: ArchiveItem[] = [
     "summary": "a few weeks ago, I had the chance to edit my first official short film featuring an entire production crew, and professional actors. it was literally a dream...",
     "role": "Writer",
     "featured": true,
-    "html": "<p>a few weeks ago, I had the chance to edit my first official short film featuring an entire production crew, and professional actors. it was literally a dream...</p>\n<p>a few weeks ago, I had the chance to edit my first official short film featuring an entire production crew, and professional actors.</p>\n<p>it was literally a dream come true - I’d spent the past two years hoping to get on a real film set and experience what it’s like to be a filmmaker with a team.</p>\n<p>together with twenty other cast and crew members, we successfully made a 10 minute short film from start to finish in under six weeks, with two days of filming and one week of editing.</p>\n<p><a href=\"https://mhadimedia.substack.com/p/we-made-a-movie-in-six-weeks\">Read the rest on Substack</a></p>\n",
     "projectType": "Writings",
     "seoTitle": "we made a movie in six weeks. | Archives | M Hadi",
     "seoDescription": "a few weeks ago, I had the chance to edit my first official short film featuring an entire production crew, and professional actors. it was literally a dream..."
@@ -402,7 +395,6 @@ export const archives: ArchiveItem[] = [
     "image": "https://substackcdn.com/image/fetch/$s_!8FHv!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F7678f84c-6612-49d9-83bf-2aacf2f0df23.heic",
     "summary": "Suddenly, amidst all the chaos, confusion, and commotion, There was clarity . …is what I wish I could be saying right now 😬 Welcome back to Creative Chaos, a...",
     "role": "Writer",
-    "html": "<p>Suddenly, amidst all the chaos, confusion, and commotion, There was clarity . …is what I wish I could be saying right now 😬 Welcome back to Creative Chaos, a...</p>\n<p>Suddenly, amidst all the chaos, confusion, and commotion,</p>\n<p>…is what I wish I could be saying right now 😬</p>\n<p>Welcome back to Creative Chaos, a something-monthly newsletter about the chaos of attempting to be a creative.</p>\n<p><a href=\"https://mhadimedia.substack.com/p/to-know-what-you-want-learn-what\">Read the rest on Substack</a></p>\n",
     "projectType": "Writings",
     "seoTitle": "to know what you want, learn what you don't | Archives | M Hadi",
     "seoDescription": "Suddenly, amidst all the chaos, confusion, and commotion, There was clarity . …is what I wish I could be saying right now 😬 Welcome back to Creative Chaos, a..."
@@ -421,7 +413,6 @@ export const archives: ArchiveItem[] = [
     "image": "https://substackcdn.com/image/fetch/$s_!CAAe!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F7c30175d-e7c0-41ed-a222-6091a0205ff3.heic",
     "summary": "clarity . that’s all I wanted when I decided to spend six weeks of my summer living away from family in Los Angeles. some clarity on whether I should… a....",
     "role": "Writer",
-    "html": "<p>clarity . that’s all I wanted when I decided to spend six weeks of my summer living away from family in Los Angeles. some clarity on whether I should… a....</p>\n<p>that’s all I wanted when I decided to spend six weeks of my summer living away from family in Los Angeles.</p>\n<p>some clarity on whether I should… a. continue working in tech full time, and try to get a college degree on the side b. forget college all together and focus on working in tech c. focus only on getting into a good university and put all my effort into getting a good degree d. if so, get a film degree? marketing? some sort of stem degree? e. become a full time freelancer and make my own content on the side f. be like the Nike founder and travel the world until I’m broke (definitely doing this one day)</p>\n<p>so I did what any intellectual of the 21st century would do and turned to ChatGPT for suggestions on short-term, intensive filmmaking courses that would give me a better idea of which path to choose.</p>\n<p><a href=\"https://mhadimedia.substack.com/p/just-rented-seven-electric-scooters\">Read the rest on Substack</a></p>\n",
     "projectType": "Writings",
     "seoTitle": "just rented seven electric scooters in one day | Archives | M Hadi",
     "seoDescription": "clarity . that’s all I wanted when I decided to spend six weeks of my summer living away from family in Los Angeles. some clarity on whether I should… a...."
@@ -440,7 +431,6 @@ export const archives: ArchiveItem[] = [
     "image": "https://substackcdn.com/image/fetch/$s_!SDAH!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F63169ce6-66ef-4dec-9824-2c6c3bb0cd93_1598x1118.png",
     "summary": "this story is honestly so ridiculous i thought i might as well write it up to look back at in 20 years and laugh. tldr; over the last week, a man named Soham...",
     "role": "Writer",
-    "html": "<p>this story is honestly so ridiculous i thought i might as well write it up to look back at in 20 years and laugh. tldr; over the last week, a man named Soham...</p>\n<p>this story is honestly so ridiculous i thought i might as well write it up to look back at in 20 years and laugh.</p>\n<p>tldr; over the last week, a man named Soham Parekh took over the internet and became one of, if not the most famous man in the US - even ranking as #4 trending across all of Twitter.</p>\n<p>you can learn his story through the million articles online, for example this one . but the main reason for his virality is that he was exposed for working at 3-4 startups at a time , for multiple years.</p>\n<p><a href=\"https://mhadimedia.substack.com/p/my-co-worker-was-americas-most-viral\">Read the rest on Substack</a></p>\n",
     "projectType": "Writings",
     "seoTitle": "my co-worker was america's most viral man for a day | Archives | M Hadi",
     "seoDescription": "this story is honestly so ridiculous i thought i might as well write it up to look back at in 20 years and laugh. tldr; over the last week, a man named Soham..."
@@ -460,7 +450,6 @@ export const archives: ArchiveItem[] = [
     "summary": "A project post sharing traveler, a short film shot on iPhone and finished with DaVinci Resolve color work.",
     "role": "Editor & Filmmaker",
     "featured": true,
-    "html": "<p>traveler — a short film shot on iPhone is part of Short Films, a project in the Films &amp; Commercials archive.</p>\n<p>A project post sharing traveler, a short film shot on iPhone and finished with DaVinci Resolve color work.</p>\n<p><a href=\"https://x.com/mhadifilms/status/1919182032699072947\">Open the original post</a></p>\n",
     "projectType": "Films & Commercials",
     "seoTitle": "traveler — a short film shot on iPhone | Archives | M Hadi",
     "seoDescription": "A project post sharing traveler, a short film shot on iPhone and finished with DaVinci Resolve color work."
@@ -479,7 +468,6 @@ export const archives: ArchiveItem[] = [
     "image": "https://substackcdn.com/image/fetch/$s_!y24H!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F3d5efbb8-fe47-4ccc-ab87-317edd0213e6_1152x648.png",
     "summary": "This saying. It used to bother me. It sounds kind of pretentious—it’s like, someone spends tons of money hundreds of hours and grinding on something, then is...",
     "role": "Writer",
-    "html": "<p>This saying. It used to bother me. It sounds kind of pretentious—it’s like, someone spends tons of money hundreds of hours and grinding on something, then is...</p>\n<p>It sounds kind of pretentious—it’s like, someone spends tons of money hundreds of hours and grinding on something, then is like, “oh, no big deal, you can just do things!”</p>\n<p>Sure. Easy for you to say now that you’ve put in all that work.</p>\n<p>But honestly, the more that I think about it, the more that I realize it’s always easier than I think it would be to “do things”.</p>\n<p><a href=\"https://mhadimedia.substack.com/p/you-can-just-do-things\">Read the rest on Substack</a></p>\n",
     "projectType": "Writings",
     "seoTitle": "You can just do things. | Archives | M Hadi",
     "seoDescription": "This saying. It used to bother me. It sounds kind of pretentious—it’s like, someone spends tons of money hundreds of hours and grinding on something, then is..."
@@ -498,7 +486,6 @@ export const archives: ArchiveItem[] = [
     "image": "https://substackcdn.com/image/fetch/$s_!W0z9!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fad736ab3-405e-445d-85b6-d1d2ba069148_4096x2304.jpeg",
     "summary": "In a world where every skill can be mastered by anyone, and the value of all skills goes to zero, those who stand out will be the best storytellers . Not...",
     "role": "Writer",
-    "html": "<p>In a world where every skill can be mastered by anyone, and the value of all skills goes to zero, those who stand out will be the best storytellers . Not...</p>\n<p>In a world where every skill can be mastered by anyone, and the value of all skills goes to zero, those who stand out will be the best storytellers .</p>\n<p>One could call these stories documentaries , video blogs (vlogs ), or short films .</p>\n<p>But on their own, there’s nothing special about those.</p>\n<p><a href=\"https://mhadimedia.substack.com/p/the-next-hollywood-is-unscripted\">Read the rest on Substack</a></p>\n",
     "projectType": "Writings",
     "seoTitle": "the next hollywood is unscripted. | Archives | M Hadi",
     "seoDescription": "In a world where every skill can be mastered by anyone, and the value of all skills goes to zero, those who stand out will be the best storytellers . Not..."
@@ -518,7 +505,6 @@ export const archives: ArchiveItem[] = [
     "summary": "Join M Hadi and Ali as they sit down with Lieutenant Irfan Zaidi, as he shares stories from his 26 years of experience within law enforcement.",
     "role": "Host & Producer",
     "credits": "Guest: Irfan Zaidi",
-    "html": "<p>Join M Hadi and Ali as they sit down with Lieutenant Irfan Zaidi, as he shares stories from his 26 years of experience within law enforcement. Follow along his journey and break myths along the way about law enforcement and being a Muslim cop. Find Us •</p>\n<p><a href=\"https://www.youtube.com/watch?v=LOo1FpDaw9E\">Watch on YouTube</a></p>\n",
     "projectType": "Miscellaneous",
     "seoTitle": "Law Enforcement Myths & Being a Muslim Cop: Irfan Zaidi | Archives | M Hadi",
     "seoDescription": "Join M Hadi and Ali as they sit down with Lieutenant Irfan Zaidi, as he shares stories from his 26 years of experience within law enforcement."
@@ -538,7 +524,6 @@ export const archives: ArchiveItem[] = [
     "summary": "Join M Hadi and Ali as they sit down with Azfar Khan, a content creator with over a billion views across",
     "role": "Host & Producer",
     "credits": "Guest: Azfar Khan",
-    "html": "<p>Join M Hadi and Ali as they sit down with Azfar Khan, a content creator with over a billion views across Join M Hadi and Ali as they sit down with Azfar Khan, a content creator with over a billion views across</p>\n<p><a href=\"https://www.youtube.com/watch?v=qCmr3NFFIdE\">Watch on YouTube</a></p>\n",
     "projectType": "Miscellaneous",
     "seoTitle": "The Secret to Getting 1 Billion Views with Comedy: Azfar Khan | Archives | M Hadi",
     "seoDescription": "Join M Hadi and Ali as they sit down with Azfar Khan, a content creator with over a billion views across"
@@ -557,7 +542,6 @@ export const archives: ArchiveItem[] = [
     "image": "https://i.ytimg.com/vi/6EblOyuUj34/maxresdefault.jpg",
     "summary": "Watch part two first: https://youtu.be/TCrVwEoOvMk During the winter break of 2023, I went on a life-changing trip to the Middle East along with my high school...",
     "role": "Director & Editor",
-    "html": "<p>Watch part two first: During the winter break of 2023, I went on a life-changing trip to the Middle East along with my high school senior class. This series documents the memories from the journey alongside classmates and friends. Stay up to date on</p>\n<p><a href=\"https://www.youtube.com/watch?v=6EblOyuUj34\">Watch on YouTube</a></p>\n",
     "projectType": "Vlogumentaries",
     "seoTitle": "Two Weeks in the Middle East with My School (Part 3) | Archives | M Hadi",
     "seoDescription": "Watch part two first: https://youtu.be/TCrVwEoOvMk During the winter break of 2023, I went on a life-changing trip to the Middle East along with my high school..."
@@ -576,7 +560,6 @@ export const archives: ArchiveItem[] = [
     "image": "https://i.ytimg.com/vi/TCrVwEoOvMk/maxresdefault.jpg",
     "summary": "Watch the part one: https://youtu.be/iPT8JzCvBTE During the winter break of 2023, I went on a life-changing trip to the Middle East along with my high school...",
     "role": "Director & Editor",
-    "html": "<p>Watch the part one: During the winter break of 2023, I went on a life-changing trip to the Middle East along with my high school senior class. This series documents the memories from the journey alongside classmates and friends. Stay up to date on</p>\n<p><a href=\"https://www.youtube.com/watch?v=TCrVwEoOvMk\">Watch on YouTube</a></p>\n",
     "projectType": "Vlogumentaries",
     "seoTitle": "Two Weeks in the Middle East with My School (Part 2) | Archives | M Hadi",
     "seoDescription": "Watch the part one: https://youtu.be/iPT8JzCvBTE During the winter break of 2023, I went on a life-changing trip to the Middle East along with my high school..."
@@ -595,7 +578,6 @@ export const archives: ArchiveItem[] = [
     "image": "/media/polaroid-mountains.webp",
     "summary": "A project-adjacent travel/build note from a team trip, connecting editing, coding, and creative work.",
     "role": "Builder",
-    "html": "<p>Editing, coding, and building from the French Alps is part of Creative Tools, a project in the Tools archive.</p>\n<p>A project-adjacent travel/build note from a team trip, connecting editing, coding, and creative work.</p>\n<p><a href=\"https://x.com/mhadifilms/status/1855701054697931223\">Open the original post</a></p>\n",
     "projectType": "Tools",
     "seoTitle": "Editing, coding, and building from the French Alps | Archives | M Hadi",
     "seoDescription": "A project-adjacent travel/build note from a team trip, connecting editing, coding, and creative work."
@@ -614,7 +596,6 @@ export const archives: ArchiveItem[] = [
     "image": "https://substackcdn.com/image/fetch/$s_!yW4Q!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F392aa48f-2b00-4e33-a6b4-ce9f67fa6eff_3024x4032.heic",
     "summary": "I’ve spent the past three months living right next to the University of California, Berkeley. Last year, after spending months preparing my UC application,...",
     "role": "Writer",
-    "html": "<p>I’ve spent the past three months living right next to the University of California, Berkeley. Last year, after spending months preparing my UC application,...</p>\n<p>I’ve spent the past three months living right next to the University of California, Berkeley.</p>\n<p>Last year, after spending months preparing my UC application, this is how Berkeley responded:</p>\n<p>Safe to say, I was never planning on visiting that campus.</p>\n<p><a href=\"https://mhadimedia.substack.com/p/living-in-berkeley-as-a-rejected\">Read the rest on Substack</a></p>\n",
     "projectType": "Writings",
     "seoTitle": "living in berkeley as a rejected student  | Archives | M Hadi",
     "seoDescription": "I’ve spent the past three months living right next to the University of California, Berkeley. Last year, after spending months preparing my UC application,..."
@@ -634,7 +615,6 @@ export const archives: ArchiveItem[] = [
     "summary": "Watch the full documentary on @JourneyTellers: https://www.youtube.com/watch?v=zkvAHvcw8DE In May 2024, the Journey Tellers team partnered with Camp Noor to...",
     "role": "Editor & Filmmaker",
     "featured": true,
-    "html": "<p>Watch the full documentary on : In May 2024, the Journey Tellers team partnered with Camp Noor to record a documentary showcasing the experience of organizing and attending their yearly camp. These are some of the best memories from it and some behind-the-scenes of the filming process.</p>\n<p><a href=\"https://www.youtube.com/watch?v=04p3ls98W7Y\">Watch on YouTube</a></p>\n",
     "projectType": "Films & Commercials",
     "seoTitle": "We Turned a Youth Camp into a Documentary | Archives | M Hadi",
     "seoDescription": "Watch the full documentary on @JourneyTellers: https://www.youtube.com/watch?v=zkvAHvcw8DE In May 2024, the Journey Tellers team partnered with Camp Noor to..."
@@ -654,7 +634,6 @@ export const archives: ArchiveItem[] = [
     "summary": "Watch the Camp Noor 2024 documentary first: Join Maulana Nabi R. Abidi, Sheikh Salim Yusufali, and Sheikh Mehdi Hazari on this exclusive episode of the Journey Tellers Podcast, recorded at Camp Noor…",
     "role": "Host & Producer",
     "credits": "Guest: Maulana Abidi, Sheikh Salim, and Sheikh Mehdi",
-    "html": "<p>Watch the Camp Noor 2024 documentary first: Join Maulana Nabi R. Abidi, Sheikh Salim Yusufali, and Sheikh Mehdi Hazari on this exclusive episode of the Journey Tellers Podcast, recorded at Camp Noor 2024. This is part two of a series on Bay Area&#39;s yearly Camp Noor event, where the Journey Tellers team spent the weekend documenting the experience of the attendees and organizers. Created in collaboration with Camp Noor. Learn more about their initiatives and future events at</p>\n<p><a href=\"https://www.youtube.com/watch?v=kG734uJ01Hk\">Watch on YouTube</a></p>\n",
     "projectType": "Miscellaneous",
     "seoTitle": "The Ultimate Guide to Reclaiming Your Identity ft. Maulana Abidi, Sheikh Salim, and Sheikh Mehdi | Archives | M Hadi",
     "seoDescription": "Watch the Camp Noor 2024 documentary first: Join Maulana Nabi R. Abidi, Sheikh Salim Yusufali, and Sheikh Mehdi Hazari on this exclusive episode of the Journey Tellers Podcast, recorded at Camp Noor…"
@@ -674,7 +653,6 @@ export const archives: ArchiveItem[] = [
     "summary": "The official documentary of Camp Noor, a yearly spiritual camp that brings youth from across the country together for a weekend of memories, reflection, and inspiration.",
     "role": "Director",
     "credits": "Directed by Muhammad Hadi Yusufali · Co-Produced by Aalyan Aamir · Hosted by Ali Almathkur & Zahra Sabri · Produced by Awaiten · In collaboration with Camp Noor",
-    "html": "<p>The official documentary of Camp Noor, a yearly spiritual camp that brings youth from across the country together for a weekend of memories, reflection, and inspiration.</p>\n<p><a href=\"https://www.youtube.com/watch?v=zkvAHvcw8DE\">Watch on YouTube</a></p>\n",
     "projectType": "Films & Commercials",
     "seoTitle": "From the World to Within: Rekindling Faith at Camp Noor | Archives | M Hadi",
     "seoDescription": "The official documentary of Camp Noor, a yearly spiritual camp that brings youth from across the country together for a weekend of memories, reflection, and inspiration."
@@ -693,7 +671,6 @@ export const archives: ArchiveItem[] = [
     "image": "https://substackcdn.com/image/fetch/f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fa9674421-9a03-49b2-8d0e-648929530016_1584x891.jpeg",
     "summary": "In the past 24 hours, I’ve been greeted with “Salaamun Alaykum” (peace be upon you in Arabic, a greeting Muslims use) in three out of four Uber rides I took....",
     "role": "Writer",
-    "html": "<p>In the past 24 hours, I’ve been greeted with “Salaamun Alaykum” (peace be upon you in Arabic, a greeting Muslims use) in three out of four Uber rides I took....</p>\n<p>In the past 24 hours, I’ve been greeted with “Salaamun Alaykum” (peace be upon you in Arabic, a greeting Muslims use) in three out of four Uber rides I took.</p>\n<p>It’s either a strange coincidence that every driver I get happens to be Muslim like me, or it’s a sign.</p>\n<p>Maybe self-driving cars aren’t as cool as I thought after all.</p>\n<p><a href=\"https://mhadimedia.substack.com/p/im-officially-done-with-waymos\">Read the rest on Substack</a></p>\n",
     "projectType": "Writings",
     "seoTitle": "i'm officially done with waymo's | Archives | M Hadi",
     "seoDescription": "In the past 24 hours, I’ve been greeted with “Salaamun Alaykum” (peace be upon you in Arabic, a greeting Muslims use) in three out of four Uber rides I took...."
@@ -713,7 +690,6 @@ export const archives: ArchiveItem[] = [
     "summary": "Join us as we dive into the journey of Irfan Rydhan, founder of HalalFest in the Bay Area. From architectural design to organizing some of the most significant Muslim community events, Irfan shares…",
     "role": "Host & Producer",
     "credits": "Guest: Irfan Rydhan HalalFest",
-    "html": "<p>Join us as we dive into the journey of Irfan Rydhan, founder of HalalFest in the Bay Area. From architectural design to organizing some of the most significant Muslim community events, Irfan shares how his passion for media and community service evolved into a successful venture. Discover the challenges and triumphs that shaped his path, and learn why getting involved in your community can make all the difference.</p>\n<p><a href=\"https://www.youtube.com/watch?v=kJlH3zx1jVs\">Watch on YouTube</a></p>\n",
     "projectType": "Miscellaneous",
     "seoTitle": "Showing the Media That Muslims Also Have Fun: Irfan Rydhan and the Story of HalalFest | Archives | M Hadi",
     "seoDescription": "Join us as we dive into the journey of Irfan Rydhan, founder of HalalFest in the Bay Area. From architectural design to organizing some of the most significant Muslim community events, Irfan shares…"
@@ -732,7 +708,6 @@ export const archives: ArchiveItem[] = [
     "image": "https://substackcdn.com/image/fetch/$s_!xuG9!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F80ff51c1-51d2-41d2-8598-677319fae823_850x850.png",
     "summary": "For the past month, I’ve been obsessed with Steven Bartlett and The Diary of a CEO, his podcast. For context: Steven’s a British entrepreneur and the founder...",
     "role": "Writer",
-    "html": "<p>For the past month, I’ve been obsessed with Steven Bartlett and The Diary of a CEO, his podcast. For context: Steven’s a British entrepreneur and the founder...</p>\n<p>For the past month, I’ve been obsessed with Steven Bartlett and The Diary of a CEO, his podcast.</p>\n<p>Steven’s a British entrepreneur and the founder Thirdweb , Flight Story , and Flight Fund</p>\n<p>He became the youngest-ever investor on Dragon’s Den (British version of Shark Tank )</p>\n<p><a href=\"https://mhadimedia.substack.com/p/i-spent-a-month-writing-down-steven\">Read the rest on Substack</a></p>\n",
     "projectType": "Writings",
     "seoTitle": "I spent a month studying the world's fastest growing podcast. Here's their secrets... | Archives | M Hadi",
     "seoDescription": "For the past month, I’ve been obsessed with Steven Bartlett and The Diary of a CEO, his podcast. For context: Steven’s a British entrepreneur and the founder..."
@@ -751,7 +726,6 @@ export const archives: ArchiveItem[] = [
     "image": "https://substackcdn.com/image/fetch/$s_!bA0u!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F52656af7-538b-46b4-a253-45c3dbf880a6_1248x702.png",
     "summary": "Credit: Beata Zawrzel / NurPhoto via Getty Images Co-written by Isa—check out his blog here . During the past few weeks, I've been on a quest to fix my digital...",
     "role": "Writer",
-    "html": "<p>Credit: Beata Zawrzel / NurPhoto via Getty Images Co-written by Isa—check out his blog here . During the past few weeks, I&#39;ve been on a quest to fix my digital...</p>\n<p>Co-written by Isa—check out his blog here .</p>\n<p>During the past few weeks, I&#39;ve been on a quest to fix my digital presence. Before July, there was literally no way to find me online…</p>\n<p>…which didn&#39;t really make sense. I’ve creating content for a few years, shouldn&#39;t Google just automatically figure out who I am?</p>\n<p><a href=\"https://mhadimedia.substack.com/p/we-figured-out-how-to-hack-google\">Read the rest on Substack</a></p>\n",
     "projectType": "Writings",
     "seoTitle": "We figured out how to hack Google Search | Archives | M Hadi",
     "seoDescription": "Credit: Beata Zawrzel / NurPhoto via Getty Images Co-written by Isa—check out his blog here . During the past few weeks, I've been on a quest to fix my digital..."
@@ -771,7 +745,6 @@ export const archives: ArchiveItem[] = [
     "summary": "Join Hisham Abdelfattah, owner and executive chef of El Halal Amigos and partner at Willow Street Pizza, as he shares his incredible journey from a young dishwasher to a renowned chef. This episode…",
     "role": "Host & Producer",
     "credits": "Guest: Hisham Abdelfattah El Halal Amigos",
-    "html": "<p>Join Hisham Abdelfattah, owner and executive chef of El Halal Amigos and partner at Willow Street Pizza, as he shares his incredible journey from a young dishwasher to a renowned chef. This episode explores the challenges, triumphs, and inspirations behind his unique approach to making Halal Mexican food and beyond. Find Us •</p>\n<p><a href=\"https://www.youtube.com/watch?v=opZHgqnkh7s\">Watch on YouTube</a></p>\n",
     "projectType": "Miscellaneous",
     "seoTitle": "From College Dropout to Renowned Restaurateur: Hisham Abdelfattah and the Story of El Halal Amigos | Archives | M Hadi",
     "seoDescription": "Join Hisham Abdelfattah, owner and executive chef of El Halal Amigos and partner at Willow Street Pizza, as he shares his incredible journey from a young dishwasher to a renowned chef. This episode…"
@@ -790,7 +763,6 @@ export const archives: ArchiveItem[] = [
     "image": "https://i.ytimg.com/vi/MzOfbLswJak/maxresdefault.jpg",
     "summary": "Join my friends and I as we create our first ever mini documentaries and have some fun along the way. Links: • Suhoor Fest Video: https://youtu.be/yh_vlDCPPQI...",
     "role": "Editor & Filmmaker",
-    "html": "<p>Join my friends and I as we create our first ever mini documentaries and have some fun along the way. Links: • Suhoor Fest Video: • UC Berkeley Encampment Video: Stay up to date on</p>\n<p><a href=\"https://www.youtube.com/watch?v=MzOfbLswJak\">Watch on YouTube</a></p>\n",
     "projectType": "Films & Commercials",
     "seoTitle": "Directing My First Documentary With No Experience | Archives | M Hadi",
     "seoDescription": "Join my friends and I as we create our first ever mini documentaries and have some fun along the way. Links: • Suhoor Fest Video: https://youtu.be/yh_vlDCPPQI..."
@@ -809,7 +781,6 @@ export const archives: ArchiveItem[] = [
     "image": "https://substackcdn.com/image/fetch/$s_!UzEt!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fb33eba06-386e-4dad-9a39-c9e820ed908f_8706x5804.jpeg",
     "summary": "The feeling didn’t kick in until now. One week after graduation. Why? Because we had three days of school after graduation. Three tests. Five restaurants. One...",
     "role": "Writer",
-    "html": "<p>The feeling didn’t kick in until now. One week after graduation. Why? Because we had three days of school after graduation. Three tests. Five restaurants. One...</p>\n<p>The feeling didn’t kick in until now.</p>\n<p>Why? Because we had three days of school after graduation.</p>\n<p>And the most emotional goodbye ceremony possible.</p>\n<p><a href=\"https://mhadimedia.substack.com/p/so-about-that-graduation-thing\">Read the rest on Substack</a></p>\n",
     "projectType": "Writings",
     "seoTitle": "So about that graduation thing... | Archives | M Hadi",
     "seoDescription": "The feeling didn’t kick in until now. One week after graduation. Why? Because we had three days of school after graduation. Three tests. Five restaurants. One..."
@@ -828,7 +799,6 @@ export const archives: ArchiveItem[] = [
     "image": "https://i.ytimg.com/vi/iPT8JzCvBTE/maxresdefault.jpg",
     "summary": "During the winter break of 2023, I went on a life-changing trip to the Middle East along with my high school senior class. This series documents the memories...",
     "role": "Director & Editor",
-    "html": "<p>During the winter break of 2023, I went on a life-changing trip to the Middle East along with my high school senior class. This series documents the memories from the journey alongside classmates and friends. Stay up to date on</p>\n<p><a href=\"https://www.youtube.com/watch?v=iPT8JzCvBTE\">Watch on YouTube</a></p>\n",
     "projectType": "Vlogumentaries",
     "seoTitle": "Two Weeks in the Middle East with My School (Part 1) | Archives | M Hadi",
     "seoDescription": "During the winter break of 2023, I went on a life-changing trip to the Middle East along with my high school senior class. This series documents the memories..."
@@ -847,7 +817,6 @@ export const archives: ArchiveItem[] = [
     "image": "https://substack-post-media.s3.amazonaws.com/public/images/405c62fd-a6f2-4899-b650-47460e5ca7e8_1920x1052.png",
     "summary": "I’m tired of writing. I’ve been writing all day. I wrote a newsletter today. Now I’m writing another one. I wrote a Letter of Continued Interest for Santa...",
     "role": "Writer",
-    "html": "<p>I’m tired of writing. I’ve been writing all day. I wrote a newsletter today. Now I’m writing another one. I wrote a Letter of Continued Interest for Santa...</p>\n<p>I’m tired of writing. I’ve been writing all day.</p>\n<p>I wrote a newsletter today. Now I’m writing another one.</p>\n<p>I wrote a Letter of Continued Interest for Santa Clara University because apparently I’m supposed to be doing that for private schools I got waitlisted for.</p>\n<p><a href=\"https://mhadimedia.substack.com/p/editing-how-i-write-my-edit-before\">Read the rest on Substack</a></p>\n",
     "projectType": "Writings",
     "seoTitle": "Editing how I write my edit before editing my edit. | Archives | M Hadi",
     "seoDescription": "I’m tired of writing. I’ve been writing all day. I wrote a newsletter today. Now I’m writing another one. I wrote a Letter of Continued Interest for Santa..."
@@ -866,7 +835,6 @@ export const archives: ArchiveItem[] = [
     "image": "https://substackcdn.com/image/youtube/w_728,c_limit/VtTuA8R5f2Q",
     "summary": "I’m ngl, I’ve been procrastinating on this one. It’s not that I’ve been scared to share this. It happened in front of 200 people already, so another 30 or so...",
     "role": "Writer",
-    "html": "<p>I’m ngl, I’ve been procrastinating on this one. It’s not that I’ve been scared to share this. It happened in front of 200 people already, so another 30 or so...</p>\n<p>I’m ngl, I’ve been procrastinating on this one.</p>\n<p>It happened in front of 200 people already, so another 30 or so people seeing it is no big deal.</p>\n<p>I was fully planning on posting it right then and there, but decided not to last minute.</p>\n<p><a href=\"https://mhadimedia.substack.com/p/logan-pauls-editor-hating-on-my-filmmaking\">Read the rest on Substack</a></p>\n",
     "projectType": "Writings",
     "seoTitle": "Logan Paul's Editor Hating on my Filmmaking for 20 Minutes | Archives | M Hadi",
     "seoDescription": "I’m ngl, I’ve been procrastinating on this one. It’s not that I’ve been scared to share this. It happened in front of 200 people already, so another 30 or so..."
@@ -886,7 +854,6 @@ export const archives: ArchiveItem[] = [
     "summary": "Join Muhammad Hadi Yusufali and Hasan Abbas as they sit down with Fatima Ali, who shares her fascinating journey from growing up in the Bay Area to becoming a software engineer with internships at…",
     "role": "Host & Producer",
     "credits": "Guest: Fatima Ali",
-    "html": "<p>Join Muhammad Hadi Yusufali and Hasan Abbas as they sit down with Fatima Ali, who shares her fascinating journey from growing up in the Bay Area to becoming a software engineer with internships at Google, Twitter, and Apple; and now making her mark at a startup called Tome. This episode is a testament to the impact of mentorship, perseverance, and the role of identity in shaping a fulfilling career in technology. Find Us •</p>\n<p><a href=\"https://www.youtube.com/watch?v=YqRCuN6HBv8\">Watch on YouTube</a></p>\n",
     "projectType": "Miscellaneous",
     "seoTitle": "Shattering Hijabi Tech Stereotypes ft. Fatima Ali | Archives | M Hadi",
     "seoDescription": "Join Muhammad Hadi Yusufali and Hasan Abbas as they sit down with Fatima Ali, who shares her fascinating journey from growing up in the Bay Area to becoming a software engineer with internships at…"
@@ -906,7 +873,6 @@ export const archives: ArchiveItem[] = [
     "summary": "If you enjoyed this episode , you'll love Join Muhammad Hadi Yusufali and Ali Almathkur as they dive into Zain Zaidi's journey from electrical engineering to launching a groundbreaking startup.…",
     "role": "Host & Producer",
     "credits": "Guest: Zain Zaidi",
-    "html": "<p>If you enjoyed this episode , you&#39;ll love Join Muhammad Hadi Yusufali and Ali Almathkur as they dive into Zain Zaidi&#39;s journey from electrical engineering to launching a groundbreaking startup. Discover how Zain&#39;s passion for technology and finance drove him to innovate in the fintech space, aiming to make data verification accessible and empowering individuals with control over their own information.</p>\n<p><a href=\"https://www.youtube.com/watch?v=zzhpV-RlarI\">Watch on YouTube</a></p>\n",
     "projectType": "Miscellaneous",
     "seoTitle": "The Real Way to Become a Young Millionaire ft. Zain Zaidi | Archives | M Hadi",
     "seoDescription": "If you enjoyed this episode , you'll love Join Muhammad Hadi Yusufali and Ali Almathkur as they dive into Zain Zaidi's journey from electrical engineering to launching a groundbreaking startup.…"
@@ -922,10 +888,9 @@ export const archives: ArchiveItem[] = [
     "dek": "A public LinkedIn article about how recommendation algorithms already shape attention, behavior, and creative culture.",
     "date": "2024-02-01",
     "href": "https://www.linkedin.com/pulse/why-ai-scary-robots-already-control-you-muhammad-hadi-yusufali",
-    "image": "/media/figma-mhadi-camera.png",
+    "image": "/media/figma-mhadi-camera.webp",
     "summary": "A public LinkedIn article about how recommendation algorithms already shape attention, behavior, and creative culture.",
     "role": "Writer",
-    "html": "<p>A public LinkedIn article about how recommendation algorithms already shape attention, behavior, and creative culture.</p>\n<p>A public LinkedIn article about how recommendation algorithms already shape attention, behavior, and creative culture.</p>\n<p>This page keeps a short on-site excerpt for discovery, then points readers back to the original Linkedin post for the full piece.</p>\n<p><a href=\"https://www.linkedin.com/pulse/why-ai-scary-robots-already-control-you-muhammad-hadi-yusufali\">Read the rest on Linkedin</a></p>\n",
     "projectType": "Writings",
     "seoTitle": "Why is AI Scary? Robots Already Control You. | Archives | M Hadi",
     "seoDescription": "A public LinkedIn article about how recommendation algorithms already shape attention, behavior, and creative culture."
@@ -945,7 +910,6 @@ export const archives: ArchiveItem[] = [
     "summary": "Join Muhammad Hadi Yusufali and Ali Almathkur as they speak with Naseem Rangwala, an internal medicine resident at UCSF. Throughout the episode, she shares her unique journey from public health at…",
     "role": "Host & Producer",
     "credits": "Guest: Naseem Rangwala",
-    "html": "<p>Join Muhammad Hadi Yusufali and Ali Almathkur as they speak with Naseem Rangwala, an internal medicine resident at UCSF. Throughout the episode, she shares her unique journey from public health at Berkeley to medical school at UCLA, and now to her residency. Naseem discusses the challenges of merging her medical career with her commitment to public health and community outreach, the impact of COVID-19 on her education, and how she navigated personal and professional obstacles.</p>\n<p><a href=\"https://www.youtube.com/watch?v=8BYQncSGFcc\">Watch on YouTube</a></p>\n",
     "projectType": "Miscellaneous",
     "seoTitle": "Navigating Medicine: Healthcare, Equity, and Empathy ft. Naseem Rangwala | Archives | M Hadi",
     "seoDescription": "Join Muhammad Hadi Yusufali and Ali Almathkur as they speak with Naseem Rangwala, an internal medicine resident at UCSF. Throughout the episode, she shares her unique journey from public health at…"
@@ -964,7 +928,6 @@ export const archives: ArchiveItem[] = [
     "image": "https://i.ytimg.com/vi/i6vCBmH5UA0/maxresdefault.jpg",
     "summary": "1.5 million out of 40 million Iraqis are orphans. Along with the rest of my senior class, we visited an orphanage in Iraq, learning about their struggles and...",
     "role": "Director & Editor",
-    "html": "<p>1.5 million out of 40 million Iraqis are orphans. Along with the rest of my senior class, we visited an orphanage in Iraq, learning about their struggles and hoping to bring some smiles to their faces. To</p>\n<p><a href=\"https://www.youtube.com/watch?v=i6vCBmH5UA0\">Watch on YouTube</a></p>\n",
     "projectType": "Vlogumentaries",
     "seoTitle": "We Spent a Day at an Iraqi Orphanage | Archives | M Hadi",
     "seoDescription": "1.5 million out of 40 million Iraqis are orphans. Along with the rest of my senior class, we visited an orphanage in Iraq, learning about their struggles and..."
@@ -983,7 +946,6 @@ export const archives: ArchiveItem[] = [
     "image": "https://substack-post-media.s3.amazonaws.com/public/images/58c94fa6-433e-496a-a0e1-6cbc60dfaf46_2913x3882.avif",
     "summary": "The Rule of Three According to Google, the rule of three is a storytelling principle that suggests people understand concepts, situations, and ideas better in...",
     "role": "Writer",
-    "html": "<p>The Rule of Three According to Google, the rule of three is a storytelling principle that suggests people understand concepts, situations, and ideas better in...</p>\n<p>According to Google, the rule of three is a storytelling principle that suggests people understand concepts, situations, and ideas better in groups of three. It&#39;s also a writing principle that suggests a trio of entities is more humorous, satisfying, or effective than other numbers.</p>\n<p>The reason why the number three shows up the most in storytelling likely has roots in both psychological and practical reasons. Some reasons why three is such a powerful number include:</p>\n<p>Simplicity and Complexity Balance: Two can seem too simple, and four or more can be too complex.</p>\n<p><a href=\"https://mhadimedia.substack.com/p/the-power-of-threes-in-storytelling\">Read the rest on Substack</a></p>\n",
     "projectType": "Writings",
     "seoTitle": "The power of three's in storytelling. | Archives | M Hadi",
     "seoDescription": "The Rule of Three According to Google, the rule of three is a storytelling principle that suggests people understand concepts, situations, and ideas better in..."
@@ -1002,7 +964,6 @@ export const archives: ArchiveItem[] = [
     "image": "https://substack-post-media.s3.amazonaws.com/public/images/a0af9972-6f9a-4ea4-9984-043f686a4b11_2048x1365.avif",
     "summary": "There is so much advice out there on the internet. I saw a funny reel where a guy's about to drink milk and sees a podcast clip of someone talking about how...",
     "role": "Writer",
-    "html": "<p>There is so much advice out there on the internet. I saw a funny reel where a guy&#39;s about to drink milk and sees a podcast clip of someone talking about how...</p>\n<p>There is so much advice out there on the internet. I saw a funny reel where a guy&#39;s about to drink milk and sees a podcast clip of someone talking about how bad milk is. He pulls out a dairy alternative, then as he&#39;s about to drink it he sees a short clip about how bad it is. Shrugging, he pulls out a slice of white toast. He realizes how bad that is from another short clip that recommends brown bread. The process continues until he gives up and decides to just drink water. Surprise, water&#39;s now bad for you too according to another short clip.</p>\n<p>These days. anyone thinks that they can give advice. The internet allows for both famous and un-famous alike to spread their knowledge for others to see and learn from (couldn&#39;t be me) . The issue is that we are now at a point where we&#39;re overstimulated with advice - from every direction, advice is being thrown at us. And a lot of the pieces of advice online contradict each other, making things even more confusing.</p>\n<p>I recently brought up this topic with my mom. &quot;There&#39;s so much advice out there,&quot; I said. &quot;I&#39;ve read all these books and watched all these podcast and learnt from so many people, but how do I actually remember all of it and implement it?&quot;</p>\n<p><a href=\"https://mhadimedia.substack.com/p/advice-that-sticks\">Read the rest on Substack</a></p>\n",
     "projectType": "Writings",
     "seoTitle": "Advice that sticks. | Archives | M Hadi",
     "seoDescription": "There is so much advice out there on the internet. I saw a funny reel where a guy's about to drink milk and sees a podcast clip of someone talking about how..."
@@ -1021,7 +982,6 @@ export const archives: ArchiveItem[] = [
     "image": "https://substack-post-media.s3.amazonaws.com/public/images/5f2d082e-ef4e-4129-977a-970c75fb877f_2048x1360.avif",
     "summary": "When I launched my podcast, I was brainstorming ways I could officially \"launch\" it through a video on my personal YouTube channel. At the time, I was obsessed...",
     "role": "Writer",
-    "html": "<p>When I launched my podcast, I was brainstorming ways I could officially &quot;launch&quot; it through a video on my personal YouTube channel. At the time, I was obsessed...</p>\n<p>When I launched my podcast, I was brainstorming ways I could officially &quot;launch&quot; it through a video on my personal YouTube channel. At the time, I was obsessed with trying to challenge videos, such as those made by MrBeast and Airrack. The average new teen YouTuber mindset.</p>\n<p>I came up with this idea that I pitched to my co-host: a challenge video inspired by Mr. Lemoncello&#39;s Library (by Chris Grabenstein, a great series I read as a kid) where a group of contestants are stuck in a library and must solve clues to escape the library before a deadline. These clues would lead the contestants on a journey through the stories of different people&#39;s lives, showcasing the power of storytelling. Everything would be themed around the podcast that we&#39;d be launching, and the videos ultimate goal would be to promote the podcast.</p>\n<p>My co-host liked the idea, but he brought up an interesting question; what age range would participate in and watch this video? It was a question I hadn&#39;t even bothered thinking of. I realized that the main age that enjoys this sort of content is between 10-13, which was great but definitely not the target audience of our podcast.</p>\n<p><a href=\"https://mhadimedia.substack.com/p/find-your-target-audience\">Read the rest on Substack</a></p>\n",
     "projectType": "Writings",
     "seoTitle": "Find your target audience. | Archives | M Hadi",
     "seoDescription": "When I launched my podcast, I was brainstorming ways I could officially \"launch\" it through a video on my personal YouTube channel. At the time, I was obsessed..."
@@ -1040,7 +1000,6 @@ export const archives: ArchiveItem[] = [
     "image": "https://substack-post-media.s3.amazonaws.com/public/images/f55a698a-fb88-48b0-af59-4bbca69cd2a7_2048x1142.avif",
     "summary": "Earlier this year, I was at a program where the speaker brought up a very interesting point. Months later, it's one of my main takeaways from his speeches, and...",
     "role": "Writer",
-    "html": "<p>Earlier this year, I was at a program where the speaker brought up a very interesting point. Months later, it&#39;s one of my main takeaways from his speeches, and...</p>\n<p>Earlier this year, I was at a program where the speaker brought up a very interesting point. Months later, it&#39;s one of my main takeaways from his speeches, and you might appreciate it as much as I did.</p>\n<p>&quot;You are not this limited body,&quot; he said. &quot;&#39;And we made Man in the best of forms, then we relegated it into the lowest of forms&#39; (Quran, Surah Al-Tin, Verse 4-6). So this me right now, me engaging [with] you, you engaging [with] me, we&#39;re meeting the lowest versions of ourselves. This is iOS 1, there&#39;s a 17 somewhere else.&quot;</p>\n<p>I personally found this point quite striking, and it&#39;s stuck with me since. When I ponder on my actions, I try to think, what would the iOS 17 version of myself have done?</p>\n<p><a href=\"https://mhadimedia.substack.com/p/best-versions-of-ourselves\">Read the rest on Substack</a></p>\n",
     "projectType": "Writings",
     "seoTitle": "We're just iOS 1. Somewhere out there, there's an iOS 17. | Archives | M Hadi",
     "seoDescription": "Earlier this year, I was at a program where the speaker brought up a very interesting point. Months later, it's one of my main takeaways from his speeches, and..."
@@ -1060,7 +1019,6 @@ export const archives: ArchiveItem[] = [
     "summary": "Join Muhammad Hadi Yusufali and Ali Almathkur as they sit down with Br. Jawad and discuss escaping Iraq, surviving a refugee camp for four years, and building a life in America.",
     "role": "Host & Producer",
     "credits": "Guest: Jawad Almamori",
-    "html": "<p>Join Muhammad Hadi Yusufali and Ali Almathkur as they sit down with Br. Jawad and discuss escaping Iraq, surviving a refugee camp for four years, and building a life in America. For more details on ABSA, its initiatives, and how you can get involved, visit</p>\n<p><a href=\"https://www.youtube.com/watch?v=3FcAWSa1Ldg\">Watch on YouTube</a></p>\n",
     "projectType": "Miscellaneous",
     "seoTitle": "Escaping Iraq: War, Refugee Camps, and the Power of Faith ft. Jawad Almamori | Archives | M Hadi",
     "seoDescription": "Join Muhammad Hadi Yusufali and Ali Almathkur as they sit down with Br. Jawad and discuss escaping Iraq, surviving a refugee camp for four years, and building a life in America."
@@ -1079,7 +1037,6 @@ export const archives: ArchiveItem[] = [
     "image": "https://substack-post-media.s3.amazonaws.com/public/images/fca3edf4-36e3-49e2-a417-60408135a9c1_3277x4096.avif",
     "summary": "The sound designer says to start w/ music and have video flow it. The video editor says to start w/ footage and have music flow to it. The sound designer hates...",
     "role": "Writer",
-    "html": "<p>The sound designer says to start w/ music and have video flow it. The video editor says to start w/ footage and have music flow to it. The sound designer hates...</p>\n<p>The sound designer says to start w/ music and have video flow it.</p>\n<p>The video editor says to start w/ footage and have music flow to it.</p>\n<p>The sound designer hates the video editor.</p>\n<p><a href=\"https://mhadimedia.substack.com/p/life-is-about-perspectives\">Read the rest on Substack</a></p>\n",
     "projectType": "Writings",
     "seoTitle": "Life is about perspectives. | Archives | M Hadi",
     "seoDescription": "The sound designer says to start w/ music and have video flow it. The video editor says to start w/ footage and have music flow to it. The sound designer hates..."
@@ -1098,7 +1055,6 @@ export const archives: ArchiveItem[] = [
     "image": "https://substack-post-media.s3.amazonaws.com/public/images/afdab8f5-a447-4b70-96a3-63a37fd53166_2271x2271.avif",
     "summary": "\"Productive procrastination\" - it's a term I learnt from screenwriter Rodney Rothman. A term that changed how I see work and could change how you see it too....",
     "role": "Writer",
-    "html": "<p>&quot;Productive procrastination&quot; - it&#39;s a term I learnt from screenwriter Rodney Rothman. A term that changed how I see work and could change how you see it too....</p>\n<p>&quot;Productive procrastination&quot; - it&#39;s a term I learnt from screenwriter Rodney Rothman. A term that changed how I see work and could change how you see it too.</p>\n<p>In an interview with Jeff Goldsmith, Rothman says “my habits are pretty neurotic, I find I do this very productive procrastination these days… I’ll do research, I’ll make notes, I’ll draw weird maps of ideas, like diagram the story in some weird way that only I understand.”</p>\n<p>Whenever I feel the need to procrastinate or &quot;be bored&quot;, I think of this term. How can I make my boredom be productive?</p>\n<p><a href=\"https://mhadimedia.substack.com/p/reflections-on-productive-procrastination\">Read the rest on Substack</a></p>\n",
     "projectType": "Writings",
     "seoTitle": "Reflections on productive procrastination. | Archives | M Hadi",
     "seoDescription": "\"Productive procrastination\" - it's a term I learnt from screenwriter Rodney Rothman. A term that changed how I see work and could change how you see it too...."
@@ -1118,7 +1074,6 @@ export const archives: ArchiveItem[] = [
     "summary": "Join Muhammad Hadi Yusufali, Ali Almathkur, and Raza Ali, as they discuss topics including the best and worst of education, community service, lowering the stakes, and the power of the word \"yet\".…",
     "role": "Host & Producer",
     "credits": "Guest: Raza Ali",
-    "html": "<p>Join Muhammad Hadi Yusufali, Ali Almathkur, and Raza Ali, as they discuss topics including the best and worst of education, community service, lowering the stakes, and the power of the word &quot;yet&quot;. For more details on ABSA, its initiatives, and how you can get involved, visit</p>\n<p><a href=\"https://www.youtube.com/watch?v=RJN_m5PglPs\">Watch on YouTube</a></p>\n",
     "projectType": "Miscellaneous",
     "seoTitle": "The Power of Education & Mindset ft. Raza Ali | Archives | M Hadi",
     "seoDescription": "Join Muhammad Hadi Yusufali, Ali Almathkur, and Raza Ali, as they discuss topics including the best and worst of education, community service, lowering the stakes, and the power of the word \"yet\".…"
@@ -1138,7 +1093,6 @@ export const archives: ArchiveItem[] = [
     "summary": "Join Muhammad Hadi Yusufali and Ali Almathkur as they chat with Eman Abdul-Razzak, the lighting technical director at Pixar, to uncover the secrets behind the making of Pixar films. Get an exclusive…",
     "role": "Host & Producer",
     "credits": "Guest: Eman Abdul-Razzak",
-    "html": "<p>Join Muhammad Hadi Yusufali and Ali Almathkur as they chat with Eman Abdul-Razzak, the lighting technical director at Pixar, to uncover the secrets behind the making of Pixar films. Get an exclusive peek into the behind-the-scenes process that brings those magical animated worlds to life. Prepare to be amazed by Eman&#39;s insights into the artistry and innovation that make Pixar films truly special.</p>\n<p><a href=\"https://www.youtube.com/watch?v=c9s8OEdERuA\">Watch on YouTube</a></p>\n",
     "projectType": "Miscellaneous",
     "seoTitle": "The Secrets Behind Pixar's Most Famous Movies ft. Eman Abdul-Razzak | Archives | M Hadi",
     "seoDescription": "Join Muhammad Hadi Yusufali and Ali Almathkur as they chat with Eman Abdul-Razzak, the lighting technical director at Pixar, to uncover the secrets behind the making of Pixar films. Get an exclusive…"
@@ -1158,7 +1112,6 @@ export const archives: ArchiveItem[] = [
     "summary": "Join us as we speak with Muzaffer Khan who was one of the original founders of SABA Islamic Center, 43 years ago. We speak about living in Iran during the revolution, moving to the US, founding SABA,…",
     "role": "Host & Producer",
     "credits": "Guest: Muzaffer Khan",
-    "html": "<p>Join us as we speak with Muzaffer Khan who was one of the original founders of SABA Islamic Center, 43 years ago. We speak about living in Iran during the revolution, moving to the US, founding SABA, leaving the board, starting a bookstore, and so much more.</p>\n<p><a href=\"https://www.youtube.com/watch?v=lR72xZBrkZs\">Watch on YouTube</a></p>\n",
     "projectType": "Miscellaneous",
     "seoTitle": "43 Years Volunteering at a Mosque ft. Muzaffer Khan | Archives | M Hadi",
     "seoDescription": "Join us as we speak with Muzaffer Khan who was one of the original founders of SABA Islamic Center, 43 years ago. We speak about living in Iran during the revolution, moving to the US, founding SABA,…"
@@ -1178,7 +1131,6 @@ export const archives: ArchiveItem[] = [
     "summary": "Join M Hadi and Ali as they sit down for an engaging conversation with Abbas Mohamed, a talented content creator, podcaster, and the founder of the Halal Foodies group with over 28,000 members.…",
     "role": "Host & Producer",
     "credits": "Guest: Abbas Mohamed",
-    "html": "<p>Join M Hadi and Ali as they sit down for an engaging conversation with Abbas Mohamed, a talented content creator, podcaster, and the founder of the Halal Foodies group with over 28,000 members. Together, they dive into Abbas&#39;s childhood adventures, the story behind GAMA (Gathering All Muslim Artists), his culinary journey, and his personal love for hotpot. Get ready for an insightful and enjoyable discussion filled with inspiring stories and mouthwatering insights.</p>\n<p><a href=\"https://www.youtube.com/watch?v=BQEJyiOT3kg\">Watch on YouTube</a></p>\n",
     "projectType": "Miscellaneous",
     "seoTitle": "Cooking, Creativity, and Community ft. Abbas Mohamed | Archives | M Hadi",
     "seoDescription": "Join M Hadi and Ali as they sit down for an engaging conversation with Abbas Mohamed, a talented content creator, podcaster, and the founder of the Halal Foodies group with over 28,000 members.…"
@@ -1198,7 +1150,6 @@ export const archives: ArchiveItem[] = [
     "summary": "Join M Hadi and Ali as they learn from Mir Aamir about his journey, from growing up in Pakistan to becoming the CEO of two groundbreaking companies.",
     "role": "Host & Producer",
     "credits": "Guest: Mir Aamir",
-    "html": "<p>Join M Hadi and Ali as they learn from Mir Aamir about his journey, from growing up in Pakistan to becoming the CEO of two groundbreaking companies. Join M Hadi and Ali as they learn from Mir Aamir about his journey, from growing up in Pakistan to becoming the CEO of two groundbreaking companies.</p>\n<p><a href=\"https://www.youtube.com/watch?v=A4zGTaW6vfU\">Watch on YouTube</a></p>\n",
     "projectType": "Miscellaneous",
     "seoTitle": "Unlocking Global Impact through Business ft. Mir Aamir | Archives | M Hadi",
     "seoDescription": "Join M Hadi and Ali as they learn from Mir Aamir about his journey, from growing up in Pakistan to becoming the CEO of two groundbreaking companies."
@@ -1217,7 +1168,6 @@ export const archives: ArchiveItem[] = [
     "image": "https://i.ytimg.com/vi/XDD-h_pDb0k/maxresdefault.jpg",
     "summary": "A school video yearbook featuring some of the best memories that were recorded throughout the RISE 2022-2023 school year. Thanks to all those who worked hard...",
     "role": "Director & Editor",
-    "html": "<p>A school video yearbook featuring some of the best memories that were recorded throughout the RISE 2022-2023 school year. Thanks to all those who worked hard to make this school year fun - this year was filled with many memories that won&#39;t be forgotten. Stay up to date on</p>\n<p><a href=\"https://www.youtube.com/watch?v=XDD-h_pDb0k\">Watch on YouTube</a></p>\n",
     "projectType": "Vlogumentaries",
     "seoTitle": "I Spent a Year Recording Everything at My School (2022-23) | Archives | M Hadi",
     "seoDescription": "A school video yearbook featuring some of the best memories that were recorded throughout the RISE 2022-2023 school year. Thanks to all those who worked hard..."
@@ -1237,7 +1187,6 @@ export const archives: ArchiveItem[] = [
     "summary": "Artificial Intelligence - it’s literally everywhere. Your friends use it, your teachers and employers ban you from using it, and you might think it’ll take over the world.",
     "role": "Host & Producer",
     "credits": "Guest: Nazneen Rajani",
-    "html": "<p>Artificial Intelligence - it’s literally everywhere. Your friends use it, your teachers and employers ban you from using it, and you might think it’ll take over the world. But to find out what it really is, we sat down with Hugging Face’s research lead and member of the United Nations AI Advisory board, Nazneen Rajani. Welcome to season 2 of the Journey Tellers podcast.</p>\n<p><a href=\"https://www.youtube.com/watch?v=a7jMrGHX5P4\">Watch on YouTube</a></p>\n",
     "projectType": "Miscellaneous",
     "seoTitle": "AI - the Good, the Bad, and the Ugly ft. Nazneen Rajani | Archives | M Hadi",
     "seoDescription": "Artificial Intelligence - it’s literally everywhere. Your friends use it, your teachers and employers ban you from using it, and you might think it’ll take over the world."
@@ -1257,7 +1206,6 @@ export const archives: ArchiveItem[] = [
     "summary": "Join Muhammad Hadi Yusufali and Ali Almathkur as they host an intriguing episode of the Journey Tellers podcast, featuring the incredible story of David Coolidge. Prepare to be amazed as David shares…",
     "role": "Host & Producer",
     "credits": "Guest: David Coolidge",
-    "html": "<p>Join Muhammad Hadi Yusufali and Ali Almathkur as they host an intriguing episode of the Journey Tellers podcast, featuring the incredible story of David Coolidge. Prepare to be amazed as David shares his unique journey of embracing Islam, starting from his punk rock roots in Chicago to his path towards obtaining a PhD in Islamic studies. This thought-provoking conversation challenges common assumptions about being Muslim in America, offering a fresh perspective on faith, identity, and personal growth.</p>\n<p><a href=\"https://www.youtube.com/watch?v=OJP0fubChH0\">Watch on YouTube</a></p>\n",
     "projectType": "Miscellaneous",
     "seoTitle": "From Punk Rock to PhD: The Journey of David Coolidge | Archives | M Hadi",
     "seoDescription": "Join Muhammad Hadi Yusufali and Ali Almathkur as they host an intriguing episode of the Journey Tellers podcast, featuring the incredible story of David Coolidge. Prepare to be amazed as David shares…"
@@ -1277,7 +1225,6 @@ export const archives: ArchiveItem[] = [
     "summary": "An Arabic teacher, an MMA coach, a chef, a reciter, an educator, and a man of many talents. You may have heard his name, but do you truly know the person behind it all?",
     "role": "Host & Producer",
     "credits": "Guest: Mahdi Falahati",
-    "html": "<p>An Arabic teacher, an MMA coach, a chef, a reciter, an educator, and a man of many talents. You may have heard his name, but do you truly know the person behind it all? This is Mahdi Falahati, a remarkable individual whose life journey spans across continents, cultures, and careers. Join us as we uncover the moments that have defined Mahdi Falahati, and explore the insights and wisdom he has to offer.</p>\n<p><a href=\"https://www.youtube.com/watch?v=tg5nFaIgVFg\">Watch on YouTube</a></p>\n",
     "projectType": "Miscellaneous",
     "seoTitle": "From Corporate Climber to Spiritual Seeker: The Journey of Mahdi Falahati | Archives | M Hadi",
     "seoDescription": "An Arabic teacher, an MMA coach, a chef, a reciter, an educator, and a man of many talents. You may have heard his name, but do you truly know the person behind it all?"
@@ -1297,7 +1244,6 @@ export const archives: ArchiveItem[] = [
     "summary": "A life-changing friendship, leading to a newfound faith - this is Natima Nelly, a dedicated lawyer and a proud convert to Islam. And today on the Journey Tellers podcast, we learn from her journey to…",
     "role": "Host & Producer",
     "credits": "Guest: Natima Neily",
-    "html": "<p>A life-changing friendship, leading to a newfound faith - this is Natima Nelly, a dedicated lawyer and a proud convert to Islam. And today on the Journey Tellers podcast, we learn from her journey to faith, and discover the importance of true friendship.</p>\n<p><a href=\"https://www.youtube.com/watch?v=3Y02YIphMAA\">Watch on YouTube</a></p>\n",
     "projectType": "Miscellaneous",
     "seoTitle": "Friends, Faith, and Family Advocates: The Journey of Natima Neily | Archives | M Hadi",
     "seoDescription": "A life-changing friendship, leading to a newfound faith - this is Natima Nelly, a dedicated lawyer and a proud convert to Islam. And today on the Journey Tellers podcast, we learn from her journey to…"
@@ -1317,7 +1263,6 @@ export const archives: ArchiveItem[] = [
     "summary": "For him, high school was not worth finishing. But he also dropped out of college.",
     "role": "Host & Producer",
     "credits": "Guest: Ali Mir",
-    "html": "<p>For him, high school was not worth finishing. But he also dropped out of college. Why did he do it? How did he convince his parents? He had to prove that he had a goal. He had a vision. In today&#39;s episode, we talk to Ali Mir, also known as Ishraq Abidi. And in today&#39;s episode of the Journey Tellers podcast, we learn how he set out on a journey to make his dreams a reality.</p>\n<p><a href=\"https://www.youtube.com/watch?v=cvx4cxLYVh4\">Watch on YouTube</a></p>\n",
     "projectType": "Miscellaneous",
     "seoTitle": "Risks, Startups, and Unconventional Routes: The Journey of Ali Mir | Archives | M Hadi",
     "seoDescription": "For him, high school was not worth finishing. But he also dropped out of college."
@@ -1336,7 +1281,6 @@ export const archives: ArchiveItem[] = [
     "image": "https://i.ytimg.com/vi/1ucGpSXjK2E/maxresdefault.jpg",
     "summary": "Available now on @JourneyTellers / stream now on https://jtpodcast.com/ All of us have a story to tell - a journey that made us who we are today. We invite...",
     "role": "Host & Producer",
-    "html": "<p>Available now on / stream now on All of us have a story to tell - a journey that made us who we are today. We invite guests to share their personal accounts, be it a success story or a cautionary tale, to inspire others. So, I&#39;ve partnered with to start a podcast and share these stories. -</p>\n<p><a href=\"https://www.youtube.com/watch?v=1ucGpSXjK2E\">Watch on YouTube</a></p>\n",
     "projectType": "Miscellaneous",
     "seoTitle": "I Started a Podcast to Share Your Stories | Archives | M Hadi",
     "seoDescription": "Available now on @JourneyTellers / stream now on https://jtpodcast.com/ All of us have a story to tell - a journey that made us who we are today. We invite..."
@@ -1356,7 +1300,6 @@ export const archives: ArchiveItem[] = [
     "summary": "Starting a business at the age of 15 - it might seem tough. But most good entrepreneurs start at a young age.",
     "role": "Host & Producer",
     "credits": "Guest: Ahmad Ahmadzia",
-    "html": "<p>Starting a business at the age of 15 - it might seem tough. But most good entrepreneurs start at a young age. On today&#39;s episode, we interview Ahmad Ahmadzia. He’s a coach with a lot of stories to tell, and together, we learn from the journeys that he’s taken so far. Welcome to the Journey Tellers podcast, with your hosts, M Hadi and Ali Almathkur.</p>\n<p><a href=\"https://www.youtube.com/watch?v=JgU_n00d0JU\">Watch on YouTube</a></p>\n",
     "projectType": "Miscellaneous",
     "seoTitle": "Entrepreneurs, Leaders, and Mentors: The Journey of Ahmad Ahmadzia | Archives | M Hadi",
     "seoDescription": "Starting a business at the age of 15 - it might seem tough. But most good entrepreneurs start at a young age."
@@ -1375,7 +1318,6 @@ export const archives: ArchiveItem[] = [
     "image": "https://i.ytimg.com/vi/YA9KHwK35gY/maxresdefault.jpg",
     "summary": "We played a game of extreme hide & seek in our local community center and school. The last out of the four contestants to get caught wins the challenge,...",
     "role": "Director & Editor",
-    "html": "<p>We played a game of extreme hide &amp; seek in our local community center and school. The last out of the four contestants to get caught wins the challenge, securing their spot as the first-ever winner of group challenges on this channel. Thank you to SABA for permitting us to film in the building. Special thanks to Zain K, Zain Z, Rasol A, Nabeel, and Ali Z. Want more hide &amp; seek videos? Ideas for other videos? Leave a comment down below!</p>\n<p><a href=\"https://www.youtube.com/watch?v=YA9KHwK35gY\">Watch on YouTube</a></p>\n",
     "projectType": "Vlogumentaries",
     "seoTitle": "Extreme Hide and Seek in My School | Archives | M Hadi",
     "seoDescription": "We played a game of extreme hide & seek in our local community center and school. The last out of the four contestants to get caught wins the challenge,..."
@@ -1394,7 +1336,6 @@ export const archives: ArchiveItem[] = [
     "image": "https://i.ytimg.com/vi/VGYucs8hzXk/sddefault.jpg",
     "summary": "The long-awaited RISE Academy School Camp 2022 vlog is finally here. Towards the end of the 2021-2022 school year, our school decided to take students on a...",
     "role": "Director & Editor",
-    "html": "<p>The long-awaited RISE Academy School Camp 2022 vlog is finally here. Towards the end of the 2021-2022 school year, our school decided to take students on a trip that they&#39;ll remember for years to come. For this year&#39;s camp, we stayed overnight at a lighthouse in Half Moon Bay, California, in a night filled with adventures. If you enjoyed this video, make sure to drop a like, share, and hit</p>\n<p><a href=\"https://www.youtube.com/watch?v=VGYucs8hzXk\">Watch on YouTube</a></p>\n",
     "projectType": "Vlogumentaries",
     "seoTitle": "Camping by the Ocean With My School | Archives | M Hadi",
     "seoDescription": "The long-awaited RISE Academy School Camp 2022 vlog is finally here. Towards the end of the 2021-2022 school year, our school decided to take students on a..."
@@ -1413,7 +1354,6 @@ export const archives: ArchiveItem[] = [
     "image": "https://i.ytimg.com/vi/mnHeBv8Eh6s/maxresdefault.jpg",
     "summary": "I spent 24 hours in my local mosque trying to volunteer in 50 different ways. Previously, I've only volunteered in areas where I have skills, such as...",
     "role": "Director & Editor",
-    "html": "<p>I spent 24 hours in my local mosque trying to volunteer in 50 different ways. Previously, I&#39;ve only volunteered in areas where I have skills, such as live-streaming the programs and helping with the A/V work. But this time, I wanted to do something different, and see what it would be like to be a volunteer in all the different departments. If you enjoyed this video, make sure to drop a like, share, and hit</p>\n<p><a href=\"https://www.youtube.com/watch?v=mnHeBv8Eh6s\">Watch on YouTube</a></p>\n",
     "projectType": "Vlogumentaries",
     "seoTitle": "50 Good Deeds in 24 Hours | Archives | M Hadi",
     "seoDescription": "I spent 24 hours in my local mosque trying to volunteer in 50 different ways. Previously, I've only volunteered in areas where I have skills, such as..."
@@ -1432,7 +1372,6 @@ export const archives: ArchiveItem[] = [
     "image": "https://i.ytimg.com/vi/Nr1kDO1Jf3Q/maxresdefault.jpg",
     "summary": "A quick compilation of some of the best memories that I recorded throughout the school year, of the RISE Academy Upper School (Middle School and High School)...",
     "role": "Director & Editor",
-    "html": "<p>A quick compilation of some of the best memories that I recorded throughout the school year, of the RISE Academy Upper School (Middle School and High School) Boys. Thanks to all those who worked hard to make this school year fun - this year was filled with many memories that I won&#39;t be forgetting. Special thanks to Br.</p>\n<p><a href=\"https://www.youtube.com/watch?v=Nr1kDO1Jf3Q\">Watch on YouTube</a></p>\n",
     "projectType": "Vlogumentaries",
     "seoTitle": "I Spent a Year Recording Everything at My School (2021-22) | Archives | M Hadi",
     "seoDescription": "A quick compilation of some of the best memories that I recorded throughout the school year, of the RISE Academy Upper School (Middle School and High School)..."
@@ -1451,7 +1390,6 @@ export const archives: ArchiveItem[] = [
     "image": "https://i.ytimg.com/vi/qxe_1PN3fTY/maxresdefault.jpg",
     "summary": "We filmed a music video at a beach in Half Moon Bay, California with four cameras and a drone. Watch how we made @ReedofTawheed's latest project go from idea...",
     "role": "Director & Editor",
-    "html": "<p>We filmed a music video at a beach in Half Moon Bay, California with four cameras and a drone. Watch how we made &#39;s latest project go from idea to reality. Full video: We filmed a music video at a beach in Half Moon Bay, California with four cameras and a drone. Watch how we made @ReedofTawheed&#39;s latest project go from idea...</p>\n<p><a href=\"https://www.youtube.com/watch?v=qxe_1PN3fTY\">Watch on YouTube</a></p>\n",
     "projectType": "Films & Commercials",
     "seoTitle": "We Filmed a Music Video in Half Moon Bay | Archives | M Hadi",
     "seoDescription": "We filmed a music video at a beach in Half Moon Bay, California with four cameras and a drone. Watch how we made @ReedofTawheed's latest project go from idea..."
@@ -1470,7 +1408,6 @@ export const archives: ArchiveItem[] = [
     "image": "https://i.ytimg.com/vi/OId7oxBL680/maxresdefault.jpg",
     "summary": "Full video: https://youtu.be/_eFwNx0tRa4 Stream Now: https://alkisafoundation.org/painyouhide/ If you enjoy the content that I provide then make sure to leave...",
     "role": "Director & Editor",
-    "html": "<p>Full video: Stream Now: If you enjoy the content that I provide then make sure to leave a like, Full video: <a href=\"https://youtu.be/_eFwNx0tRa4\">https://youtu.be/_eFwNx0tRa4</a> Stream Now: <a href=\"https://alkisafoundation.org/painyouhide/\">https://alkisafoundation.org/painyouhide/</a> If you enjoy the content that I provide then make sure to leave...</p>\n<p><a href=\"https://www.youtube.com/watch?v=OId7oxBL680\">Watch on YouTube</a></p>\n",
     "projectType": "Films & Commercials",
     "seoTitle": "How We Made \"The Pain You Hide\" by @ReedofTawheed | Archives | M Hadi",
     "seoDescription": "Full video: https://youtu.be/_eFwNx0tRa4 Stream Now: https://alkisafoundation.org/painyouhide/ If you enjoy the content that I provide then make sure to leave..."

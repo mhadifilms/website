@@ -1,11 +1,6 @@
 export type SocialLink = {
   label: string
   href: string
-  embedSrc?: string
-  embedScriptSrc?: string
-  embedAppId?: string
-  embedTitle?: string
-  embedHeight?: number
 }
 
 export type PolaroidImage = {
@@ -103,5 +98,4 @@ export type ArchiveItem = {
   seoTitle?: string
   seoDescription?: string
   featured?: boolean
-  html: string
 }

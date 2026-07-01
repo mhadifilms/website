@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from "react"
+import { useCallback, useMemo, useRef, useState } from "react"
 import { useGSAP } from "@gsap/react"
 import gsap from "gsap"
 import { Flip } from "gsap/Flip"
@@ -10,7 +10,7 @@ import { scenePolaroids } from "@/lib/polaroid-scene"
 gsap.registerPlugin(Flip, ScrollTrigger, useGSAP)
 ScrollTrigger.config({ ignoreMobileResize: true })
 
-const HERO_IMAGE = `${import.meta.env.BASE_URL}media/figma-mhadi-camera.png`
+const HERO_IMAGE = `${import.meta.env.BASE_URL}media/figma-mhadi-camera.webp`
 const POLAROID_COUNT = 5
 const CENTER_POLAROID_INDEX = 2
 const FINAL_ROTATIONS = [-6, 4, -3, -4, 6] as const
@@ -154,35 +154,6 @@ export function HeroPolaroidLayer() {
       behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth",
     })
   }, [sectionContext])
-
-  useEffect(() => {
-    let cancelled = false
-    const probes = polaroids.map((polaroid, index) => {
-      const probe = new Image()
-      probe.src = polaroid.src
-      probe.onload = () => {
-        if (cancelled) return
-        setFailedImages((current) => {
-          if (!current.has(index)) return current
-          const next = new Set(current)
-          next.delete(index)
-          return next
-        })
-      }
-      probe.onerror = () => {
-        if (cancelled) return
-        setFailedImages((current) => new Set(current).add(index))
-      }
-      return probe
-    })
-    return () => {
-      cancelled = true
-      probes.forEach((probe) => {
-        probe.onload = null
-        probe.onerror = null
-      })
-    }
-  }, [polaroids])
 
   useGSAP(
     () => {
@@ -388,7 +359,8 @@ export function HeroPolaroidLayer() {
                 src={polaroid.src}
                 alt=""
                 aria-hidden="true"
-                loading="eager"
+                loading={index === CENTER_POLAROID_INDEX ? "eager" : "lazy"}
+                fetchPriority={index === CENTER_POLAROID_INDEX ? "high" : "low"}
                 decoding="async"
                 className="absolute inset-0 h-full w-full object-cover grayscale contrast-[1.08]"
                 onError={() => setFailedImages((current) => new Set(current).add(index))}

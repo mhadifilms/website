@@ -39,4 +39,4 @@ jobs:
         uses: stefanzweifel/git-auto-commit-action@v7
         with:
           commit_message: Sync public social archives
-          file_pattern: content/archives/*.md src/content/generated.ts
+          file_pattern: content/archives/*.md src/content/generated.ts src/content/archive-bodies.ts

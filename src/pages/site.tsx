@@ -1,7 +1,6 @@
-import { useMemo } from "react"
+import { Suspense, lazy, useMemo } from "react"
 import { useMotionValue } from "framer-motion"
 
-import { HeroPolaroidLayer } from "@/components/hero-polaroid-layer"
 import { PillNav } from "@/components/pill-nav"
 import { SeoMetadata } from "@/components/seo-metadata"
 import { SiteFooter } from "@/components/site-footer"
@@ -11,6 +10,12 @@ import { ExperiencesSection } from "@/sections/experiences"
 import { HomeSection } from "@/sections/home"
 import { SectionContext } from "@/hooks/section-context"
 import { buildSections, useSectionRouter } from "@/hooks/use-section-router"
+
+// GSAP (plus ScrollTrigger/Flip) only serves the hero polaroid scene, so it
+// loads as its own chunk without blocking the initial render.
+const HeroPolaroidLayer = lazy(() =>
+  import("@/components/hero-polaroid-layer").then((module) => ({ default: module.HeroPolaroidLayer })),
+)
 
 export default function SitePage() {
   const homeScrollProgress = useMotionValue(0)
@@ -42,7 +47,9 @@ export default function SitePage() {
         <ArchivesSection />
         <SiteFooter />
       </main>
-      <HeroPolaroidLayer />
+      <Suspense fallback={null}>
+        <HeroPolaroidLayer />
+      </Suspense>
       <PillNav />
     </SectionContext.Provider>
   )

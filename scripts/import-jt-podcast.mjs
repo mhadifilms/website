@@ -85,7 +85,8 @@ function cleanDescription(raw = "") {
   text = text.split(/\b(?:connect with|follow|subscribe|timestamps?|chapters?|credits|produced by|hosted by|available on|help support|social|instagram|tiktok|patreon|buymeacoffee)\b/i)[0]
   return text
     .replace(/https?:\/\/\S+/g, " ")
-    .replace(/[\u{1F000}-\u{1FAFF}\u{2600}-\u{27BF}\u{2190}-\u{21FF}\u{2B00}-\u{2BFF}\uFE0F]/gu, " ")
+    .replace(/[\u{1F000}-\u{1FAFF}\u{2600}-\u{27BF}\u{2190}-\u{21FF}\u{2B00}-\u{2BFF}]/gu, " ")
+    .replace(/\uFE0F/gu, " ")
     .replace(/#\w+/g, " ")
     .replace(/@\w+/g, " ")
     .replace(/\s+/g, " ")
@@ -138,7 +139,7 @@ async function run() {
     const href = `https://www.youtube.com/watch?v=${id}`
     const image = `https://i.ytimg.com/vi/${id}/maxresdefault.jpg`
     const guest = guestFrom(title)
-    let desc = ""
+    let desc
     try {
       desc = await fetchDescription(id)
     } catch {

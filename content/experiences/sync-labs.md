@@ -9,7 +9,7 @@ dateStart: "2023-08-01"
 summary: Grew with sync. from early growth work into production leadership and now Chief of Staff, helping turn high-end AI video research into work that survives real clients, real footage, and real deadlines.
 href: https://sync.so
 visitLabel: Visit sync. labs
-logo: /media/figma-mhadi-camera.png
+logo: /media/figma-mhadi-camera.webp
 ---
 
 At sync. labs, my job has moved with the company: Growth Intern, Growth Marketer, Head of Production, and now Chief of Staff. The thread through all of it has been helping the product, the team, and the work that leaves the building become sharper.

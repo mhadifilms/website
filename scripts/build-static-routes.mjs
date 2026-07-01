@@ -371,7 +371,11 @@ function archiveRoute(item, project, siblings) {
     description,
     image: absoluteAsset(item.image),
     imageAlt: item.title,
-    imageType: /\.png($|\?)/i.test(item.image || "") ? "image/png" : "image/jpeg",
+    imageType: /\.png($|\?)/i.test(item.image || "")
+      ? "image/png"
+      : /\.webp($|\?)/i.test(item.image || "")
+        ? "image/webp"
+        : "image/jpeg",
     ogType: isVideo ? "video.other" : "article",
     extraMeta,
     jsonLd: archiveJsonLd(item, project, canonical),

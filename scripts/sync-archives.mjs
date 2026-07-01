@@ -76,7 +76,8 @@ function youtubeDescriptionText(raw = "", max = 480) {
   text = text.split(/\b(?:connect with|follow|subscribe|timestamps?|chapters?|credits|produced by|directed by|hosted by|available on|help support|social|instagram|tiktok|patreon|buymeacoffee|sign up for)\b/i)[0]
   text = text
     .replace(/https?:\/\/\S+/g, " ")
-    .replace(/[\u{1F000}-\u{1FAFF}\u{2600}-\u{27BF}\u{2190}-\u{21FF}\u{2B00}-\u{2BFF}\uFE0F]/gu, " ")
+    .replace(/[\u{1F000}-\u{1FAFF}\u{2600}-\u{27BF}\u{2190}-\u{21FF}\u{2B00}-\u{2BFF}]/gu, " ")
+    .replace(/\uFE0F/gu, " ")
     .replace(/#\w+/g, " ")
     .replace(/\s+/g, " ")
     .trim()
