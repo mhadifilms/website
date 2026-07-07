@@ -105,6 +105,25 @@ const TOOLS = [
   },
 ]
 
+// Fetch real repo dates from the GitHub API (created_at). Falls back to a
+// fixed date if the API is unavailable or rate-limited.
+async function fetchRepoDates() {
+  const headers = { "user-agent": "mhadifilms.com tools import", accept: "application/vnd.github+json" }
+  if (process.env.GITHUB_TOKEN) headers.authorization = `Bearer ${process.env.GITHUB_TOKEN}`
+  const dates = new Map()
+  try {
+    const res = await fetch(`https://api.github.com/users/${USER}/repos?per_page=100&sort=created`, { headers })
+    if (!res.ok) throw new Error(`GitHub API ${res.status}`)
+    const repos = await res.json()
+    for (const repo of repos) {
+      if (repo?.name && repo.created_at) dates.set(repo.name.toLowerCase(), repo.created_at.slice(0, 10))
+    }
+  } catch (error) {
+    console.warn(`Could not fetch repo dates (${error.message}); using fallback date.`)
+  }
+  return dates
+}
+
 function frontmatter(fields, body) {
   const order = ["slug", "platform", "category", "project", "format", "entryType", "title", "dek", "date", "href", "image", "summary", "role", "featured"]
   const lines = ["---"]
@@ -123,6 +142,8 @@ async function run() {
     if (file.endsWith(".md")) await fs.unlink(path.join(outDir, file))
   }
 
+  const repoDates = await fetchRepoDates()
+
   let count = 0
   for (const tool of TOOLS) {
     const repoUrl = `https://github.com/${USER}/${tool.repo}`
@@ -139,7 +160,7 @@ async function run() {
       entryType: "Tool",
       title: tool.title,
       dek: tool.dek,
-      date: "2026-06-01",
+      date: repoDates.get(tool.repo.toLowerCase()) ?? "2026-06-01",
       href: repoUrl,
       image: `https://opengraph.githubassets.com/1/${USER}/${tool.repo}`,
       summary: tool.dek,
