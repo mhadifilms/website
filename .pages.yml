@@ -51,7 +51,7 @@ content:
             label: Platform
             type: select
             options:
-              values: ["Linkedin", "Twitter", "Instagram", "Substack", "YouTube"]
+              values: ["Linkedin", "Twitter", "Instagram", "Substack", "YouTube", "GitHub"]
           - name: href
             label: Profile URL
             type: string

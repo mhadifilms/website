@@ -9,6 +9,7 @@ dateStart: 2025-08-01
 image: /media/polaroid-camera.webp
 summary: Essays and build notes about creative tools, experiments, filmmaking, and learning in public.
 href: https://mhadimedia.substack.com
+relatedExperience: sync-labs
 platforms:
   - Substack
   - Linkedin

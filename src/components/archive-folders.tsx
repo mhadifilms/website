@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from "react"
 import { AnimatePresence, m } from "framer-motion"
 import { Link } from "react-router-dom"
-import { ArrowLeft, ArrowUpRight } from "lucide-react"
+import { ArrowLeft, ArrowUpRight, ChevronLeft, ChevronRight } from "lucide-react"
 
 import type { ArchiveCategory, ArchiveItem, Project } from "@/content/types"
 import {
@@ -215,6 +215,81 @@ function FolderCard({
   )
 }
 
+const FILES_PER_PAGE = 6
+
+function SeriesFiles({ items }: { items: ArchiveItem[] }) {
+  const [page, setPage] = useState(0)
+  const pageCount = Math.ceil(items.length / FILES_PER_PAGE)
+  // Clamp if the item set shrinks (e.g. switching series reuses the component).
+  const current = Math.min(page, pageCount - 1)
+  const start = current * FILES_PER_PAGE
+  const visible = items.slice(start, start + FILES_PER_PAGE)
+
+  return (
+    <div className="mt-4">
+      <div className="space-y-2">
+        {visible.map((item) => (
+          <Link
+            key={item.slug}
+            to={archiveEntryPath(item)}
+            className="group/file flex gap-3 border-2 border-black/10 bg-[#fffff6] p-2.5 transition hover:-translate-y-0.5 hover:border-black hover:shadow-[3px_3px_0_0_rgba(0,0,0,0.82)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-4 focus-visible:ring-offset-background"
+          >
+            <div className="h-14 w-20 shrink-0 overflow-hidden border border-black/15 bg-[#d9d9d9]">
+              {item.image ? <img src={item.image} alt="" loading="lazy" decoding="async" className="size-full object-cover grayscale transition group-hover/file:grayscale-0" /> : null}
+            </div>
+            <div className="min-w-0 flex-1">
+              <p className="line-clamp-2 break-words text-sm font-light leading-5 text-black/80">{item.title}</p>
+              <p className="mt-1 text-[9px] font-light uppercase tracking-[0.16em] text-black/40">
+                {item.platform} / {item.entryType} / {new Date(item.date).getFullYear()}
+              </p>
+            </div>
+          </Link>
+        ))}
+      </div>
+
+      {pageCount > 1 && (
+        <div className="mt-3 flex items-center justify-between border-t border-black/10 pt-3">
+          <button
+            type="button"
+            onClick={() => setPage(Math.max(0, current - 1))}
+            disabled={current === 0}
+            aria-label="Previous page"
+            className="grid size-8 place-items-center border border-black/15 text-black/55 transition hover:border-black hover:text-black disabled:cursor-not-allowed disabled:border-black/8 disabled:text-black/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+          >
+            <ChevronLeft className="size-4" strokeWidth={1.8} />
+          </button>
+
+          <div className="flex items-center gap-2" role="group" aria-label="Pages">
+            {Array.from({ length: pageCount }, (_, index) => (
+              <button
+                key={index}
+                type="button"
+                onClick={() => setPage(index)}
+                aria-label={`Page ${index + 1}`}
+                aria-current={index === current ? "true" : undefined}
+                className={cn(
+                  "h-1.5 rounded-full transition-all",
+                  index === current ? "w-5 bg-black" : "w-1.5 bg-black/20 hover:bg-black/40",
+                )}
+              />
+            ))}
+          </div>
+
+          <button
+            type="button"
+            onClick={() => setPage(Math.min(pageCount - 1, current + 1))}
+            disabled={current === pageCount - 1}
+            aria-label="Next page"
+            className="grid size-8 place-items-center border border-black/15 text-black/55 transition hover:border-black hover:text-black disabled:cursor-not-allowed disabled:border-black/8 disabled:text-black/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+          >
+            <ChevronRight className="size-4" strokeWidth={1.8} />
+          </button>
+        </div>
+      )}
+    </div>
+  )
+}
+
 function PixelFolder({ open, thumbnail }: { open: boolean; thumbnail?: string }) {
   return (
     <div className="relative h-[112px] w-[148px]" aria-hidden="true">
@@ -328,25 +403,7 @@ function FolderView({
                     {group.project.summary}
                   </p>
                 )}
-                <div className="mt-4 space-y-2">
-                  {group.items.map((item) => (
-                    <Link
-                      key={item.slug}
-                      to={archiveEntryPath(item)}
-                      className="group/file flex gap-3 border-2 border-black/10 bg-[#fffff6] p-2.5 transition hover:-translate-y-0.5 hover:border-black hover:shadow-[3px_3px_0_0_rgba(0,0,0,0.82)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-4 focus-visible:ring-offset-background"
-                    >
-                      <div className="h-14 w-20 shrink-0 overflow-hidden border border-black/15 bg-[#d9d9d9]">
-                        {item.image ? <img src={item.image} alt="" loading="lazy" decoding="async" className="size-full object-cover grayscale transition group-hover/file:grayscale-0" /> : null}
-                      </div>
-                      <div className="min-w-0 flex-1">
-                        <p className="line-clamp-2 break-words text-sm font-light leading-5 text-black/80">{item.title}</p>
-                        <p className="mt-1 text-[9px] font-light uppercase tracking-[0.16em] text-black/40">
-                          {item.platform} / {item.entryType} / {new Date(item.date).getFullYear()}
-                        </p>
-                      </div>
-                    </Link>
-                  ))}
-                </div>
+                <SeriesFiles items={group.items} />
               </section>
               )
             })}

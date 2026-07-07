@@ -284,9 +284,9 @@ function RelatedWork({ experienceSlug }: { experienceSlug: string }) {
   if (groups.length === 0) return null
 
   return (
-    <div className="mt-9 max-w-[720px]">
+    <div className="mt-9 min-w-0 max-w-[720px]">
       <p className="text-[11px] font-light uppercase tracking-[0.28em] text-black/40">Work from this chapter</p>
-      <div className="-mx-1 mt-4 flex gap-4 overflow-x-auto px-1 pb-3 [scrollbar-width:thin]">
+      <div className="-mx-4 mt-4 flex touch-pan-x snap-x snap-mandatory gap-4 overflow-x-auto px-4 pb-3 [-webkit-overflow-scrolling:touch] [scrollbar-width:thin]">
         {groups.map((group) => (
           <WorkContactSheet key={group.project.slug} group={group} />
         ))}
@@ -307,7 +307,7 @@ function WorkContactSheet({ group }: { group: ReturnType<typeof relatedSeriesFor
       whileHover={{ y: -4 }}
       whileTap={{ scale: 0.985 }}
       transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
-      className="group/sheet relative w-[224px] shrink-0 border-2 border-black/15 bg-[#fffdf0] p-3 text-left outline-none transition-colors hover:border-black focus-visible:border-black focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-4 focus-visible:ring-offset-background"
+      className="group/sheet relative w-[224px] shrink-0 snap-start border-2 border-black/15 bg-[#fffdf0] p-3 text-left outline-none transition-colors hover:border-black focus-visible:border-black focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-4 focus-visible:ring-offset-background"
     >
       <div className="grid grid-cols-2 gap-[3px] border-2 border-black bg-black p-[3px]">
         {shots.map((shot, index) => (
@@ -527,7 +527,7 @@ function ExperienceDrawer({
             className="overflow-hidden"
           >
             <div className="grid gap-8 px-4 pb-8 pt-1 sm:px-7 lg:grid-cols-[minmax(0,1fr)_220px] lg:gap-12">
-              <div className="pl-17 sm:pl-21">
+              <div className="min-w-0 pl-17 sm:pl-21">
                 <p className="max-w-[720px] text-pretty text-xl font-light leading-[1.34] text-black/75 sm:text-2xl">
                   {item.summary}
                 </p>

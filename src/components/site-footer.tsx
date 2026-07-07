@@ -4,6 +4,7 @@ import { ArrowUpRight } from "lucide-react"
 
 import { site } from "@/content/generated"
 import {
+  GitHubIcon,
   InstagramIcon,
   LinkedinIcon,
   SubstackIcon,
@@ -19,6 +20,7 @@ const SOCIAL_META = {
   Instagram: { note: "frames", Icon: InstagramIcon },
   Twitter: { note: "notes", Icon: TwitterIcon },
   Linkedin: { note: "work", Icon: LinkedinIcon },
+  GitHub: { note: "code", Icon: GitHubIcon },
 } as const
 
 type ViewfinderCursorProps = {
