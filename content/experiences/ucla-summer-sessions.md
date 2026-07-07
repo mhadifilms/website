@@ -8,7 +8,8 @@ location: Los Angeles, CA
 dateStart: "2022"
 dateEnd: "2022"
 summary: Studied film, story structure, and production craft through UCLA Summer Sessions, learning from instructors who brought a working filmmaker's eye to the classroom.
-logo: /media/polaroid-beach.webp
+logo: /media/logo-ucla.webp
+logoFit: contain
 ---
 
 UCLA helped sharpen the way I think about story before a camera ever turns on. The strongest lessons were practical: how scenes carry pressure, how performances change a cut, and how structure can make a small piece feel bigger than its budget.

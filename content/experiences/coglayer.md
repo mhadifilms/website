@@ -9,7 +9,8 @@ dateEnd: "2024-01-01"
 summary: Helped build and scale coglayer from an early product into a learning tool with 35,000 users while shaping product, positioning, and launch motion.
 href: https://worthy-chart-537025.framer.app/
 visitLabel: View prototype
-logo: /media/polaroid-camera.webp
+logo: /media/logo-coglayer.webp
+logoFit: contain
 ---
 
 coglayer was a product and growth chapter: part positioning, part product management, and part figuring out what students and users actually needed from a tool that called itself training wheels for your brain.

@@ -34,6 +34,12 @@ export type Experience = {
   href?: string
   visitLabel?: string
   logo?: string
+  /**
+   * How the logo sits in the polaroid frame. "contain" keeps the artwork
+   * uncropped and fills the gaps with a color sampled from the logo itself;
+   * "cover" (default) crops to fill like a photo.
+   */
+  logoFit?: "contain" | "cover"
   media?: ExperienceMedia[]
   html: string
 }

@@ -30,6 +30,107 @@ function withBase(path?: string) {
   return `${base}/${clean}`
 }
 
+/**
+ * Averages the border pixels of an image to find the color its background
+ * fades into, so uncropped logos can sit on a matching field instead of
+ * letterbox bars. Transparent-background logos fall back to white.
+ */
+const logoBackgroundCache = new Map<string, string>()
+
+function useLogoBackground(src: string | undefined, enabled: boolean) {
+  const [state, setState] = useState<{ src?: string; color?: string }>(() => ({
+    src,
+    color: src ? logoBackgroundCache.get(src) : undefined,
+  }))
+
+  // Derived-state reset when the image changes between renders.
+  if (state.src !== src) {
+    setState({ src, color: src ? logoBackgroundCache.get(src) : undefined })
+  }
+
+  useEffect(() => {
+    if (!enabled || !src || logoBackgroundCache.has(src)) return
+
+    let cancelled = false
+    const image = new Image()
+    image.src = src
+    image.onload = () => {
+      if (cancelled) return
+      try {
+        const size = 24
+        const canvas = document.createElement("canvas")
+        canvas.width = size
+        canvas.height = size
+        const context = canvas.getContext("2d")
+        if (!context) return
+        context.drawImage(image, 0, 0, size, size)
+        const data = context.getImageData(0, 0, size, size).data
+        let r = 0
+        let g = 0
+        let b = 0
+        let opaque = 0
+        let total = 0
+        for (let y = 0; y < size; y++) {
+          for (let x = 0; x < size; x++) {
+            if (x > 0 && x < size - 1 && y > 0 && y < size - 1) continue
+            total++
+            const i = (y * size + x) * 4
+            if (data[i + 3] < 200) continue
+            r += data[i]
+            g += data[i + 1]
+            b += data[i + 2]
+            opaque++
+          }
+        }
+        // A mostly transparent border means the logo has no background of its
+        // own (e.g. a wordmark PNG) — put it on white instead of averaging
+        // whatever stray outline pixels touch the edge.
+        const next =
+          opaque / total >= 0.6
+            ? `rgb(${Math.round(r / opaque)} ${Math.round(g / opaque)} ${Math.round(b / opaque)})`
+            : "#ffffff"
+        logoBackgroundCache.set(src, next)
+        if (!cancelled) setState({ src, color: next })
+      } catch {
+        // Canvas readback failed (e.g. cross-origin image); keep the fallback.
+      }
+    }
+    return () => {
+      cancelled = true
+      image.onload = null
+    }
+  }, [src, enabled])
+
+  return state.src === src ? state.color : undefined
+}
+
+type LogoFit = "contain" | "cover"
+
+function PolaroidPhoto({ src, fit, className }: { src: string; fit: LogoFit; className?: string }) {
+  const background = useLogoBackground(src, fit === "contain")
+
+  return (
+    <div
+      className="aspect-4/5 w-full overflow-hidden"
+      style={fit === "contain" ? { backgroundColor: background ?? "#ffffff" } : undefined}
+    >
+      <img
+        src={src}
+        alt=""
+        loading="lazy"
+        decoding="async"
+        className={cn(
+          "size-full",
+          fit === "contain"
+            ? "object-contain p-[7%]"
+            : "object-cover saturate-[0.9] contrast-[0.96] sepia-[0.08]",
+          className,
+        )}
+      />
+    </div>
+  )
+}
+
 type TimelineProps = {
   items: Experience[]
   className?: string
@@ -37,6 +138,7 @@ type TimelineProps = {
 
 type PreviewState = {
   src?: string
+  fit: LogoFit
   meta: string
   x: number
   y: number
@@ -50,6 +152,7 @@ export function Timeline({ items, className }: TimelineProps) {
   const [activeSlug, setActiveSlug] = useState(initialSlug)
   const [preview, setPreview] = useState<PreviewState>({
     src: undefined,
+    fit: "cover",
     meta: "",
     x: 0,
     y: 0,
@@ -95,6 +198,7 @@ export function Timeline({ items, className }: TimelineProps) {
   const showPreview = (item: Experience, x: number, y: number) => {
     setPreview({
       src: withBase(item.logo),
+      fit: item.logoFit ?? "cover",
       meta: item.role,
       x,
       y,
@@ -162,13 +266,7 @@ export function Timeline({ items, className }: TimelineProps) {
             className="pointer-events-none fixed left-0 top-0 z-50 hidden w-[156px] overflow-hidden bg-[#efede2] p-2 pb-7 shadow-polaroid lg:block"
             aria-hidden="true"
           >
-            <img
-              src={preview.src}
-              alt=""
-              loading="lazy"
-              decoding="async"
-              className="aspect-4/5 w-full object-cover saturate-[0.9] contrast-[0.96] sepia-[0.08]"
-            />
+            <PolaroidPhoto src={preview.src} fit={preview.fit} />
             <div className="sr-only">{preview.meta}</div>
           </m.div>
         )}
@@ -463,13 +561,7 @@ function ExperienceDrawer({
 
               {imageSrc && (
                 <figure className="group hidden rotate-[1.6deg] self-start bg-[#efede2] p-3 pb-9 shadow-polaroid transition-transform duration-300 ease-out hover:rotate-0 lg:block">
-                  <img
-                    src={imageSrc}
-                    alt=""
-                    loading="lazy"
-                    decoding="async"
-                    className="polaroid-photo aspect-4/5 w-full object-cover saturate-[0.9] contrast-[0.96] sepia-[0.08]"
-                  />
+                  <PolaroidPhoto src={imageSrc} fit={item.logoFit ?? "cover"} className="polaroid-photo" />
                 </figure>
               )}
             </div>

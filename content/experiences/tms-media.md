@@ -7,7 +7,8 @@ role: Multimedia Intern
 dateStart: "2023-06-01"
 dateEnd: "2023-09-01"
 summary: Edited podcasts, short-form content, and production pieces for TMS Productions while learning inside a focused media team.
-logo: /media/polaroid-podcast.webp
+logo: /media/logo-tms-productions.webp
+logoFit: contain
 ---
 
 TMS Productions gave me a more focused production environment for quick-turn media work, mentorship, and a closer look at how a production company serves an established YouTube subscriber base.

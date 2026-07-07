@@ -100,6 +100,11 @@ content:
       - name: logo
         label: Logo
         type: image
+      - name: logoFit
+        label: Logo fit (contain keeps logos uncropped on a matched background)
+        type: select
+        options:
+          values: ["contain", "cover"]
       - name: media
         label: Media embeds
         type: object

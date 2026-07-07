@@ -7,7 +7,7 @@ role: Filmmaker, Editor, VFX
 location: Worldwide
 dateStart: "2017"
 summary: Eight-plus years editing, shooting, fixing, and finishing videos for clients, communities, events, collaborators, and personal projects.
-logo: /media/polaroid-camera.webp
+logo: /media/figma-mhadi-camera.webp
 ---
 
 Freelance work taught me the whole production loop. Find the story, plan what can actually be shot, capture enough to make the edit work, clean the details, and deliver something people want to watch.

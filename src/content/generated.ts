@@ -71,7 +71,8 @@ export const experiences = [
     "summary": "Grew with sync. from early growth work into production leadership and now Chief of Staff, helping turn high-end AI video research into work that survives real clients, real footage, and real deadlines.",
     "href": "https://sync.so",
     "visitLabel": "Visit sync. labs",
-    "logo": "/media/figma-mhadi-camera.webp",
+    "logo": "/media/logo-sync-labs.webp",
+    "logoFit": "contain",
     "html": "<p>At sync. labs, my job has moved with the company: Growth Intern, Growth Marketer, Head of Production, and now Chief of Staff. The thread through all of it has been helping the product, the team, and the work that leaves the building become sharper.</p>\n<p>Role progression:</p>\n<ul>\n<li>Chief of Staff, full-time, Feb 2026 to present.</li>\n<li>Head of Production, full-time, Jun 2024 to Mar 2026.</li>\n<li>Growth Marketer, part-time, Nov 2023 to Jun 2024.</li>\n<li>Growth Intern, contract, Aug 2023 to Nov 2023.</li>\n</ul>\n<p>What I worked on:</p>\n<ul>\n<li>Built systems around messy, high-stakes creative work instead of treating video like a clean demo.</li>\n<li>Worked closely with product feedback, production needs, and the company narrative.</li>\n<li>Brought an editor&#39;s eye to AI video, content, and production workflows where a few frames can be the difference between impressive and believable.</li>\n</ul>\n"
   },
   {
@@ -85,7 +86,8 @@ export const experiences = [
     "summary": "Co-founded a Bay Area-based production company dedicated to sharing real stories and experiences with the world.",
     "href": "https://awaiten.com",
     "visitLabel": "Visit Awaiten",
-    "logo": "/media/polaroid-on-set.webp",
+    "logo": "/media/logo-awaiten.webp",
+    "logoFit": "contain",
     "html": "<p>Awaiten is where I learned how to make the work hold up outside of my own head. We combine technical craft with narrative depth to create visual content for real communities, real clients, and real stories.</p>\n<p>Highlights:</p>\n<ul>\n<li>Co-founded the studio with Aalyan Aamir.</li>\n<li>Worked across directing, cinematography, editing, motion graphics, production, and delivery.</li>\n<li>Built more than seven years of production experience through the studio.</li>\n<li>Helped produce community, brand, documentary, and event work reaching 1M+ views.</li>\n</ul>\n"
   },
   {
@@ -99,7 +101,8 @@ export const experiences = [
     "summary": "Helped build and scale coglayer from an early product into a learning tool with 35,000 users while shaping product, positioning, and launch motion.",
     "href": "https://worthy-chart-537025.framer.app/",
     "visitLabel": "View prototype",
-    "logo": "/media/polaroid-camera.webp",
+    "logo": "/media/logo-coglayer.webp",
+    "logoFit": "contain",
     "html": "<p>coglayer was a product and growth chapter: part positioning, part product management, and part figuring out what students and users actually needed from a tool that called itself training wheels for your brain.</p>\n<p>Highlights:</p>\n<ul>\n<li>Helped build and scale from 0 to 35,000 users.</li>\n<li>Worked across product management, project management, beta testing, marketing, and SEO.</li>\n<li>Redesigned the initial UI prototype around floating cards and interactive questions so the interface could adapt to the user instead of feeling like a static lesson page.</li>\n<li>Helped translate the product idea into clearer messaging, feedback loops, and launch motion.</li>\n</ul>\n"
   },
   {
@@ -111,7 +114,8 @@ export const experiences = [
     "dateStart": "2023-06-01",
     "dateEnd": "2023-09-01",
     "summary": "Edited podcasts, short-form content, and production pieces for TMS Productions while learning inside a focused media team.",
-    "logo": "/media/polaroid-podcast.webp",
+    "logo": "/media/logo-tms-productions.webp",
+    "logoFit": "contain",
     "html": "<p>TMS Productions gave me a more focused production environment for quick-turn media work, mentorship, and a closer look at how a production company serves an established YouTube subscriber base.</p>\n<p>What stuck with me:</p>\n<ul>\n<li>Podcast editing, short-form content, and content ideation for repeatable media formats.</li>\n<li>Mentorship around how production choices, client needs, and the final edit connect.</li>\n<li>A full-circle moment: one of my first editing challenges with footage I did not shoot was cutting a car commercial from TMS footage.</li>\n</ul>\n"
   },
   {
@@ -124,7 +128,8 @@ export const experiences = [
     "dateStart": "2022",
     "dateEnd": "2022",
     "summary": "Studied film, story structure, and production craft through UCLA Summer Sessions, learning from instructors who brought a working filmmaker's eye to the classroom.",
-    "logo": "/media/polaroid-beach.webp",
+    "logo": "/media/logo-ucla.webp",
+    "logoFit": "contain",
     "html": "<p>UCLA helped sharpen the way I think about story before a camera ever turns on. The strongest lessons were practical: how scenes carry pressure, how performances change a cut, and how structure can make a small piece feel bigger than its budget.</p>\n<p>What stayed with me:</p>\n<ul>\n<li>A more disciplined way to break down scripts, scenes, and character motivation.</li>\n<li>Classroom critique from instructors with real production experience.</li>\n<li>Co-founded Section Twelve Productions and was nominated for best editing as part of Los Angeles&#39; 48 Hour Film Festival.</li>\n<li>A stronger foundation for the directing, editing, and documentary work I took on afterward.</li>\n</ul>\n"
   },
   {
@@ -139,7 +144,8 @@ export const experiences = [
     "summary": "Built and hosted a long-form podcast with Ali Almathkur about real people, hard-earned lessons, and the story of the Muslim West.",
     "href": "https://awaiten.com/podcast/",
     "visitLabel": "Visit Journey Tellers",
-    "logo": "/media/polaroid-podcast.webp",
+    "logo": "/media/logo-journey-tellers.webp",
+    "logoFit": "contain",
     "html": "<p>Journey Tellers started as a way to have slower, better conversations than social media usually allows. I co-hosted with <a href=\"https://youtube.com/@alialmathkur/\">Ali Almathkur</a> and worked across guest research, interview prep, production, editing, and distribution.</p>\n<p>Highlights:</p>\n<ul>\n<li>Hosted founders, community builders, creatives, and people with stories that deserved more time.</li>\n<li>Produced episodes for YouTube and major podcast platforms.</li>\n<li>Used the show as a way to practice listening, pacing, and long-form narrative.</li>\n</ul>\n"
   },
   {
@@ -151,7 +157,7 @@ export const experiences = [
     "location": "Worldwide",
     "dateStart": "2017",
     "summary": "Eight-plus years editing, shooting, fixing, and finishing videos for clients, communities, events, collaborators, and personal projects.",
-    "logo": "/media/polaroid-camera.webp",
+    "logo": "/media/figma-mhadi-camera.webp",
     "html": "<p>Freelance work taught me the whole production loop. Find the story, plan what can actually be shot, capture enough to make the edit work, clean the details, and deliver something people want to watch.</p>\n<p>What this includes:</p>\n<ul>\n<li>Editing, color, sound cleanup, titles, and motion graphics.</li>\n<li>Camera operation and directing for documentary, event, brand, and community work.</li>\n<li>Practical fixes for small teams, tight budgets, bad rooms, and ambitious ideas.</li>\n<li>Early range across community media, websites, short documentaries, nonprofit projects, and scrappy production teams.</li>\n<li>Creative leadership from co-founding SR Studios, where I helped young collaborators learn media basics and ship projects before anyone had a polished portfolio.</li>\n</ul>\n"
   }
 ] satisfies Experience[]

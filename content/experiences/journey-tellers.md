@@ -10,7 +10,8 @@ dateEnd: "2025-01-01"
 summary: Built and hosted a long-form podcast with Ali Almathkur about real people, hard-earned lessons, and the story of the Muslim West.
 href: https://awaiten.com/podcast/
 visitLabel: Visit Journey Tellers
-logo: /media/polaroid-podcast.webp
+logo: /media/logo-journey-tellers.webp
+logoFit: contain
 ---
 
 Journey Tellers started as a way to have slower, better conversations than social media usually allows. I co-hosted with [Ali Almathkur](https://youtube.com/@alialmathkur/) and worked across guest research, interview prep, production, editing, and distribution.
