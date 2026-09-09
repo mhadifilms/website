@@ -1214,7 +1214,7 @@ export function PostEditor({
             <iframe
               className="cms-email-preview"
               title="Newsletter email preview"
-              sandbox=""
+              sandbox="allow-same-origin"
               srcDoc={emailPreview.html}
             />
           )}

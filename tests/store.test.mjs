@@ -199,3 +199,15 @@ test("plain text keeps paragraph boundaries and punctuation", (t) => {
   const post = store.create({ title: "Spacing", document: importHtml("<p>One &amp; two.</p><p>Three.</p>") })
   assert.equal(post.snapshot.text, "One & two.\n\nThree.")
 })
+
+test("restoring a pre-publication revision keeps the permanent public address", (t) => {
+  const store = fixture(t)
+  let post = create(store)
+  post = store.save(post.id, post.version, { ...post.snapshot, title: "Final title", slug: "final-title" })
+  post = store.publish(post.id, post.version)
+  post = store.restore(post.id, post.version, 1)
+  assert.equal(post.snapshot.title, "A real draft")
+  assert.equal(post.snapshot.slug, "final-title")
+  assert.equal(post.canonical_path, "/writing/final-title")
+  assert.equal(store.publicPost(post.canonical_path).snapshot.title, "Final title")
+})

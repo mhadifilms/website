@@ -68,6 +68,10 @@ test("write, autosave, image caption, preview, publish, and keep later changes p
     "naturalWidth",
     800,
   )
+  await page.getByRole("button", { name: "Email edition", exact: true }).click()
+  await page.getByRole("button", { name: "Preview email", exact: true }).click()
+  await expect(page.frameLocator('iframe[title="Newsletter email preview"]').locator("img")).toHaveJSProperty("naturalWidth", 800)
+  await page.getByRole("button", { name: "Close dialog", exact: true }).click()
   await page.getByRole("button", { name: "Preview", exact: true }).click()
   await expect(
     page.getByRole("heading", { name: "An idea becomes a story" }),

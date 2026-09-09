@@ -140,6 +140,14 @@ export function openStore(directory) {
       return get(id)
     })
   }
+  function restore(id, version, revision) {
+    const post = get(id)
+    const earlier = snapshot(id, revision)
+    return save(id, version, {
+      ...earlier,
+      slug: post.canonical_path ? post.snapshot.slug : earlier.slug,
+    })
+  }
   function publishInside(id, revision) {
     const post = row(id),
       value = snapshot(id, revision)
@@ -278,6 +286,7 @@ export function openStore(directory) {
     create,
     get,
     save,
+    restore,
     publish,
     archive,
     schedule,

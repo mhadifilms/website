@@ -44,13 +44,7 @@ export function createApp(store, config) {
     ),
   )
   app.post("/api/admin/posts/:id/restore", (request, response) =>
-    response.json(
-      store.save(
-        request.params.id,
-        request.body.version,
-        store.snapshot(request.params.id, Number(request.body.revision)),
-      ),
-    ),
+    response.json(store.restore(request.params.id, request.body.version, Number(request.body.revision))),
   )
   app.post("/api/admin/posts/:id/publish", (request, response) =>
     response.json(store.publish(request.params.id, request.body.version)),
