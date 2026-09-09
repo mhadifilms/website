@@ -1,0 +1,28 @@
+name: Publishing CMS checks
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [codex/native-publishing-cms]
+
+permissions:
+  contents: read
+
+jobs:
+  publishing:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - run: npm run typecheck
+      - run: npm run lint
+      - run: npm run test:cms
+      - run: npm run build
+      - run: npx playwright install --with-deps chromium
+      - run: npm run test:browser

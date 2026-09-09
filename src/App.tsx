@@ -4,8 +4,11 @@ import { LazyMotion, MotionConfig, domAnimation } from "framer-motion"
 
 import { SiteShell } from "@/components/site-shell"
 
+const AdminPage = lazy(() => import("@/cms/admin"))
+const WritingPage = lazy(() => import("@/cms/public"))
+
 const SitePage = lazy(() => import("@/pages/site"))
-const ArchiveEntryPage = lazy(() => import("@/pages/archive-entry"))
+const ArchiveEntryPage = lazy(() => import("@/cms/native-archive"))
 
 function RouteFallback() {
   return (
@@ -21,6 +24,10 @@ export default function App() {
       <MotionConfig reducedMotion="user">
         <Suspense fallback={<RouteFallback />}>
           <Routes>
+            <Route path="/admin" element={<AdminPage />} />
+            <Route path="/admin/*" element={<AdminPage />} />
+            <Route path="/writing" element={<WritingPage />} />
+            <Route path="/writing/:slug" element={<WritingPage />} />
             <Route element={<SiteShell />}>
               <Route path="/archives/:categorySlug/:entrySlug" element={<ArchiveEntryPage />} />
               <Route path="*" element={<SitePage />} />

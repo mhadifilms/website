@@ -4,9 +4,12 @@ import { m } from "framer-motion"
 import { ArchiveFolders } from "@/components/archive-folders"
 import { Section } from "@/components/section"
 import { useSectionMotion } from "@/hooks/use-section-motion"
-import { archives, projects } from "@/content/generated"
+import { projects } from "@/content/generated"
+
+import { useNativeArchives } from "@/cms/use-native-archives"
 
 export function ArchivesSection() {
+  const archives = useNativeArchives()
   const ref = useRef<HTMLDivElement>(null)
   const { opacity, scale, translateY } = useSectionMotion(ref)
 

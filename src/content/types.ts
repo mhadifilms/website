@@ -84,6 +84,7 @@ export type Project = {
 }
 
 export type ArchiveItem = {
+  nativePath?: string
   slug: string
   platform: ArchivePlatform
   category: ArchiveCategory

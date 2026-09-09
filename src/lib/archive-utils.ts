@@ -43,8 +43,8 @@ export function archiveCategoryFromSlug(slug = ""): ArchiveCategory | undefined 
   return ARCHIVE_CATEGORY_ORDER.find((category) => archiveCategorySlug(category) === slug)
 }
 
-export function archiveEntryPath(item: Pick<ArchiveItem, "category" | "slug">) {
-  return `/archives/${archiveCategorySlug(item.category)}/${item.slug}`
+export function archiveEntryPath(item: Pick<ArchiveItem, "category" | "slug" | "nativePath">) {
+  return item.nativePath || `/archives/${archiveCategorySlug(item.category)}/${item.slug}`
 }
 
 export function archiveFormatLabel(format: ArchiveFormat) {
