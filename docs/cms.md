@@ -4,7 +4,7 @@ The custom writing desk is at `/admin`. It uses the existing React site, a Tipta
 
 ## Run locally
 
-Use Node 22.18+ or 24 LTS. Run `npm ci`, then `npm run cms:server` and `npm run dev` in separate terminals. Open `http://localhost:5174/admin`. The server writes a single-use development sign-in code to `.cms-data/local-signin-code`; enter that code in the local sign-in form. Development authentication is loopback-only and disabled in production. Vite proxies `/api` to port 8788. Do not expose either development port publicly.
+Use the pinned Node 24.20.0 and npm 11.19.0 versions (`.nvmrc` / `packageManager`) for reproducible installs. Run `npm ci`, then `npm run cms:server` and `npm run dev` in separate terminals. Open `http://localhost:5174/admin`. The server writes a single-use development sign-in code to `.cms-data/local-signin-code`; enter that code in the local sign-in form. Development authentication is loopback-only and disabled in production. Vite proxies `/api` to port 8788. Do not expose either development port publicly.
 
 A `.env.cms` file can override settings using `.env.cms.example`. The server data folder must stay outside Git and frontend builds. The repository is public.
 

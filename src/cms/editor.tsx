@@ -83,6 +83,7 @@ export function PostEditor({
       subject: string
     } | null>(null),
     [plainEmail, setPlainEmail] = useState(false)
+  const [hasFocusedBody, setHasFocusedBody] = useState(false)
   const updateRef = useRef(update)
   useEffect(() => {
     updateRef.current = update
@@ -123,6 +124,7 @@ export function PostEditor({
         return true
       },
     },
+    onFocus: () => setHasFocusedBody(true),
     onUpdate: ({ editor }) => {
       updateRef.current({
         document: editor.getJSON(),
@@ -587,7 +589,7 @@ export function PostEditor({
               <Redo2 size={17} />
             </button>
           </div>
-          {active?.image && (
+          {active?.image && hasFocusedBody && (
             <div className="cms-image-controls">
               <label>
                 Alt text
