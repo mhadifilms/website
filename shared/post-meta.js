@@ -122,3 +122,9 @@ export function relatedPosts(posts, current) {
     .slice(0, 3)
     .map((v) => v.post);
 }
+
+export function bodyStartsWithCover(snapshot) {
+  const first = snapshot.document?.content?.[0];
+  return Boolean(snapshot.cover && first?.type === "image" &&
+    [first.attrs?.src, first.attrs?.motionPoster].includes(snapshot.cover));
+}

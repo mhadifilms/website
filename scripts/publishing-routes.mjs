@@ -1,4 +1,4 @@
-import { postMeta, relatedPosts } from "../shared/post-meta.js";
+import { postMeta, relatedPosts, bodyStartsWithCover } from "../shared/post-meta.js";
 import fs from "node:fs/promises";
 import path from "node:path";
 const allowed = [
@@ -88,7 +88,7 @@ export function publicationRoute(
       { property: "article:published_time", content: s.date },
       { property: "article:author", content: `${site}/about` },
     ],
-    prerenderHtml: `<main class="native-writing-page"><nav><a href="/writing">Writing</a><a href="/">mh.</a></nav><article class="native-post"><header><p>M Hadi / <time datetime="${escape(s.date)}">${escape(s.date)}</time></p><h1>${escape(s.title)}</h1>${s.subtitle ? `<p>${escape(s.subtitle)}</p>` : ""}</header>${s.cover ? `<figure><img src="${escape(s.cover)}" alt="${escape(s.coverAlt)}"></figure>` : ""}<div class="post-prose">${s.html}</div><footer><a href="/writing">More writing</a>${relatedPosts(
+    prerenderHtml: `<main class="native-writing-page"><nav><a href="/writing">Writing</a><a href="/">mh.</a></nav><article class="native-post"><header><p>M Hadi / <time datetime="${escape(s.date)}">${escape(s.date)}</time></p><h1>${escape(s.title)}</h1>${s.subtitle ? `<p>${escape(s.subtitle)}</p>` : ""}</header>${s.cover && !bodyStartsWithCover(s) ? `<figure class="post-cover"><img src="${escape(s.cover)}" alt="${escape(s.coverAlt)}" fetchpriority="high"></figure>` : ""}<div class="post-prose">${bodyStartsWithCover(s) ? s.html.replace('loading="lazy"', 'loading="eager" fetchpriority="high"') : s.html}</div><footer><a href="/writing">More writing</a>${relatedPosts(
       allPosts,
       post,
     )
@@ -106,6 +106,6 @@ export function writingIndexRoute(posts) {
     output: "writing/index.html",
     title: "Creative Chaos | Writing by M Hadi",
     description: "Essays, notes, and things I am figuring out.",
-    prerenderHtml: `<main class="native-writing-page"><h1>Creative Chaos</h1>${posts.map((p) => `<article><h2><a href="${escape(p.path)}">${escape(p.snapshot.title)}</a></h2><p>${escape(p.snapshot.subtitle)}</p></article>`).join("")}</main>`,
+    prerenderHtml: `<main class="native-writing-page"><h1>Creative Chaos</h1>${posts.map((p) => `<article>${p.snapshot.cover ? `<a href="${escape(p.path)}" aria-label="${escape(p.snapshot.title)}"><img src="${escape(p.snapshot.cover)}" alt="" loading="lazy" width="180" height="120"></a>` : ""}<h2><a href="${escape(p.path)}">${escape(p.snapshot.title)}</a></h2><p>${escape(p.snapshot.subtitle)}</p></article>`).join("")}</main>`,
   };
 }

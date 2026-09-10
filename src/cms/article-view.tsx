@@ -1,3 +1,4 @@
+import { bodyStartsWithCover } from "../../shared/post-meta.js";
 import { SubscribeForm } from "./subscribe";
 import { ArticleMedia } from "./article-media";
 import { articleHeadings, readingMinutes } from "./article-content";
@@ -13,6 +14,7 @@ export function ArticleView({
   preview?: boolean;
 }) {
   const { content, headings } = articleHeadings(snapshot.html);
+  const hasLeadingCover = bodyStartsWithCover(snapshot);
   return (
     <article
       id="article" tabIndex={-1}
@@ -51,12 +53,12 @@ export function ArticleView({
           </nav>
         </details>
       )}
-      {snapshot.cover && (
+      {snapshot.cover && !hasLeadingCover && (
         <figure className="post-cover">
-          <img src={snapshot.cover} alt={snapshot.coverAlt} />
+          <img src={snapshot.cover} alt={snapshot.coverAlt} fetchPriority="high" decoding="async" />
         </figure>
       )}
-      <ArticleMedia html={content} />
+      <ArticleMedia html={hasLeadingCover ? content.replace('loading="lazy"', 'loading="eager" fetchpriority="high"') : content} />
       {!preview && <SubscribeForm />}
       <footer className="post-end">
         <span>Creative Chaos</span>
