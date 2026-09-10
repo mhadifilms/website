@@ -1,3 +1,4 @@
+import { SubscribeForm } from "./subscribe"
 import type { Snapshot } from "./types"
 import { formatDate } from "./api"
 import "./cms.css"
@@ -39,6 +40,7 @@ export function ArticleView({
         className="post-prose"
         dangerouslySetInnerHTML={{ __html: snapshot.html }}
       />
+      {!preview && <SubscribeForm />}
       <footer className="post-end">
         <span>Creative Chaos</span>
         <p>Writing, making things, and figuring it out along the way.</p>

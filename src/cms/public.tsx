@@ -3,6 +3,7 @@ import { Link, useLocation } from "react-router-dom"
 import { ArrowLeft, ArrowUpRight } from "lucide-react"
 import { api, formatDate } from "./api"
 import type { PublicPost } from "./types"
+import { SubscribeForm } from "./subscribe"
 import { ArticleView } from "./article-view"
 import { applyPageMeta } from "@/lib/seo"
 import "./cms.css"
@@ -74,6 +75,7 @@ export default function WritingPage() {
               />
             </label>
           </header>
+          <SubscribeForm />
           {posts
             .filter((p) =>
               `${p.snapshot.title} ${p.snapshot.text}`
