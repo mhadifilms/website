@@ -1,3 +1,4 @@
+import { SubscribeForm } from "./subscribe";
 import { ArticleMedia } from "./article-media";
 import { articleHeadings, readingMinutes } from "./article-content";
 import type { Snapshot } from "./types";
@@ -56,6 +57,7 @@ export function ArticleView({
         </figure>
       )}
       <ArticleMedia html={content} />
+      {!preview && <SubscribeForm />}
       <footer className="post-end">
         <span>Creative Chaos</span>
         <p>Writing, making things, and figuring it out along the way.</p>

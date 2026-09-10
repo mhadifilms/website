@@ -1,3 +1,4 @@
+import { SubscribeForm } from "./subscribe";
 import { postMeta, relatedPosts } from "../../shared/post-meta.js";
 import { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
@@ -80,6 +81,7 @@ export default function WritingPage() {
               />
             </label>
           </header>
+          <SubscribeForm />
           {posts
             .filter((p) =>
               `${p.snapshot.title} ${p.snapshot.text}`
