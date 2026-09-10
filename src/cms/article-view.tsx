@@ -1,23 +1,29 @@
-import { SubscribeForm } from "./subscribe"
-import type { Snapshot } from "./types"
-import { formatDate } from "./api"
-import "./cms.css"
+import { SubscribeForm } from "./subscribe";
+import { ArticleMedia } from "./article-media";
+import { articleHeadings, readingMinutes } from "./article-content";
+import type { Snapshot } from "./types";
+import { formatDate } from "./api";
+import "./cms.css";
 
 export function ArticleView({
   snapshot,
   preview = false,
 }: {
-  snapshot: Snapshot
-  preview?: boolean
+  snapshot: Snapshot;
+  preview?: boolean;
 }) {
+  const { content, headings } = articleHeadings(snapshot.html);
   return (
     <article
+      id="article" tabIndex={-1}
       className={`native-post ${snapshot.format === "note" ? "native-post-note" : ""}`}
     >
       <header>
         <p className="post-byline">
-          M Hadi <span aria-hidden="true">/</span>{" "}
+          <a href="/">M Hadi</a> <span aria-hidden="true">/</span>{" "}
           <time dateTime={snapshot.date}>{formatDate(snapshot.date)}</time>
+          <span aria-hidden="true">/</span>{" "}
+          <span>{readingMinutes(snapshot.text)} min read</span>
         </p>
         <h1>{snapshot.title || "Untitled post"}</h1>
         {snapshot.subtitle && (
@@ -31,15 +37,26 @@ export function ArticleView({
           </div>
         )}
       </header>
+      {headings.length >= 3 && (
+        <details className="post-contents">
+          <summary>In this post</summary>
+          <nav aria-label="Article sections">
+            <ol>
+              {headings.map((h) => (
+                <li key={h.id}>
+                  <a href={`#${h.id}`}>{h.title}</a>
+                </li>
+              ))}
+            </ol>
+          </nav>
+        </details>
+      )}
       {snapshot.cover && (
         <figure className="post-cover">
           <img src={snapshot.cover} alt={snapshot.coverAlt} />
         </figure>
       )}
-      <div
-        className="post-prose"
-        dangerouslySetInnerHTML={{ __html: snapshot.html }}
-      />
+      <ArticleMedia html={content} />
       {!preview && <SubscribeForm />}
       <footer className="post-end">
         <span>Creative Chaos</span>
@@ -47,5 +64,5 @@ export function ArticleView({
         {!preview && <a href="/writing">More from the writing desk</a>}
       </footer>
     </article>
-  )
+  );
 }
