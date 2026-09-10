@@ -224,6 +224,7 @@ function extraMetaTags(route) {
 
 function injectPrerenderedRoot(html, route) {
   if (!route.prerenderHtml) return html
+  html = html.replace(/<noscript>[\s\S]*?<\/noscript>/, "")
   return replaceTag(html, /<div id="root"><\/div>/, `<div id="root">${route.prerenderHtml}</div>`)
 }
 
@@ -249,8 +250,8 @@ function routeHtml(template, route) {
   html = setMetaProperty(html, "og:image", image)
   html = setMetaProperty(html, "og:image:secure_url", image)
   html = setMetaProperty(html, "og:image:type", route.imageType ?? "image/png")
-  html = setMetaProperty(html, "og:image:width", "1200")
-  html = setMetaProperty(html, "og:image:height", "630")
+  html = setMetaProperty(html, "og:image:width", route.ogType === "article" ? "" : "1200")
+  html = setMetaProperty(html, "og:image:height", route.ogType === "article" ? "" : "630")
   html = setMetaProperty(html, "og:image:alt", imageAlt)
   html = setMetaName(html, "twitter:title", route.title)
   html = setMetaName(html, "twitter:description", route.description)
@@ -567,7 +568,7 @@ for (const route of routes) {
   route.prerenderHtml = sectionPrerender(route.path, experiences, categoryRoutes)
 }
 
-const nativeRoutes = publication.posts.map(post => publicationRoute(post))
+const nativeRoutes = publication.posts.map(post => publicationRoute(post, SITE_URL, publication.posts))
 const withdrawnRoutes = publication.managedPaths.filter(p => !publication.posts.some(post => post.path === p)).map(p => ({path:p,output:`${p.slice(1)}/index.html`,title:"Article unavailable | M Hadi",description:"This article is no longer published.",noindex:true,prerenderHtml:'<main><h1>This article is no longer published.</h1><a href="/writing">Browse the writing archive</a></main>'}))
 const allRoutes = [...routes, ...categoryRoutes, ...archiveRoutes, ...nativeRoutes, writingIndexRoute(publication.posts), ...withdrawnRoutes]
 for (const route of allRoutes) {

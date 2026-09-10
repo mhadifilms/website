@@ -10,6 +10,7 @@ export type PageMeta = {
   /** Path used for canonical + og:url, e.g. "/archives/writings/some-post". */
   canonicalPath: string
   image?: string
+  jsonLd?: unknown
   imageAlt?: string
 }
 
@@ -30,6 +31,12 @@ export function applyPageMeta(meta: PageMeta) {
   const image = meta.image ?? DEFAULT_SOCIAL_IMAGE
   const imageAlt = meta.imageAlt ?? DEFAULT_SOCIAL_IMAGE_ALT
 
+  let structured = document.head.querySelector<HTMLScriptElement>('script[data-post-jsonld]')
+  if(meta.jsonLd){
+    document.head.querySelectorAll('script[type="application/ld+json"]').forEach(el=>el.remove())
+    structured = document.createElement('script'); structured.type='application/ld+json'; structured.dataset.postJsonld='true';structured.textContent=JSON.stringify(meta.jsonLd);document.head.append(structured)
+  } else if(structured) structured.remove()
+  setMeta('meta[property="og:type"]', 'content', meta.jsonLd ? 'article' : 'website')
   document.title = meta.title
   setMeta('meta[name="description"]', "content", meta.description)
   setMeta('meta[property="og:title"]', "content", meta.title)

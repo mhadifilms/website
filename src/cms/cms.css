@@ -2007,3 +2007,53 @@
     transition: none;
   }
 }
+
+/* Reading pages: a comfortable measure and media that keep their original shape. */
+.native-post { max-width: 850px; padding-top: 44px; }
+.native-post h1 { font-size: clamp(36px,4.3vw,54px); line-height:1.13; letter-spacing:-1.3px; text-wrap:balance; }
+.native-post .post-prose { font-size:20px; line-height:1.78; overflow-wrap:break-word; }
+.post-byline { flex-wrap:wrap; font-size:13px; line-height:1.6; }
+.post-byline a { text-decoration:underline; text-underline-offset:3px; }
+.post-subtitle { font-size:20px; color:#57564c; }
+.post-prose figcaption { font-size:14px; line-height:1.6; max-width:65ch; margin:12px auto 0; color:#565449; }
+.post-prose h2,.post-prose h3 { scroll-margin-top:32px; }
+.post-prose a:focus-visible,.native-writing-page a:focus-visible,.native-writing-page button:focus-visible,.native-writing-page summary:focus-visible { outline:3px solid #665927; outline-offset:5px; }
+.post-prose video { display:block; width:100%; height:auto; max-height:80vh; background:#111; border-radius:4px; }
+.post-prose pre[data-poetry] { font:inherit; line-height:1.7; background:transparent; border-left:2px solid #c8c6b6; border-radius:0; padding:8px 0 8px 24px; white-space:pre-wrap; overflow-wrap:normal; tab-size:4; }
+.post-prose .post-gallery-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px; align-items:start; }
+.post-prose .post-gallery-grid a { display:block; border-radius:3px; overflow:hidden; cursor:zoom-in; }
+.post-prose .post-gallery-grid img { width:100%; height:auto; margin:0; }
+.post-prose .post-gallery-grid a:only-child { grid-column:1/-1; }
+.post-contents { margin:0 0 36px; padding:16px 0; border-block:1px solid #d8d5c7; font:15px/1.6 var(--font-sans); }
+.post-contents summary { cursor:pointer; width:fit-content; min-height:28px; }
+.post-contents nav { display:block; padding:12px 0 0; }
+.post-contents ol { list-style:decimal; padding-left:22px; }
+.post-contents li { margin:8px 0; }
+.post-contents a { text-decoration:underline; text-underline-offset:3px; }
+.post-skip-link { position:absolute; top:8px; left:16px; transform:translateY(-150%); z-index:100; padding:10px 16px; background:#fffff6; color:#111; }
+.post-skip-link:focus { transform:none; }
+.post-lightbox { position:fixed; inset:0; width:min(1200px,96vw); max-width:96vw; max-height:94dvh; padding:20px; margin:auto; background:#fffff6; color:#171712; border:0; border-radius:6px; overflow:auto; }
+.post-lightbox::backdrop { background:rgb(0 0 0 / .86); }
+.post-lightbox-toolbar,.post-lightbox-controls { display:flex; align-items:center; justify-content:space-between; gap:16px; font:14px/1.5 var(--font-sans); }
+.post-lightbox button { min-height:44px; min-width:44px; display:inline-flex; align-items:center; justify-content:center; gap:8px; padding:8px; cursor:pointer; }
+.post-lightbox button:focus-visible { outline:3px solid #665927; outline-offset:2px; }
+.post-lightbox figure { margin:12px 0; }
+.post-lightbox img { display:block; max-width:100%; max-height:70dvh; width:auto; height:auto; margin:auto; object-fit:contain; }
+.post-lightbox figcaption { font:14px/1.6 var(--font-sans); text-align:center; margin:16px auto; max-width:70ch; }
+@media(max-width:600px){
+ .native-post .post-prose { font-size:18px; line-height:1.8; }
+ .post-byline { font-size:12px; gap:8px; }
+ .post-prose .post-gallery-grid { gap:7px; }
+ .post-prose pre[data-poetry] { padding-left:16px; font-size:17px; }
+ .post-lightbox { padding:12px; }
+}
+@media(prefers-reduced-motion:reduce){.native-writing-page { scroll-behavior:auto; }}
+@media print { .native-writing-page > nav,.post-contents,.post-lightbox,.post-skip-link { display:none; }.native-post{max-width:none;padding:0}.post-prose figure{break-inside:avoid}.post-prose{color:#000} }
+
+.post-related { max-width:740px; margin:0 auto 40px; border-top:1px solid #d8d5c7; padding-top:24px; }
+.post-related h2 { font:28px/1.3 var(--font-display); margin-bottom:16px; }
+.post-related a { display:block; font:17px/1.6 var(--font-sans); padding:12px 0; text-decoration:underline; text-underline-offset:4px; }
+
+.post-prose h4 {font:500 23px/1.35 var(--font-display);margin:1.6em 0 .7em;scroll-margin-top:32px;}
+
+.post-animation-toggle {display:block;margin:12px auto;min-height:44px;padding:8px 16px;border:1px solid #777060;border-radius:4px;font:14px var(--font-sans);cursor:pointer;}
