@@ -1,3 +1,4 @@
+import { ReadingNavigation } from "@/components/reading-navigation"
 import { lazy, Suspense } from "react"
 import { Route, Routes } from "react-router-dom"
 import { LazyMotion, MotionConfig, domAnimation } from "framer-motion"
@@ -21,6 +22,7 @@ export default function App() {
   return (
     <LazyMotion features={domAnimation}>
       <MotionConfig reducedMotion="user">
+        <ReadingNavigation />
         <Suspense fallback={<RouteFallback />}>
           <Routes>
             <Route path="/writing" element={<WritingPage />} />

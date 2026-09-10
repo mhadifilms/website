@@ -27,7 +27,7 @@ export function ArticleView({
           <span aria-hidden="true">/</span>{" "}
           <span>{readingMinutes(snapshot.text)} min read</span>
         </p>
-        <h1>{snapshot.title || "Untitled post"}</h1>
+        <h1 tabIndex={-1}>{snapshot.title || "Untitled post"}</h1>
         {snapshot.subtitle && (
           <p className="post-subtitle">{snapshot.subtitle}</p>
         )}
@@ -53,12 +53,7 @@ export function ArticleView({
           </nav>
         </details>
       )}
-      {snapshot.cover && !hasLeadingCover && (
-        <figure className="post-cover">
-          <img src={snapshot.cover} alt={snapshot.coverAlt} fetchPriority="high" decoding="async" />
-        </figure>
-      )}
-      <ArticleMedia html={hasLeadingCover ? content.replace('loading="lazy"', 'loading="eager" fetchpriority="high"') : content} />
+      <ArticleMedia cover={snapshot.cover && !hasLeadingCover ? {src:snapshot.cover, alt:snapshot.coverAlt} : undefined} html={hasLeadingCover ? content.replace('loading="lazy"', 'loading="eager" fetchpriority="high"') : content} />
       {!preview && <SubscribeForm />}
       <footer className="post-end">
         <span>Creative Chaos</span>

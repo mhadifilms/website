@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { Link, Navigate, useParams } from "react-router-dom"
+import { Link, Navigate, useParams, useLocation } from "react-router-dom"
 import { ArrowLeft, ArrowRight, ArrowUpRight } from "lucide-react"
 
 import { PillNav } from "@/components/pill-nav"
@@ -42,6 +42,7 @@ function useArchiveBody(slug: string) {
 }
 
 export default function ArchiveEntryPage() {
+  const location = useLocation()
   const { categorySlug = "", entrySlug = "" } = useParams()
   const category = archiveCategoryFromSlug(categorySlug)
   const item = category
@@ -69,7 +70,7 @@ export default function ArchiveEntryPage() {
     .slice(0, 3)
 
   return (
-    <main id="content" className="min-h-svh bg-background px-6 pb-32 pt-14 text-foreground sm:px-8">
+    <main id="content" data-reading-route={bodyHtml !== undefined ? location.pathname.replace(/\/$/, "") : undefined} className="min-h-svh bg-background px-6 pb-32 pt-14 text-foreground sm:px-8">
       <PillNav />
       <article className="mx-auto w-full max-w-[1040px]">
         <Link

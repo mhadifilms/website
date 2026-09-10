@@ -52,7 +52,7 @@ export function SubscribeForm() {
   }
   if (!endpoint) return null;
   return (
-    <section className="newsletter-signup" aria-labelledby={`${id}-title`}>
+    <section id="newsletter" className="newsletter-signup" aria-labelledby={`${id}-title`}>
       <h2 id={`${id}-title`}>Follow the creative chaos.</h2>
       <p>Essays, notes, and things I’m figuring out. Straight to your inbox.</p>
       <form onSubmit={submit}>
