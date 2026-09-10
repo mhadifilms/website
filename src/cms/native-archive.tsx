@@ -11,6 +11,7 @@ export default function NativeArchive() {
     path: string;
     post?: PublicPost;
     withdrawn?: boolean;
+    unavailable?: boolean;
   } | null>(null);
   useEffect(() => {
     let active = true;
@@ -23,6 +24,7 @@ export default function NativeArchive() {
           setResult({
             path: pathname,
             withdrawn: error instanceof ApiError && error.status === 410,
+            unavailable: !(error instanceof ApiError) || ![404,410].includes(error.status),
           });
       });
     return () => {
@@ -31,10 +33,11 @@ export default function NativeArchive() {
   }, [pathname]);
   if (!result || result.path !== pathname)
     return <div className="cms-loading">Opening article…</div>;
+  if (result.unavailable) return <main id="content" data-reading-route={pathname} className="native-writing-page cms-empty"><h1>Writing is temporarily unavailable.</h1><p>Please try again in a moment.</p><button type="button" className="cms-button" onClick={() => window.location.reload()}>Try again</button></main>;
   if (result.post) return <WritingPage />;
   if (result.withdrawn)
     return (
-      <main className="cms-empty">
+      <main id="content" data-reading-route={pathname} className="cms-empty">
         <h1>This article is no longer published.</h1>
         <Link to="/writing">Browse more writing</Link>
       </main>

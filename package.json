@@ -11,7 +11,8 @@
     "archives:sync": "node scripts/sync-archives.mjs",
     "content:build": "node scripts/build-content.mjs",
     "typecheck": "tsc -b",
-    "test:publishing": "node --test tests/*.test.mjs"
+    "test:publishing": "node --test tests/*.test.mjs",
+    "test:reading": "node tests/reading-flow.browser.mjs"
   },
   "dependencies": {
     "@gsap/react": "^2.1.2",
