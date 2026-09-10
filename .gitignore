@@ -5,6 +5,7 @@ dist-ssr
 .env
 .env.*
 !.env.example
+!.env.cms.example
 *.local
 
 # TypeScript and Vite caches
@@ -30,3 +31,8 @@ lerna-debug.log*
 *.njsproj
 *.sln
 *.sw?
+
+# Private publishing data and browser reports
+.cms-data/
+playwright-report/
+test-results/

@@ -2,6 +2,7 @@ import fs from "node:fs/promises"
 import path from "node:path"
 import matter from "gray-matter"
 import { marked } from "marked"
+import {loadPublication,publicationRoute,writingIndexRoute} from "./publishing-routes.mjs"
 
 const root = process.cwd()
 const distDir = path.join(root, "dist")
@@ -131,7 +132,7 @@ function categoryPath(category) {
 }
 
 function archivePath(item) {
-  return `/archives/${CATEGORY_SLUGS[item.category]}/${item.slug}`
+  return item.nativePath || `/archives/${CATEGORY_SLUGS[item.category]}/${item.slug}`
 }
 
 function absoluteAsset(value) {
@@ -527,10 +528,18 @@ const template = await fs.readFile(path.join(distDir, "index.html"), "utf8")
 const projects = await readCollection("projects")
 const projectBySlug = new Map(projects.map((project) => [project.slug, project]))
 const experiences = await readCollection("experiences")
+const publication = await loadPublication(root)
 const archives = (await readCollection("archives"))
+  .filter(item => !publication.managedPaths.includes(archivePath(item)))
   .filter((item) => item.category && CATEGORY_SLUGS[item.category])
   .sort((a, b) => new Date(b.date ?? 0) - new Date(a.date ?? 0))
 
+const nativeEntries = publication.posts.map(post => ({
+  slug: post.path.split('/').pop(), nativePath: post.path, category: 'Writings',
+  project: 'creative-chaos', title: post.snapshot.title, dek: post.snapshot.subtitle,
+  date: post.snapshot.date, image: post.snapshot.cover, format: post.snapshot.format,
+  platform: 'Website', href: post.path, html: post.snapshot.html,
+}))
 // Series siblings for "more in this series" internal links.
 const siblingsByProject = new Map()
 for (const item of archives) {
@@ -545,7 +554,7 @@ const archiveRoutes = archives.map((item) =>
 
 // Category hub pages (only categories that actually have entries).
 const entriesByCategory = new Map()
-for (const item of archives) {
+for (const item of [...archives, ...nativeEntries]) {
   if (!entriesByCategory.has(item.category)) entriesByCategory.set(item.category, [])
   entriesByCategory.get(item.category).push(item)
 }
@@ -558,7 +567,9 @@ for (const route of routes) {
   route.prerenderHtml = sectionPrerender(route.path, experiences, categoryRoutes)
 }
 
-const allRoutes = [...routes, ...categoryRoutes, ...archiveRoutes]
+const nativeRoutes = publication.posts.map(post => publicationRoute(post))
+const withdrawnRoutes = publication.managedPaths.filter(p => !publication.posts.some(post => post.path === p)).map(p => ({path:p,output:`${p.slice(1)}/index.html`,title:"Article unavailable | M Hadi",description:"This article is no longer published.",noindex:true,prerenderHtml:'<main><h1>This article is no longer published.</h1><a href="/writing">Browse the writing archive</a></main>'}))
+const allRoutes = [...routes, ...categoryRoutes, ...archiveRoutes, ...nativeRoutes, writingIndexRoute(publication.posts), ...withdrawnRoutes]
 for (const route of allRoutes) {
   await writeRoute(template, route)
 }

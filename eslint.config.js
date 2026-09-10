@@ -8,12 +8,15 @@ export default tseslint.config(
   js.configs.recommended,
   ...tseslint.configs.recommended,
   {
-    files: ["scripts/**/*.mjs"],
+    files: ["scripts/**/*.mjs", "server/**/*.mjs", "tests/**/*.mjs"],
+    rules: { "@typescript-eslint/no-unused-vars": ["error", { argsIgnorePattern: "^_", ignoreRestSiblings: true }] },
     languageOptions: {
       globals: {
         console: "readonly",
         fetch: "readonly",
         process: "readonly",
+        URL: "readonly", URLSearchParams: "readonly", Buffer: "readonly", FormData: "readonly", Blob: "readonly", AbortSignal: "readonly",
+        setInterval: "readonly", clearInterval: "readonly", setTimeout: "readonly",
       },
     },
   },
