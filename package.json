@@ -11,11 +11,7 @@
     "archives:sync": "node scripts/sync-archives.mjs",
     "content:build": "node scripts/build-content.mjs",
     "typecheck": "tsc -b",
-    "cms:server": "node --env-file-if-exists=.env.cms server/index.mjs",
-    "start": "node server/index.mjs",
-    "cms:import": "node scripts/import-substack.mjs",
-    "test:cms": "node --test tests/*.test.mjs",
-    "test:browser": "playwright test"
+    "test:publishing": "node --test tests/*.test.mjs"
   },
   "dependencies": {
     "@gsap/react": "^2.1.2",

@@ -7,7 +7,8 @@ import type { PublicPost } from "./types"
 import { ArticleView } from "./article-view"
 import { applyPageMeta } from "@/lib/seo"
 export default function NativeArchive() {
-  const { pathname } = useLocation()
+  const location = useLocation()
+  const pathname = location.pathname.replace(/\/+$/, "") || "/"
   const [result, setResult] = useState<{
     path: string
     post?: PublicPost

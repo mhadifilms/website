@@ -7,7 +7,8 @@ import { ArticleView } from "./article-view"
 import { applyPageMeta } from "@/lib/seo"
 import "./cms.css"
 export default function WritingPage() {
-  const { pathname } = useLocation()
+  const location = useLocation()
+  const pathname = location.pathname.replace(/\/+$/, "") || "/"
   const [posts, setPosts] = useState<PublicPost[] | null>(null),
     [error, setError] = useState("")
   const [query, setQuery] = useState("")

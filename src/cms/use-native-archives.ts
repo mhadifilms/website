@@ -55,7 +55,7 @@ export function useNativeArchives() {
   ]
 }
 
-function firstImage(node: import("@tiptap/react").JSONContent): string {
+function firstImage(node: import("./types").DocumentNode): string {
   if (node.type === "image" && typeof node.attrs?.src === "string") return node.attrs.src
   for (const child of node.content || []) { const found = firstImage(child); if (found) return found }
   return ""
