@@ -16,7 +16,7 @@ test('public build validates publication boundary and emits readable canonical p
   const route=publicationRoute(data.posts[0])
   assert.equal(route.output,'writing/a-finished-post/index.html')
   assert.ok(route.prerenderHtml.includes('<p>Published words.</p>'))
-  assert.equal(route.jsonLd.url,'https://mhadifilms.com/writing/a-finished-post')
+  assert.equal(route.jsonLd[0].url,'https://mhadifilms.com/writing/a-finished-post/')
   assert.ok(writingIndexRoute(data.posts).prerenderHtml.includes('A finished post'))
   post.snapshot.newsletter={subject:'private'};await save()
   await assert.rejects(()=>loadPublication(root),/Private fields/)

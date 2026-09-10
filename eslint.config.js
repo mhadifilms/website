@@ -8,7 +8,7 @@ export default tseslint.config(
   js.configs.recommended,
   ...tseslint.configs.recommended,
   {
-    files: ["scripts/**/*.mjs", "server/**/*.mjs", "tests/**/*.mjs"],
+    files: ["scripts/**/*.mjs", "server/**/*.mjs", "tests/**/*.mjs", "shared/**/*.js"],
     rules: { "@typescript-eslint/no-unused-vars": ["error", { argsIgnorePattern: "^_", ignoreRestSiblings: true }] },
     languageOptions: {
       globals: {

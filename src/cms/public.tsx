@@ -1,44 +1,50 @@
-import { useEffect, useState } from "react"
-import { Link, useLocation } from "react-router-dom"
-import { ArrowLeft, ArrowUpRight } from "lucide-react"
-import { api, formatDate } from "./api"
-import type { PublicPost } from "./types"
-import { ArticleView } from "./article-view"
-import { applyPageMeta } from "@/lib/seo"
-import "./cms.css"
+import { postMeta, relatedPosts } from "../../shared/post-meta.js";
+import { useEffect, useState } from "react";
+import { Link, useLocation } from "react-router-dom";
+import { ArrowLeft, ArrowUpRight } from "lucide-react";
+import { api, formatDate } from "./api";
+import type { PublicPost } from "./types";
+import { ArticleView } from "./article-view";
+import { applyPageMeta } from "@/lib/seo";
+import "./cms.css";
 export default function WritingPage() {
-  const location = useLocation()
-  const pathname = location.pathname.replace(/\/+$/, "") || "/"
+  const location = useLocation();
+  const pathname = location.pathname.replace(/\/+$/, "") || "/";
   const [posts, setPosts] = useState<PublicPost[] | null>(null),
-    [error, setError] = useState("")
-  const [query, setQuery] = useState("")
+    [error, setError] = useState("");
+  const [query, setQuery] = useState("");
   useEffect(() => {
-    let active = true
+    let active = true;
     api<PublicPost[]>("/public/posts")
       .then((result) => {
-        if (active) setPosts(result)
+        if (active) setPosts(result);
       })
       .catch((e) => {
-        if (active) setError(e.message)
-      })
+        if (active) setError(e.message);
+      });
     return () => {
-      active = false
-    }
-  }, [])
+      active = false;
+    };
+  }, []);
   const post = posts?.find((p) => p.path === pathname),
-    index = pathname === "/writing"
+    index = pathname === "/writing";
   useEffect(() => {
     if (post || index)
-      applyPageMeta({
-        title: post ? `${post.snapshot.title} | M Hadi` : "Writing | M Hadi",
-        description:
-          post?.snapshot.subtitle ||
-          "Creative Chaos. Essays, notes, and things I am figuring out.",
-        canonicalPath: pathname,
-      })
-  }, [post, index, pathname])
+      applyPageMeta(
+        post
+          ? postMeta(post.snapshot, pathname)
+          : {
+              title: "Creative Chaos | Writing by M Hadi",
+              description: "Essays, notes, and things I am figuring out.",
+              canonicalPath: "/writing/",
+            },
+      );
+  }, [post, index, pathname]);
   return (
-    <main className="native-writing-page">
+    <main id="content" tabIndex={-1} className="native-writing-page">
+      <a className="post-skip-link" href={index ? "#writing-list" : "#article"}>
+        Skip to {index ? "writing" : "article"}
+      </a>
       <nav>
         <Link to={index ? "/archives" : "/writing"}>
           <ArrowLeft size={17} /> {index ? "Archives" : "Writing"}
@@ -61,7 +67,7 @@ export default function WritingPage() {
       ) : !posts ? (
         <div className="cms-loading">Opening the writing desk…</div>
       ) : index ? (
-        <div className="native-writing-index">
+        <div className="native-writing-index" id="writing-list">
           <header>
             <h1>Creative Chaos</h1>
             <p>Writing, making things, and figuring it out along the way.</p>
@@ -95,7 +101,17 @@ export default function WritingPage() {
           {posts.length === 0 && <p>The next piece is on its way.</p>}
         </div>
       ) : post ? (
-        <ArticleView snapshot={post.snapshot} />
+        <>
+          <ArticleView snapshot={post.snapshot} />
+          <aside className="post-related" aria-label="Continue reading">
+            <h2>Continue reading</h2>
+            {relatedPosts(posts, post).map((item: PublicPost) => (
+              <Link key={item.id} to={item.path}>
+                {item.snapshot.title}
+              </Link>
+            ))}
+          </aside>
+        </>
       ) : (
         <div className="cms-empty">
           <h1>This page isn’t published.</h1>
@@ -103,5 +119,5 @@ export default function WritingPage() {
         </div>
       )}
     </main>
-  )
+  );
 }
