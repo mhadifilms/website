@@ -97,6 +97,9 @@ export default function WritingPage() {
                   <h2>{p.snapshot.title}</h2>
                   <p>{p.snapshot.subtitle || p.snapshot.text.slice(0, 180)}</p>
                 </div>
+                {p.snapshot.cover && (
+                  <img className="writing-cover" src={p.snapshot.cover} alt="" loading="lazy" decoding="async" />
+                )}
                 <ArrowUpRight size={19} />
               </Link>
             ))}
