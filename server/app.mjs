@@ -11,12 +11,16 @@ import { HttpError, requireValue, sanitize } from "./content.mjs"
 export function createApp(store, config) {
   const app = express()
   app.disable("x-powered-by")
+  app.set("trust proxy", config.trustProxy || false)
   app.use(
     helmet({ contentSecurityPolicy: false, crossOriginEmbedderPolicy: false }),
   )
   app.use(express.json({ limit: "2mb" }))
   attachAuth(app, store, config)
-  app.get("/api/health", (_request, response) => response.json({ ok: true }))
+  app.get("/api/health", (_request, response) => {
+    store.db.prepare("SELECT 1").get()
+    response.json({ ok: true })
+  })
   app.get("/api/admin/posts", (_request, response) =>
     response.json(store.list()),
   )

@@ -415,13 +415,21 @@ export function PostEditor({
       {(error || operationError) && (
         <div className="cms-banner cms-error" role="alert">
           <p>{operationError || error}</p>
-          {status === "error" && (
+          {status === "error" && !draft.needsSignIn && (
             <button
               className="cms-button"
               onClick={() => void operation(async () => {})}
             >
               Retry save
             </button>
+          )}
+          {draft.needsSignIn && (
+            <>
+              <a className="cms-button" href="/admin" target="_blank" rel="noreferrer">Sign in again</a>
+              <button className="cms-button" onClick={() => void draft.resumeSession().then(() => setOperationError("")).catch((e) => setOperationError(e.message))}>
+                I’ve signed in — retry save
+              </button>
+            </>
           )}
           {status === "conflict" && (
             <>

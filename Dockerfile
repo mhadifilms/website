@@ -13,6 +13,7 @@ RUN npm ci --omit=dev && npm cache clean --force
 COPY --from=build /app/dist ./dist
 COPY server ./server
 COPY shared ./shared
+COPY scripts/backup-cms.mjs ./scripts/backup-cms.mjs
 RUN mkdir -p /data && chown node:node /data
 USER node
 ENV CMS_DATA_DIR=/data PORT=8788

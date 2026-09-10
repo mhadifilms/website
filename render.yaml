@@ -1,0 +1,31 @@
+# Preview deployment. Provision only after the hosting charge and credentials are approved.
+services:
+  - type: web
+    name: mhadifilms-cms
+    runtime: docker
+    repo: https://github.com/mhadifilms/website
+    branch: codex/native-publishing-cms
+    region: oregon
+    plan: 0.5c-512mb
+    dockerfilePath: ./Dockerfile
+    autoDeployTrigger: off
+    healthCheckPath: /api/health
+    disk:
+      name: publishing
+      mountPath: /data
+      sizeGB: 1
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: CMS_DATA_DIR
+        value: /data/publishing
+      - key: CMS_ORIGIN
+        sync: false
+      - key: CMS_OWNER_ID
+        value: "71292747"
+      - key: CMS_OWNER_LOGIN
+        value: mhadifilms
+      - key: GITHUB_CLIENT_ID
+        sync: false
+      - key: GITHUB_CLIENT_SECRET
+        sync: false

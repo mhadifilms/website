@@ -18,3 +18,13 @@ Response status diagnostics refer to reading JSON error bodies before checking `
 ## Deployment gates still open
 
 Hosted persistent storage, GitHub OAuth application configuration and callback proof, preview deployment, final migration formatting review, newsletter sending, subscriber reconciliation, signup/confirmation/preferences/unsubscribe, and website DNS cutover. No campaign was sent, no subscribers were activated, and no production website publishing settings were changed.
+
+
+## Hosted sign-in follow-up — 2026-09-10
+
+- 21 backend/configuration/backup tests passed, including a mocked GitHub owner exchange, PKCE verifier matching, wrong-account rejection, single-use state, expired/cancelled/malformed callbacks, safe return paths, and production configuration guards.
+- Five browser journeys passed, including the hosted sign-in failure screen and preserving the draft return URL.
+- A fresh full backup of the private migration database restored with integrity `ok`, 44 posts, 62 images, and zero transferred login sessions. All 63 file checksums verified.
+- Typecheck, lint and production build passed. React Doctor remains at its previously documented nine false-positive custom-operation updater findings; its advisory component-size and complexity findings remain follow-up maintenance.
+- Resend's sending domain is now verified. The dedicated Creative Chaos segment and a private, default-unsubscribed topic have been created. No contacts have been imported and no campaign has been sent.
+- The Render service and GitHub OAuth application forms are prepared, but account provisioning, credentials, private upload, and hosted verification remain pending approval. These test results do not claim that OAuth is live on the public website.

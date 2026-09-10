@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from "react"
-import { api, ApiError } from "./api"
-import type { Post, Snapshot } from "./types"
+import { api, ApiError, setCsrf } from "./api"
+import type { Post, Snapshot, Session } from "./types"
 
 type Recovery = { snapshot: Snapshot; version: number; savedAt: string }
 export function useDraft(initial: Post) {
@@ -9,6 +9,7 @@ export function useDraft(initial: Post) {
     "saved" | "saving" | "unsaved" | "error" | "conflict"
   >("saved")
   const [error, setError] = useState("")
+  const [needsSignIn, setNeedsSignIn] = useState(false)
   const key = `creative-chaos:draft:${initial.id}`
   const [recovery, setRecovery] = useState<Recovery | null>(() => {
     try {
@@ -82,6 +83,7 @@ export function useDraft(initial: Post) {
           if (mounted.current) {
             setPost(current.current)
             setError("")
+            setNeedsSignIn(false)
           }
           if (captured === generation.current) {
             try {
@@ -94,6 +96,7 @@ export function useDraft(initial: Post) {
           const conflict = cause instanceof ApiError && cause.status === 409
           blocked.current = conflict
           if (mounted.current) {
+            setNeedsSignIn(cause instanceof ApiError && [401, 403].includes(cause.status))
             setStatus(conflict ? "conflict" : "error")
             setError(
               cause instanceof Error
@@ -139,6 +142,12 @@ export function useDraft(initial: Post) {
       window.removeEventListener("online", online)
     }
   }, [flush])
+  const resumeSession = async () => {
+    const session = await api<Session>("/session")
+    if (!session.authenticated) throw new Error("Complete sign-in in the other tab, then retry saving here.")
+    setCsrf(session.csrf)
+    await flush()
+  }
   const acceptServer = (saved: Post) => {
     current.current = saved
     setPost(saved)
@@ -169,6 +178,8 @@ export function useDraft(initial: Post) {
     status,
     error,
     recovery,
+    needsSignIn,
+    resumeSession,
     update,
     flush,
     acceptServer,

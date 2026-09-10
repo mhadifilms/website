@@ -46,6 +46,10 @@ export function openStore(directory) {
     db.exec(
       "ALTER TABLE posts ADD COLUMN content_revision INTEGER NOT NULL DEFAULT 1",
     )
+  const loginColumns = db.prepare("PRAGMA table_info(login_states)").all()
+  for (const column of ["verifier", "return_to"])
+    if (!loginColumns.some((item) => item.name === column))
+      db.exec(`ALTER TABLE login_states ADD COLUMN ${column} TEXT`)
   const now = () => new Date().toISOString()
   const transaction = (fn) => {
     db.exec("BEGIN IMMEDIATE")

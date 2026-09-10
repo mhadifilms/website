@@ -7,7 +7,7 @@ export const hash = (value) => createHash("sha256").update(value).digest("hex")
 const equal = (a, b) =>
   typeof a === "string" &&
   typeof b === "string" &&
-  a.length === b.length &&
+  Buffer.byteLength(a) === Buffer.byteLength(b) &&
   timingSafeEqual(Buffer.from(a), Buffer.from(b))
 const cookie = (request, name) =>
   (request.headers.cookie || "")
@@ -15,8 +15,27 @@ const cookie = (request, name) =>
     .map((v) => v.trim())
     .find((v) => v.startsWith(`${name}=`))
     ?.slice(name.length + 1)
+export function safeReturnTo(value) {
+  if (typeof value !== "string") return "/admin"
+  try {
+    const url = new URL(value, "https://cms.invalid")
+    if (url.origin !== "https://cms.invalid" || url.pathname !== "/admin")
+      return "/admin"
+    const params = new URLSearchParams()
+    for (const name of ["post", "view"])
+      if (/^[a-zA-Z0-9-]{1,80}$/.test(url.searchParams.get(name) || ""))
+        params.set(name, url.searchParams.get(name))
+    return `/admin${params.size ? `?${params}` : ""}`
+  } catch {
+    return "/admin"
+  }
+}
 export function attachAuth(app, store, config) {
   const secure = config.production
+  const githubFetch = config.githubFetch || fetch
+  const oauthReady = Boolean(
+    config.githubClientId && config.githubClientSecret && config.ownerId,
+  )
   const cookieOptions = {
     httpOnly: true,
     secure,
@@ -74,7 +93,7 @@ export function attachAuth(app, store, config) {
       authenticated: Boolean(request.admin),
       csrf: request.admin?.csrf || null,
       development: !secure,
-      oauthConfigured: Boolean(config.githubClientId),
+      oauthConfigured: oauthReady,
       owner: config.ownerLogin,
     }),
   )
@@ -107,18 +126,22 @@ export function attachAuth(app, store, config) {
     },
   )
   app.get("/api/auth/github", loginLimit, (request, response) => {
-    requireValue(
-      config.githubClientId && config.githubClientSecret && config.ownerId,
-      "Owner sign-in has not been connected yet.",
-      503,
-    )
+    requireValue(oauthReady, "Owner sign-in has not been connected yet.", 503)
     const state = randomBytes(32).toString("hex")
+    const verifier = randomBytes(32).toString("base64url")
     store.db
       .prepare("DELETE FROM login_states WHERE expires_at<?")
       .run(Date.now())
     store.db
-      .prepare("INSERT INTO login_states VALUES (?,?)")
-      .run(hash(state), Date.now() + 10 * 60_000)
+      .prepare(
+        "INSERT INTO login_states (state_hash, expires_at, verifier, return_to) VALUES (?,?,?,?)",
+      )
+      .run(
+        hash(state),
+        Date.now() + 10 * 60_000,
+        verifier,
+        safeReturnTo(request.query.returnTo),
+      )
     response.cookie("cms_oauth", state, {
       ...cookieOptions,
       maxAge: 10 * 60_000,
@@ -128,59 +151,91 @@ export function attachAuth(app, store, config) {
       client_id: config.githubClientId,
       redirect_uri: `${config.origin}/api/auth/callback`,
       state,
+      code_challenge: createHash("sha256").update(verifier).digest("base64url"),
+      code_challenge_method: "S256",
+      login: config.ownerLogin,
+      allow_signup: "false",
+      scope: "",
     }).toString()
     response.redirect(url.href)
   })
   app.get("/api/auth/callback", loginLimit, async (request, response) => {
-    const state =
-      typeof request.query.state === "string" ? request.query.state : ""
-    requireValue(
-      equal(state, cookie(request, "cms_oauth")) &&
-        store.db
-          .prepare(
-            "DELETE FROM login_states WHERE state_hash=? AND expires_at>? RETURNING state_hash",
-          )
-          .get(hash(state), Date.now()),
-      "Sign-in expired. Please try again.",
-      401,
-    )
     response.clearCookie("cms_oauth", { ...cookieOptions, maxAge: undefined })
-    const result = await fetch("https://github.com/login/oauth/access_token", {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        client_id: config.githubClientId,
-        client_secret: config.githubClientSecret,
-        code: request.query.code,
-        redirect_uri: `${config.origin}/api/auth/callback`,
-      }),
-      signal: AbortSignal.timeout(15000),
-    })
-    const token = await result.json()
-    requireValue(
-      result.ok && token.access_token,
-      "GitHub could not complete sign-in. Please try again.",
-      401,
-    )
-    const identity = await fetch("https://api.github.com/user", {
-      headers: {
-        Authorization: `Bearer ${token.access_token}`,
-        "User-Agent": "mhadifilms-publishing",
-        Accept: "application/vnd.github+json",
-      },
-      signal: AbortSignal.timeout(15000),
-    })
-    const user = await identity.json()
-    requireValue(
-      identity.ok && String(user.id) === config.ownerId,
-      "This writing desk is private.",
-      403,
-    )
-    issue(response)
-    response.redirect("/admin")
+    let returnTo = "/admin"
+    let failure = "unavailable"
+    try {
+      const state =
+        typeof request.query.state === "string" ? request.query.state : ""
+      failure = "expired"
+      requireValue(
+        state && equal(state, cookie(request, "cms_oauth")),
+        "Sign-in expired.",
+        401,
+      )
+      const login = store.db
+        .prepare(
+          "DELETE FROM login_states WHERE state_hash=? AND expires_at>? RETURNING verifier, return_to",
+        )
+        .get(hash(state), Date.now())
+      requireValue(login?.verifier, "Sign-in expired.", 401)
+      returnTo = safeReturnTo(login.return_to)
+      failure = "cancelled"
+      requireValue(!request.query.error, "Sign-in cancelled.", 401)
+      failure = "expired"
+      requireValue(
+        typeof request.query.code === "string" && request.query.code.length > 0,
+        "Code missing.",
+        401,
+      )
+      failure = "unavailable"
+      const result = await githubFetch(
+        "https://github.com/login/oauth/access_token",
+        {
+          method: "POST",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            client_id: config.githubClientId,
+            client_secret: config.githubClientSecret,
+            code: request.query.code,
+            code_verifier: login.verifier,
+            redirect_uri: `${config.origin}/api/auth/callback`,
+          }),
+          signal: AbortSignal.timeout(15000),
+        },
+      )
+      const token = await result.json()
+      requireValue(
+        result.ok && typeof token.access_token === "string",
+        "GitHub sign-in failed.",
+        401,
+      )
+      const identity = await githubFetch("https://api.github.com/user", {
+        headers: {
+          Authorization: `Bearer ${token.access_token}`,
+          "User-Agent": "mhadifilms-publishing",
+          Accept: "application/vnd.github+json",
+        },
+        signal: AbortSignal.timeout(15000),
+      })
+      const user = await identity.json()
+      requireValue(identity.ok, "GitHub identity unavailable.", 401)
+      failure = "owner"
+      requireValue(
+        String(user.id) === config.ownerId,
+        "This writing desk is private.",
+        403,
+      )
+      issue(response)
+      response.redirect(returnTo)
+    } catch {
+      // Never reflect provider messages, tokens, or arbitrary return URLs into the page.
+      const destination = new URL(returnTo, config.origin)
+      destination.searchParams.set("signin", failure)
+      response.redirect(destination.pathname + destination.search)
+    }
   })
   app.use("/api/admin", authenticated, (request, response, next) => {
     if (["GET", "HEAD", "OPTIONS"].includes(request.method)) return next()

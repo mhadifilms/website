@@ -266,3 +266,13 @@ test("mobile editor, inspector, library, and reader fit the viewport", async ({
     0,
   )
 })
+
+test("expired sign-in explains recovery and keeps the owner login button usable", async ({page,context}) => {
+  await context.clearCookies()
+  await page.route('**/api/session', route => route.fulfill({json:{authenticated:false, csrf:null, development:false, oauthConfigured:true, owner:'mhadifilms'}}))
+  await page.goto('/admin?post=post-123&signin=expired')
+  await expect(page.getByRole('alert')).toHaveText('That sign-in link expired. Please try again.')
+  const button = page.getByRole('link',{name:'Sign in with GitHub'})
+  await expect(button).toHaveAttribute('href','/api/auth/github?returnTo=%2Fadmin%3Fpost%3Dpost-123')
+  await expect(page.getByLabel('Local sign-in code')).toHaveCount(0)
+})

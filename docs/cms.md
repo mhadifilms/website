@@ -37,3 +37,19 @@ Before copying private writing to a hosted environment, ensure owner sign-in and
 ## Remaining rollout work
 
 Hosted OAuth/provisioning and preview validation, human review of migration conversions, backup restoration proof, newsletter delivery and subscriber migration, native signup/confirmation/unsubscribe, and final website cutover. Newsletter and Subscribers screens state their unavailable live-service status instead of showing fabricated counts or enabled send controls. No email is sent by this release.
+
+## Hosted sign-in and recovery
+
+The owner flow uses single-use browser-bound state and GitHub PKCE (S256), then checks the numeric GitHub account ID before issuing a secure, HttpOnly session. No repository/email scopes are requested. Cancelled, expired, unavailable, or wrong-account callbacks return to the sign-in UI with a retry action. Only `/admin` plus an allowlisted post/view can be a return destination. Provider responses and credentials are never reflected into the URL.
+
+When autosave detects an expired session, the editor opens sign-in in another tab, keeps the current writing in place, and can refresh its CSRF token and retry saving after sign-in. The normal revision conflict checks still apply.
+
+`render.yaml` describes a separate preview service with a 1 GB persistent disk. Its source branch is explicit because the repository default branch is an old archive. Set `CMS_ORIGIN` to the actual assigned HTTPS host, with no path or trailing slash, and register that exact `/api/auth/callback` URL. Register the production callback separately before domain cutover. Render's single reverse proxy is trusted only when its `RENDER=true` environment marker is present. The health check also checks the database connection.
+
+## Full backup and restoration
+
+Use `node scripts/backup-cms.mjs create SOURCE_DIRECTORY NEW_BACKUP_DIRECTORY` for a consistent SQLite snapshot and a copy of every recorded image. It writes a checksum manifest and removes login sessions and pending OAuth states from the backup only. It never changes the source database's sessions or writing. Store the bundle privately; it contains drafts and the original imported source HTML.
+
+Use `node scripts/backup-cms.mjs restore BACKUP_DIRECTORY NEW_RESTORE_DIRECTORY` to verify checksums, database integrity, and complete image coverage before restoring into a new directory. Existing destinations are rejected. Stop the hosted service and switch its data directory only after checking the restored copy. Keep the original as a rollback copy. Neither operation transfers credentials, local sign-in codes, or subscriber CSV files.
+
+The deployment image includes this command so the same backup/restore workflow works on the host. Copy backups off the persistent disk; a backup on the same disk alone does not protect against disk loss.

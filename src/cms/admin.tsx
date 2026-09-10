@@ -190,6 +190,17 @@ function SignIn({
   retry: () => Promise<void>
   signedIn: () => Promise<void>
 }) {
+  const [params] = useSearchParams()
+  const signInErrors: Record<string, string> = {
+    expired: "That sign-in link expired. Please try again.",
+    cancelled: "Sign-in was cancelled. You can try again whenever you’re ready.",
+    owner: `This writing desk is private. Sign in as ${session?.owner || "the owner"} on GitHub.`,
+    unavailable: "GitHub could not complete sign-in. Please try again.",
+  }
+  const signInError = signInErrors[params.get("signin") || ""] || ""
+  const returnParams = new URLSearchParams(params)
+  returnParams.delete("signin")
+  const returnTo = `/admin${returnParams.size ? `?${returnParams}` : ""}`
   const [code, setCode] = useState(""),
     [failure, setFailure] = useState(""),
     [busy, setBusy] = useState(false)
@@ -207,7 +218,7 @@ function SignIn({
         </h1>
         <p>Your writing, before it goes out into the world.</p>
         {session?.oauthConfigured ? (
-          <a className="cms-button cms-primary" href="/api/auth/github">
+          <a className="cms-button cms-primary" href={`/api/auth/github?returnTo=${encodeURIComponent(returnTo)}`}>
             Sign in with GitHub
             <ArrowUpRight size={17} />
           </a>
@@ -251,9 +262,9 @@ function SignIn({
         ) : (
           <p>Owner sign-in is being connected.</p>
         )}
-        {(error || failure) && (
+        {(error || failure || signInError) && (
           <p className="cms-error" role="alert">
-            {failure || error}
+            {failure || error || signInError}
           </p>
         )}
         {!session && (
