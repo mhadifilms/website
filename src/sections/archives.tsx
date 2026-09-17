@@ -1,31 +1,25 @@
-import { useRef } from "react"
 import { m } from "framer-motion"
 
 import { ArchiveFolders } from "@/components/archive-folders"
 import { Section } from "@/components/section"
-import { useSectionMotion } from "@/hooks/use-section-motion"
 import { projects } from "@/content/generated"
 
 import { useNativeArchives } from "@/cms/use-native-archives"
 
 export function ArchivesSection() {
   const archives = useNativeArchives()
-  const ref = useRef<HTMLDivElement>(null)
-  const { opacity, scale, translateY } = useSectionMotion(ref)
 
   return (
     <Section
       id="archives"
       label="Archives"
-      className="bg-background"
+      className="archives-section bg-background"
       innerClassName="mx-auto flex w-full max-w-[1728px] flex-1 flex-col justify-center px-6 py-24 sm:px-8"
     >
       <m.div
-        ref={ref}
-        style={{ opacity, scale, y: translateY }}
         className="flex min-h-[760px] w-full flex-col justify-center lg:min-h-[920px]"
       >
-        <header className="mx-auto mb-10 max-w-[760px] text-center">
+        <header className="archives-intro mx-auto mb-10 max-w-[760px] text-center">
           <m.h2
             initial={{ opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}

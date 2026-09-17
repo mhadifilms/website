@@ -1,4 +1,5 @@
 import fs from "node:fs";
+import sharp from "sharp";
 import assert from "node:assert/strict";
 import { Window } from "happy-dom";
 import { postMeta } from "../shared/post-meta.js";
@@ -46,6 +47,26 @@ for (const post of manifest.posts) {
     dw.document.querySelector("link[rel=canonical]")?.getAttribute("href"),
     "https://mhadifilms.com" + meta.canonicalPath,
   );
+  for (const [selector, expected] of [
+    ['meta[property="og:title"]', s.title.replace(/\s+/g, " ").trim()],
+    ['meta[property="og:description"]', meta.socialDescription],
+    ['meta[name="twitter:title"]', meta.socialTitle],
+    ['meta[name="twitter:description"]', meta.socialDescription],
+    ['meta[property="og:image"]', meta.socialImage],
+    ['meta[name="twitter:image"]', meta.socialImage],
+    ['meta[property="og:image:type"]', "image/jpeg"],
+    ['meta[property="og:image:width"]', "1200"],
+    ['meta[property="og:image:height"]', "630"],
+  ]) {
+    assert.equal(dw.document.head.querySelectorAll(selector).length, 1, `${post.path}: ${selector}`);
+    assert.equal(dw.document.head.querySelector(selector).content, expected, `${post.path}: ${selector}`);
+  }
+  const previewFile = `dist${new URL(meta.socialImage).pathname}`;
+  const preview = await sharp(previewFile).metadata();
+  assert.equal(preview.format, "jpeg");
+  assert.equal(preview.width, 1200);
+  assert.equal(preview.height, 630);
+  assert(fs.statSync(previewFile).size < 1000000, `Oversized share image: ${post.path}`);
   assert(page.includes("BlogPosting"));
   assert(!page.includes("/api/media/"));
   assert(!page.includes("newsletter_operations"));

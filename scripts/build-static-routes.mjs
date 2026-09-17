@@ -1,5 +1,6 @@
 import fs from "node:fs/promises"
 import path from "node:path"
+import { buildPostSocialImages } from "./post-social-images.mjs"
 import matter from "gray-matter"
 import { marked } from "marked"
 import {loadPublication,publicationRoute,writingIndexRoute} from "./publishing-routes.mjs"
@@ -230,7 +231,7 @@ function injectPrerenderedRoot(html, route) {
 
 function routeHtml(template, route) {
   const canonical = canonicalFor(route.canonicalPath ?? route.path)
-  const image = route.image ?? SOCIAL_IMAGE
+  const image = route.socialImage ?? route.image ?? SOCIAL_IMAGE
   const imageAlt = route.imageAlt ?? SOCIAL_IMAGE_ALT
   const robots = route.noindex
     ? "noindex, follow"
@@ -244,17 +245,17 @@ function routeHtml(template, route) {
   html = setMetaName(html, "googlebot", robots)
   html = setMetaName(html, "bingbot", robots)
   html = setMetaProperty(html, "og:type", route.ogType ?? "website")
-  html = setMetaProperty(html, "og:title", route.title)
-  html = setMetaProperty(html, "og:description", route.description)
+  html = setMetaProperty(html, "og:title", route.socialTitle ?? route.title)
+  html = setMetaProperty(html, "og:description", route.socialDescription ?? route.description)
   html = setMetaProperty(html, "og:url", route.noindex ? SITE_URL : canonical)
   html = setMetaProperty(html, "og:image", image)
   html = setMetaProperty(html, "og:image:secure_url", image)
-  html = setMetaProperty(html, "og:image:type", route.imageType ?? "image/png")
-  html = setMetaProperty(html, "og:image:width", route.ogType === "article" ? "" : "1200")
-  html = setMetaProperty(html, "og:image:height", route.ogType === "article" ? "" : "630")
+  html = setMetaProperty(html, "og:image:type", route.socialImage ? "image/jpeg" : route.imageType ?? "image/png")
+  html = setMetaProperty(html, "og:image:width", route.socialImage || route.ogType !== "article" ? "1200" : "")
+  html = setMetaProperty(html, "og:image:height", route.socialImage || route.ogType !== "article" ? "630" : "")
   html = setMetaProperty(html, "og:image:alt", imageAlt)
-  html = setMetaName(html, "twitter:title", route.title)
-  html = setMetaName(html, "twitter:description", route.description)
+  html = setMetaName(html, "twitter:title", route.socialTitle ?? route.title)
+  html = setMetaName(html, "twitter:description", route.socialDescription ?? route.description)
   html = setMetaName(html, "twitter:image", image)
   html = setMetaName(html, "twitter:image:alt", imageAlt)
   html = injectBeforeHead(html, extraMetaTags(route))
@@ -568,6 +569,7 @@ for (const route of routes) {
   route.prerenderHtml = sectionPrerender(route.path, experiences, categoryRoutes)
 }
 
+await buildPostSocialImages(publication.posts, distDir)
 const nativeRoutes = publication.posts.map(post => publicationRoute(post, SITE_URL, publication.posts))
 const withdrawnRoutes = publication.managedPaths.filter(p => !publication.posts.some(post => post.path === p)).map(p => ({path:p,output:`${p.slice(1)}/index.html`,title:"Article unavailable | M Hadi",description:"This article is no longer published.",noindex:true,prerenderHtml:'<main><h1>This article is no longer published.</h1><a href="/writing">Browse the writing archive</a></main>'}))
 const allRoutes = [...routes, ...categoryRoutes, ...archiveRoutes, ...nativeRoutes, writingIndexRoute(publication.posts), ...withdrawnRoutes]
