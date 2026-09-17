@@ -1,3 +1,4 @@
+import { POST_REDIRECTS } from "../shared/post-redirects.js"
 import fs from "node:fs/promises"
 import path from "node:path"
 import { buildPostSocialImages } from "./post-social-images.mjs"
@@ -259,6 +260,7 @@ function routeHtml(template, route) {
   html = setMetaName(html, "twitter:image", image)
   html = setMetaName(html, "twitter:image:alt", imageAlt)
   html = injectBeforeHead(html, extraMetaTags(route))
+  if (route.redirectTo) html = injectBeforeHead(html, `<meta http-equiv="refresh" content="0;url=${escapeAttr(route.redirectTo)}/" />`)
   html = injectJsonLd(html, route)
   html = injectPrerenderedRoot(html, route)
 
@@ -511,7 +513,7 @@ function mediaBlocks(route) {
 function sitemap(routesToInclude) {
   const seen = new Set()
   const urls = routesToInclude
-    .filter((route) => !route.noindex)
+    .filter((route) => !route.noindex && !route.redirectTo)
     .filter((route) => {
       const canonical = canonicalFor(route.canonicalPath ?? route.path)
       if (seen.has(canonical)) return false
@@ -573,8 +575,13 @@ for (const route of routes) {
 
 await buildPostSocialImages(publication.posts, distDir)
 const nativeRoutes = publication.posts.map(post => publicationRoute(post, SITE_URL, publication.posts))
-const withdrawnRoutes = publication.managedPaths.filter(p => !publication.posts.some(post => post.path === p)).map(p => ({path:p,output:`${p.slice(1)}/index.html`,title:"Article unavailable | M Hadi",description:"This article is no longer published.",noindex:true,prerenderHtml:'<main><h1>This article is no longer published.</h1><a href="/writing">Browse the writing archive</a></main>'}))
-const allRoutes = [...routes, ...categoryRoutes, ...archiveRoutes, ...nativeRoutes, writingIndexRoute(publication.posts), ...withdrawnRoutes]
+const redirectRoutes = Object.entries(POST_REDIRECTS).flatMap(([from, to]) => {
+  const target = nativeRoutes.find(route => route.path === to)
+  if (!target) return []
+  return [{...target, path:from, output:`${from.slice(1)}/index.html`, redirectTo:to}]
+})
+const withdrawnRoutes = publication.managedPaths.filter(p => !redirectRoutes.some(route => route.path === p)).filter(p => !publication.posts.some(post => post.path === p)).map(p => ({path:p,output:`${p.slice(1)}/index.html`,title:"Article unavailable | M Hadi",description:"This article is no longer published.",noindex:true,prerenderHtml:'<main><h1>This article is no longer published.</h1><a href="/writing">Browse the writing archive</a></main>'}))
+const allRoutes = [...routes, ...categoryRoutes, ...archiveRoutes, ...nativeRoutes, writingIndexRoute(publication.posts), ...withdrawnRoutes, ...redirectRoutes]
 for (const route of allRoutes) {
   await writeRoute(template, route)
 }

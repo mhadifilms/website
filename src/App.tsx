@@ -1,6 +1,7 @@
 import { ReadingNavigation } from "@/components/reading-navigation"
 import { lazy, Suspense } from "react"
-import { Route, Routes } from "react-router-dom"
+import { POST_REDIRECTS } from "../shared/post-redirects.js"
+import { Navigate, Route, Routes } from "react-router-dom"
 import { LazyMotion, MotionConfig, domAnimation } from "framer-motion"
 
 import { SiteShell } from "@/components/site-shell"
@@ -25,6 +26,7 @@ export default function App() {
         <ReadingNavigation />
         <Suspense fallback={<RouteFallback />}>
           <Routes>
+            {Object.entries(POST_REDIRECTS).map(([from, to]) => <Route key={from} path={from} element={<Navigate to={`${to}/`} replace />} />)}
             <Route path="/writing" element={<WritingPage />} />
             <Route path="/writing/:slug" element={<WritingPage />} />
             <Route element={<SiteShell />}>
