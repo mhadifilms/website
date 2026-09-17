@@ -72,6 +72,9 @@ export function postMeta(snapshot, path, site = "https://mhadifilms.com") {
   return {
     title,
     description,
+    socialTitle: compact(snapshot.title),
+    socialDescription: compact(snapshot.subtitle) || description,
+    socialImage: absolute(postSocialImagePath(path, image)),
     image: absolute(image),
     imageAlt: imageAlt || snapshot.title,
     canonicalPath: `${path.replace(/\/$/, "")}/`,
@@ -127,4 +130,11 @@ export function bodyStartsWithCover(snapshot) {
   const first = snapshot.document?.content?.[0];
   return Boolean(snapshot.cover && first?.type === "image" &&
     [first.attrs?.src, first.attrs?.motionPoster].includes(snapshot.cover));
+}
+
+// Use the cover asset identity in the URL so replacing a cover busts image caches.
+export function postSocialImagePath(path, image) {
+  const slug = path.split('/').filter(Boolean).pop();
+  const asset = new URL(image, 'https://mhadifilms.com').pathname.split('/').pop().replace(/\.[^.]+$/, '').replace(/[^a-zA-Z0-9_-]/g, '-');
+  return `/publishing/social/${slug}-${asset}.jpg`;
 }

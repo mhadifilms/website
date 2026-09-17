@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from "react"
-import { AnimatePresence, m } from "framer-motion"
+import { AnimatePresence, m, useReducedMotion } from "framer-motion"
 import { Link } from "react-router-dom"
-import { ArrowLeft, ArrowUpRight, ChevronLeft, ChevronRight } from "lucide-react"
+import { ArrowLeft, ArrowUpRight, Search, X } from "lucide-react"
 
 import type { ArchiveCategory, ArchiveItem, Project } from "@/content/types"
 import {
@@ -9,10 +9,14 @@ import {
   ARCHIVE_OPEN_FOLDER_EVENT,
   archiveCategoryFromSlug,
   archiveEntryPath,
+  archiveFormatLabel,
+  openArchiveFolder,
   type ArchiveOpenFolderDetail,
 } from "@/lib/archive-utils"
 import { cn } from "@/lib/utils"
 import { PixelImage } from "@/components/pixel-image"
+
+import "./archive-folders.css"
 
 const EASE = [0.22, 1, 0.36, 1] as const
 
@@ -63,16 +67,13 @@ export function ArchiveFolders({ items, projects }: ArchiveFoldersProps) {
     const pathSlug = window.location.pathname.match(/\/archives\/([^/]+)\/?$/)?.[1]
     const deepLinkCategory =
       archiveCategoryFromSlug(pathSlug ?? "") ?? archiveCategoryFromSlug(window.location.hash.replace(/^#/, ""))
-    if (deepLinkCategory) focusFolder(deepLinkCategory)
+    if (deepLinkCategory) {
+      if (pathSlug) window.history.replaceState(window.history.state, "", `/archives#${pathSlug}`)
+      focusFolder(deepLinkCategory)
+    }
 
     return () => window.removeEventListener(ARCHIVE_OPEN_FOLDER_EVENT, handleOpen)
   }, [])
-
-  useEffect(() => {
-    if (!focusSeries) return
-    const timeout = window.setTimeout(() => setFocusSeries(null), 2600)
-    return () => window.clearTimeout(timeout)
-  }, [focusSeries])
 
   const folders = useMemo<CategoryFolder[]>(() => {
     return ARCHIVE_CATEGORY_ORDER.map((category) => {
@@ -98,12 +99,15 @@ export function ArchiveFolders({ items, projects }: ArchiveFoldersProps) {
       <AnimatePresence mode="wait">
         {openFolder ? (
           <FolderView
-            key={openFolder.category}
+            key={`${openFolder.category}:${focusSeries || ""}`}
             folder={openFolder}
             focusSeries={focusSeries}
             onBack={() => {
+              const category = openFolder.category
+              window.history.replaceState(window.history.state, "", "/archives")
               setOpenCategory(null)
               setFocusSeries(null)
+              window.setTimeout(() => document.getElementById(category.toLowerCase())?.focus({preventScroll:true}), 360)
             }}
           />
         ) : (
@@ -124,8 +128,7 @@ export function ArchiveFolders({ items, projects }: ArchiveFoldersProps) {
                 onHoverStart={() => setHoverCategory(folder.category)}
                 onHoverEnd={() => setHoverCategory((current) => (current === folder.category ? null : current))}
                 onOpen={() => {
-                  setOpenCategory(folder.category)
-                  setFocusSeries(null)
+                  openArchiveFolder(folder.category)
                 }}
               />
             ))}
@@ -218,81 +221,6 @@ function FolderCard({
   )
 }
 
-const FILES_PER_PAGE = 6
-
-function SeriesFiles({ items }: { items: ArchiveItem[] }) {
-  const [page, setPage] = useState(0)
-  const pageCount = Math.ceil(items.length / FILES_PER_PAGE)
-  // Clamp if the item set shrinks (e.g. switching series reuses the component).
-  const current = Math.min(page, pageCount - 1)
-  const start = current * FILES_PER_PAGE
-  const visible = items.slice(start, start + FILES_PER_PAGE)
-
-  return (
-    <div className="mt-4">
-      <div className="space-y-2">
-        {visible.map((item) => (
-          <Link
-            key={item.slug}
-            to={archiveEntryPath(item)}
-            className="group/file flex gap-3 border-2 border-black/10 bg-[#fffff6] p-2.5 transition hover:-translate-y-0.5 hover:border-black hover:shadow-[3px_3px_0_0_rgba(0,0,0,0.82)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-4 focus-visible:ring-offset-background"
-          >
-            <div className="h-14 w-20 shrink-0 overflow-hidden border border-black/15 bg-[#d9d9d9]">
-              {item.image ? <img src={item.image} alt="" loading="lazy" decoding="async" className="size-full object-cover grayscale transition group-hover/file:grayscale-0" /> : null}
-            </div>
-            <div className="min-w-0 flex-1">
-              <p className="line-clamp-2 break-words text-sm font-light leading-5 text-black/80">{item.title}</p>
-              <p className="mt-1 text-[9px] font-light uppercase tracking-[0.16em] text-black/40">
-                {item.platform} / {item.entryType} / {new Date(item.date).getFullYear()}
-              </p>
-            </div>
-          </Link>
-        ))}
-      </div>
-
-      {pageCount > 1 && (
-        <div className="mt-3 flex items-center justify-between border-t border-black/10 pt-3">
-          <button
-            type="button"
-            onClick={() => setPage(Math.max(0, current - 1))}
-            disabled={current === 0}
-            aria-label="Previous page"
-            className="grid size-8 place-items-center border border-black/15 text-black/55 transition hover:border-black hover:text-black disabled:cursor-not-allowed disabled:border-black/8 disabled:text-black/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
-          >
-            <ChevronLeft className="size-4" strokeWidth={1.8} />
-          </button>
-
-          <div className="flex items-center gap-2" role="group" aria-label="Pages">
-            {Array.from({ length: pageCount }, (_, index) => (
-              <button
-                key={index}
-                type="button"
-                onClick={() => setPage(index)}
-                aria-label={`Page ${index + 1}`}
-                aria-current={index === current ? "true" : undefined}
-                className={cn(
-                  "h-1.5 rounded-full transition-all",
-                  index === current ? "w-5 bg-black" : "w-1.5 bg-black/20 hover:bg-black/40",
-                )}
-              />
-            ))}
-          </div>
-
-          <button
-            type="button"
-            onClick={() => setPage(Math.min(pageCount - 1, current + 1))}
-            disabled={current === pageCount - 1}
-            aria-label="Next page"
-            className="grid size-8 place-items-center border border-black/15 text-black/55 transition hover:border-black hover:text-black disabled:cursor-not-allowed disabled:border-black/8 disabled:text-black/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
-          >
-            <ChevronRight className="size-4" strokeWidth={1.8} />
-          </button>
-        </div>
-      )}
-    </div>
-  )
-}
-
 function PixelFolder({ open, thumbnail }: { open: boolean; thumbnail?: string }) {
   return (
     <div className="relative h-[112px] w-[148px]" aria-hidden="true">
@@ -329,92 +257,113 @@ function PixelFolder({ open, thumbnail }: { open: boolean; thumbnail?: string })
   )
 }
 
-function FolderView({
-  folder,
-  focusSeries,
-  onBack,
-}: {
+const FOLDER_DESCRIPTIONS: Record<ArchiveCategory, string> = {
+  Writings: "Essays, notes, and things I’m figuring out.",
+  Vlogumentaries: "Life as it happens, stories as I find them.",
+  "Films & Commercials": "Stories made for the screen.",
+  Photography: "Places, people, and moments worth keeping.",
+  Tools: "Things I’ve built to make other things possible.",
+  Miscellaneous: "The experiments that found their own way here.",
+}
+type FolderFilters = { query: string; collection: string; sort: string }
+const DEFAULT_FILTERS: FolderFilters = {query:"", collection:"all", sort:"newest"}
+
+function savedFilters(category: string): FolderFilters {
+  try {
+    const saved = JSON.parse(sessionStorage.getItem(`archive-filters:${category}`) || "null")
+    if (saved && typeof saved.query === "string" && typeof saved.collection === "string" && ["newest", "oldest", "title"].includes(saved.sort)) return saved
+  } catch { /* Storage is optional, including in private browsing. */ }
+  return DEFAULT_FILTERS
+}
+
+function FolderView({ folder, focusSeries, onBack }: {
   folder: CategoryFolder
   focusSeries: string | null
   onBack: () => void
 }) {
-  const grouped = folder.projects
-    .map((project) => ({
-      project,
-      items: folder.items.filter((item) => item.project === project.slug),
-    }))
-    .filter((group) => group.items.length > 0)
-  const ungrouped = folder.items.filter((item) => !item.project || !folder.projects.some((project) => project.slug === item.project))
-
-  const focusRef = useRef<HTMLElement>(null)
+  const reducedMotion = useReducedMotion()
+  const heading = useRef<HTMLHeadingElement>(null)
+  const entered = useRef(false)
+  const search = useRef<HTMLInputElement>(null)
+  const [filters, setFilters] = useState<FolderFilters>(() => ({
+    ...savedFilters(folder.category),
+    ...(focusSeries ? {collection:focusSeries} : {}),
+  }))
+  const collections = folder.projects.filter(project => folder.items.some(item => item.project === project.slug))
+  const hasLoose = folder.items.some(item => !collections.some(project => project.slug === item.project))
+  const collection = collections.some(p => p.slug === filters.collection) || (hasLoose && filters.collection === "loose") ? filters.collection : "all"
+  const activeProject = collections.find(p => p.slug === collection)
+  const query = filters.query.trim().toLocaleLowerCase()
+  const visible = folder.items.filter(item => {
+    const inCollection = collection === "all" || (collection === "loose" ? !collections.some(p => p.slug === item.project) : item.project === collection)
+    return inCollection && `${item.title} ${item.dek} ${item.summary || ""}`.toLocaleLowerCase().includes(query)
+  }).sort((a,b) => filters.sort === "title" ? a.title.localeCompare(b.title) : (new Date(b.date).getTime() - new Date(a.date).getTime()) * (filters.sort === "oldest" ? -1 : 1))
+  const update = (change: Partial<FolderFilters>) => setFilters(previous => ({...previous, ...change}))
   useEffect(() => {
-    if (!focusSeries || !focusRef.current) return
-    const timeout = window.setTimeout(() => {
-      focusRef.current?.scrollIntoView({ behavior: "smooth", block: "center" })
-    }, 360)
-    return () => window.clearTimeout(timeout)
-  }, [focusSeries])
+    try { sessionStorage.setItem(`archive-filters:${folder.category}`, JSON.stringify(filters)) } catch { /* Optional persistence. */ }
+  }, [filters, folder.category])
 
   return (
     <m.div
-      initial={{ opacity: 0, y: 16 }}
-      animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: -10 }}
-      transition={{ duration: 0.32, ease: EASE }}
-      className="mx-auto w-full max-w-[1180px]"
+      initial={{opacity:0}} animate={{opacity:1}} exit={{opacity:0}}
+      transition={{duration:reducedMotion ? 0 : .2}}
+      onAnimationComplete={() => {
+        if (entered.current) return
+        entered.current = true
+        heading.current?.closest(".archive-library")?.scrollIntoView({block:"start",behavior:"instant"})
+        heading.current?.focus({preventScroll:true})
+      }}
+      className="archive-library"
     >
-      <button
-        type="button"
-        onClick={onBack}
-        className="mb-5 inline-flex items-center gap-2 text-xs font-light uppercase tracking-[0.2em] text-black/45 transition hover:text-black focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-4 focus-visible:ring-offset-background"
-      >
-        <ArrowLeft className="size-4" strokeWidth={1.6} />
-        Back to folders
+      <button type="button" onClick={onBack} className="archive-library-back">
+        <ArrowLeft size={17} aria-hidden="true" /> All folders
       </button>
-
-      <div className="overflow-hidden border-2 border-black bg-[#fffdf0] shadow-[8px_8px_0_0_rgba(0,0,0,0.18)]">
-        <header className="border-b-2 border-black px-5 py-5 sm:px-7">
-          <p className="text-[10px] font-light uppercase tracking-[0.24em] text-black/45">{folder.items.length} files</p>
-          <h3 className="mt-1 break-words font-display text-[clamp(2.15rem,7vw,3.25rem)] font-normal leading-none tracking-[-0.045em] text-black/90">
-            {folder.category}
-          </h3>
-          <p className="mt-2 max-w-[42rem] break-words text-xs font-light leading-5 text-black/55">
-            {folder.items.length > 0
-              ? "Subfolders separate the experiments inside this format."
-              : "No files published here yet."}
-          </p>
-        </header>
-
-        <div className="p-5 sm:p-7">
-          <div className="grid min-w-0 gap-5 lg:grid-cols-2">
-            {[...grouped, ...(ungrouped.length > 0 ? [{ project: undefined, items: ungrouped }] : [])].map((group) => {
-              const isFocused = Boolean(group.project && focusSeries === group.project.slug)
-              return (
-              <section
-                key={group.project?.slug ?? "ungrouped"}
-                ref={isFocused ? focusRef : undefined}
-                className={cn(
-                  "min-w-0 overflow-hidden border bg-white/25 p-4 transition-all duration-500",
-                  isFocused
-                    ? "border-black bg-white/55 shadow-[5px_5px_0_0_rgba(0,0,0,0.82)]"
-                    : "border-black/10",
-                )}
-              >
-                <p className="break-words font-display text-[clamp(1.35rem,6vw,1.5rem)] font-normal tracking-[-0.035em] text-black/85">
-                  {group.project?.title ?? "Loose Files"}
-                </p>
-                {group.project?.summary && (
-                  <p className="mt-2 line-clamp-3 break-words text-xs font-light leading-5 text-black/55">
-                    {group.project.summary}
-                  </p>
-                )}
-                <SeriesFiles items={group.items} />
-              </section>
-              )
-            })}
-          </div>
-        </div>
+      <header className="archive-library-header">
+        <h3 ref={heading} tabIndex={-1}>{folder.category}</h3>
+        <p>{FOLDER_DESCRIPTIONS[folder.category]}</p>
+        {folder.category === "Writings" && <Link to="/writing" className="archive-writing-link">Visit Creative Chaos <ArrowUpRight size={16} aria-hidden="true" /></Link>}
+      </header>
+      <div className="archive-library-controls">
+        <label className="archive-library-search">
+          <Search size={19} aria-hidden="true" />
+          <span className="sr-only">Search {folder.category.toLowerCase()}</span>
+          <input ref={search} type="search" placeholder={folder.category === "Writings" ? "Find a thought…" : "Find something…"} value={filters.query} onChange={e => update({query:e.target.value})} />
+        </label>
+        <label className="archive-library-sort">Sort by
+          <select value={filters.sort} onChange={e => update({sort:e.target.value})}>
+            <option value="newest">Newest first</option>
+            <option value="oldest">Oldest first</option>
+            <option value="title">Title A–Z</option>
+          </select>
+        </label>
       </div>
+      {(collections.length > 1 || (collections.length > 0 && hasLoose)) && <div className="archive-library-collections" role="group" aria-label="Filter by collection">
+        <button type="button" aria-pressed={collection === "all"} onClick={() => update({collection:"all"})}>All work <span>{folder.items.length}</span></button>
+        {collections.map(project => <button key={project.slug} type="button" aria-pressed={collection === project.slug} onClick={() => update({collection:project.slug})}>{project.title}<span>{folder.items.filter(item => item.project === project.slug).length}</span></button>)}
+        {hasLoose && <button type="button" aria-pressed={collection === "loose"} onClick={() => update({collection:"loose"})}>Other work</button>}
+      </div>}
+      {activeProject && <p className="archive-collection-description">{activeProject.summary}</p>}
+      <div className="archive-library-results">
+        <p role="status">{visible.length} {folder.category === "Writings" ? (visible.length === 1 ? "piece" : "pieces") : (visible.length === 1 ? "entry" : "entries")}{query ? ` matching “${filters.query.trim()}”` : collection !== "all" ? ` in ${activeProject?.title || "Other work"}` : " to explore"}</p>
+        {(query || collection !== "all") && <button type="button" onClick={() => {update({query:"",collection:"all"}); search.current?.focus()}}>Clear filters <X size={14} aria-hidden="true" /></button>}
+      </div>
+      <div className="archive-library-list">
+        {visible.map((item, index) => <Link key={item.slug} to={archiveEntryPath(item)} className={cn("archive-library-entry", index === 0 && !query && filters.sort === "newest" && "is-featured")}>
+          {item.image && <div className="archive-entry-image"><img src={item.image} alt="" loading="lazy" decoding="async" /></div>}
+          <div className="archive-entry-copy">
+            <div className="archive-entry-meta"><time dateTime={item.date}>{new Date(item.date).toLocaleDateString("en-US", {month:"short",day:"numeric",year:"numeric",timeZone:"UTC"})}</time><span>{archiveFormatLabel(item.format)}</span></div>
+            <h4>{item.title}</h4>
+            {(item.dek || item.summary) && <p>{item.dek || item.summary}</p>}
+            {collection === "all" && collections.length > 1 && <span className="archive-entry-collection">{collections.find(p => p.slug === item.project)?.title || "Other work"}</span>}
+          </div>
+          <ArrowUpRight className="archive-entry-arrow" size={20} aria-hidden="true" />
+        </Link>)}
+      </div>
+      {visible.length === 0 && <div className="archive-library-empty">
+        <h4>{folder.items.length ? "Nothing here matches yet." : "This folder is still taking shape."}</h4>
+        <p>{folder.items.length ? "Try another word or browse all the work in this folder." : "Come back for new work, or explore another folder."}</p>
+        <button type="button" onClick={() => {if (!folder.items.length) onBack(); else {setFilters(DEFAULT_FILTERS); search.current?.focus()}}}>{folder.items.length ? "Show all work" : "Explore folders"}</button>
+      </div>}
     </m.div>
   )
 }

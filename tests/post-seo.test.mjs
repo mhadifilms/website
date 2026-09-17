@@ -41,3 +41,13 @@ test("post SEO uses authored overrides and actual media without changing the hea
   );
   assert.equal(meta.canonicalPath, "/writing/a-post/");
 });
+test('social previews keep the original headline and subtitle independently of SEO copy', () => {
+  const snapshot = {title:'My actual headline',subtitle:'My actual subtitle.',seo:{title:'Search wording',description:'Search description.'},cover:'/publishing/media/cover-one.webp',text:'Body',tags:[]}
+  const meta=postMeta(snapshot,'/writing/example')
+  assert.equal(meta.socialTitle, snapshot.title)
+  assert.equal(meta.socialDescription, snapshot.subtitle)
+  assert.equal(meta.title,'Search wording | M Hadi')
+  assert.match(meta.socialImage,/\/publishing\/social\/example-cover-one\.jpg$/)
+  assert.notEqual(meta.socialImage,postMeta({...snapshot,cover:'/publishing/media/cover-two.webp'},'/writing/example').socialImage)
+  assert.equal(postMeta({...snapshot,subtitle:''},'/writing/example').socialDescription,'Search description.')
+})

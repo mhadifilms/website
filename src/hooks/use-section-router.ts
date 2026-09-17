@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react"
 import { useLocation } from "react-router-dom"
+import { ARCHIVE_OPEN_FOLDER_EVENT } from "@/lib/archive-utils"
 
 export type SectionDescriptor = {
   id: string
@@ -28,7 +29,8 @@ export function buildSections(items: Array<Omit<SectionDescriptor, "path">>): Se
 
 function currentBrowserPath(fallback: string) {
   const path = typeof window === "undefined" ? fallback : window.location.pathname
-  return path.replace(/\/+$/, "") || "/"
+  const normalized = path.replace(/\/+$/, "") || "/"
+  return /^\/archives\/[^/]+$/.test(normalized) ? "/archives" : normalized
 }
 
 const BOOT_BROWSER_PATH = currentBrowserPath("/")
@@ -137,6 +139,11 @@ export function useSectionRouter(sections: SectionDescriptor[]): SectionRouterSt
     if (typeof window === "undefined") return
 
     const ratios = new Map<string, number>()
+    const handleFolderOpen = () => {
+      setActiveId("archives")
+      suppressObserverUntilRef.current = performance.now() + 700
+    }
+    window.addEventListener(ARCHIVE_OPEN_FOLDER_EVENT, handleFolderOpen)
 
     const observer = new IntersectionObserver(
       (entries) => {
@@ -160,6 +167,13 @@ export function useSectionRouter(sections: SectionDescriptor[]): SectionRouterSt
           }
         }
 
+        // An open archive can be many screens tall, so its intersection ratio
+        // stays small even when it fills the viewport.
+        const archiveBounds = elementsRef.current.get("archives")?.getBoundingClientRect()
+        if (archiveBounds && archiveBounds.top <= innerHeight / 2 && archiveBounds.bottom >= innerHeight / 2) {
+          bestId = "archives"
+          bestRatio = 1
+        }
         if (bestId && bestRatio > 0.18) {
           setActiveId((prev) => (prev === bestId ? prev : bestId))
           const section = sections.find((s) => s.id === bestId)
@@ -183,13 +197,16 @@ export function useSectionRouter(sections: SectionDescriptor[]): SectionRouterSt
       observer.observe(element)
     }
 
-    return () => observer.disconnect()
+    return () => {
+      observer.disconnect()
+      window.removeEventListener(ARCHIVE_OPEN_FOLDER_EVENT, handleFolderOpen)
+    }
   }, [sections])
 
   useEffect(() => {
     if (typeof window === "undefined") return
     const handlePopState = () => {
-      const path = window.location.pathname.replace(/\/+$/, "") || "/"
+      const path = currentBrowserPath("/")
       const section = sections.find((s) => s.path === path)
       if (section) {
         scrollToId(section.id, { behavior: "auto" })

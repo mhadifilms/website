@@ -100,7 +100,7 @@ export function relatedSeriesForExperience(
  */
 export function openArchiveFolder(category: ArchiveCategory, series?: string, behavior?: ScrollBehavior) {
   if (typeof window === "undefined") return
-  window.history.replaceState(null, "", `/archives#${archiveCategorySlug(category)}`)
+  window.history.replaceState(window.history.state, "", `/archives#${archiveCategorySlug(category)}`)
   window.dispatchEvent(
     new CustomEvent<ArchiveOpenFolderDetail>(ARCHIVE_OPEN_FOLDER_EVENT, {
       detail: { category, series, behavior },
