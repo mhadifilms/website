@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { useEffect, useRef, useState } from "react";
 import { ArrowLeft, ArrowUp, Check, Link as LinkIcon } from "lucide-react";
 
-export function ReadingTools({ title }: { title: string }) {
+export function ReadingTools({ title, returnTo = "/writing" }: { title: string; returnTo?: string }) {
   const track = useRef<HTMLDivElement>(null);
   const [message, setMessage] = useState("");
   useEffect(() => {
@@ -30,7 +30,7 @@ export function ReadingTools({ title }: { title: string }) {
   }
   return <div className="reading-tools" ref={track}>
     <div className="reading-progress" aria-hidden="true" />
-    <Link to="/writing" aria-label="Back to writing"><ArrowLeft size={18}/></Link>
+    <Link to={returnTo} aria-label="Back to writing"><ArrowLeft size={18}/></Link>
     <span className="reading-current" title={title}>{title}</span>
     <button type="button" onClick={copyLink} aria-label="Copy link to this post">
       {message === "Link copied" ? <Check size={16}/> : <LinkIcon size={16}/>}
