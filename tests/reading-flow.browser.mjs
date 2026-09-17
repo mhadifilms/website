@@ -9,7 +9,7 @@ try {
   const page=await context.newPage();const errors=[];page.on('pageerror',e=>errors.push(e.message));
   await page.goto(base+'/writing/');await page.locator('.writing-featured').waitFor();
   await page.screenshot({path:`/private/tmp/reading-index-${width}.png`});
-  const row=page.locator('.native-writing-row').nth(8);await row.scrollIntoViewIfNeeded();
+  const row=page.locator('.native-writing-row').nth(4);await row.scrollIntoViewIfNeeded();
   const before=await page.evaluate(()=>scrollY);await row.click();await page.locator('[data-reading-route] .native-post h1').waitFor();
   await page.waitForFunction(()=>scrollY<5);assert.equal(await page.locator('h1').evaluate(e=>e===document.activeElement),true);
   console.log({width,newArticleY:await page.evaluate(()=>scrollY),focusOnTitle:true});
@@ -17,9 +17,9 @@ try {
   await page.locator('input[aria-label="Search writing"]').fill('living in berkeley as a rejected student');await page.waitForURL(/q=living/);await expect(page.locator('.native-writing-row')).toHaveCount(1);assert(await page.locator('input[aria-label="Search writing"]').evaluate(e=>e===document.activeElement));
   await page.locator('.native-writing-row').click();await page.locator('.native-post h1').waitFor();await page.waitForFunction(()=>scrollY<5);
   await page.goBack();await page.locator('.native-writing-row').waitFor();assert.equal(await page.locator('input[aria-label="Search writing"]').inputValue(),'living in berkeley as a rejected student');
-  await page.locator('input[aria-label="Search writing"]').fill('no-result-xyzabc');await page.locator('.writing-empty').waitFor();await page.getByRole('button',{name:'Clear search'}).click();await expect(page.locator('.native-writing-row')).toHaveCount(32);
-  await page.goto(base+'/writing/the-power-of-the-sun-in-the-palm');await page.locator('.post-image-open').first().waitFor();await page.locator('.post-image-open').first().click();await page.locator('dialog[open]').waitFor();await page.keyboard.press('Escape');assert.equal(await page.locator('dialog[open]').count(),0);assert(await page.locator('.post-image-open').first().evaluate(e=>e===document.activeElement));
-  await page.evaluate(()=>scrollTo({top:1200,behavior:"instant"}));await page.locator('.reading-tools[data-started=true]').waitFor();await page.getByRole('button',{name:'Copy link to this post'}).click();assert.equal((await page.evaluate(()=>navigator.clipboard.readText())).replace(/\/$/, ""),base+'/writing/the-power-of-the-sun-in-the-palm');
+  await page.locator('input[aria-label="Search writing"]').fill('no-result-xyzabc');await page.locator('.writing-empty').waitFor();await page.getByRole('button',{name:'Clear search'}).click();await expect(page.locator('.native-writing-row')).toHaveCount(6);
+  await page.goto(base+'/writing/master-of-my-prompt-master-of-the-universe');await page.locator('.post-image-open').first().waitFor();await page.locator('.post-image-open').first().click();await page.locator('dialog[open]').waitFor();await page.keyboard.press('Escape');assert.equal(await page.locator('dialog[open]').count(),0);assert(await page.locator('.post-image-open').first().evaluate(e=>e===document.activeElement));
+  await page.evaluate(()=>scrollTo({top:1200,behavior:"instant"}));await page.locator('.reading-tools[data-started=true]').waitFor();await page.getByRole('button',{name:'Copy link to this post'}).click();assert.equal((await page.evaluate(()=>navigator.clipboard.readText())).replace(/\/$/, ""),base+'/writing/master-of-my-prompt-master-of-the-universe');
   await page.screenshot({path:`/private/tmp/reading-post-${width}.png`});
   await page.getByRole('button',{name:'Back to top',exact:true}).click();await page.waitForFunction(()=>scrollY<5);
   const next=page.locator('.post-related a').first();await next.click();await page.locator('.native-post h1').waitFor();await page.waitForFunction(()=>scrollY<5);

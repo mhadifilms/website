@@ -1,7 +1,9 @@
+import { collectionPage, focusCollectionPage } from "@/lib/collection-pagination";
+import { CollectionPagination } from "@/components/collection-pagination";
 import { ReadingTools } from "./reading-tools";
 import { SubscribeForm } from "./subscribe";
 import { postMeta, relatedPosts } from "../../shared/post-meta.js";
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useLayoutEffect, useState, useRef } from "react";
 import { Link, useLocation, useSearchParams } from "react-router-dom";
 import { ArrowLeft, ArrowUpRight } from "lucide-react";
 import { api, formatDate } from "./api";
@@ -11,10 +13,13 @@ import { applyPageMeta } from "@/lib/seo";
 import "./cms.css";
 export default function WritingPage() {
   const location = useLocation();
+  const writingReturn = typeof location.state?.writingFrom === "string" && /^\/writing\/?(?:\?|$)/.test(location.state.writingFrom) ? location.state.writingFrom : "/writing";
   const pathname = location.pathname.replace(/\/+$/, "") || "/";
   const [posts, setPosts] = useState<PublicPost[] | null>(null),
     [error, setError] = useState("");
   const searchInput = useRef<HTMLInputElement>(null);
+  const pageStart = useRef<HTMLDivElement>(null);
+  const pageChangePending = useRef(false);
   const [search, setSearch] = useSearchParams();
   const query = search.get("q") || "";
   const setQuery = (value: string) => setSearch(value ? {q:value} : {}, {replace:true});
@@ -46,13 +51,26 @@ export default function WritingPage() {
       );
   }, [post, index, pathname]);
   const filtered = posts?.filter((p) => `${p.snapshot.title} ${p.snapshot.text}`.toLowerCase().includes(query.toLowerCase())) || [];
+  const pagination = collectionPage(filtered.length, Number(search.get("page") || 1));
+  const pageItems = filtered.slice(pagination.start, pagination.end);
+  const changePage = (page: number) => {
+    const next = new URLSearchParams(search);
+    if (page === 1) next.delete("page"); else next.set("page", String(page));
+    pageChangePending.current = true;
+    setSearch(next);
+  };
+  useLayoutEffect(() => {
+    if (!pageChangePending.current) return;
+    pageChangePending.current = false;
+    focusCollectionPage(pageStart.current);
+  }, [search]);
   return (
     <main key={pathname} id="content" tabIndex={-1} data-reading-route={posts ? pathname : undefined} className="native-writing-page">
       <a className="post-skip-link" href={index ? "#writing-list" : "#article"}>
         Skip to {index ? "writing" : "article"}
       </a>
       <nav>
-        <Link to={index ? "/archives" : "/writing"}>
+        <Link to={index ? "/archives" : writingReturn}>
           <ArrowLeft size={17} /> {index ? "Archives" : "Writing"}
         </Link>
         <div className="reading-nav-actions">
@@ -90,10 +108,11 @@ export default function WritingPage() {
               />
             </label>
           </header>
-          <div className="writing-results" role="status">{query ? `${filtered.length} ${filtered.length === 1 ? "piece" : "pieces"} found` : `${posts.length} pieces from the writing desk`}</div>
+          <div className="writing-results collection-page-start" ref={pageStart} tabIndex={-1} role="status">{filtered.length > 0 ? `${pagination.start+1}–${pagination.end} of ` : ""}{query ? `${filtered.length} ${filtered.length === 1 ? "piece" : "pieces"} found` : `${posts.length} pieces from the writing desk`}</div>
           {query && filtered.length === 0 && <div className="writing-empty"><h2>No writing found for “{query}”.</h2><p>Try a different word, or browse the full archive.</p><button type="button" onClick={() => {setQuery("");searchInput.current?.focus();}}>Clear search</button></div>}
-          {filtered.map((p, i) => (
-              <Link className={`native-writing-row ${!query && i === 0 ? "writing-featured" : ""}`} key={p.id} to={p.path}>
+          <CollectionPagination page={pagination.page} count={pagination.count} onChange={changePage} position="top" />
+          {pageItems.map((p, i) => (
+              <Link className={`native-writing-row ${pagination.page === 1 && !query && i === 0 ? "writing-featured" : ""}`} key={p.id} to={p.path} state={{writingFrom:location.pathname + location.search}}>
                 <time dateTime={p.snapshot.date}>
                   {formatDate(p.snapshot.date)}
                 </time>
@@ -107,17 +126,18 @@ export default function WritingPage() {
                 <ArrowUpRight size={19} />
               </Link>
             ))}
+          <CollectionPagination page={pagination.page} count={pagination.count} onChange={changePage} position="bottom" />
           {posts.length === 0 && <p>The next piece is on its way.</p>}
           <SubscribeForm />
         </div>
       ) : post ? (
         <>
-          <ReadingTools key={post.id} title={post.snapshot.title} />
+          <ReadingTools key={post.id} title={post.snapshot.title} returnTo={writingReturn} />
           <ArticleView key={post.id} snapshot={post.snapshot} />
           <aside className="post-related" aria-label="Continue reading">
             <h2>Continue reading</h2>
             {relatedPosts(posts, post).map((item: PublicPost) => (
-              <Link key={item.id} to={item.path}>
+              <Link key={item.id} to={item.path} state={{writingFrom:writingReturn}}>
                 {item.snapshot.cover && <img src={item.snapshot.cover} alt="" loading="lazy" />}
                 <span>{item.snapshot.title}<small>{formatDate(item.snapshot.date)}</small></span>
                 <ArrowUpRight size={19} />

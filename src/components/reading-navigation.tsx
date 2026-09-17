@@ -7,14 +7,15 @@ const isReading = (path: string) => /^\/(writing(?:\/|$)|archives\/[^/]+\/[^/]+)
 export function ReadingNavigation() {
   const location = useLocation(), navigation = useNavigationType();
   const positions = useRef(new Map<string, number>());
-  const current = useRef<{key: string; path: string; hash: string; y: number} | null>(null);
+  const current = useRef<{key: string; path: string; hash: string; search: string; y: number} | null>(null);
   useLayoutEffect(() => {
     const previous = current.current;
     if (previous) positions.current.set(previous.key, previous.y);
     if (positions.current.size > 100) positions.current.delete(positions.current.keys().next().value!);
     const samePage = previous?.path === location.pathname;
-    const targetY = navigation === "POP" ? positions.current.get(location.key) ?? 0 : samePage ? previous.y : 0;
-    current.current = {key: location.key, path: location.pathname, hash: location.hash, y: targetY};
+    const pageChanged = new URLSearchParams(previous?.search).get("page") !== new URLSearchParams(location.search).get("page");
+    const targetY = navigation === "POP" ? positions.current.get(location.key) ?? 0 : samePage && !pageChanged ? previous.y : 0;
+    current.current = {key: location.key, path: location.pathname, hash: location.hash, search: location.search, y: targetY};
     if (!isReading(location.pathname)) return;
     const originalRestoration = history.scrollRestoration;
     history.scrollRestoration = "manual";
@@ -58,6 +59,6 @@ export function ReadingNavigation() {
       window.removeEventListener("touchstart", interrupt);
       history.scrollRestoration = originalRestoration;
     };
-  }, [location.key, location.pathname, location.hash, navigation]);
+  }, [location.key, location.pathname, location.hash, location.search, navigation]);
   return null;
 }

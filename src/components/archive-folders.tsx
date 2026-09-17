@@ -1,3 +1,5 @@
+import { collectionPage, focusCollectionPage } from "@/lib/collection-pagination";
+import { CollectionPagination } from "@/components/collection-pagination"
 import { useEffect, useMemo, useRef, useState } from "react"
 import { AnimatePresence, m, useReducedMotion } from "framer-motion"
 import { Link } from "react-router-dom"
@@ -265,13 +267,13 @@ const FOLDER_DESCRIPTIONS: Record<ArchiveCategory, string> = {
   Tools: "Things I’ve built to make other things possible.",
   Miscellaneous: "The experiments that found their own way here.",
 }
-type FolderFilters = { query: string; collection: string; sort: string }
-const DEFAULT_FILTERS: FolderFilters = {query:"", collection:"all", sort:"newest"}
+type FolderFilters = { query: string; collection: string; sort: string; page: number }
+const DEFAULT_FILTERS: FolderFilters = {query:"", collection:"all", sort:"newest", page:1}
 
 function savedFilters(category: string): FolderFilters {
   try {
     const saved = JSON.parse(sessionStorage.getItem(`archive-filters:${category}`) || "null")
-    if (saved && typeof saved.query === "string" && typeof saved.collection === "string" && ["newest", "oldest", "title"].includes(saved.sort)) return saved
+    if (saved && typeof saved.query === "string" && typeof saved.collection === "string" && ["newest", "oldest", "title"].includes(saved.sort)) return {...saved, page:Number.isSafeInteger(saved.page) && saved.page > 0 ? saved.page : 1}
   } catch { /* Storage is optional, including in private browsing. */ }
   return DEFAULT_FILTERS
 }
@@ -285,9 +287,10 @@ function FolderView({ folder, focusSeries, onBack }: {
   const heading = useRef<HTMLHeadingElement>(null)
   const entered = useRef(false)
   const search = useRef<HTMLInputElement>(null)
+  const pageStart = useRef<HTMLDivElement>(null)
   const [filters, setFilters] = useState<FolderFilters>(() => ({
     ...savedFilters(folder.category),
-    ...(focusSeries ? {collection:focusSeries} : {}),
+    ...(focusSeries ? {collection:focusSeries,query:"",page:1} : {}),
   }))
   const collections = folder.projects.filter(project => folder.items.some(item => item.project === project.slug))
   const hasLoose = folder.items.some(item => !collections.some(project => project.slug === item.project))
@@ -298,7 +301,13 @@ function FolderView({ folder, focusSeries, onBack }: {
     const inCollection = collection === "all" || (collection === "loose" ? !collections.some(p => p.slug === item.project) : item.project === collection)
     return inCollection && `${item.title} ${item.dek} ${item.summary || ""}`.toLocaleLowerCase().includes(query)
   }).sort((a,b) => filters.sort === "title" ? a.title.localeCompare(b.title) : (new Date(b.date).getTime() - new Date(a.date).getTime()) * (filters.sort === "oldest" ? -1 : 1))
-  const update = (change: Partial<FolderFilters>) => setFilters(previous => ({...previous, ...change}))
+  const pagination = collectionPage(visible.length, filters.page)
+  const pageItems = visible.slice(pagination.start, pagination.end)
+  const update = (change: Partial<FolderFilters>) => setFilters(previous => ({...previous, ...change, page:1}))
+  const changePage = (page: number) => {
+    setFilters(previous => ({...previous, page}))
+    focusCollectionPage(pageStart.current)
+  }
   useEffect(() => {
     try { sessionStorage.setItem(`archive-filters:${folder.category}`, JSON.stringify(filters)) } catch { /* Optional persistence. */ }
   }, [filters, folder.category])
@@ -344,12 +353,13 @@ function FolderView({ folder, focusSeries, onBack }: {
         {hasLoose && <button type="button" aria-pressed={collection === "loose"} onClick={() => update({collection:"loose"})}>Other work</button>}
       </div>}
       {activeProject && <p className="archive-collection-description">{activeProject.summary}</p>}
-      <div className="archive-library-results">
-        <p role="status">{visible.length} {folder.category === "Writings" ? (visible.length === 1 ? "piece" : "pieces") : (visible.length === 1 ? "entry" : "entries")}{query ? ` matching “${filters.query.trim()}”` : collection !== "all" ? ` in ${activeProject?.title || "Other work"}` : " to explore"}</p>
+      <div className="archive-library-results collection-page-start" ref={pageStart} tabIndex={-1}>
+        <p role="status">{visible.length > 0 ? `${pagination.start+1}–${pagination.end} of ` : ""}{visible.length} {folder.category === "Writings" ? (visible.length === 1 ? "piece" : "pieces") : (visible.length === 1 ? "entry" : "entries")}{query ? ` matching “${filters.query.trim()}”` : collection !== "all" ? ` in ${activeProject?.title || "Other work"}` : " to explore"}</p>
         {(query || collection !== "all") && <button type="button" onClick={() => {update({query:"",collection:"all"}); search.current?.focus()}}>Clear filters <X size={14} aria-hidden="true" /></button>}
       </div>
+      <CollectionPagination page={pagination.page} count={pagination.count} onChange={changePage} position="top" />
       <div className="archive-library-list">
-        {visible.map((item, index) => <Link key={item.slug} to={archiveEntryPath(item)} className={cn("archive-library-entry", index === 0 && !query && filters.sort === "newest" && "is-featured")}>
+        {pageItems.map((item, index) => <Link key={item.slug} to={archiveEntryPath(item)} className={cn("archive-library-entry", pagination.page === 1 && index === 0 && !query && filters.sort === "newest" && "is-featured")}>
           {item.image && <div className="archive-entry-image"><img src={item.image} alt="" loading="lazy" decoding="async" /></div>}
           <div className="archive-entry-copy">
             <div className="archive-entry-meta"><time dateTime={item.date}>{item.displayDate ?? new Date(item.date).toLocaleDateString("en-US", {month:"short",day:"numeric",year:"numeric",timeZone:"UTC"})}</time><span>{item.category === "Photography" ? `${item.gallery?.length ?? 0} photographs` : archiveFormatLabel(item.format)}</span></div>
@@ -360,6 +370,7 @@ function FolderView({ folder, focusSeries, onBack }: {
           <ArrowUpRight className="archive-entry-arrow" size={20} aria-hidden="true" />
         </Link>)}
       </div>
+      <CollectionPagination page={pagination.page} count={pagination.count} onChange={changePage} position="bottom" />
       {visible.length === 0 && <div className="archive-library-empty">
         <h4>{folder.items.length ? "Nothing here matches yet." : "This folder is still taking shape."}</h4>
         <p>{folder.items.length ? "Try another word or browse all the work in this folder." : "Come back for new work, or explore another folder."}</p>
