@@ -88,7 +88,7 @@ export function relatedSeriesForExperience(
     .map((project) => ({
       project,
       entries: items
-        .filter((item) => item.project === project.slug)
+        .filter((item) => !item.unlisted && item.project === project.slug)
         .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()),
     }))
     .filter((group) => group.entries.length > 0)
@@ -113,8 +113,9 @@ export function openArchiveFolder(category: ArchiveCategory, series?: string, be
  * chronological run rather than a reverse feed.
  */
 export function seriesRun(items: ArchiveItem[], item: ArchiveItem) {
+  if (item.unlisted) return { previous: undefined, next: undefined, position: 0, total: 0 }
   const run = items
-    .filter((candidate) => candidate.project === item.project)
+    .filter((candidate) => !candidate.unlisted && candidate.project === item.project)
     .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())
   const index = run.findIndex((candidate) => candidate.slug === item.slug)
   return {

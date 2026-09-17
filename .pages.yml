@@ -249,6 +249,9 @@ content:
       - name: credits
         label: Credits (optional)
         type: text
+      - name: unlisted
+        label: Unlisted (direct link only)
+        type: boolean
       - name: gallery
         label: Gallery (photo sets)
         type: image

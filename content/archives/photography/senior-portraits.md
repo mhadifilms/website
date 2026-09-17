@@ -1,4 +1,18 @@
 ---
+unlisted: true
+galleryDimensions:
+  - - 1366
+    - 2048
+  - - 1366
+    - 2048
+  - - 1365
+    - 2048
+  - - 1366
+    - 2048
+  - - 1365
+    - 2048
+  - - 1365
+    - 2048
 slug: senior-portraits
 title: RISE Academy Senior Portraits
 platform: Website

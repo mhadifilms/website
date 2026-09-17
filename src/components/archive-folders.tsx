@@ -78,7 +78,7 @@ export function ArchiveFolders({ items, projects }: ArchiveFoldersProps) {
   const folders = useMemo<CategoryFolder[]>(() => {
     return ARCHIVE_CATEGORY_ORDER.map((category) => {
       const categoryItems = items
-        .filter((item) => item.category === category)
+        .filter((item) => !item.unlisted && item.category === category)
         .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
       const categoryProjects = projects
         .filter((project) => project.category === category && categoryItems.some((item) => item.project === project.slug))

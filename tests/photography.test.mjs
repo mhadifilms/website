@@ -3,6 +3,7 @@ import test from "node:test"
 import fs from "node:fs/promises"
 import matter from "gray-matter"
 import { createHash } from "node:crypto"
+import { relatedSeriesForExperience, seriesRun } from "../src/lib/archive-utils.ts"
 
 const source = JSON.parse(await fs.readFile("content/sources/awaiten-projects.json", "utf8"))
 const projects = source.projects.filter((project) => project.category === "Photography")
@@ -18,11 +19,39 @@ test("all Awaiten photography collections retain their photos, order, subfolders
     assert.equal(data.displayDate, project.duration)
     assert.equal(data.href, `https://awaiten.com/photography/${project.slug}`)
     assert.deepEqual(data.gallery, project.gallery.map(webPath))
+    assert.equal(data.galleryDimensions.length, data.gallery.length)
+    assert(data.galleryDimensions.every(([width, height]) => width > 0 && height > 0))
     assert.deepEqual(data.galleryCategories, Object.fromEntries(Object.entries(project.galleryCategories || {}).map(([name, photos]) => [name.replaceAll("_", " "), photos.map(webPath)])))
     assert(content.replace(/<[^>]+>/g, " ").trim().length >= 180)
     count += data.gallery.length
   }
   assert.equal(count, 1154)
+})
+
+test("the five requested collections remain unlisted", async () => {
+  const expected = ["wali-aylia-wedding", "rise-academy-lower-school", "senior-portraits", "sync-boilermake-winners", "tanzania-2025"].sort()
+  const unlisted = []
+  let publicPhotos = 0
+  for (const project of projects) {
+    const { data } = matter(await fs.readFile(`content/archives/photography/${project.slug}.md`, "utf8"))
+    if (data.unlisted) unlisted.push(data.slug)
+    else publicPhotos += data.gallery.length
+  }
+  assert.deepEqual(unlisted.sort(), expected)
+  assert.equal(publicPhotos, 828)
+})
+
+test("unlisted collections never appear in series navigation or experience previews", async () => {
+  const items = await Promise.all(projects.map(async (project) => matter(await fs.readFile(`content/archives/photography/${project.slug}.md`, "utf8")).data))
+  for (const item of items) {
+    const run = seriesRun(items, item)
+    assert(!run.previous?.unlisted)
+    assert(!run.next?.unlisted)
+    assert.equal(run.total, item.unlisted ? 0 : 12)
+  }
+  const groups = relatedSeriesForExperience("awaiten-films", [{ slug: "awaiten-photography", relatedExperience: "awaiten-films", order: 1 }], items)
+  assert.equal(groups[0].entries.length, 12)
+  assert(groups[0].entries.every(item => !item.unlisted))
 })
 
 test("every catalog photograph and cover uses Cloudflare with a preserved original checksum", async () => {

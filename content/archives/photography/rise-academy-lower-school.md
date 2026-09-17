@@ -1,4 +1,34 @@
 ---
+unlisted: true
+galleryDimensions:
+  - - 4920
+    - 3280
+  - - 5449
+    - 3633
+  - - 5691
+    - 3794
+  - - 5573
+    - 3715
+  - - 4994
+    - 3329
+  - - 5383
+    - 3589
+  - - 5121
+    - 3414
+  - - 5808
+    - 3872
+  - - 6000
+    - 4000
+  - - 5567
+    - 3711
+  - - 5387
+    - 3591
+  - - 6000
+    - 4000
+  - - 6000
+    - 4000
+  - - 6000
+    - 4000
 slug: rise-academy-lower-school
 title: RISE Academy Lower School
 platform: Website

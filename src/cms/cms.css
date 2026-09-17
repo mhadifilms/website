@@ -2037,7 +2037,8 @@
 .post-lightbox-toolbar,.post-lightbox-controls { display:flex; align-items:center; justify-content:space-between; gap:16px; font:14px/1.5 var(--font-sans); }
 .post-lightbox button { min-height:44px; min-width:44px; display:inline-flex; align-items:center; justify-content:center; gap:8px; padding:8px; cursor:pointer; }
 .post-lightbox button:focus-visible { outline:3px solid #665927; outline-offset:2px; }
-.post-lightbox figure { margin:12px 0; }
+.post-lightbox figure { position:relative; margin:12px 0; }
+.post-lightbox-image-status { position:absolute; inset:0; display:grid; place-items:center; font-size:13px; color:inherit; }
 .post-lightbox img { display:block; max-width:100%; max-height:70dvh; width:auto; height:auto; margin:auto; object-fit:contain; }
 .post-lightbox figcaption { font:14px/1.6 var(--font-sans); text-align:center; margin:16px auto; max-width:70ch; }
 @media(max-width:600px){

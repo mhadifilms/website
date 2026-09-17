@@ -4,6 +4,7 @@ import { ArrowLeft, ArrowRight, ArrowUpRight } from "lucide-react"
 
 import { PillNav } from "@/components/pill-nav"
 import { PhotoGallery } from "@/components/photo-gallery"
+import { PhotographyEntry } from "@/pages/photography-entry"
 import { archives, projects } from "@/content/generated"
 import type { ArchiveItem } from "@/content/types"
 import {
@@ -59,15 +60,17 @@ export default function ArchiveEntryPage() {
       canonicalPath: archiveEntryPath(item),
       image: absoluteAssetUrl(item.image),
       imageAlt: item.title,
+      noindex: item.unlisted,
     })
   }, [item])
 
   if (!item) return <Navigate to="/archives" replace />
+  if (item.category === "Photography") return <PhotographyEntry item={item} bodyHtml={bodyHtml} pathname={location.pathname} />
 
   const project = projects.find((candidate) => candidate.slug === item.project)
   const run = seriesRun(archives, item)
   const related = archives
-    .filter((candidate) => candidate.slug !== item.slug && candidate.project === item.project)
+    .filter((candidate) => !candidate.unlisted && candidate.slug !== item.slug && candidate.project === item.project)
     .slice(0, 3)
 
   return (
@@ -75,7 +78,7 @@ export default function ArchiveEntryPage() {
       <PillNav />
       <article className="mx-auto w-full max-w-[1040px]">
         <Link
-          to={item.category === "Photography" ? "/archives/photography" : "/archives"}
+          to="/archives"
           className="inline-flex items-center gap-2 text-xs font-light uppercase tracking-[0.2em] text-black/45 transition hover:text-black focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-4 focus-visible:ring-offset-background"
         >
           <ArrowLeft className="size-4" strokeWidth={1.6} />

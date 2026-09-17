@@ -97,6 +97,8 @@ export type ArchiveItem = {
   image: string
   href: string
   date: string
+  unlisted?: boolean
+  galleryDimensions?: [number, number][]
   displayDate?: string
   summary?: string
   role?: string

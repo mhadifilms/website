@@ -196,6 +196,7 @@ function normalizeArchive(archive, projectBySlug) {
 function assertArchiveContent(archives) {
   for (const archive of archives) {
     const id = `archives/${archive.slug}`
+    if (archive.unlisted !== undefined && typeof archive.unlisted !== "boolean") throw new Error(`${id} unlisted must be a boolean`)
     if (!archive.project) throw new Error(`${id} must belong to a series (set "project")`)
     if (!archive.image) throw new Error(`${id} is missing a hero image (set "image" or give its series an image)`)
     if (!archive.dek || archive.dek.trim().length < 8) throw new Error(`${id} needs a "dek" (short editorial subtitle)`)

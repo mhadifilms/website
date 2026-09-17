@@ -50,7 +50,7 @@ export function useNativeArchives() {
     ...entries,
     ...archives.filter(
       (item) =>
-        !slugs.has(item.slug) && !paths.has(`/archives/writings/${item.slug}`),
+        !item.unlisted && !slugs.has(item.slug) && !paths.has(`/archives/writings/${item.slug}`),
     ),
   ]
 }

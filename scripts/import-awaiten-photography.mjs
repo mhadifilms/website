@@ -79,6 +79,9 @@ if (!process.argv.includes("--content-only")) {
 
 }
 
+const inventory = JSON.parse(await fs.readFile("content/sources/awaiten-photography-assets.json", "utf8"))
+const dimensions = new Map(inventory.assets.map(asset => [asset.image, [asset.width, asset.height]]))
+
 const clean = (value = "") => value.replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim()
 const brand = (value) => value.replace(/sync\.hq/g, "sync. labs HQ").replace(/\bsync\.(?! labs)/g, "sync. labs").replace(/\bsync @/g, "sync. labs @")
 await fs.mkdir("content/archives/photography", { recursive: true })
@@ -86,7 +89,8 @@ await fs.writeFile("content/projects/awaiten-photography.md", matter.stringify("
   slug: "awaiten-photography", title: "Awaiten Photography", order: 4, category: "Photography", type: "Photography", status: "Archive", image: thumbPath(projects[0].thumbnail), summary: "Travel, portraits, weddings, events, and behind-the-scenes photography from Awaiten Films.", href: "https://awaiten.com/photography", relatedExperience: "awaiten-films", platforms: ["Website"],
 }))
 for (const project of projects) {
-  if (project.gallerySettings?.unlisted) throw new Error(`Review unlisted collection before publishing: ${project.slug}`)
+  const existing = matter(await fs.readFile(`content/archives/photography/${project.slug}.md`, "utf8").catch(() => "")).data
+  const unlisted = existing.unlisted ?? project.gallerySettings?.unlisted ?? false
   const title = brand(project.title)
   const gallery = [...new Set([...(project.gallery || []), ...Object.values(project.galleryCategories || {}).flat()])]
   const date = new Date(project.duration.replace(/(\d+)(st|nd|rd|th)/g, "$1"))
@@ -97,6 +101,7 @@ for (const project of projects) {
     .replace(/<h[1-6]>\s*(?:<br\s*\/?>\s*)*<\/h[1-6]>/gi, "")
   const body = `${description}\n\n${title} is a ${project.deliverables.toLowerCase()} collection from Awaiten Films, dated ${project.duration}. The collection includes ${gallery.length} photographs in the original collection order${project.client !== "Personal" ? `, created for ${brand(project.client)}` : ""}.\n\n${brand(html)}\n`
   await fs.writeFile(`content/archives/photography/${project.slug}.md`, matter.stringify(body.trim(), {
+    unlisted, galleryDimensions: gallery.map(photo => dimensions.get(webPath(photo))),
     slug: project.slug, title, platform: "Website", category: "Photography", format: "photo-set", entryType: "Photo", project: "awaiten-photography", dek: description, summary: description, image: thumbPath(project.thumbnail), href: `https://awaiten.com/photography/${project.slug}`, date: date.toISOString().slice(0, 10), displayDate: project.duration, credits: `Awaiten Films\nClient: ${brand(project.client)}\n${project.deliverables}`, gallery: gallery.map(webPath), galleryCategories: Object.fromEntries(Object.entries(project.galleryCategories || {}).map(([name, photos]) => [name.replaceAll("_", " "), photos.map(webPath)])),
   }))
 }

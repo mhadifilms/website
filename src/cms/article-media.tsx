@@ -9,6 +9,13 @@ import {
 } from "react";
 import { X, ChevronLeft, ChevronRight } from "lucide-react";
 type Photo = { src: string; alt: string; caption: string };
+function ViewerImage({ photo }: { photo: Photo }) {
+  const [status, setStatus] = useState<"loading" | "ready" | "error">("loading");
+  return <>
+    <img src={photo.src} alt={photo.alt} onLoad={() => setStatus("ready")} onError={() => setStatus("error")} style={{ opacity: status === "ready" ? 1 : 0 }} />
+    {status !== "ready" && <span className="post-lightbox-image-status" role="status">{status === "loading" ? "Loading photograph…" : <a href={photo.src} target="_blank" rel="noreferrer">Unable to load. Open image ↗</a>}</span>}
+  </>;
+}
 const RenderedBody = memo(function RenderedBody({
   html,
   bodyRef,
@@ -76,6 +83,13 @@ export function ArticleMedia({ html, cover }: { html: string; cover?: {src:strin
     return () => buttons.forEach(({button,img}) => { button.before(img); button.remove(); });
   }, [html]);
   const photo = photos[index];
+  useEffect(() => {
+    if (photos.length < 2) return;
+    for (const next of new Set([(index + 1) % photos.length, (index + photos.length - 1) % photos.length])) {
+      const preload = new Image();
+      preload.src = photos[next].src;
+    }
+  }, [photos, index]);
   const isOpen = Boolean(photo);
   useEffect(() => {
     if (!isOpen) return;
@@ -175,7 +189,7 @@ export function ArticleMedia({ html, cover }: { html: string; cover?: {src:strin
               </button>
             </div>
             <figure>
-              <img key={photo.src} src={photo.src} alt={photo.alt} />
+              <ViewerImage key={photo.src} photo={photo} />
               {(photo.caption || photo.alt) && (
                 <figcaption>{photo.caption || photo.alt}</figcaption>
               )}

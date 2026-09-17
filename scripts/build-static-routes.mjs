@@ -239,7 +239,7 @@ function routeHtml(template, route) {
   let html = template
 
   html = setTitle(html, route.title)
-  html = setLink(html, "canonical", route.noindex ? SITE_URL : canonical)
+  html = setLink(html, "canonical", route.noindex && !route.unlisted ? SITE_URL : canonical)
   html = setMetaName(html, "description", route.description)
   html = setMetaName(html, "robots", robots)
   html = setMetaName(html, "googlebot", robots)
@@ -247,7 +247,7 @@ function routeHtml(template, route) {
   html = setMetaProperty(html, "og:type", route.ogType ?? "website")
   html = setMetaProperty(html, "og:title", route.socialTitle ?? route.title)
   html = setMetaProperty(html, "og:description", route.socialDescription ?? route.description)
-  html = setMetaProperty(html, "og:url", route.noindex ? SITE_URL : canonical)
+  html = setMetaProperty(html, "og:url", route.noindex && !route.unlisted ? SITE_URL : canonical)
   html = setMetaProperty(html, "og:image", image)
   html = setMetaProperty(html, "og:image:secure_url", image)
   html = setMetaProperty(html, "og:image:type", route.socialImage ? "image/jpeg" : route.imageType ?? "image/png")
@@ -369,6 +369,8 @@ function archiveRoute(item, project, siblings) {
       ]
   return {
     path: routePath,
+    unlisted: item.unlisted === true,
+    noindex: item.unlisted === true,
     output: `${routePath.replace(/^\/+/, "")}/index.html`,
     title: item.seoTitle || `${item.title} | Archives | M Hadi`,
     description,
@@ -544,7 +546,7 @@ const nativeEntries = publication.posts.map(post => ({
 }))
 // Series siblings for "more in this series" internal links.
 const siblingsByProject = new Map()
-for (const item of archives) {
+for (const item of archives.filter(item => !item.unlisted)) {
   const key = item.project ?? "_loose"
   if (!siblingsByProject.has(key)) siblingsByProject.set(key, [])
   siblingsByProject.get(key).push(item)
@@ -556,7 +558,7 @@ const archiveRoutes = archives.map((item) =>
 
 // Category hub pages (only categories that actually have entries).
 const entriesByCategory = new Map()
-for (const item of [...archives, ...nativeEntries]) {
+for (const item of [...archives, ...nativeEntries].filter(item => !item.unlisted)) {
   if (!entriesByCategory.has(item.category)) entriesByCategory.set(item.category, [])
   entriesByCategory.get(item.category).push(item)
 }

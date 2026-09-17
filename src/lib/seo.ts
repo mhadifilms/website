@@ -15,6 +15,7 @@ export type PageMeta = {
   image?: string
   jsonLd?: unknown
   imageAlt?: string
+  noindex?: boolean
 }
 
 function setMeta(selector: string, attr: "content" | "href", value: string) {
@@ -41,6 +42,9 @@ export function applyPageMeta(meta: PageMeta) {
   } else if(structured) structured.remove()
   setMeta('meta[property="og:type"]', 'content', meta.jsonLd ? 'article' : 'website')
   document.title = meta.title
+  for (const name of ["robots", "googlebot", "bingbot"]) {
+    setMeta(`meta[name="${name}"]`, "content", meta.noindex ? "noindex, follow" : "index, follow, max-image-preview:large")
+  }
   setMeta('meta[name="description"]', "content", meta.description)
   setMeta('meta[property="og:title"]', "content", meta.socialTitle ?? meta.title)
   setMeta('meta[property="og:description"]', "content", meta.socialDescription ?? meta.description)
