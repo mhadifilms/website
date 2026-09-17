@@ -5,6 +5,7 @@ export const ARCHIVE_OPEN_FOLDER_EVENT = "archive:open-folder"
 export type ArchiveOpenFolderDetail = {
   category: ArchiveCategory
   series?: string
+  behavior?: ScrollBehavior
 }
 
 export const ARCHIVE_CATEGORY_ORDER: ArchiveCategory[] = [
@@ -97,12 +98,12 @@ export function relatedSeriesForExperience(
  * Opens an Archives folder in place (same-page) and asks it to highlight a
  * series. Updates the hash too, so the deep link is shareable.
  */
-export function openArchiveFolder(category: ArchiveCategory, series?: string) {
+export function openArchiveFolder(category: ArchiveCategory, series?: string, behavior?: ScrollBehavior) {
   if (typeof window === "undefined") return
   window.history.replaceState(window.history.state, "", `/archives#${archiveCategorySlug(category)}`)
   window.dispatchEvent(
     new CustomEvent<ArchiveOpenFolderDetail>(ARCHIVE_OPEN_FOLDER_EVENT, {
-      detail: { category, series },
+      detail: { category, series, behavior },
     }),
   )
 }

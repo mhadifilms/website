@@ -43,19 +43,22 @@ export function ArchiveFolders({ items, projects }: ArchiveFoldersProps) {
   useEffect(() => {
     if (typeof window === "undefined") return
 
-    const focusFolder = (category: ArchiveCategory, series?: string) => {
+    const focusFolder = (category: ArchiveCategory, series?: string, behavior?: ScrollBehavior) => {
       setOpenCategory(category)
       setFocusSeries(series ?? null)
       requestAnimationFrame(() => {
         requestAnimationFrame(() => {
-          rootRef.current?.scrollIntoView({ behavior: "smooth", block: "start" })
+          rootRef.current?.scrollIntoView({
+            behavior: behavior ?? (window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "instant" : "smooth"),
+            block: "start",
+          })
         })
       })
     }
 
     const handleOpen = (event: Event) => {
       const detail = (event as CustomEvent<ArchiveOpenFolderDetail>).detail
-      if (detail?.category) focusFolder(detail.category, detail.series)
+      if (detail?.category) focusFolder(detail.category, detail.series, detail.behavior)
     }
 
     window.addEventListener(ARCHIVE_OPEN_FOLDER_EVENT, handleOpen)
@@ -86,7 +89,7 @@ export function ArchiveFolders({ items, projects }: ArchiveFoldersProps) {
         projects: categoryProjects,
         cover: categoryItems.find((item) => item.image)?.image ?? categoryProjects.find((project) => project.image)?.image,
       }
-    }).filter((folder) => folder.items.length > 0)
+    })
   }, [items, projects])
 
   const openFolder = folders.find((folder) => folder.category === openCategory) ?? null

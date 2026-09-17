@@ -178,7 +178,8 @@ export function useSectionRouter(sections: SectionDescriptor[]): SectionRouterSt
           setActiveId((prev) => (prev === bestId ? prev : bestId))
           const section = sections.find((s) => s.id === bestId)
           if (section) {
-            const path = section.id === "experiences" && window.location.hash ? `${section.path}${window.location.hash}` : section.path
+            const keepsHash = section.id === "experiences" || section.id === "archives"
+            const path = keepsHash && window.location.hash ? `${section.path}${window.location.hash}` : section.path
             if (path !== lastPushedPathRef.current) {
               passivePathRef.current = path
               window.history.replaceState(null, "", path)
