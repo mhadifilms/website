@@ -266,6 +266,14 @@ content:
         label: Body
         type: rich-text
 
+  - name: archives_photography
+    label: Archives / Photography
+    type: collection
+    path: content/archives/photography
+    filename: "{fields.slug}.md"
+    view: *archive_view
+    fields: *archive_fields
+
   - name: archives_youtube
     label: Archives / YouTube
     type: collection

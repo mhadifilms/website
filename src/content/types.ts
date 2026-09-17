@@ -97,10 +97,12 @@ export type ArchiveItem = {
   image: string
   href: string
   date: string
+  displayDate?: string
   summary?: string
   role?: string
   credits?: string
   gallery?: string[]
+  galleryCategories?: Record<string, string[]>
   relatedEntries?: string[]
   seoTitle?: string
   seoDescription?: string

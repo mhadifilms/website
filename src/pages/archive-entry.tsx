@@ -3,6 +3,7 @@ import { Link, Navigate, useParams, useLocation } from "react-router-dom"
 import { ArrowLeft, ArrowRight, ArrowUpRight } from "lucide-react"
 
 import { PillNav } from "@/components/pill-nav"
+import { PhotoGallery } from "@/components/photo-gallery"
 import { archives, projects } from "@/content/generated"
 import type { ArchiveItem } from "@/content/types"
 import {
@@ -74,7 +75,7 @@ export default function ArchiveEntryPage() {
       <PillNav />
       <article className="mx-auto w-full max-w-[1040px]">
         <Link
-          to="/archives"
+          to={item.category === "Photography" ? "/archives/photography" : "/archives"}
           className="inline-flex items-center gap-2 text-xs font-light uppercase tracking-[0.2em] text-black/45 transition hover:text-black focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-4 focus-visible:ring-offset-background"
         >
           <ArrowLeft className="size-4" strokeWidth={1.6} />
@@ -93,7 +94,7 @@ export default function ArchiveEntryPage() {
             <span aria-hidden="true">/</span>
             <span>{archiveFormatLabel(item.format)}</span>
             <span aria-hidden="true">/</span>
-            <span>{formatDate(item.date)}</span>
+            <span>{item.displayDate ?? formatDate(item.date)}</span>
           </div>
 
           <h1 className="mt-4 text-balance font-display text-[clamp(2.35rem,7vw,5.25rem)] font-normal leading-[0.92] tracking-[-0.055em] text-black/90">
@@ -242,26 +243,7 @@ function ArchiveArtifact({ item }: { item: ArchiveItem }) {
   }
 
   if (item.format === "photo-set" && item.gallery && item.gallery.length > 0) {
-    return (
-      <figure className="mt-10">
-        <div className="grid gap-3 sm:grid-cols-2">
-          {item.gallery.map((src, index) => (
-            <div key={src} className="overflow-hidden border-2 border-black bg-white shadow-[6px_6px_0_0_rgba(0,0,0,0.16)]">
-              <img
-                src={src}
-                alt={`${item.title} — frame ${index + 1}`}
-                loading={index === 0 ? "eager" : "lazy"}
-                decoding="async"
-                className="block aspect-[4/3] w-full object-cover"
-              />
-            </div>
-          ))}
-        </div>
-        <figcaption className="mt-2 text-[10px] font-light uppercase tracking-[0.2em] text-black/40">
-          Photo set · {item.gallery.length} frames
-        </figcaption>
-      </figure>
-    )
+    return <PhotoGallery key={item.slug} item={item} />
   }
 
   if (!item.image) return null

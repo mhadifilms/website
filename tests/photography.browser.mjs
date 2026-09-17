@@ -1,0 +1,66 @@
+/* global document, innerWidth, getComputedStyle */
+import { chromium, expect } from "@playwright/test"
+import assert from "node:assert/strict"
+
+const base = process.env.PHOTOGRAPHY_TEST_URL || "http://127.0.0.1:5198"
+const browser = await chromium.launch({ channel: "chrome", headless: true })
+try {
+  for (const width of [1440, 390]) {
+    const page = await browser.newPage({ viewport: { width, height: 900 }, reducedMotion: "reduce", hasTouch: width === 390 })
+    const errors = []
+    page.on("pageerror", (error) => errors.push(error.message))
+    await page.goto(`${base}/archives`)
+    await page.locator("#photography").waitFor()
+    assert.equal(await page.locator("#writings").evaluate((element) => element.nextElementSibling?.id), "photography")
+    await page.locator("#photography").click()
+    await expect(page.locator(".archive-library-entry")).toHaveCount(17)
+    await page.getByRole("searchbox", { name: "Search photography" }).fill("Death and Life")
+    await expect(page.locator(".archive-library-entry")).toHaveCount(1)
+    await page.locator(".archive-library-entry").click()
+    await expect(page.locator("h1")).toHaveText("Death and Life - Behind the Scenes")
+    const photos = page.locator("a[data-gallery-image]")
+    await expect(photos).toHaveCount(36)
+    await page.getByRole("button", { name: "DAY TWO (9)", exact: true }).click()
+    await expect(photos).toHaveCount(9)
+    await photos.first().scrollIntoViewIfNeeded()
+    await expect.poll(() => photos.first().locator("img").evaluate((image) => image.complete && image.naturalWidth > 0), { timeout: 30000 }).toBe(true)
+    assert.equal(await photos.first().locator("img").evaluate((image) => getComputedStyle(image).objectFit), "contain")
+    await page.screenshot({ path: `/private/tmp/photography-gallery-${width}.png` })
+    await photos.first().click()
+    const dialog = page.getByRole("dialog", { name: "Image viewer" })
+    await expect(dialog).toBeVisible()
+    const image = dialog.locator("figure img")
+    const initial = await image.getAttribute("src")
+    assert(initial.startsWith("https://cdn.awaiten.com/cdn-cgi/image/"))
+    await expect.poll(() => image.evaluate((image) => image.complete && image.naturalWidth > 0), { timeout: 30000 }).toBe(true)
+    await page.keyboard.press("ArrowRight")
+    await expect(image).not.toHaveAttribute("src", initial)
+    await page.keyboard.press("ArrowLeft")
+    await expect(image).toHaveAttribute("src", initial)
+    if (width === 390) {
+      await dialog.dispatchEvent("touchstart", { touches: [{ identifier: 1, clientX: 250, clientY: 200 }] })
+      await dialog.dispatchEvent("touchend", { changedTouches: [{ identifier: 1, clientX: 50, clientY: 205 }] })
+      await expect(image).not.toHaveAttribute("src", initial)
+    }
+    await page.screenshot({ path: `/private/tmp/photography-viewer-${width}.png` })
+    await page.keyboard.press("Escape")
+    await expect(dialog).not.toBeVisible()
+    assert.equal(await photos.first().evaluate((element) => document.activeElement === element), true)
+    await page.getByRole("button", { name: "All photos (36)", exact: true }).click()
+    await expect(photos).toHaveCount(36)
+    assert.equal(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), true)
+    await page.getByRole("link", { name: "Back to archives", exact: true }).click()
+    await expect(page.locator(".archive-library h3")).toHaveText("Photography")
+    await page.getByRole("searchbox", { name: "Search photography" }).fill("")
+    await expect(page.locator(".archive-library-entry")).toHaveCount(17)
+    await page.locator(".archive-library-entry img").evaluateAll((images) => images.forEach((image) => { image.loading = "eager" }))
+    await expect.poll(() => page.locator(".archive-library-entry img").evaluateAll((images) => images.every((image) => image.complete && image.naturalWidth > 0)), { timeout: 30000 }).toBe(true)
+    await page.locator(".archive-library h3").evaluate((heading) => heading.scrollIntoView({ block: "start", behavior: "instant" }))
+    await page.screenshot({ path: `/private/tmp/photography-folder-${width}.png` })
+    assert.deepEqual(errors, [])
+    console.log({ width, folderOrder: true, collections: 17, subfolders: true, lightboxKeyboard: true, focusRestored: true, noOverflow: true })
+    await page.close()
+  }
+} finally {
+  await browser.close()
+}

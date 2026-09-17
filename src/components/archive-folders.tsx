@@ -321,6 +321,7 @@ function FolderView({ folder, focusSeries, onBack }: {
       <header className="archive-library-header">
         <h3 ref={heading} tabIndex={-1}>{folder.category}</h3>
         <p>{FOLDER_DESCRIPTIONS[folder.category]}</p>
+        {folder.category === "Photography" && <p>{folder.items.length} collections · {folder.items.reduce((total, item) => total + (item.gallery?.length ?? 0), 0).toLocaleString()} photographs from Awaiten Films</p>}
         {folder.category === "Writings" && <Link to="/writing" className="archive-writing-link">Visit Creative Chaos <ArrowUpRight size={16} aria-hidden="true" /></Link>}
       </header>
       <div className="archive-library-controls">
@@ -351,7 +352,7 @@ function FolderView({ folder, focusSeries, onBack }: {
         {visible.map((item, index) => <Link key={item.slug} to={archiveEntryPath(item)} className={cn("archive-library-entry", index === 0 && !query && filters.sort === "newest" && "is-featured")}>
           {item.image && <div className="archive-entry-image"><img src={item.image} alt="" loading="lazy" decoding="async" /></div>}
           <div className="archive-entry-copy">
-            <div className="archive-entry-meta"><time dateTime={item.date}>{new Date(item.date).toLocaleDateString("en-US", {month:"short",day:"numeric",year:"numeric",timeZone:"UTC"})}</time><span>{archiveFormatLabel(item.format)}</span></div>
+            <div className="archive-entry-meta"><time dateTime={item.date}>{item.displayDate ?? new Date(item.date).toLocaleDateString("en-US", {month:"short",day:"numeric",year:"numeric",timeZone:"UTC"})}</time><span>{item.category === "Photography" ? `${item.gallery?.length ?? 0} photographs` : archiveFormatLabel(item.format)}</span></div>
             <h4>{item.title}</h4>
             {(item.dek || item.summary) && <p>{item.dek || item.summary}</p>}
             {collection === "all" && collections.length > 1 && <span className="archive-entry-collection">{collections.find(p => p.slug === item.project)?.title || "Other work"}</span>}

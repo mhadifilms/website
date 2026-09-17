@@ -10,9 +10,9 @@ export type ArchiveOpenFolderDetail = {
 
 export const ARCHIVE_CATEGORY_ORDER: ArchiveCategory[] = [
   "Writings",
+  "Photography",
   "Vlogumentaries",
   "Films & Commercials",
-  "Photography",
   "Tools",
   "Miscellaneous",
 ]
