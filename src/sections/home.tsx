@@ -4,6 +4,7 @@ import type { MotionValue } from "framer-motion"
 
 import { Section } from "@/components/section"
 import { cn } from "@/lib/utils"
+import { easeHomeScroll } from "@/lib/home-scroll"
 
 const MAC_IMAGE = `${import.meta.env.BASE_URL}media/figma-macintosh.svg`
 
@@ -86,23 +87,24 @@ export function HomeSection({ transitionProgress }: HomeSectionProps) {
     offset: ["start start", "end end"],
   })
   const reduced = prefersReducedMotion()
+  const sceneProgress = useTransform(scrollYProgress, easeHomeScroll)
 
-  const taglineOpacity = useTransform(scrollYProgress, [0, 0.18], reduced ? [1, 1] : [1, 0])
+  const taglineOpacity = useTransform(sceneProgress, [0, 0.18], reduced ? [1, 1] : [1, 0])
 
-  useMotionValueEvent(scrollYProgress, "change", (latest) => {
+  useMotionValueEvent(sceneProgress, "change", (latest) => {
     transitionProgress.set(latest)
   })
 
   useEffect(() => {
-    const latest = scrollYProgress.get()
+    const latest = sceneProgress.get()
     transitionProgress.set(latest)
-  }, [scrollYProgress, transitionProgress])
+  }, [sceneProgress, transitionProgress])
 
   return (
     <Section
       id="home"
       label="Home"
-      className="h-[320svh] snap-none overflow-visible"
+      className="h-[220svh] snap-none overflow-visible"
       innerClassName="relative h-full w-full"
     >
       <div ref={ref} className="relative h-full w-full">

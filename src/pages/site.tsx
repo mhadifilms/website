@@ -2,6 +2,7 @@ import { Suspense, lazy, useMemo } from "react"
 import { useMotionValue } from "framer-motion"
 
 import { PillNav } from "@/components/pill-nav"
+import { ArchiveNav } from "@/components/archive-nav"
 import { SeoMetadata } from "@/components/seo-metadata"
 import { SiteFooter } from "@/components/site-footer"
 import { AboutSection } from "@/sections/about"
@@ -40,6 +41,7 @@ export default function SitePage() {
   return (
     <SectionContext.Provider value={contextValue}>
       <SeoMetadata activeId={activeId} />
+      <ArchiveNav />
       <main id="content">
         <HomeSection transitionProgress={homeScrollProgress} />
         <AboutSection transitionProgress={homeScrollProgress} />

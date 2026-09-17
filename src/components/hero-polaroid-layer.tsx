@@ -6,6 +6,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger"
 
 import { useSectionContext } from "@/hooks/section-context"
 import { scenePolaroids } from "@/lib/polaroid-scene"
+import { easeHomeScroll } from "@/lib/home-scroll"
 
 gsap.registerPlugin(Flip, ScrollTrigger, useGSAP)
 ScrollTrigger.config({ ignoreMobileResize: true })
@@ -185,12 +186,14 @@ export function HeroPolaroidLayer() {
       }
 
       let timeline: gsap.core.Timeline | undefined
+      let scrollTween: gsap.core.Tween | undefined
       let followTimeline: gsap.core.Timeline | undefined
       let resizeFrame = 0
       let lastLayoutSize = stableLayoutSize()
 
       const buildTimeline = () => {
-        timeline?.scrollTrigger?.kill()
+        scrollTween?.scrollTrigger?.kill()
+        scrollTween?.kill()
         timeline?.kill()
         followTimeline?.scrollTrigger?.kill()
         followTimeline?.kill()
@@ -221,13 +224,7 @@ export function HeroPolaroidLayer() {
 
         const homeTimeline = gsap.timeline({
           defaults: { ease: "none" },
-          scrollTrigger: {
-            trigger: home,
-            start: "top top",
-            end: () => `+=${Math.max(1, home.offsetHeight - stableViewportHeight())}`,
-            scrub,
-            invalidateOnRefresh: true,
-          },
+          paused: true,
         })
         timeline = homeTimeline
 
@@ -264,6 +261,18 @@ export function HeroPolaroidLayer() {
             .to(photo, { top: "5%", right: "5%", bottom: "18%", left: "5%", duration: 0.12 }, enterAt + 0.01)
             .to(hero, { ...rectVars(screenSmall), rotate: finalRotate * 0.65, duration: 0.3 }, shrinkAt)
             .to(hero, { ...rectVars(aboutPolaroid), rotate: finalRotate, duration: 0.28, ease: "power1.inOut" }, attachAt)
+        })
+
+        scrollTween = gsap.to(homeTimeline, {
+          progress: 1,
+          ease: easeHomeScroll,
+          scrollTrigger: {
+            trigger: home,
+            start: "top top",
+            end: () => `+=${Math.max(1, home.offsetHeight - stableViewportHeight())}`,
+            scrub,
+            invalidateOnRefresh: true,
+          },
         })
 
         const aboutTimeline = gsap.timeline({
@@ -317,7 +326,8 @@ export function HeroPolaroidLayer() {
       return () => {
         window.cancelAnimationFrame(resizeFrame)
         window.removeEventListener("resize", queueRebuild)
-        timeline?.scrollTrigger?.kill()
+        scrollTween?.scrollTrigger?.kill()
+        scrollTween?.kill()
         timeline?.kill()
         followTimeline?.scrollTrigger?.kill()
         followTimeline?.kill()
