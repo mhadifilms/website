@@ -1,8 +1,9 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from "react"
+import { useCallback, useMemo, useRef } from "react"
 import { useLocation, useNavigate } from "react-router-dom"
 import { m } from "framer-motion"
 
 import { useSectionContext } from "@/hooks/section-context"
+import { NAV_REVEAL_TRANSITION, useNavReveal } from "@/hooks/use-nav-reveal"
 import { buildSections } from "@/hooks/use-section-router"
 import { cn } from "@/lib/utils"
 
@@ -24,30 +25,9 @@ export function PillNav() {
   const navigate = useNavigate()
   const location = useLocation()
   const linksRef = useRef<Array<HTMLAnchorElement | null>>([])
-  const [hasEnteredMac, setHasEnteredMac] = useState(false)
-  const [hasFocusWithin, setHasFocusWithin] = useState(false)
-
   // On the main page the nav stays out of the way until the hero scroll scene
   // is underway. Standalone pages (archive entries) always show it.
-  const gated = Boolean(ctx)
-
-  useEffect(() => {
-    if (!gated || typeof window === "undefined") return
-
-    const updateVisibility = () => {
-      const viewportHeight = document.documentElement.clientHeight || window.innerHeight
-      const next = window.scrollY > viewportHeight * 0.55
-      setHasEnteredMac((current) => (current === next ? current : next))
-    }
-
-    updateVisibility()
-    window.addEventListener("scroll", updateVisibility, { passive: true })
-    window.addEventListener("resize", updateVisibility)
-    return () => {
-      window.removeEventListener("scroll", updateVisibility)
-      window.removeEventListener("resize", updateVisibility)
-    }
-  }, [gated])
+  const { visible, setHasFocusWithin } = useNavReveal(Boolean(ctx))
 
   const sections = ctx?.sections ?? STANDALONE_SECTIONS
   const standaloneActiveId = useMemo(() => {
@@ -76,7 +56,6 @@ export function PillNav() {
 
   // Visible when past the hero, or whenever a link inside holds focus so
   // keyboard users always see where they are.
-  const visible = !gated || hasEnteredMac || hasFocusWithin
   const activeIndex = Math.max(
     sections.findIndex((section) => section.id === activeId),
     0,
@@ -86,7 +65,7 @@ export function PillNav() {
     <m.div
       initial={false}
       animate={visible ? { opacity: 1, y: 0 } : { opacity: 0, y: 12 }}
-      transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
+      transition={NAV_REVEAL_TRANSITION}
       onFocus={() => setHasFocusWithin(true)}
       onBlur={(event) => {
         if (!event.currentTarget.contains(event.relatedTarget as Node | null)) setHasFocusWithin(false)
