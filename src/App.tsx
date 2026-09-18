@@ -5,11 +5,13 @@ import { Navigate, Route, Routes } from "react-router-dom"
 import { LazyMotion, MotionConfig, domAnimation } from "framer-motion"
 
 import { SiteShell } from "@/components/site-shell"
+import { ARCHIVE_CATEGORY_ORDER, archiveCategorySlug } from "@/lib/archive-utils"
 
 const WritingPage = lazy(() => import("@/cms/public"))
 
 const SitePage = lazy(() => import("@/pages/site"))
 const ArchiveEntryPage = lazy(() => import("@/cms/native-archive"))
+const NotFoundPage = lazy(() => import("@/pages/not-found"))
 
 function RouteFallback() {
   return (
@@ -29,9 +31,12 @@ export default function App() {
             {Object.entries(POST_REDIRECTS).map(([from, to]) => <Route key={from} path={from} element={<Navigate to={`${to}/`} replace />} />)}
             <Route path="/writing" element={<WritingPage />} />
             <Route path="/writing/:slug" element={<WritingPage />} />
+            <Route path="*" element={<NotFoundPage />} />
             <Route element={<SiteShell />}>
               <Route path="/archives/:categorySlug/:entrySlug" element={<ArchiveEntryPage />} />
-              <Route path="*" element={<SitePage />} />
+              {["/", "/about", "/experiences", "/archives", ...ARCHIVE_CATEGORY_ORDER.map(category => `/archives/${archiveCategorySlug(category)}`)].map(path => (
+                <Route key={path} path={path} element={<SitePage />} />
+              ))}
             </Route>
           </Routes>
         </Suspense>

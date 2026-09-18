@@ -1,0 +1,116 @@
+.lost-page {
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  overflow: clip;
+  color: #25241f;
+  background: #fffff6;
+}
+
+.lost-header {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 28px 40px 0;
+}
+
+.lost-wordmark { font-family: var(--font-display); font-size: 19px; letter-spacing: .075em; }
+.lost-code, .lost-path { font-family: "Courier New", monospace; font-size: 12px; letter-spacing: .08em; }
+.lost-wordmark:focus-visible { outline: 2px solid #6d705d; outline-offset: 7px; }
+.lost-desk { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 0 12px; }
+.lost-computer { position: relative; flex: none; width: min(720px, 120vw, max(300px, calc((100svh - 365px) * 1.1))); margin-bottom: -38px; }
+.lost-mac { display: block; width: 100%; height: auto; user-select: none; pointer-events: none; }
+
+.lost-screen {
+  position: absolute;
+  left: 25.1%;
+  top: 10.7%;
+  width: 45.4%;
+  height: 32.2%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10%;
+  border-radius: 6% / 8%;
+  overflow: hidden;
+  color: #c4cead;
+  background: radial-gradient(ellipse at 47% 42%, #353b30 0, #22271f 67%, #12170f 100%);
+  box-shadow: inset 0 0 16px 5px #0c110c, inset 1px 1px 2px #c0c1a244;
+  pointer-events: none;
+}
+.lost-screen::after { content: ""; position: absolute; inset: 0; background: repeating-linear-gradient(0deg, transparent 0 2px, #080d0a35 2px 3px); border-radius: inherit; }
+.lost-screen::before { content: ""; position: absolute; inset: 0; background: linear-gradient(128deg, #fbffe50e, transparent 38%); border-radius: inherit; }
+.lost-digits { width: 57%; height: auto; overflow: visible; filter: drop-shadow(0 0 3px #c4cead55); }
+.lost-screen-disk { width: 15%; height: auto; opacity: .85; }
+.lost-drive { position: absolute; left: 47%; top: 54.5%; width: 25%; height: 8%; border-radius: 5px; transition: box-shadow 160ms; }
+.lost-drive[data-ready] { box-shadow: 0 0 0 2px #6d705d88, 0 0 24px 8px #ffffc780; }
+
+.lost-disks { display: flex; justify-content: center; align-items: flex-start; gap: clamp(24px, min(5.5vw, 8svh), 74px); padding: 0 16px 20px; perspective: 850px; }
+.lost-disk {
+  --plastic: #e5d9bb;
+  --edge: #a89c81;
+  --angle: -13deg;
+  position: relative;
+  display: block;
+  flex: none;
+  width: clamp(94px, min(15vw, calc((100svh - 300px) * .35)), 177px);
+  aspect-ratio: 1.03;
+  border: 1px solid color-mix(in srgb, var(--edge), #fff 20%);
+  border-radius: 5px 12px 4px 4px;
+  background: linear-gradient(115deg, #ffffff22, transparent 40%, #0000000e), var(--plastic);
+  box-shadow: inset 2px 2px 1px #ffffff45, inset -2px -2px 1px #00000020, 0 5px 0 var(--edge), 0 9px 7px #3c302b28, -8px 15px 17px #3c302b1c;
+  transform: rotateX(39deg) rotateZ(var(--angle));
+  transform-origin: 50% 50%;
+  transition: transform 200ms ease, box-shadow 200ms ease;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+}
+.lost-disk::before { content: ""; position: absolute; inset: 0 8%; border-left: 1px solid #00000017; border-right: 1px solid #00000017; pointer-events: none; }
+.lost-disk::after { content: ""; position: absolute; inset: 0; border-radius: inherit; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 150 150' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Cpath fill='%237a6c52' opacity='.19' filter='url(%23n)' d='M0 0h150v150H0z'/%3E%3C/svg%3E"); opacity: .4; pointer-events: none; }
+.lost-disk-archives { --plastic: #ad705b; --edge: #784739; --angle: 2deg; margin-top: 25px; }
+.lost-disk-random { --plastic: #393b37; --edge: #242623; --angle: 13deg; }
+.lost-disk-shutter { position: absolute; top: 0; left: 24%; width: 54%; height: 32%; border-radius: 0 0 3px 3px; background: repeating-linear-gradient(0deg, #ffffff08 0 1px, transparent 1px 3px), linear-gradient(120deg, #9f9f95, #c2c0b5 48%, #a4a299 95%); border: 1px solid #67665c99; box-shadow: 1px 2px 1px #00000020; }
+.lost-disk-shutter::after { content: ""; position: absolute; top: 9%; right: 13%; width: 22%; height: 72%; background: var(--plastic); box-shadow: inset 1px 1px 2px #00000080; border: 1px solid #dbd8c699; }
+.lost-disk-label { position: absolute; display: flex; align-items: center; justify-content: center; left: 12%; right: 12%; top: 44%; bottom: 12%; border-radius: 3px; color: #302b24; font-family: var(--font-hand); font-size: clamp(24px, 2.9vw, 35px); line-height: 1; background: repeating-linear-gradient(0deg, transparent 0 18%, #8b806325 19% 20%), linear-gradient(130deg, #f2ead5, #e4dac1); border: 1px solid #b8ab8b88; box-shadow: inset 0 0 6px #8a78511b; }
+.lost-disk-notch { position: absolute; left: 4%; bottom: 6%; width: 6%; height: 6%; background: #363226; box-shadow: inset 1px 2px 1px #0000009c; }
+.lost-disk-notch::after { content: ""; position: absolute; left: 1430%; width: 100%; height: 100%; background: #363226; box-shadow: inherit; }
+.lost-disk:focus-visible { outline: 3px solid #555c43; outline-offset: 9px; }
+.lost-disk[data-dragging] { opacity: .55; }
+.lost-disk[data-inserting] { animation: lost-insert 440ms cubic-bezier(.45, 0, .7, .7) both; z-index: 5; pointer-events: none; }
+.lost-page[data-inserting] .lost-disks { pointer-events: none; }
+.lost-page[data-inserting] .lost-screen-disk { opacity: 1; }
+
+.lost-footer { position: relative; display: grid; grid-template-columns: 1fr 1fr 1fr; align-items: end; gap: 20px; padding: 20px 40px 32px; }
+.lost-path { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; min-width: 0; line-height: 1.6; font-size: 11px; }
+.lost-prompt { grid-column: 2; text-align: center; font-family: var(--font-display); font-size: 15px; letter-spacing: .1em; white-space: nowrap; }
+@keyframes lost-insert {
+  25% { transform: translateY(-20px) rotateX(20deg) rotateZ(0); }
+  90%, 100% { transform: translate(var(--insert-x, 0px), var(--insert-y, -150px)) rotateX(70deg) rotateZ(0) scale(.24); opacity: 0; }
+}
+@media (hover: hover) {
+  .lost-disk:hover { transform: translateY(-10px) rotateX(30deg) rotateZ(var(--angle)); box-shadow: inset 2px 2px 1px #ffffff45, inset -2px -2px 1px #00000020, 0 5px 0 var(--edge), 0 17px 15px #3c302b22, -8px 24px 24px #3c302b18; }
+}
+@media (max-width: 600px) {
+  .lost-header { padding: 24px 22px 0; }
+  .lost-wordmark { font-size: 17px; }
+  .lost-code { font-size: 10px; }
+  .lost-computer { margin-bottom: -8px; }
+  .lost-disks { gap: clamp(16px, 5vw, 28px); padding: 0 0 24px; }
+  .lost-disk-archives { margin-top: 16px; }
+  .lost-footer { grid-template-columns: 1fr; gap: 20px; padding: 24px 22px; }
+  .lost-prompt { grid-column: 1; grid-row: 1; }
+  .lost-path { font-size: 10px; max-width: 100%; }
+}
+@media (max-width: 360px) {
+  .lost-disks { gap: 14px; }
+  .lost-disk { width: 86px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .lost-disk, .lost-drive { transition: none; }
+  .lost-disk[data-inserting] { animation: none; }
+  .lost-disk:hover { transform: rotateX(39deg) rotateZ(var(--angle)); }
+}

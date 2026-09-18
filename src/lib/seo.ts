@@ -19,7 +19,17 @@ export type PageMeta = {
 }
 
 function setMeta(selector: string, attr: "content" | "href", value: string) {
-  const element = document.head.querySelector(selector)
+  let element = document.head.querySelector(selector)
+  // The static 404 deliberately omits a canonical URL. SPA navigation away
+  // from it must recreate that metadata for the destination page.
+  if (!element) {
+    const match = selector.match(/^(meta|link)\[(name|property|rel)="([^"]+)"\]$/)
+    if (match) {
+      element = document.createElement(match[1])
+      element.setAttribute(match[2], match[3])
+      document.head.append(element)
+    }
+  }
   if (element) {
     element.setAttribute(attr, value)
   }

@@ -37,6 +37,9 @@ jobs:
       - name: Build
         run: npm run build
 
+      - name: Verify static 404 fallback
+        run: node --test tests/not-found-static.build.mjs
+
       - name: Verify post content and search markup
         run: node scripts/audit-published-posts.mjs
 

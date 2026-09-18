@@ -20,4 +20,5 @@ jobs:
       - run: npm run lint
       - run: npm run test:publishing
       - run: npm run build
+      - run: node --test tests/not-found-static.build.mjs
       - run: node scripts/audit-published-posts.mjs
