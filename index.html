@@ -2,6 +2,13 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <script>
+      // GitHub Pages serves this template as 404.html for arbitrary repo names.
+      const githubRepo = window.location.pathname.match(/^\/g\/([A-Za-z0-9_.-]+)\/?$/)
+      if (githubRepo && githubRepo[1] !== "." && githubRepo[1] !== "..") {
+        window.location.replace(`https://github.com/mhadifilms/${githubRepo[1]}${window.location.search}${window.location.hash}`)
+      }
+    </script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
     <meta name="googlebot" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
