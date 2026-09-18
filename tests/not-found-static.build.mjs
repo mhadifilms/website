@@ -9,7 +9,9 @@ test('built 404 is noindex and has readable missing-page content without JavaScr
     assert.match(html, new RegExp(`<meta name="${robot}" content="noindex, follow"`))
   }
   assert.match(html, /data-static-not-found/)
-  assert.match(html, /<h1[^>]*>404 \/ Page not found<\/h1>/)
+  assert.match(html, /<h1[^>]*>Page not found<\/h1>/)
+  assert.match(html, /<p>404<\/p>/)
+  assert.match(html, /data-static-not-found[^>]*font-family:Raleway,Arial,sans-serif/)
   assert.match(html, /href="\/archives">Archives<\/a>/)
   assert.match(html, /href="\/">Home<\/a>/)
   assert.doesNotMatch(html, /<link\s+rel="canonical"/)

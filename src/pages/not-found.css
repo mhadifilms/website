@@ -5,6 +5,7 @@
   overflow: clip;
   color: #25241f;
   background: #fffff6;
+  font-family: var(--font-sans);
 }
 
 .lost-header {
@@ -16,8 +17,7 @@
   padding: 28px 40px 0;
 }
 
-.lost-wordmark { font-family: var(--font-display); font-size: 19px; letter-spacing: .075em; }
-.lost-code, .lost-path { font-family: "Courier New", monospace; font-size: 12px; letter-spacing: .08em; }
+.lost-wordmark { font-size: 18px; font-weight: 500; letter-spacing: -.025em; }
 .lost-wordmark:focus-visible { outline: 2px solid #6d705d; outline-offset: 7px; }
 .lost-desk { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 0 12px; }
 .lost-computer { position: relative; flex: none; width: min(720px, 120vw, max(300px, calc((100svh - 365px) * 1.1))); margin-bottom: -38px; }
@@ -33,18 +33,26 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 10%;
+  gap: 4%;
+  container-type: inline-size;
   border-radius: 6% / 8%;
   overflow: hidden;
-  color: #c4cead;
-  background: radial-gradient(ellipse at 47% 42%, #353b30 0, #22271f 67%, #12170f 100%);
+  color: #e0e3d4;
+  background: radial-gradient(ellipse at 47% 42%, #343832 0, #242923 67%, #141a13 100%);
   box-shadow: inset 0 0 16px 5px #0c110c, inset 1px 1px 2px #c0c1a244;
   pointer-events: none;
 }
-.lost-screen::after { content: ""; position: absolute; inset: 0; background: repeating-linear-gradient(0deg, transparent 0 2px, #080d0a35 2px 3px); border-radius: inherit; }
+.lost-screen::after { content: ""; position: absolute; inset: 0; background: repeating-linear-gradient(0deg, transparent 0 2px, #080d0a1c 2px 3px); border-radius: inherit; }
 .lost-screen::before { content: ""; position: absolute; inset: 0; background: linear-gradient(128deg, #fbffe50e, transparent 38%); border-radius: inherit; }
-.lost-digits { width: 57%; height: auto; overflow: visible; filter: drop-shadow(0 0 3px #c4cead55); }
-.lost-screen-disk { width: 15%; height: auto; opacity: .85; }
+.lost-screen-symbol { position: relative; width: clamp(34px, 20cqw, 54px); aspect-ratio: 1; }
+.lost-screen-symbol svg { display: block; width: 100%; height: 100%; }
+.lost-file-edge { opacity: .35; }
+.lost-screen-code { position: absolute; left: 26%; right: 23%; top: 49%; text-align: center; font-size: clamp(9px, 4.2cqw, 12px); font-weight: 500; line-height: 1; }
+.lost-screen-title { font-size: clamp(13px, 7.5cqw, 20px); font-weight: 500; letter-spacing: -.025em; line-height: 1.25; white-space: nowrap; }
+.lost-screen-detail { max-width: 78%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: clamp(10px, 4.5cqw, 12px); line-height: 1.4; opacity: .65; }
+.lost-screen[data-preview] .lost-screen-symbol { color: #f1f2e8; }
+.lost-screen-progress { position: absolute; left: 31%; right: 31%; bottom: 7%; height: 2px; background: #e0e3d421; overflow: hidden; }
+.lost-screen-progress > span { display: block; height: 100%; background: currentColor; transform-origin: left; animation: lost-load 440ms ease-out both; }
 .lost-drive { position: absolute; left: 47%; top: 54.5%; width: 25%; height: 8%; border-radius: 5px; transition: box-shadow 160ms; }
 .lost-drive[data-ready] { box-shadow: 0 0 0 2px #6d705d88, 0 0 24px 8px #ffffc780; }
 
@@ -75,18 +83,18 @@
 .lost-disk-random { --plastic: #393b37; --edge: #242623; --angle: 13deg; }
 .lost-disk-shutter { position: absolute; top: 0; left: 24%; width: 54%; height: 32%; border-radius: 0 0 3px 3px; background: repeating-linear-gradient(0deg, #ffffff08 0 1px, transparent 1px 3px), linear-gradient(120deg, #9f9f95, #c2c0b5 48%, #a4a299 95%); border: 1px solid #67665c99; box-shadow: 1px 2px 1px #00000020; }
 .lost-disk-shutter::after { content: ""; position: absolute; top: 9%; right: 13%; width: 22%; height: 72%; background: var(--plastic); box-shadow: inset 1px 1px 2px #00000080; border: 1px solid #dbd8c699; }
-.lost-disk-label { position: absolute; display: flex; align-items: center; justify-content: center; left: 12%; right: 12%; top: 44%; bottom: 12%; border-radius: 3px; color: #302b24; font-family: var(--font-hand); font-size: clamp(24px, 2.9vw, 35px); line-height: 1; background: repeating-linear-gradient(0deg, transparent 0 18%, #8b806325 19% 20%), linear-gradient(130deg, #f2ead5, #e4dac1); border: 1px solid #b8ab8b88; box-shadow: inset 0 0 6px #8a78511b; }
+.lost-disk-label { position: absolute; display: flex; align-items: center; justify-content: center; left: 12%; right: 12%; top: 44%; bottom: 12%; border-radius: 3px; color: #302b24; font-size: clamp(12px, 1.45vw, 18px); font-weight: 600; line-height: 1; background: repeating-linear-gradient(0deg, transparent 0 18%, #8b806325 19% 20%), linear-gradient(130deg, #f2ead5, #e4dac1); border: 1px solid #b8ab8b88; box-shadow: inset 0 0 6px #8a78511b; }
 .lost-disk-notch { position: absolute; left: 4%; bottom: 6%; width: 6%; height: 6%; background: #363226; box-shadow: inset 1px 2px 1px #0000009c; }
 .lost-disk-notch::after { content: ""; position: absolute; left: 1430%; width: 100%; height: 100%; background: #363226; box-shadow: inherit; }
 .lost-disk:focus-visible { outline: 3px solid #555c43; outline-offset: 9px; }
 .lost-disk[data-dragging] { opacity: .55; }
 .lost-disk[data-inserting] { animation: lost-insert 440ms cubic-bezier(.45, 0, .7, .7) both; z-index: 5; pointer-events: none; }
 .lost-page[data-inserting] .lost-disks { pointer-events: none; }
-.lost-page[data-inserting] .lost-screen-disk { opacity: 1; }
 
 .lost-footer { position: relative; display: grid; grid-template-columns: 1fr 1fr 1fr; align-items: end; gap: 20px; padding: 20px 40px 32px; }
-.lost-path { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; min-width: 0; line-height: 1.6; font-size: 11px; }
-.lost-prompt { grid-column: 2; text-align: center; font-family: var(--font-display); font-size: 15px; letter-spacing: .1em; white-space: nowrap; }
+.lost-path { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; min-width: 0; line-height: 1.6; font-size: 12px; opacity: .65; }
+.lost-prompt { grid-column: 2; text-align: center; font-size: 13px; font-weight: 500; white-space: nowrap; }
+@keyframes lost-load { from { transform: scaleX(0); } to { transform: scaleX(1); } }
 @keyframes lost-insert {
   25% { transform: translateY(-20px) rotateX(20deg) rotateZ(0); }
   90%, 100% { transform: translate(var(--insert-x, 0px), var(--insert-y, -150px)) rotateX(70deg) rotateZ(0) scale(.24); opacity: 0; }
@@ -97,7 +105,6 @@
 @media (max-width: 600px) {
   .lost-header { padding: 24px 22px 0; }
   .lost-wordmark { font-size: 17px; }
-  .lost-code { font-size: 10px; }
   .lost-computer { margin-bottom: -8px; }
   .lost-disks { gap: clamp(16px, 5vw, 28px); padding: 0 0 24px; }
   .lost-disk-archives { margin-top: 16px; }
@@ -111,6 +118,6 @@
 }
 @media (prefers-reduced-motion: reduce) {
   .lost-disk, .lost-drive { transition: none; }
-  .lost-disk[data-inserting] { animation: none; }
+  .lost-disk[data-inserting], .lost-screen-progress > span { animation: none; }
   .lost-disk:hover { transform: rotateX(39deg) rotateZ(var(--angle)); }
 }

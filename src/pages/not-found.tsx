@@ -14,23 +14,27 @@ const DISKS = [
 type DiskId = typeof DISKS[number]["id"]
 const DRAG_TYPE = "application/x-mhadi-disk"
 
-// A tiny bitmap alphabet keeps the CRT crisp at any size without another font.
-const DIGITS = [
-  ["10010", "10010", "10010", "11111", "00010", "00010", "00010"],
-  ["01110", "10001", "10001", "10001", "10001", "10001", "01110"],
-  ["10010", "10010", "10010", "11111", "00010", "00010", "00010"],
-]
-
-function Screen() {
-  return <div className="lost-screen" aria-hidden="true">
-    <svg className="lost-digits" viewBox="0 0 19 7" fill="currentColor" shapeRendering="crispEdges">
-      {DIGITS.flatMap((rows, digit) => rows.flatMap((row, y) => [...row].flatMap((pixel, x) =>
-        pixel === "1" ? [<rect key={`${digit}-${x}-${y}`} x={digit * 7 + x} y={y} width="1" height="1" />] : [],
-      )))}
-    </svg>
-    <svg className="lost-screen-disk" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.3" shapeRendering="crispEdges">
-      <path d="M3 2h16l3 3v17H3zM7 2v7h10V2M6 22V13h13v9M14 3v4" />
-    </svg>
+function Screen({ disk, path, inserting }: { disk: DiskId | null; path: string; inserting: boolean }) {
+  const label = DISKS.find(item => item.id === disk)?.label
+  return <div className="lost-screen" data-preview={disk || undefined} aria-hidden="true">
+    <div className="lost-screen-symbol">
+      <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round">
+        {!disk && <>
+          <path d="M15 8h23l12 12v36H15V8Z M38 8v13h12" />
+          <path className="lost-file-edge" d="M9 22v37a3 3 0 0 0 3 3h26" />
+        </>}
+        {disk === "home" && <path d="m9 30 23-20 23 20M15 25v29h13V38h9v16h12V25" />}
+        {disk === "archives" && <>
+          <path d="M9 25v-9a3 3 0 0 1 3-3h16l6 7h18a3 3 0 0 1 3 3v5M9 27h46l-6 25H15L9 27Z" />
+          <path d="M19 35h24" />
+        </>}
+        {disk === "random" && <path d="M10 18h7c12 0 18 28 30 28h7m-8-8 8 8-8 8M10 46h7c5 0 9-5 13-12m5-10c4-4 7-6 12-6h7m-8-8 8 8-8 8" />}
+      </svg>
+      {!disk && <span className="lost-screen-code">404</span>}
+    </div>
+    <p className="lost-screen-title">{inserting ? `Opening ${label}…` : label || "Page not found"}</p>
+    <p className="lost-screen-detail">{path}</p>
+    {inserting && <span className="lost-screen-progress"><span /></span>}
   </div>
 }
 
@@ -45,6 +49,8 @@ export default function NotFoundPage() {
   const randomPath = candidates.length ? archiveEntryPath(candidates[Math.floor(randomSeed * candidates.length)]) : "/archives"
   const [inserting, setInserting] = useState<DiskId | null>(null)
   const [dragging, setDragging] = useState<DiskId | null>(null)
+  const [hovered, setHovered] = useState<DiskId | null>(null)
+  const [focused, setFocused] = useState<DiskId | null>(null)
   const [overDrive, setOverDrive] = useState(false)
   const [insertionStyle, setInsertionStyle] = useState<CSSProperties>({})
   const drive = useRef<HTMLDivElement>(null)
@@ -52,6 +58,8 @@ export default function NotFoundPage() {
   const heading = useRef<HTMLHeadingElement>(null)
   const timer = useRef<ReturnType<typeof setTimeout> | null>(null)
   const busy = useRef(false)
+  const preview = inserting || dragging || hovered || focused
+  const previewPath = preview === "random" ? randomPath : preview ? DISKS.find(disk => disk.id === preview)!.path : location.pathname
 
   useEffect(() => {
     applyPageMeta({
@@ -98,13 +106,12 @@ export default function NotFoundPage() {
     <h1 className="sr-only" ref={heading} tabIndex={-1}>404 — Page not found</h1>
     <header className="lost-header">
       <Link className="lost-wordmark" to="/">M Hadi</Link>
-      <p className="lost-code">404 / NOT FOUND</p>
     </header>
 
     <div className="lost-desk">
       <div className="lost-computer">
         <img className="lost-mac" src={`${import.meta.env.BASE_URL}media/figma-macintosh.svg`} alt="" width="523" height="511" draggable={false} fetchPriority="high" />
-        <Screen />
+        <Screen disk={preview} path={previewPath} inserting={Boolean(inserting)} />
         <div
           ref={drive}
           className="lost-drive"
@@ -139,6 +146,10 @@ export default function NotFoundPage() {
           style={inserting === disk.id ? insertionStyle : undefined}
           draggable={!inserting}
           onClick={event => activate(event, disk.id)}
+          onPointerEnter={event => { if (event.pointerType !== "touch") setHovered(disk.id) }}
+          onPointerLeave={() => setHovered(null)}
+          onFocus={() => setFocused(disk.id)}
+          onBlur={() => setFocused(null)}
           onDragStart={event => {
             event.dataTransfer.setData(DRAG_TYPE, disk.id)
             event.dataTransfer.effectAllowed = "link"
@@ -155,7 +166,7 @@ export default function NotFoundPage() {
 
     <footer className="lost-footer">
       <p className="lost-path" title={location.pathname}>{location.pathname}</p>
-      <p className="lost-prompt" aria-live="polite">{inserting ? `Opening ${DISKS.find(disk => disk.id === inserting)?.label}…` : "Choose a disk"}</p>
+      <p className="lost-prompt" aria-live="polite">{inserting ? `Opening ${DISKS.find(disk => disk.id === inserting)?.label}…` : "Open a disk"}</p>
     </footer>
   </main>
 }
