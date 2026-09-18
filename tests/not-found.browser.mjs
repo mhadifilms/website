@@ -20,6 +20,12 @@ try {
     await expect(page.locator('.lost-path')).toHaveText(missing)
     await expect(page.locator('.lost-mac')).toHaveAttribute('src', /figma-macintosh\.svg$/)
     await expect(page.locator('[data-disk]')).toHaveCount(3)
+    await expect(page.locator('.lost-screen-title')).toHaveText('Page not found')
+    await expect(page.locator('.lost-screen-code')).toHaveText('404')
+    const fontFamilies = await page.locator('.lost-wordmark, .lost-screen-code, .lost-screen-title, .lost-screen-detail, .lost-disk-label, .lost-prompt, .lost-path').evaluateAll(elements =>
+      elements.map(element => getComputedStyle(element).fontFamily.split(',')[0].replace(/["']/g, '').trim()),
+    )
+    assert(fontFamilies.every(font => font === 'Raleway'), `One typeface throughout the 404: ${fontFamilies.join(', ')}`)
     for (const disk of await page.locator('[data-disk]').all()) {
       const bounds = await disk.boundingBox()
       assert(bounds && bounds.x >= -.5 && bounds.x + bounds.width <= width + .5, `Disk edges visible at ${width}px`)
@@ -28,6 +34,15 @@ try {
     const footer = await page.locator('.lost-footer').boundingBox()
     assert(footer && footer.y + footer.height <= 900, `Footer visible at ${width}px`)
     await page.screenshot({ path: `/private/tmp/not-found-${width}.png` })
+
+    await page.locator('[data-disk="archives"]').hover()
+    await expect(page.locator('.lost-screen-title')).toHaveText('Archives')
+    await expect(page.locator('.lost-screen-detail')).toHaveText('/archives')
+    await page.mouse.move(0, 0)
+    await expect(page.locator('.lost-screen-title')).toHaveText('Page not found')
+    await page.locator('[data-disk="random"]').focus()
+    await expect(page.locator('.lost-screen-title')).toHaveText('Random')
+    await expect(page.locator('.lost-screen-detail')).toHaveText(await page.locator('[data-disk="random"]').getAttribute('href'))
 
     // Keyboard activates the same actual links as touch/click; metadata recovers.
     await page.locator('[data-disk="home"]').focus()

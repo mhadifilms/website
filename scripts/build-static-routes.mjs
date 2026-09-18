@@ -59,7 +59,7 @@ const fallbackRoute = {
   description: "This page could not be found. Return to Muhammad Hadi Yusufali's portfolio and creative archive.",
   noindex: true,
   notFound: true,
-  prerenderHtml: `<main data-static-not-found style="min-height:100svh;display:grid;place-content:center;justify-items:center;gap:24px;background:#fffff6;padding:32px;text-align:center"><a href="/" style="font-family:Georgia,serif">M Hadi</a><h1 style="font-family:monospace;font-size:24px">404 / Page not found</h1><img src="/media/figma-macintosh.svg" alt="A Macintosh computer" width="320" height="313" style="max-width:100%;height:auto"><p>Choose a disk</p><nav aria-label="Find a page" style="display:flex;gap:32px"><a href="/">Home</a><a href="/archives">Archives</a><a href="/writing">Writing</a></nav></main>`,
+  prerenderHtml: `<main data-static-not-found style="min-height:100svh;display:grid;place-content:center;justify-items:center;gap:24px;background:#fffff6;padding:32px;text-align:center;font-family:Raleway,Arial,sans-serif"><a href="/" style="font-weight:500">M Hadi</a><p>404</p><h1 style="font-size:24px;font-weight:500">Page not found</h1><img src="/media/figma-macintosh.svg" alt="A Macintosh computer" width="320" height="313" style="max-width:100%;height:auto"><p>Open a disk</p><nav aria-label="Find a page" style="display:flex;gap:32px"><a href="/">Home</a><a href="/archives">Archives</a><a href="/writing">Writing</a></nav></main>`,
 }
 
 const CATEGORY_SLUGS = {
