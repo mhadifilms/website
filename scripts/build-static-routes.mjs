@@ -53,11 +53,13 @@ const routes = [
 ]
 
 const fallbackRoute = {
-  path: "/",
+  path: "/404.html",
   output: "404.html",
   title: "Page not found | M Hadi",
   description: "This page could not be found. Return to Muhammad Hadi Yusufali's portfolio and creative archive.",
   noindex: true,
+  notFound: true,
+  prerenderHtml: `<main data-static-not-found style="min-height:100svh;display:grid;place-content:center;justify-items:center;gap:24px;background:#fffff6;padding:32px;text-align:center"><a href="/" style="font-family:Georgia,serif">M Hadi</a><h1 style="font-family:monospace;font-size:24px">404 / Page not found</h1><img src="/media/figma-macintosh.svg" alt="A Macintosh computer" width="320" height="313" style="max-width:100%;height:auto"><p>Choose a disk</p><nav aria-label="Find a page" style="display:flex;gap:32px"><a href="/">Home</a><a href="/archives">Archives</a><a href="/writing">Writing</a></nav></main>`,
 }
 
 const CATEGORY_SLUGS = {
@@ -263,6 +265,13 @@ function routeHtml(template, route) {
   if (route.redirectTo) html = injectBeforeHead(html, `<meta http-equiv="refresh" content="0;url=${escapeAttr(route.redirectTo)}/" />`)
   html = injectJsonLd(html, route)
   html = injectPrerenderedRoot(html, route)
+  if (route.notFound) {
+    // A missing URL has no canonical replacement. Do not describe it as the
+    // portfolio homepage or retain the template's Person/Website schema.
+    html = html.replace(/<link\s+rel="canonical"[^>]*>/g, "")
+      .replace(/<meta\s+property="og:url"[^>]*>/g, "")
+      .replace(/<script\s+type="application\/ld\+json">[\s\S]*?<\/script>/g, "")
+  }
 
   return html
 }

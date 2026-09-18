@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
-import { Link, Navigate, useParams, useLocation } from "react-router-dom"
+import { Link, useParams, useLocation } from "react-router-dom"
+import NotFoundPage from "@/pages/not-found"
 import { ArrowLeft, ArrowRight, ArrowUpRight } from "lucide-react"
 
 import { PillNav } from "@/components/pill-nav"
@@ -64,7 +65,7 @@ export default function ArchiveEntryPage() {
     })
   }, [item])
 
-  if (!item) return <Navigate to="/archives" replace />
+  if (!item) return <NotFoundPage />
   if (item.category === "Photography") return <PhotographyEntry item={item} bodyHtml={bodyHtml} pathname={location.pathname} />
 
   const project = projects.find((candidate) => candidate.slug === item.project)

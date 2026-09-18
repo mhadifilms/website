@@ -10,6 +10,7 @@ import { api, formatDate } from "./api";
 import type { PublicPost } from "./types";
 import { ArticleView } from "./article-view";
 import { applyPageMeta } from "@/lib/seo";
+import NotFoundPage from "@/pages/not-found";
 import "./cms.css";
 export default function WritingPage() {
   const location = useLocation();
@@ -64,6 +65,7 @@ export default function WritingPage() {
     pageChangePending.current = false;
     focusCollectionPage(pageStart.current);
   }, [search]);
+  if (posts && !index && !post) return <NotFoundPage />;
   return (
     <main key={pathname} id="content" tabIndex={-1} data-reading-route={posts ? pathname : undefined} className="native-writing-page">
       <a className="post-skip-link" href={index ? "#writing-list" : "#article"}>
