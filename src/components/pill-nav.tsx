@@ -106,6 +106,7 @@ export function PillNav() {
                 transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
                 aria-current={isActive ? "page" : undefined}
                 onClick={(event) => {
+                  if (event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return
                   event.preventDefault()
                   if (ctx) {
                     ctx.scrollToId(section.id)

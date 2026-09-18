@@ -45,11 +45,19 @@ export function applyPageMeta(meta: PageMeta) {
   const image = meta.socialImage ?? meta.image ?? DEFAULT_SOCIAL_IMAGE
   const imageAlt = meta.imageAlt ?? DEFAULT_SOCIAL_IMAGE_ALT
 
-  let structured = document.head.querySelector<HTMLScriptElement>('script[data-post-jsonld]')
-  if(meta.jsonLd){
-    document.head.querySelectorAll('script[type="application/ld+json"]').forEach(el=>el.remove())
-    structured = document.createElement('script'); structured.type='application/ld+json'; structured.dataset.postJsonld='true';structured.textContent=JSON.stringify(meta.jsonLd);document.head.append(structured)
-  } else if(structured) structured.remove()
+  // Route schema survives its initial hydration, but must not follow readers
+  // to another page. The template's Person/WebSite schema belongs to the site.
+  const schemaPath = canonical.replace(/\/$/, "")
+  document.head.querySelectorAll<HTMLScriptElement>('script[data-page-jsonld], script[data-post-jsonld]').forEach(element => {
+    if (meta.jsonLd || element.dataset.pageJsonld !== schemaPath) element.remove()
+  })
+  if (meta.jsonLd) {
+    const structured = document.createElement('script')
+    structured.type = 'application/ld+json'
+    structured.dataset.pageJsonld = schemaPath
+    structured.textContent = JSON.stringify(meta.jsonLd)
+    document.head.append(structured)
+  }
   setMeta('meta[property="og:type"]', 'content', meta.jsonLd ? 'article' : 'website')
   document.title = meta.title
   for (const name of ["robots", "googlebot", "bingbot"]) {

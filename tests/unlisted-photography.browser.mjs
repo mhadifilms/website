@@ -1,6 +1,7 @@
 /* global document, innerWidth */
 import { chromium, expect } from "@playwright/test"
 import assert from "node:assert/strict"
+import { expectPhotographyPages } from "./photography-pagination.mjs"
 
 const base = process.env.PHOTOGRAPHY_TEST_URL || "http://127.0.0.1:5213"
 const hidden = ["wali-aylia-wedding", "rise-academy-lower-school", "senior-portraits", "sync-boilermake-winners", "tanzania-2025"]
@@ -10,7 +11,7 @@ try {
   const hubResponse = await page.goto(`${base}/archives/photography/`)
   const hub = await hubResponse.text()
   const sitemap = await (await page.request.get(`${base}/sitemap.xml`)).text()
-  await expect(page.locator(".archive-library-entry")).toHaveCount(12)
+  await expectPhotographyPages(page, hidden)
   for (const slug of hidden) {
     assert(!hub.includes(`/photography/${slug}`), `${slug} absent from prerendered hub`)
     assert(!sitemap.includes(`/photography/${slug}`), `${slug} absent from sitemap`)
@@ -40,7 +41,7 @@ try {
   await page.screenshot({ path: "/private/tmp/photography-tanzania-mobile.png" })
   await page.getByRole("link", { name: "Back to archives", exact: true }).click()
   await page.getByRole("searchbox", { name: "Search photography" }).fill("")
-  await expect(page.locator(".archive-library-entry")).toHaveCount(12)
+  await expectPhotographyPages(page, hidden)
   await expect(page.locator('meta[name="robots"]')).not.toHaveAttribute("content", /noindex/)
   console.log({ unlisted: hidden.length, publicCollections: 12, directLinks: true, searchExcluded: true, sitemapExcluded: true, noindex: true, tanzaniaFilter: true, noOverflow: true })
 } finally { await browser.close() }

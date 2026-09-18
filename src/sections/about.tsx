@@ -70,7 +70,7 @@ export function AboutSection({ transitionProgress }: AboutSectionProps) {
     <Section
       id="about"
       label="About"
-      className="mt-[-100svh] snap-none overflow-hidden bg-background"
+      className="mt-[-100svh] motion-reduce:mt-0 snap-none overflow-hidden bg-background"
       innerClassName="relative min-h-svh overflow-hidden"
     >
       <m.div

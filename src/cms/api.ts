@@ -27,4 +27,4 @@ export async function api<T>(route:string):Promise<T> {
   }
   throw new ApiError('This website is served by GitHub Pages.',404)
 }
-export const formatDate=(date:string)=>new Date(date).toLocaleDateString(undefined,{day:'numeric',month:'short',year:'numeric'})
+export { formatContentDate as formatDate } from '@/lib/content-date'

@@ -17,9 +17,10 @@ import {
   youtubeId,
 } from "@/lib/archive-utils"
 import { absoluteAssetUrl, applyPageMeta } from "@/lib/seo"
+import { contentYear, formatContentDate } from "@/lib/content-date"
 
 function formatDate(value: string) {
-  return new Date(value).toLocaleDateString("en", { month: "short", day: "numeric", year: "numeric" })
+  return formatContentDate(value, "en")
 }
 
 // Rendered markdown bodies live in their own generated chunk so the main
@@ -98,7 +99,7 @@ export default function ArchiveEntryPage() {
             <span aria-hidden="true">/</span>
             <span>{archiveFormatLabel(item.format)}</span>
             <span aria-hidden="true">/</span>
-            <span>{item.displayDate ?? formatDate(item.date)}</span>
+            <time dateTime={item.date}>{item.displayDate ?? formatDate(item.date)}</time>
           </div>
 
           <h1 className="mt-4 text-balance font-display text-[clamp(2.35rem,7vw,5.25rem)] font-normal leading-[0.92] tracking-[-0.055em] text-black/90">
@@ -182,7 +183,7 @@ export default function ArchiveEntryPage() {
                   className="group border border-black/10 bg-white/25 p-4 transition hover:-translate-y-1 hover:border-black/25 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-4 focus-visible:ring-offset-background"
                 >
                   <p className="text-[10px] font-light uppercase tracking-[0.18em] text-black/40">
-                    {archiveFormatLabel(relatedItem.format)} / {new Date(relatedItem.date).getFullYear()}
+                    {archiveFormatLabel(relatedItem.format)} / {contentYear(relatedItem.date)}
                   </p>
                   <p className="mt-2 line-clamp-3 text-sm font-light leading-5 text-black/75 group-hover:text-black">{relatedItem.title}</p>
                 </Link>

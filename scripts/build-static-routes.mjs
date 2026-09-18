@@ -212,7 +212,8 @@ function injectBeforeHead(html, snippet) {
 function injectJsonLd(html, route) {
   if (!route.jsonLd) return html
   const json = JSON.stringify(route.jsonLd).replace(/</g, "\\u003c")
-  return injectBeforeHead(html, `<script type="application/ld+json">${json}</script>`)
+  const canonical = canonicalFor(route.canonicalPath ?? route.path).replace(/\/$/, "")
+  return injectBeforeHead(html, `<script type="application/ld+json" data-page-jsonld="${escapeAttr(canonical)}">${json}</script>`)
 }
 
 function extraMetaTags(route) {

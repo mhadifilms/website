@@ -3,6 +3,7 @@ import { Link } from "react-router-dom"
 import { PhotoGallery } from "@/components/photo-gallery"
 import { PillNav } from "@/components/pill-nav"
 import type { ArchiveItem } from "@/content/types"
+import { contentYear } from "@/lib/content-date"
 import "@/components/photo-gallery.css"
 
 export function PhotographyEntry({ item, bodyHtml, pathname }: { item: ArchiveItem; bodyHtml?: string; pathname: string }) {
@@ -13,7 +14,7 @@ export function PhotographyEntry({ item, bodyHtml, pathname }: { item: ArchiveIt
         <header className="photography-heading">
           <Link className="photography-back" to="/archives/photography" aria-label="Back to archives"><ArrowLeft size={16} /> Photography</Link>
           <div className="photography-heading-meta">
-            <time dateTime={item.date}>{item.displayDate ?? new Date(item.date).getFullYear()}</time>
+            <time dateTime={item.date}>{item.displayDate ?? contentYear(item.date)}</time>
             <span>{item.gallery?.length ?? 0} photographs</span>
             {item.unlisted && <span>Unlisted collection</span>}
           </div>

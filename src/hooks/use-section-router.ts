@@ -33,8 +33,6 @@ function currentBrowserPath(fallback: string) {
   return /^\/archives\/[^/]+$/.test(normalized) ? "/archives" : normalized
 }
 
-const BOOT_BROWSER_PATH = currentBrowserPath("/")
-
 function scrollElementToTop(element: HTMLElement, behavior: ScrollBehavior) {
   const top = window.scrollY + element.getBoundingClientRect().top
   window.scrollTo({ top: Math.max(0, top), behavior })
@@ -46,9 +44,9 @@ export function useSectionRouter(sections: SectionDescriptor[]): SectionRouterSt
   const [activeId, setActiveId] = useState<string>(sections[0]?.id ?? "")
   const lastPushedPathRef = useRef<string>("")
   const passivePathRef = useRef<string>("")
-  const initialBrowserPath = sections.some((section) => section.path === BOOT_BROWSER_PATH)
-    ? BOOT_BROWSER_PATH
-    : currentBrowserPath(location.pathname)
+  // A reading route unmounts this hook. Each return must start from its new
+  // destination, rather than the section where this browser session began.
+  const initialBrowserPath = currentBrowserPath(location.pathname)
   const initialBrowserPathRef = useRef(initialBrowserPath)
   const pendingRoutePathRef = useRef(initialBrowserPath)
   const suppressObserverUntilRef = useRef(0)

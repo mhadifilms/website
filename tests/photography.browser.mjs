@@ -1,6 +1,7 @@
 /* global document, innerWidth, getComputedStyle */
 import { chromium, expect } from "@playwright/test"
 import assert from "node:assert/strict"
+import { expectPhotographyPages } from "./photography-pagination.mjs"
 
 const base = process.env.PHOTOGRAPHY_TEST_URL || "http://127.0.0.1:5198"
 const browser = await chromium.launch({ channel: "chrome", headless: true })
@@ -13,7 +14,7 @@ try {
     await page.locator("#photography").waitFor()
     assert.equal(await page.locator("#writings").evaluate((element) => element.nextElementSibling?.id), "photography")
     await page.locator("#photography").click()
-    await expect(page.locator(".archive-library-entry")).toHaveCount(12)
+    await expectPhotographyPages(page)
     await page.getByRole("searchbox", { name: "Search photography" }).fill("Death and Life")
     await expect(page.locator(".archive-library-entry")).toHaveCount(1)
     await page.locator(".archive-library-entry").click()
@@ -57,7 +58,7 @@ try {
     await page.getByRole("link", { name: "Back to archives", exact: true }).click()
     await expect(page.locator(".archive-library h3")).toHaveText("Photography")
     await page.getByRole("searchbox", { name: "Search photography" }).fill("")
-    await expect(page.locator(".archive-library-entry")).toHaveCount(12)
+    await expectPhotographyPages(page)
     await page.locator(".archive-library-entry img").evaluateAll((images) => images.forEach((image) => { image.loading = "eager" }))
     await expect.poll(() => page.locator(".archive-library-entry img").evaluateAll((images) => images.every((image) => image.complete && image.naturalWidth > 0)), { timeout: 30000 }).toBe(true)
     await page.locator(".archive-library h3").evaluate((heading) => heading.scrollIntoView({ block: "start", behavior: "instant" }))

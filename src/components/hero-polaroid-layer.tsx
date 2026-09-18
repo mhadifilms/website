@@ -5,6 +5,7 @@ import { Flip } from "gsap/Flip"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
 
 import { useSectionContext } from "@/hooks/section-context"
+import { useReducedMotion } from "@/hooks/use-reduced-motion"
 import { scenePolaroids } from "@/lib/polaroid-scene"
 import { easeHomeScroll } from "@/lib/home-scroll"
 
@@ -131,6 +132,7 @@ function rectVars(rect: Rect): gsap.TweenVars {
 }
 
 export function HeroPolaroidLayer() {
+  const reducedMotion = useReducedMotion()
   const sectionContext = useSectionContext()
   const scopeRef = useRef<HTMLDivElement>(null)
   const heroRefs = useRef<Array<HTMLButtonElement | null>>([])
@@ -183,6 +185,43 @@ export function HeroPolaroidLayer() {
 
       if (!home || !about || !macFrame || !macScene || !macShell || !macScreen || !macScreenEffect || polaroidElements.length === 0) {
         return undefined
+      }
+
+      if (reducedMotion) {
+        // Keep the hero and About photographs in their own places. There is
+        // no zoom, flight, scrubbing or interpolation in this mode.
+        gsap.set(macScene, { position: "absolute", opacity: 1 })
+        gsap.set(macFrame, { scale: 1 })
+        gsap.set([macShell, macScreenEffect], { opacity: 1 })
+        const cover = polaroidElements.find(item => item.index === CENTER_POLAROID_INDEX)?.photo.cloneNode(true) as HTMLElement | undefined
+        if (cover) {
+          cover.dataset.reducedHeroCover = "true"
+          gsap.set(cover, { top: 0, right: 0, bottom: 0, left: 0 })
+          macScreen.prepend(cover)
+        }
+        for (const { hero, frame, photo, screenEffect, index } of polaroidElements) {
+          gsap.set(hero, { x: 0, y: 0, left: 0, top: 0, width: 0, height: 0, opacity: 1, rotate: FINAL_ROTATIONS[index], transformOrigin: "50% 0%" })
+          gsap.set(frame, { opacity: 1 })
+          gsap.set(photo, { top: "5%", right: "5%", bottom: "18%", left: "5%" })
+          gsap.set(screenEffect, { opacity: 0 })
+        }
+        const placePhotos = () => {
+          for (const { hero, marker } of polaroidElements) {
+            const rect = marker.getBoundingClientRect()
+            Object.assign(hero.style, { left: `${rect.left}px`, top: `${rect.top}px`, width: `${rect.width}px`, height: `${rect.height}px` })
+          }
+        }
+        placePhotos()
+        window.addEventListener("scroll", placePhotos, { passive: true })
+        window.addEventListener("resize", placePhotos)
+        const resize = new ResizeObserver(placePhotos)
+        resize.observe(about)
+        return () => {
+          cover?.remove()
+          resize.disconnect()
+          window.removeEventListener("scroll", placePhotos)
+          window.removeEventListener("resize", placePhotos)
+        }
       }
 
       let timeline: gsap.core.Timeline | undefined
@@ -333,7 +372,7 @@ export function HeroPolaroidLayer() {
         followTimeline?.kill()
       }
     },
-    { scope: scopeRef },
+    { scope: scopeRef, dependencies: [reducedMotion], revertOnUpdate: true },
   )
 
   return (
@@ -341,6 +380,7 @@ export function HeroPolaroidLayer() {
       {polaroids.map((polaroid, index) => (
         <button
           key={`${polaroid.src}-${index}`}
+          data-hero-polaroid={index}
           ref={(node) => {
             heroRefs.current[index] = node
           }}

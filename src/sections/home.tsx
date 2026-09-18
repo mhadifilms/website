@@ -3,6 +3,7 @@ import { m, useMotionValueEvent, useScroll, useTransform } from "framer-motion"
 import type { MotionValue } from "framer-motion"
 
 import { Section } from "@/components/section"
+import { useReducedMotion } from "@/hooks/use-reduced-motion"
 import { cn } from "@/lib/utils"
 import { easeHomeScroll } from "@/lib/home-scroll"
 
@@ -15,11 +16,6 @@ const SCREEN_RECT = {
   top: "11.72%",
   width: "43.29%",
   height: "29.76%",
-}
-
-function prefersReducedMotion(): boolean {
-  if (typeof window === "undefined") return false
-  return window.matchMedia("(prefers-reduced-motion: reduce)").matches
 }
 
 const WORD_EASE = [0.22, 1, 0.36, 1] as const
@@ -86,25 +82,25 @@ export function HomeSection({ transitionProgress }: HomeSectionProps) {
     target: ref,
     offset: ["start start", "end end"],
   })
-  const reduced = prefersReducedMotion()
+  const reduced = useReducedMotion()
   const sceneProgress = useTransform(scrollYProgress, easeHomeScroll)
 
   const taglineOpacity = useTransform(sceneProgress, [0, 0.18], reduced ? [1, 1] : [1, 0])
 
   useMotionValueEvent(sceneProgress, "change", (latest) => {
-    transitionProgress.set(latest)
+    transitionProgress.set(reduced ? 1 : latest)
   })
 
   useEffect(() => {
     const latest = sceneProgress.get()
-    transitionProgress.set(latest)
-  }, [sceneProgress, transitionProgress])
+    transitionProgress.set(reduced ? 1 : latest)
+  }, [sceneProgress, transitionProgress, reduced])
 
   return (
     <Section
       id="home"
       label="Home"
-      className="h-[220svh] snap-none overflow-visible"
+      className="h-[220svh] motion-reduce:h-svh snap-none overflow-visible"
       innerClassName="relative h-full w-full"
     >
       <div ref={ref} className="relative h-full w-full">
