@@ -14,7 +14,8 @@
     "test:publishing": "node --test tests/*.test.mjs",
     "test:reading": "node tests/reading-flow.browser.mjs",
     "test:archives": "node tests/archive-folders.browser.mjs",
-    "test:pagination": "node tests/pagination.browser.mjs"
+    "test:pagination": "node tests/pagination.browser.mjs",
+    "galleries": "node scripts/gallery-publisher.mjs"
   },
   "dependencies": {
     "@gsap/react": "^2.1.2",

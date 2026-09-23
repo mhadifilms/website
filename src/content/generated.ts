@@ -226,6 +226,20 @@ export const projects = [
     "html": "<p>Journey Tellers Podcast is the conversation branch of Journey Tellers: slower interviews built around people, turning points, and the lessons that do not fit inside a short clip.</p>\n"
   },
   {
+    "slug": "mhadi-photography",
+    "title": "M Hadi Photography",
+    "order": 3,
+    "category": "Photography",
+    "type": "Photography",
+    "status": "Archive",
+    "image": "/media/polaroid-camera.webp",
+    "summary": "Personal photographs, portraits, places, and moments collected by M Hadi.",
+    "platforms": [
+      "Website"
+    ],
+    "html": "<p>Personal photographs, portraits, places, and moments collected by M Hadi.</p>\n"
+  },
+  {
     "slug": "short-films",
     "title": "Short Films",
     "order": 3,

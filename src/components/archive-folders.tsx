@@ -330,7 +330,7 @@ function FolderView({ folder, focusSeries, onBack }: {
       <header className="archive-library-header">
         <h3 ref={heading} tabIndex={-1}>{folder.category}</h3>
         <p>{FOLDER_DESCRIPTIONS[folder.category]}</p>
-        {folder.category === "Photography" && <p>{folder.items.length} collections · {folder.items.reduce((total, item) => total + (item.gallery?.length ?? 0), 0).toLocaleString()} photographs from Awaiten Films</p>}
+        {folder.category === "Photography" && <p>{folder.items.length} collections · {folder.items.reduce((total, item) => total + (item.gallery?.length ?? 0), 0).toLocaleString()} photographs</p>}
         {folder.category === "Writings" && <Link to="/writing" className="archive-writing-link">Visit Creative Chaos <ArrowUpRight size={16} aria-hidden="true" /></Link>}
       </header>
       <div className="archive-library-controls">
