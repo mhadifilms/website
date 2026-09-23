@@ -2,6 +2,11 @@
 set -e
 export PATH="/opt/homebrew/bin:/usr/local/bin:$PATH"
 cd "$(dirname "$0")"
+if /usr/bin/curl -fsS http://127.0.0.1:4179/api/galleries >/dev/null 2>&1; then
+  open http://127.0.0.1:4179
+  echo "The gallery publisher is already open."
+  exit 0
+fi
 node scripts/gallery-publisher.mjs &
 publisher_pid=$!
 trap 'kill "$publisher_pid" 2>/dev/null || true' EXIT
